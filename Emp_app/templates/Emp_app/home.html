@@ -6,3 +6,120 @@
 <h1>hello world</h1>
 
 {% endblock %}
+
+
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+        background: linear-gradient(90deg, #fff 50%, #fcaf40 50%);
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .login-container {
+        background: rgba(255, 255, 255, 0.8);
+        padding: 5%; /* Adjusted padding for better spacing */
+        border-radius: 8px;
+        width: 90%; /* Adjusted width for larger screens */
+        max-width: 400px;
+        text-align: center;
+        border: 0.3px solid black;
+    }
+
+    .input-container {
+        position: relative;
+        margin-bottom: 15px;
+    }
+
+    input[type="text"], input[type="password"] {
+        width: calc(80% - 20px); /* Adjusted width to account for padding */
+        padding: 10px;
+        box-sizing: border-box;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        margin: 15px;
+    }
+
+    .toggle-password {
+        position: absolute;
+        right: 60px;
+        top: 50%;
+        transform: translateY(-50%);
+        cursor: pointer;
+        background-image: url('./eyes\ open.webp'); /* Updated image path */
+        background-size: cover;
+        width: 20px;
+        height: 20px;
+    }
+
+    .forgot-password {
+        margin-bottom: 15px;
+        margin-left: 50%;
+        color: black;
+    }
+
+        .forgot-password a {
+            text-decoration: none;
+            color: black;
+        }
+
+    input[type="submit"] {
+        background-color: orange;
+        color: white;
+        padding: 10px;
+        width: 50%;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+        input[type="submit"]:hover {
+            background-color: orange;
+        }
+
+    /* Media Queries for responsiveness */
+    @media screen and (min-width: 768px) {
+        .login-container {
+            width: 80%;
+        }
+    }
+
+    @media screen and (min-width: 1024px) {
+        .login-container {
+            width: 60%;
+        }
+    }
+
+
+    .word {
+        font-size: 2em;
+        white-space: nowrap;
+        overflow: hidden;
+        width: 0;
+        animation: appear 6s forwards;
+        animation-delay: 1s;
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        padding: 5%;
+    }
+
+    @keyframes appear {
+        to {
+            width: 100%;
+        }
+    }
+
+    img {
+        max-width: 100%;
+        height: auto;
+        /* Set the width of the image to 25% of its container on larger screens */
+        width: 40%;
+        /* Optional: Add some styling for better visualization */
+        display: block;
+        margin-top: 0 auto;
+        margin-left: 32%;
+    }
+</style>
