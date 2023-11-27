@@ -11,27 +11,22 @@ def home(request):
 def index(request):
     return render(request, "Emp_app/index.html")
 
-def base(request):
-    return render(request, "Emp_app/base.html")
-  
-  
+def userlogin(request):
 
-# def userlogin(request):
-
-#       if request.method == 'POST':
+      if request.method == 'POST':
        
-#         username = request.POST['username']
-#         password = request.POST['password']
+        username = request.POST['username']
+        password = request.POST['password']
        
-#         user = authenticate(username=username, password=password)
-#         if user is not None:
+        user = authenticate(username=username, password=password)
+        if user is not None:
             
-#             login(request, user)
+            login(request, user)
             
-#             return render(request, 'index.html')
-#         else:
+            return render(request, 'index.html')
+        else:
            
-#             return render(request, 'loginpage.html', {'error_message': 'Incorrect username and / or password.'})
-#       else:
+            return render(request, 'loginpage.html', {'error_message': 'Incorrect username and / or password.'})
+      else:
         
-#          return render(request, 'loginpage.html')
+         return render(request, 'loginpage.html')
