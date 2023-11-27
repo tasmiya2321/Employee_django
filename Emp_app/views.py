@@ -6,10 +6,10 @@ from django.shortcuts import render
 from django.contrib.auth import authenticate, login
 
 def home(request):
-     return render(request, "home.html")
+     return render(request, "Emp_app/home.html")
     
 def index(request):
-    return render(request, "index.html")
+    return render(request, "Emp_app/index.html")
 
 # def userlogin(request):
 
