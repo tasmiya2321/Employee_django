@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="Comm.css">
+    <title>HOME</title>
+    <script src="https://kit.fontawesome.com/bc0ac06df1.js" crossorigin="anonymous"></script>``
+    {% block css %}
+    
+    {% endblock %}
+</head>
+<body>
+    <nav id="sidebar">
+        <ul>
+            <li>
+                <img src="./cf_logo.png" width="105%">
+            </li>
+            <li><a href="home.html"><span class="menu-icon"><i class="fa-solid fa-house" style="color: #d66e29; margin-left: 15px"></i></span> Home</a></li>
+            <li>
+                <a href="sessdetails.html">
+                    <span class="menu-icon">
+                        <i class="fa-solid fa-business-time" style="color: #c58326; margin-left: 15px;"></i>
+                    </span> Sessions
+                </a>
+            </li>
+            <li><a href="emp.html"><span class="menu-icon" style="margin-left: 23px;"><i class="fa-solid fa-chart-simple" style="color: #dd7c22;"></i></span> Employee</a></li>
+
+        </ul>
+    </nav>
+    {% block content %}
+
+    {% endblock %}
+
+</body>
+</html>

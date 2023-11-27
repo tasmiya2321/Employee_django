@@ -6,5 +6,6 @@ urlpatterns = [
       # Uncomment the next line to enable the admin:
     path('admin/', admin.site.urls),
     path('', views.index),
-    path("", views.login, name="login")
+    path("", views.login, name="login"),
+    path("home/",views.home,name="home")
 ]
