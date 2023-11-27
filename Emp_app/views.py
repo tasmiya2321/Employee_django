@@ -11,6 +11,11 @@ def home(request):
 def index(request):
     return render(request, "Emp_app/index.html")
 
+def base(request):
+    return render(request, "Emp_app/base.html")
+  
+  
+
 # def userlogin(request):
 
 #       if request.method == 'POST':
