@@ -7,6 +7,10 @@ from django.contrib.auth import authenticate, login
 
 def home(request):
      return render(request, "Emp_app/home.html")
+
+def forgetpassword(request):
+     return render(request, "Emp_app/forgetpassword.html")
+
     
 def index(request):
     return render(request, "Emp_app/index.html")
