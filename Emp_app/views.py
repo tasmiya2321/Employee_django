@@ -1,6 +1,4 @@
-from django.shortcuts import render
 
-# Create your views here.
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.contrib.auth import authenticate, login
@@ -32,7 +30,7 @@ def userlogin(request):
             return render(request, 'index.html')
         else:
            
-            return render(request, 'loginpage.html', {'error_message': 'Incorrect username and / or password.'})
+            return render(request, 'login.html', {'error_message': 'Incorrect username and / or password.'})
       else:
         
-         return render(request, 'loginpage.html')
+         return render(request, 'login.html')

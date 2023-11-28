@@ -1,16 +1,5 @@
-{% load static %}
-
 <html>
-<head>
-    <title></title>
-</head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="styles.css">
-   {% else %}
-<title>Login Page</title>
-  {% endif %}
-<script src="{% static 'https://kit.fontawesome.com/bc0ac06df1.js' %}" crossorigin="anonymous"></script>
+<head><title></title></head>
 
 
 
@@ -19,58 +8,9 @@
 <body>
 
 
-    <div class="login-container">
-        <form id="loginForm">
-            <div>
-                <img src="./cf_logo.png" alt="Responsive Image">
-            </div>
-            <div class="animation-container">
-                <div class="word">Welcome<i class="fa-solid fa-feather" style="color: black;"></i></div>
-            </div>
-            <div class="input-container">
-                <input type="text" id="username" placeholder="Username" required>
-            </div>
-            <div class="input-container">
-                <input type="password" id="password" placeholder="Password" required>
-                <span class="toggle-password" onclick="togglePassword()"></span>
-            </div>
-            <div class="forgot-password">
-                <a href="Forgotpass.html">Forgot Password?</a>
-            </div>
-            <input type="submit" href="home.html" onclick="login()" value="login">
-        </form>
-    </div>
 
 
 
-
-
-
-
-    <script>
-        function togglePassword() {
-            var passwordInput = document.getElementById("password");
-            var toggleIcon = document.querySelector(".toggle-password");
-
-            if (passwordInput.type === "password") {
-                passwordInput.type = "text";
-                toggleIcon.style.backgroundImage = "url('eyes\ open.webp')";
-            } else {
-                passwordInput.type = "assword";
-                toggleIcon.style.backgroundImage = "url('eyes close.jpg')";
-            }
-        }
-
-        function login() {
-
-            alert("Filled the details");
-        }
-
-
-            function login() {
-
-                window.location.href = "home.html";
-            }
 
 
     </script>
