@@ -52,11 +52,13 @@
     <Folder Include="Employee_Management\" />
     <Folder Include="Emp_app\" />
     <Folder Include="Emp_app\migrations\" />
+    <Folder Include="Emp_app\static\" />
     <Folder Include="Emp_app\templates\" />
     <Folder Include="Emp_app\templates\Emp_app\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Emp_app\templates\Emp_app\index.html" />
+    <Content Include="Emp_app\templates\Login.html" />
     <Content Include="requirements.txt" />
     <Content Include="db.sqlite3" />
   </ItemGroup>
