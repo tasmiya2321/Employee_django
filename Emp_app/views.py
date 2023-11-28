@@ -4,7 +4,7 @@ from django.shortcuts import render
 from django.contrib.auth import authenticate, login
 
 def home(request):
-    return HttpResponse ("Hello World")
+     return render(request, "Emp_app/home.html")
     
 # def index(request):
 #     return render(request, "index.html")
