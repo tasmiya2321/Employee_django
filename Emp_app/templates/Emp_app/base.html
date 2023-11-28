@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-
+{% load static %}
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
@@ -118,7 +118,7 @@
         <nav id="sidebar">
             <ul>
                 <li>
-                    <img src="./cf_logo.png" width="105%">
+                    <img src=" {% static '/cf_logo.png' %}" >
                 </li>
                 <li><a href="home.html"><span class="menu-icon"><i class="fa-solid fa-house" style="color: #d66e29; margin-left: 15px"></i></span> Home</a></li>
                 <li>

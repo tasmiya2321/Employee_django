@@ -7,11 +7,11 @@ from . import views
 urlpatterns = [
       # Uncomment the next line to enable the admin:
     path('admin/', admin.site.urls),
-    path('', views.index,name="index"),
+    #path('', views.index,name="index"),
     path("", views.login, name="login"),
     path("home/",views.home,name="home"),
     path('forgetpassword/', views.forgetpassword, name='forget_password')
 ]
-if settings.DEBUG:
-    from django.contrib.staticfiles.urls import staticfiles_urlpatterns
-    urlpatterns += staticfiles_urlpatterns()
+# if settings.DEBUG:
+#     from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+#     urlpatterns += staticfiles_urlpatterns()
