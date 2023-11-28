@@ -6,32 +6,150 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="Comm.css">
     <title>HOME</title>
-    <script src="https://kit.fontawesome.com/bc0ac06df1.js" crossorigin="anonymous"></script>``
+    <script src="https://kit.fontawesome.com/bc0ac06df1.js" crossorigin="anonymous"></script>
+    <style>
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            height: 134px;
+            margin-bottom: 26px;
+        }
+
+        .logo img {
+            height: 40px;
+        }
+
+        .menu-toggle {
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+            .menu-toggle:hover {
+                transform: scale(1.1);
+            }
+
+        .bar {
+            width: 25px;
+            height: 3px;
+            background-color: #1e1c1c;
+            margin: 3px 0;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+            .bar:hover {
+                background-color: orange;
+            }
+
+        nav#sidebar {
+            position: fixed;
+            left: -250px;
+            top: 0;
+            width: 250px;
+            height: 100%;
+            background-color: white;
+            overflow-y: hidden;
+            transition: left 0.5s, transform 0.5s;
+            transform: scaleX(0);
+        }
+
+            nav#sidebar.active {
+                left: 0;
+                transform: scaleX(1);
+            }
+
+            nav#sidebar ul {
+                padding: 0;
+                list-style: none;
+            }
+
+                nav#sidebar ul li {
+                    padding: 15px;
+                    text-align: center;
+                    opacity: 0;
+                    transform: translateY(20px);
+                    transition: opacity 0.5s, transform 0.5s;
+                }
+
+            nav#sidebar.active ul li {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+            nav#sidebar ul li a {
+                text-decoration: none;
+                color: #100d0d;
+                transition: color 0.3s;
+            }
+
+                nav#sidebar ul li a:hover {
+                    color: orange;
+                }
+
+        .menu-icon {
+            margin-right: 10px;
+        }
+
+        .menu-icon {
+            margin-right: 10px;
+        }
+    </style>
+ 
+
     {% block css %}
-    
+
     {% endblock %}
 </head>
 <body>
-    <nav id="sidebar">
-        <ul>
-            <li>
-                <img src="./cf_logo.png" width="105%">
-            </li>
-            <li><a href="home.html"><span class="menu-icon"><i class="fa-solid fa-house" style="color: #d66e29; margin-left: 15px"></i></span> Home</a></li>
-            <li>
-                <a href="sessdetails.html">
-                    <span class="menu-icon">
-                        <i class="fa-solid fa-business-time" style="color: #c58326; margin-left: 15px;"></i>
-                    </span> Sessions
-                </a>
-            </li>
-            <li><a href="emp.html"><span class="menu-icon" style="margin-left: 23px;"><i class="fa-solid fa-chart-simple" style="color: #dd7c22;"></i></span> Employee</a></li>
 
-        </ul>
-    </nav>
-    {% block content %}
+    <div class="header">
 
-    {% endblock %}
+        <header>
+
+            <div class="menu-toggle" id="menuToggle" style="margin-top: 33px;">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+            </div>
+        </header>
+        <nav id="sidebar">
+            <ul>
+                <li>
+                    <img src="./cf_logo.png" width="105%">
+                </li>
+                <li><a href="home.html"><span class="menu-icon"><i class="fa-solid fa-house" style="color: #d66e29; margin-left: 15px"></i></span> Home</a></li>
+                <li>
+                    <a href="sessdetails.html">
+                        <span class="menu-icon">
+                            <i class="fa-solid fa-business-time" style="color: #c58326; margin-left: 15px;"></i>
+                        </span> Sessions
+                    </a>
+                </li>
+                <li><a href="emp.html"><span class="menu-icon" style="margin-left: 23px;"><i class="fa-solid fa-chart-simple" style="color: #dd7c22;"></i></span> Employee</a></li>
+
+            </ul>
+        </nav>
+        <script>
+
+            const menuToggle = document.getElementById("menuToggle");
+            const sidebar = document.getElementById("sidebar");
+
+            menuToggle.addEventListener("click", () => {
+                sidebar.classList.toggle("active");
+            });
+
+            window.addEventListener("click", (event) => {
+                if (sidebar.classList.contains("active") && event.target !== menuToggle && event.target !== sidebar) {
+                    sidebar.classList.remove("active");
+                }
+            });
+        </script>
+        {% block content %}
+
+        {% endblock %}
 
 </body>
 </html>
