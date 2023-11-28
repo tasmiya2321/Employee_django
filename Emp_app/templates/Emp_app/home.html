@@ -2,6 +2,347 @@
 
 
 {% block content %}
-    HELLO WORLD!!
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="Comm.css">
+    <title>HOME</title>
+    <script src="https://kit.fontawesome.com/bc0ac06df1.js" crossorigin="anonymous"></script>
+    <style>
+
+
+        * {
+            box-sizing: border-box;
+            padding: 0;
+            margin: 0;
+        }
+
+        .vertical-line {
+            height: 100px;
+            border-left: 1px solid #ccc;
+            margin: 0 20px;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            background-image: url(./cf_logo.png);
+            width: 30%;
+        }
+
+
+        center {
+            font-size: 25px;
+            margin-top: 2%;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        }
+
+
+
+
+
+
+
+        /*
+        table */
+
+
+
+        .table {
+            margin: 50px;
+            margin-top: 100px;
+            margin-left: 65px;
+        }
+
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: center;
+            border: 1px solid black;
+        }
+
+
+
+
+
+        /* view  button*/
+
+
+        .button-container {
+            text-align: center;
+        }
+
+        .button-style {
+            font-size: 15px;
+            background-color: #fdc97e;
+            border-color: #333;
+            padding: 5px;
+            width: 10%;
+            border-radius: 20px;
+        }
+
+            .button-style a {
+                text-decoration: none; /* Remove underline for the link */
+                color: inherit; /* Use the default color of the parent container */
+            }
+    </style>
+</head>
+<body>
+    <!-- <div class="header">
+
+        <header>
+
+            <div class="menu-toggle" id="menuToggle" style="margin-top: 33px;">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+            </div>
+        </header>
+        <nav id="sidebar">
+            <ul>
+                <li>
+                    <img src="./cf_logo.png" width="105%">
+                </li>
+                <li><a href="home.html"><span class="menu-icon"><i class="fa-solid fa-house" style="color: #d66e29; margin-left: 15px"></i></span> Home</a></li>
+                <li>
+                    <a href="sessdetails.html">
+                        <span class="menu-icon">
+                            <i class="fa-solid fa-business-time" style="color: #c58326; margin-left: 15px;"></i>
+                        </span> Sessions
+                    </a>
+                </li>
+                <li><a href="emp.html"><span class="menu-icon" style="margin-left: 23px;"><i class="fa-solid fa-chart-simple" style="color: #dd7c22;"></i></span> Employee</a></li>
+
+            </ul>
+        </nav>
+        <main>
+
+        </main>
+        <center>
+            <img src="./cf_logo.png" width="200px" style=" margin-top: 5px; margin-right: 205px;">
+        </center>
+        <div>
+            <div class="left">
+                <i class="fa-solid fa-circle-user fa-2xl" style="color: #5c626a;"></i>
+            </div>
+
+            <div class="dropdown">
+                <button class="dropbtn" style="border: none; background: none;">Jimmy Cherian</button>
+                <p class="para">Administrator</p>
+                <div class="dropdown-content">
+                    <a href="changepass.html"><i class="fa-solid fa-key" style="margin: 10px;"></i>Change Password</a>
+                    <a href="index.html"><i class="fa-solid fa-right-from-bracket" style="margin: 10px;"></i>Log out</a>
+                </div>
+            </div>
+        </div>
+    </div> -->
+    <!-- imege -->
+
+
+    <div class="slider-container">
+        <img src="./16.jpg" alt="" class="slide-image active">
+        <img src="./17.jpg" alt="" class="slide-image">
+        <img src="./18.jpg" alt="" class="slide-image">
+        <img src="./19.jpg" alt="" class="slide-image">
+        <img src="./20.jpg" alt="" class="slide-image">
+        <img src="./21.jpg" alt="" class="slide-image">
+        <img src="./22.jpg" alt="" class="slide-image">
+        <img src="./23.jpg" alt="" class="slide-image">
+        <img src="./25.jpg" alt="" class="slide-image">
+        <img src="./26.jpg" alt="" class="slide-image">
+        <img src="./26.jpg" alt="" class="slide-image">
+        <img src="./27.jpg" alt="" class="slide-image">
+        <img src="./28.jpg" alt="" class="slide-image">
+        <img src="./29.jpg" alt="" class="slide-image">
+        <img src="./1.jpeg" alt="" class="slide-image">
+        <img src="./2.jpeg" alt="" class="slide-image">
+        <img src="./3.jpeg" alt="" class="slide-image">
+        <img src="./4.jpeg" alt="" class="slide-image">
+        <img src="./5.jpeg" alt="" class="slide-image">
+        <img src="./6.jpeg" alt="" class="slide-image">
+        <img src="./7.jpeg" alt="" class="slide-image">
+        <img src="./8.jpeg" alt="" class="slide-image">
+        <img src="./9.jpeg" alt="" class="slide-image">
+        <img src="./10.jpeg" alt="" class="slide-image">
+        <img src="./11.jpeg" alt="" class="slide-image">
+        <img src="./12.jpeg" alt="" class="slide-image">
+        <img src="./13.jpeg" alt="" class="slide-image">
+        <img src="./15.jpeg" alt="" class="slide-image">
+
+
+
+        <button class="prev" id="prev">&#10094;</button>
+        <button class="next" id="next">&#10095;</button>
+    </div>
+
+
+
+    <div class="table">
+
+        <table bgcolor="">
+            <tr bgcolor="orange">
+
+                <th>Date</th>
+                <th>Program</th>
+                <th>Project</th>
+                <th>Activity</th>
+                <th>Center Type</th>
+
+
+
+                <th>Beneficiaries</th>
+
+
+            </tr>
+            <tr bgcolor="white">
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+
+
+
+            </tr>
+            <tr bgcolor="white">
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+
+
+
+            </tr>
+            <tr bgcolor="white">
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+
+
+            </tr>
+            <tr bgcolor="white">
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+
+
+            </tr>
+            <tr bgcolor="white">
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+
+
+            </tr>
+            <tr bgcolor="white">
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+
+
+            </tr>
+
+        </table>
+        <br><br>
+
+        <br>
+        <div class="button-container">
+            <button class="button-style"><a href="sessdetails.html">View All</a></button>
+        </div>
+        <br>
+        <br>
+
+        <!-- The dots/circles -->
+        <div style="text-align:center">
+            <span class="dot" onclick="currentSlide(1)"></span>
+            <span class="dot" onclick="currentSlide(2)"></span>
+            <span class="dot" onclick="currentSlide(3)"></span>
+        </div>
+        <footer class="white-footer">
+            <div class="footer-section footerwords1">
+                <a href="https://www.creatingfutures.in">About Us</a><br><br>
+                <a href="#">Gallery</a><br><br>
+                <a href="#">FAQs</a><br><br>
+            </div>
+
+            <div class="vertical-line"></div>
+
+            <div class="footer-section footerwords2">
+                <a href="sessdetails.html">Session </a><br><br>
+                <a href="emp.html">Details</a><br><br>
+            </div>
+        </footer>
+
+
+
+
+
+
+        <script>
+                //  images
+                let index = 0;
+                const images = document.querySelectorAll('.slide-image');
+                const totalImages = images.length;
+
+                function showImage(idx) {
+                    images.forEach(img => img.classList.remove('active'));
+                    images[idx].classList.add('active');
+                }
+
+                document.getElementById('next').addEventListener('click', function () {
+                    index = (index + 1) % totalImages;
+                    showImage(index);
+                });
+
+                document.getElementById('prev').addEventListener('click', function () {
+                    index = (index - 1 + totalImages) % totalImages;
+                    showImage(index);
+                });
+
+                setInterval(() => {
+                    index = (index + 1) % totalImages;
+                    showImage(index);
+                }, 10000);  // 10 seconds
+        </script>
+
+        <!--<script>
+
+                const menuToggle = document.getElementById("menuToggle");
+                const sidebar = document.getElementById("sidebar");
+
+                menuToggle.addEventListener("click", () => {
+                    sidebar.classList.toggle("active");
+                });
+
+                window.addEventListener("click", (event) => {
+                    if (sidebar.classList.contains("active") && event.target !== menuToggle && event.target !== sidebar) {
+                        sidebar.classList.remove("active");
+                    }
+                });
+        </script>-->
+</body>
+</html>
 
 {% endblock %}
