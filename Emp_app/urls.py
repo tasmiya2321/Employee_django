@@ -1,10 +1,32 @@
+# from django.contrib import admin
+# from django.urls import path
+# from . import views
+
+# urlpatterns = [
+#       # Uncomment the next line to enable the admin:
+#     path('admin/', admin.site.urls),
+#     # path('', views.index,name="index"),
+#     # path("", views.login, name="login"),
+#     # path("home/",views.home,name="home"),
+#     path("Employee/",views.Employee,name="Employee")
+# ]
+
+
+
 from django.contrib import admin
 from django.urls import path
 from . import views
 
+
+
 urlpatterns = [
       # Uncomment the next line to enable the admin:
-    #path('admin/', admin.site.urls),
-   
-    path('', views.userlogin, name='userlogin'),
+    path('admin/', admin.site.urls),
+    #path('', views.index,name="index"),
+    path("", views.login, name="login"),
+    path("home/",views.home,name="home"),
+    path('forgetpassword/', views.forgetpassword, name='forget_password')
 ]
+# if settings.DEBUG:
+#     from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+#     urlpatterns += staticfiles_urlpatterns()
