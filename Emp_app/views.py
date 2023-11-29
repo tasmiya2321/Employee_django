@@ -11,7 +11,13 @@ def forgetpassword(request):
 
     
 # def index(request):
-#     return render(request, "index.html")
+#     return render(request, "Emp_app/index.html")
+
+
+def employee(request):
+     return render(request, "Emp_app/employee.html")
+
+
 
 def userlogin(request):
 
