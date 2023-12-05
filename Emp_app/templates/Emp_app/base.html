@@ -1,5 +1,4 @@
-
-<!DOCTYPE html>
+<!--<!DOCTYPE html>
 {% load static %}
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -9,101 +8,170 @@
     <title>HOME</title>
     <script src="https://kit.fontawesome.com/bc0ac06df1.js" crossorigin="anonymous"></script>
     <style>
-        header {
+        /* Header styles */
+        .header {
+            background-color: rgb(255, 255, 255);
+            padding: 50px;
+            text-align: center;
+        }
+        /* CSS Styles */
+        .logo {
+            width: 187px;
+            height: auto;
+            margin-top: -47px; /* Maintain aspect ratio */
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+
+
+        .headline {
+            font-size: 24px; /* Set the font size */
+            position: relative; /* Set position for animation */
+            font-style: bold;
+        }
+
+        /* Dropdown styles */
+        /*.dropdown {
+            margin-right: -73%;
+            position: relative;
+            display: inline-block;
+            margin-top: 20px;
+        }
+
+        .id-symbol {
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 120px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+
+        .dropdown-content a {
+                color: black;
+                padding: 12px 16px;
+                text-decoration: none;
+                display: block;
+        }
+
+        .dropdown-content a:hover {
+                    background-color: #f1f1f1;
+        }*/
+
+        /* Dropdown styles for mobile */
+        /*@media screen and (max-width: 768px) {
+            .dropdown {
+                display: block;
+                margin-top: 10px;
+                text-align: center;
+        }
+
+        .id-symbol {
+                display: block;
+                padding: 10px;
+                cursor: pointer;
+        }
+
+        .dropdown-content {
+                display: none;
+                position: static;
+                background-color: #f9f9f9;
+                box-shadow: none;
+                z-index: 1;
+        }
+
+        .dropdown-content a {
+                    display: block;
+                    padding: 10px;
+                    border-bottom: 1px solid #ccc;
+                }
+        }*/
+
+        /* Container to hold sidebar and main content */
+         .container {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 20px;
-            height: 134px;
-            margin-bottom: 26px;
         }
 
-        .logo img {
-            height: 40px;
+        /* Sidebar toggle button styles */
+        .sidebar-toggle-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
         }
 
-        .menu-toggle {
+        .sidebar-toggle-btn img {
+                width: 30px; /* Adjust image width as needed */
+                height: auto; /* Maintain aspect ratio */
+        }
+
+        /* Sidebar styles */
+        .sidebar {
+            background-color: #333;
+            color: white;
+            width: 0;
+            overflow: hidden;
+            transition: width 0.3s ease;
+            height: 100vh;
+        }
+
+        .sidebar.open {
+                width: 250px;
+        }
+
+        /* Navbar styles */
+        .navbar ul {
+            list-style: none;
+            padding: 0;
             display: flex;
             flex-direction: column;
-            cursor: pointer;
-            transition: transform 0.3s;
+            align-items: center;
+            margin-top: 5%;
         }
 
-            .menu-toggle:hover {
-                transform: scale(1.1);
+            .navbar ul li {
+                padding: 10px;
+                text-align: center;
+                width: 100%; /* Adjust width as needed */
             }
 
-        .bar {
-            width: 25px;
-            height: 3px;
-            background-color: #1e1c1c;
-            margin: 3px 0;
-            transition: background-color 0.3s, transform 0.3s;
-        }
-
-            .bar:hover {
-                background-color: orange;
-            }
-
-        nav#sidebar {
-            position: fixed;
-            left: -250px;
-            top: 0;
-            width: 250px;
-            height: 100%;
-            background-color: white;
-            overflow-y: hidden;
-            transition: left 0.5s, transform 0.5s;
-            transform: scaleX(0);
-        }
-
-            nav#sidebar.active {
-                left: 0;
-                transform: scaleX(1);
-            }
-
-            nav#sidebar ul {
-                padding: 0;
-                list-style: none;
-            }
-
-                nav#sidebar ul li {
-                    padding: 15px;
-                    text-align: center;
-                    opacity: 0;
-                    transform: translateY(20px);
-                    transition: opacity 0.5s, transform 0.5s;
+                .navbar ul li a {
+                    color: white;
+                    text-decoration: none;
+                    transition: 0.3s;
+                    width: 100%;
+                    display: block;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    margin-top: 3%;
                 }
 
-            nav#sidebar.active ul li {
-                opacity: 1;
-                transform: translateY(0);
-            }
-
-            nav#sidebar ul li a {
-                text-decoration: none;
-                color: #100d0d;
-                transition: color 0.3s;
-            }
-
-                nav#sidebar ul li a:hover {
-                    color: orange;
+                .navbar ul li a i {
+                        margin-right: 10px;
                 }
 
-        .menu-icon {
-            margin-right: 10px;
-        }
+                .navbar ul li a:hover {
+                        background-color: #555;
+                        border-radius: 5px;
+                }
 
-        .menu-icon {
-            margin-right: 10px;
-        }
-    </style>
- 
-
+                /* Main content styles */
+                .main-content {
+                    flex: 1;
+                    padding: 20px;
+                }
+    </style>-->
     {% block css %}
 
     {% endblock %}
-</head>
+<!--</head>
 <body>
 
     <div class="header">
@@ -119,7 +187,7 @@
         <nav id="sidebar">
             <ul>
                 <li>
-                    <img src=" {% static '/cf_logo.png' %}" >
+                    <img src=" {% static '/cf_logo.png' %}">
                 </li>
                 <li><a href="home.html"><span class="menu-icon"><i class="fa-solid fa-house" style="color: #d66e29; margin-left: 15px"></i></span> Home</a></li>
                 <li>
@@ -134,23 +202,14 @@
             </ul>
         </nav>
         <script>
+            function toggleSidebar() {
+                const sidebar = document.getElementById('sidebar');
+                sidebar.classList.toggle('open');
+            }
 
-            const menuToggle = document.getElementById("menuToggle");
-            const sidebar = document.getElementById("sidebar");
-
-            menuToggle.addEventListener("click", () => {
-                sidebar.classList.toggle("active");
-            });
-
-            window.addEventListener("click", (event) => {
-                if (sidebar.classList.contains("active") && event.target !== menuToggle && event.target !== sidebar) {
-                    sidebar.classList.remove("active");
-                }
-            });
         </script>
-        {% block content %}
-
-        {% endblock %}
-
 </body>
-</html>
+</html>-->
+ {% block content %}
+
+ {% endblock %}

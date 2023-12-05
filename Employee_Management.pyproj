@@ -53,10 +53,14 @@
     <Folder Include="Emp_app\" />
     <Folder Include="Emp_app\migrations\" />
     <Folder Include="Emp_app\static\" />
+    <Folder Include="Emp_app\static\css\" />
+    <Folder Include="Emp_app\static\images\" />
+    <Folder Include="Emp_app\static\JS\" />
     <Folder Include="Emp_app\templates\" />
     <Folder Include="Emp_app\templates\Emp_app\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Emp_app\static\css\Comm.css" />
     <Content Include="Emp_app\templates\Emp_app\index.html" />
     <Content Include="Emp_app\templates\Login.html" />
     <Content Include="requirements.txt" />
