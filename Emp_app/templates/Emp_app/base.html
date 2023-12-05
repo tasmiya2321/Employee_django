@@ -1,14 +1,19 @@
-<!--<!DOCTYPE html>
+<!DOCTYPE html>
 {% load static %}
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="Comm.css">
+    <link rel="stylesheet" href="/static/Comm.css">
     <title>HOME</title>
     <script src="https://kit.fontawesome.com/bc0ac06df1.js" crossorigin="anonymous"></script>
     <style>
-        /* Header styles */
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #F5F0EC;
+        }
+
         .header {
             background-color: rgb(255, 255, 255);
             padding: 50px;
@@ -33,7 +38,7 @@
         }
 
         /* Dropdown styles */
-        /*.dropdown {
+        .dropdown {
             margin-right: -73%;
             position: relative;
             display: inline-block;
@@ -54,48 +59,48 @@
             z-index: 1;
         }
 
-        .dropdown-content a {
+            .dropdown-content a {
                 color: black;
                 padding: 12px 16px;
                 text-decoration: none;
                 display: block;
-        }
+            }
 
-        .dropdown-content a:hover {
+                .dropdown-content a:hover {
                     background-color: #f1f1f1;
-        }*/
+                }
 
         /* Dropdown styles for mobile */
-        /*@media screen and (max-width: 768px) {
+        @media screen and (max-width: 768px) {
             .dropdown {
                 display: block;
                 margin-top: 10px;
                 text-align: center;
-        }
+            }
 
-        .id-symbol {
+            .id-symbol {
                 display: block;
                 padding: 10px;
                 cursor: pointer;
-        }
+            }
 
-        .dropdown-content {
+            .dropdown-content {
                 display: none;
                 position: static;
                 background-color: #f9f9f9;
                 box-shadow: none;
                 z-index: 1;
-        }
+            }
 
-        .dropdown-content a {
+                .dropdown-content a {
                     display: block;
                     padding: 10px;
                     border-bottom: 1px solid #ccc;
                 }
-        }*/
+        }
 
         /* Container to hold sidebar and main content */
-         .container {
+        .container {
             display: flex;
         }
 
@@ -106,10 +111,10 @@
             cursor: pointer;
         }
 
-        .sidebar-toggle-btn img {
+            .sidebar-toggle-btn img {
                 width: 30px; /* Adjust image width as needed */
                 height: auto; /* Maintain aspect ratio */
-        }
+            }
 
         /* Sidebar styles */
         .sidebar {
@@ -121,9 +126,9 @@
             height: 100vh;
         }
 
-        .sidebar.open {
+            .sidebar.open {
                 width: 250px;
-        }
+            }
 
         /* Navbar styles */
         .navbar ul {
@@ -153,63 +158,131 @@
                     margin-top: 3%;
                 }
 
-                .navbar ul li a i {
+                    .navbar ul li a i {
                         margin-right: 10px;
-                }
+                    }
 
-                .navbar ul li a:hover {
+                    .navbar ul li a:hover {
                         background-color: #555;
                         border-radius: 5px;
-                }
+                    }
 
-                /* Main content styles */
-                .main-content {
-                    flex: 1;
-                    padding: 20px;
-                }
-    </style>-->
+        /* Main content styles */
+        .main-content {
+            flex: 1;
+            padding: 20px;
+        }
+
+        /* Media query for mobile responsiveness */
+        @media screen and (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: static;
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+        }
+
+        .footer {
+            background-color: orange;
+            padding: 20px;
+            text-align: center;
+            color: white;
+        }
+
+            .footer a {
+                color: white;
+                text-decoration: none;
+                margin: 0 5px;
+            }
+
+        /* Sticky Footer */
+        @media screen and (max-width: 768px) {
+            body {
+                display: flex;
+                flex-direction: column;
+                min-height: 100vh;
+            }
+
+            .container {
+                flex: 1;
+            }
+
+            .footer {
+                margin-top: auto;
+            }
+        }
+
+
+
+    </style>
     {% block css %}
 
     {% endblock %}
-<!--</head>
+</head>
 <body>
-
-    <div class="header">
-
-        <header>
-
-            <div class="menu-toggle" id="menuToggle" style="margin-top: 33px;">
-                <div class="bar"></div>
-                <div class="bar"></div>
-                <div class="bar"></div>
+    <header class="header">
+        <img src="/static/cf_logo.png" alt="CF Logo" class="logo">
+        <span class="dropdown">
+            <span class="id-symbol" onclick="toggleDropdown()">Jimmy Cherian &#9660; <i class="fa-solid fa-circle-user fa-2xl" style="color: #5c626a;"></i></span>
+            <div class="dropdown-content" id="dropdownContent">
+                <a href="employee.html">Profile</a>
+                <a href="change.html">Change password</a>
+                <a href="index.html">Logout</a>
             </div>
-        </header>
-        <nav id="sidebar">
-            <ul>
-                <li>
-                    <img src=" {% static '/cf_logo.png' %}">
-                </li>
-                <li><a href="home.html"><span class="menu-icon"><i class="fa-solid fa-house" style="color: #d66e29; margin-left: 15px"></i></span> Home</a></li>
-                <li>
-                    <a href="sessdetails.html">
-                        <span class="menu-icon">
-                            <i class="fa-solid fa-business-time" style="color: #c58326; margin-left: 15px;"></i>
-                        </span> Sessions
-                    </a>
-                </li>
-                <li><a href="emp.html"><span class="menu-icon" style="margin-left: 23px;"><i class="fa-solid fa-chart-simple" style="color: #dd7c22;"></i></span> Employee</a></li>
+        </span>
+    </header>
 
-            </ul>
-        </nav>
-        <script>
-            function toggleSidebar() {
-                const sidebar = document.getElementById('sidebar');
-                sidebar.classList.toggle('open');
-            }
+    <div class="container">
+        <aside class="sidebar" id="sidebar">
+            <nav class="navbar">
+                <ul>
+                    <li><a href="#home"><i class="fas fa-home" style="color: #d66e29;"></i>Home</a></li>
+                    <li><a href="#session"><i class="fas fa-business-time" style="color: #c58326;"></i>Session</a></li>
+                    <li><a href="#employee"><i class="fas fa-chart-bar" style="color: #dd7c22;"></i>Employee</a></li>
+                </ul>
+            </nav>
+        </aside>
+        <main class="main-content">
+            <button class="sidebar-toggle-btn" onclick="toggleSidebar()">
+                <img src="./menuicon.jpg" alt=" menuicon" class="icon">
+            </button>
+        </main>
+        {% block content %}
 
-        </script>
+        {% endblock %}
+
+    </div><br />
+    <footer class="footer">
+        <a href="home mobile.html">Home</a> |
+        <a href="#session">Session</a> |
+        <a href="employee.html">Employee</a>
+    </footer>
+
+    <script>
+
+         function toggleDropdown() {
+            const dropdownContent = document.getElementById('dropdownContent');
+            dropdownContent.style.display = (dropdownContent.style.display === 'block') ? 'none' : 'block';
+        }
+
+
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('open');
+        }
+
+    </script>
+
+ 
+
+
 </body>
-</html>-->
- {% block content %}
-
- {% endblock %}
+</html>

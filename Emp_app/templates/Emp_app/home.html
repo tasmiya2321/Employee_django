@@ -1,239 +1,14 @@
 {% extends "Emp_app/base.html" %}
-<head>
-    <link rel="stylesheet" href="/static/css/Comm.css" />
-</head>
+
+
 
 {% block css %}
-
 <style>
-    /* Reset default margin and padding */
-    body {
-        margin: 0;
-        padding: 0;
-        background-color: #F5F0EC;
-    }
-
-    body, h1, h2, h3, ul {
-        margin: 0;
-        padding: 0;
-    }
-
-     Header styles 
-    .header {
-            background-color: rgb(255, 255, 255);
-            padding: 50px;
-            text-align: center;
-        }
-     CSS Styles 
-    .logo {
-            width: 187px;
-            height: auto;
-            margin-top: -47px;  Maintain aspect ratio 
-    position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-
-
-
-        .headline {
-            font-size: 24px;  Set the font size 
-    position: relative;  Set position for animation 
-    font-style: bold;
-        }
-
-    /* Dropdown styles */
-    .dropdown {
-        margin-right: -73%;
-        position: relative;
-        display: inline-block;
-        margin-top: 20px;
-    }
-
-    .id-symbol {
-        padding: 10px;
-        cursor: pointer;
-    }
-
-    .dropdown-content {
-        display: none;
-        position: absolute;
-        background-color: #f9f9f9;
-        min-width: 120px;
-        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-        z-index: 1;
-    }
-
-        .dropdown-content a {
-            color: black;
-            padding: 12px 16px;
-            text-decoration: none;
-            display: block;
-        }
-
-            .dropdown-content a:hover {
-                background-color: #f1f1f1;
-            }
-
-    Dropdown styles for mobile
-    @media screen and (max-width: 768px) {
-        .dropdown
-
-    {
-        display: block;
-        margin-top: 10px;
-        text-align: center;
-    }
-
-    .id-symbol {
-        display: block;
-        padding: 10px;
-        cursor: pointer;
-    }
-
-    .dropdown-content {
-        display: none;
-        position: static;
-        background-color: #f9f9f9;
-        box-shadow: none;
-        z-index: 1;
-    }
-
-        .dropdown-content a {
-            display: block;
-            padding: 10px;
-            border-bottom: 1px solid #ccc;
-        }
-
-    }
-
-    /* Container to hold sidebar and main content */
-    /*.container {
-            display: flex;
-        }*/
-
-    /* Sidebar toggle button styles */
-    /*.sidebar-toggle-btn {
-            background: none;
-            border: none;
-            cursor: pointer;
-        }
-
-            .sidebar-toggle-btn img {
-                width: 30px;*/ /* Adjust image width as needed */
-    /*height: auto;*/ /* Maintain aspect ratio */
-    /*}*/
-
-    /* Sidebar styles */
-    /*.sidebar {
-            background-color: #333;
-            color: white;
-            width: 0;
-            overflow: hidden;
-            transition: width 0.3s ease;
-            height: 100vh;
-        }
-
-            .sidebar.open {
-                width: 250px;
-            }*/
-
-    /* Navbar styles */
-    /*.navbar ul {
-            list-style: none;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-top: 5%;
-        }
-
-            .navbar ul li {
-                padding: 10px;
-                text-align: center;
-                width: 100%;*/ /* Adjust width as needed */
-    /*}
-
-                .navbar ul li a {
-                    color: white;
-                    text-decoration: none;
-                    transition: 0.3s;
-                    width: 100%;
-                    display: block;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    margin-top: 3%;
-                }
-
-                    .navbar ul li a i {
-                        margin-right: 10px;
-                    }
-
-                    .navbar ul li a:hover {
-                        background-color: #555;
-                        border-radius: 5px;
-                    }*/
-
-    /* Main content styles */
-    /*.main-content {
-            flex: 1;
-            padding: 20px;
-        }*/
-
-    /* Media query for mobile responsiveness */
-    /*@media screen and (max-width: 768px) {
-            .container {
-                flex-direction: column;
-            }
-
-            .sidebar {
-                width: 100%;
-                height: auto;
-                position: static;
-            }
-
-            .main-content {
-                margin-left: 0;
-            }
-        }*/
-
-    .footer {
-        background-color: orange;
-        padding: 20px;
-        text-align: center;
-        color: white;
-    }
-
-        .footer a {
-            color: white;
-            text-decoration: none;
-            margin: 0 5px;
-        }
-
-    /* Sticky Footer */
-    @media screen and (max-width: 768px) {
-        body {
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
-
-        .container {
-            flex: 1;
-        }
-
-        .footer {
-            margin-top: auto;
-        }
-    }
-
     .slider-container {
         position: relative;
-        margin-top: 20px;
         overflow: hidden;
-        max-width: 90%;
-        margin-left: 5%;
+        max-width: 100%;
+        margin: 20px auto;
     }
 
     .slides {
@@ -243,12 +18,9 @@
 
     .slide-image {
         width: 100%;
-        max-height: 90vh; /* Adjust the maximum height as needed */
-        height: auto;
-        flex: 0 0 auto;
+        display: block;
     }
 
-    /* Navigation button styles */
     .prev,
     .next {
         position: absolute;
@@ -270,250 +42,200 @@
         right: 10px;
     }
 
-    table {
-        margin: 50px;
-        margin-top: 100px;
-        margin-left: 65px;
-    }
+
+        table {
+            margin: 50px;
+            margin-top: 100px;
+            margin-left: 65px;
+        }
 
 
-    table {
-        border-collapse: collapse;
-        width: 90%;
-    }
+        table {
+            border-collapse: collapse;
+            width: 90%;
+        }
 
-    th, td {
-        padding: 8px;
-        text-align: center;
-        border: 1px solid black;
-    }
+        th, td {
+            padding: 8px;
+            text-align: center;
+            border: 1px solid black;
+        }
+
 </style>
+
 {% endblock %}
+
+
 
 {% block content %}
-
-<body>
-    <header class="header">
-
-        <img src="cf_logo.png" alt="CF Logo" class="logo">
-
-        <span class="dropdown">
-            <span class="id-symbol" onclick="toggleDropdown()">Jimmy Cherian &#9660; <i class="fa-solid fa-circle-user fa-2xl" style="color: #5c626a;"></i></span>
-            <div class="dropdown-content" id="dropdownContent">
-                <a href="employee.html">Profile</a>
-                <a href="change.html">Change password</a>
-                <a href="index.html">Logout</a>
-            </div>
-
-    </header>
-
-    <div class="container">
-        <!--<aside class="sidebar" id="sidebar">
-            <nav class="navbar">
-                <ul>
-                    <li><a href="home mobile.html"><i class="fas fa-home" style="color: #d66e29;"></i>Home</a></li>
-                    <li><a href="session.html"><i class="fas fa-business-time" style="color: #c58326;"></i>Session</a></li>
-                    <li><a href="employee.html"><i class="fas fa-chart-bar" style="color: #dd7c22;"></i>Employee</a></li>
-                </ul>
-            </nav>
-        </aside>-->
-        <main class="main-content">
-            <button class="sidebar-toggle-btn" onclick="toggleSidebar()">
-                <img src="/static/css/.cf_logo.png" alt="">
-            </button>
-            <div class="slider-container">
-                <div class="slides">
-                    <img src="/static/css/./16.jpg" alt="" class="slide-image active">
-                    <img src="/static/css/./17.jpg" alt="" class="slide-image">
-                    <img src="/static/css/./18.jpg" alt="" class="slide-image">
-                    <img src="/static/css/./19.jpg" alt="" class="slide-image">
-                    <img src="/static/css/./20.jpg" alt="" class="slide-image">
-                    <img src="/static/css/./21.jpg" alt="" class="slide-image">
-                    <img src="/static/css/./22.jpg" alt="" class="slide-image">
-                    <img src="/static/css/./23.jpg" alt="" class="slide-image">
-                    <img src="/static/css/./25.jpg" alt="" class="slide-image">
-                    <img src="/static/css/./26.jpg" alt="" class="slide-image">
-                    <img src="/static/css/./26.jpg" alt="" class="slide-image">
-                    <img src="/static/css/./27.jpg" alt="" class="slide-image">
-                    <img src="/static/css/./28.jpg" alt="" class="slide-image">
-                    <img src="/static/css/./29.jpg" alt="" class="slide-image">
-                    <img src="/static/css/./1.jpeg" alt="" class="slide-image">
-                    <img src="/static/css/./2.jpeg" alt="" class="slide-image">
-                    <img src="/static/css/./3.jpeg" alt="" class="slide-image">
-                    <img src="/static/css/./4.jpeg" alt="" class="slide-image">
-                    <img src="/static/css/./5.jpeg" alt="" class="slide-image">
-                    <img src="/static/css/./6.jpeg" alt="" class="slide-image">
-                    <img src="/static/css/./7.jpeg" alt="" class="slide-image">
-                    <img src="/static/css/./8.jpeg" alt="" class="slide-image">
-                    <img src="/static/css/./9.jpeg" alt="" class="slide-image">
-                    <img src="/static/css/./10.jpeg" alt="" class="slide-image">
-                    <img src="/static/css/./11.jpeg" alt="" class="slide-image">
-                    <img src="/static/css/./12.jpeg" alt="" class="slide-image">
-                    <img src="/static/css/./13.jpeg" alt="" class="slide-image">
-                    <img src="/static/css/./15.jpeg" alt="" class="slide-image">
-                </div>
-                <button class="prev" id="prev">&#10094;</button>
-                <button class="next" id="next">&#10095;</button>
-            </div>
-
-
-            <div class="table">
-
-                <table bgcolor="">
-                    <tr bgcolor="orange">
-
-                        <th>Date</th>
-                        <th>Program</th>
-                        <th>Project</th>
-                        <th>Activity</th>
-                        <th>Center Type</th>
-
-
-
-                        <th>Beneficiaries</th>
-
-
-                    </tr>
-                    <tr bgcolor="white">
-                        <td>1</td>
-                        <td>1</td>
-                        <td>1</td>
-                        <td>1</td>
-                        <td>1</td>
-                        <td>1</td>
-
-
-
-                    </tr>
-                    <tr bgcolor="white">
-                        <td>1</td>
-                        <td>1</td>
-                        <td>1</td>
-                        <td>1</td>
-                        <td>1</td>
-                        <td>1</td>
-
-
-
-                    </tr>
-                    <tr bgcolor="white">
-                        <td>1</td>
-                        <td>1</td>
-                        <td>1</td>
-                        <td>1</td>
-                        <td>1</td>
-                        <td>1</td>
-
-
-                    </tr>
-                    <tr bgcolor="white">
-                        <td>1</td>
-                        <td>1</td>
-                        <td>1</td>
-                        <td>1</td>
-                        <td>1</td>
-                        <td>1</td>
-
-
-                    </tr>
-                    <tr bgcolor="white">
-                        <td>1</td>
-                        <td>1</td>
-                        <td>1</td>
-                        <td>1</td>
-                        <td>1</td>
-                        <td>1</td>
-
-
-                    </tr>
-                    <tr bgcolor="white">
-                        <td>1</td>
-                        <td>1</td>
-                        <td>1</td>
-                        <td>1</td>
-                        <td>1</td>
-                        <td>1</td>
-
-
-                    </tr>
-
-                </table>
-
-        </main>
+<div class="slider-container">
+    <div class="slides">
+        <img src="/static/16.jpg" alt="" class="slide-image active">
+        <img src="/static/17.jpg" alt="" class="slide-image">
+        <img src="/static/18.jpg" alt="" class="slide-image">
+        <img src="/static/19.jpg" alt="" class="slide-image">
+        <img src="/static/20.jpg" alt="" class="slide-image">
+        <img src="/static/21.jpg" alt="" class="slide-image">
+        <img src="/static/22.jpg" alt="" class="slide-image">
+        <img src="/static/23.jpg" alt="" class="slide-image">
+        <img src="/static/25.jpg" alt="" class="slide-image">
+        <img src="/static/26.jpg" alt="" class="slide-image">
+        <img src="/static/26.jpg" alt="" class="slide-image">
+        <img src="/static/27.jpg" alt="" class="slide-image">
+        <img src="/static/28.jpg" alt="" class="slide-image">
+        <img src="/static/29.jpg" alt="" class="slide-image">
+        <img src="/static/1.jpeg" alt="" class="slide-image">
+        <img src="/static/2.jpeg" alt="" class="slide-image">
+        <img src="/static/3.jpeg" alt="" class="slide-image">
+        <img src="/static/4.jpeg" alt="" class="slide-image">
+        <img src="/static/5.jpeg" alt="" class="slide-image">
+        <img src="/static/6.jpeg" alt="" class="slide-image">
+        <img src="/static/7.jpeg" alt="" class="slide-image">
+        <img src="/static/8.jpeg" alt="" class="slide-image">
+        <img src="/static/9.jpeg" alt="" class="slide-image">
+        <img src="/static/10.jpeg" alt="" class="slide-image">
+        <img src="/static/11.jpeg" alt="" class="slide-image">
+        <img src="/static/12.jpeg" alt="" class="slide-image">
+        <img src="/static/13.jpeg" alt="" class="slide-image">
+        <img src="/static/15.jpeg" alt="" class="slide-image">
     </div>
+    <button class="prev" id="prev">&#10094;</button>
+    <button class="next" id="next">&#10095;</button>
+</div>
+
+
+<div class="table">
+
+    <table bgcolor="">
+        <tr bgcolor="orange">
+
+            <th>Date</th>
+            <th>Program</th>
+            <th>Project</th>
+            <th>Activity</th>
+            <th>Center Type</th>
+            <th>Beneficiaries</th>
+
+
+        </tr>
+        <tr bgcolor="white">
+            <td>1</td>
+            <td>1</td>
+            <td>1</td>
+            <td>1</td>
+            <td>1</td>
+            <td>1</td>
 
 
 
+        </tr>
+        <tr bgcolor="white">
+            <td>1</td>
+            <td>1</td>
+            <td>1</td>
+            <td>1</td>
+            <td>1</td>
+            <td>1</td>
 
 
-    <footer class="footer">
-        <a href="home mobile.html">Home</a> |
-        <a href="#session">Session</a> |
-        <a href="employee.html">Employee</a>
-    </footer>
 
-    <script>
-        //function toggleSidebar() {
-        //    const sidebar = document.getElementById('sidebar');
-        //    sidebar.classList.toggle('open');
-        //}
+        </tr>
+        <tr bgcolor="white">
+            <td>1</td>
+            <td>1</td>
+            <td>1</td>
+            <td>1</td>
+            <td>1</td>
+            <td>1</td>
 
 
-        const slides = document.querySelector('.slides');
-        const slideImages = document.querySelectorAll('.slide-image');
-        const prevButton = document.getElementById('prev');
-        const nextButton = document.getElementById('next');
+        </tr>
+        <tr bgcolor="white">
+            <td>1</td>
+            <td>1</td>
+            <td>1</td>
+            <td>1</td>
+            <td>1</td>
+            <td>1</td>
 
-        let slideIndex = 0;
 
-        function showSlides() {
-            slideIndex++;
-            if (slideIndex >= slideImages.length) {
-                slideIndex = 0;
-            }
+        </tr>
+        <tr bgcolor="white">
+            <td>1</td>
+            <td>1</td>
+            <td>1</td>
+            <td>1</td>
+            <td>1</td>
+            <td>1</td>
+
+
+        </tr>
+        <tr bgcolor="white">
+            <td>1</td>
+            <td>1</td>
+            <td>1</td>
+            <td>1</td>
+            <td>1</td>
+            <td>1</td>
+
+
+        </tr>
+
+    </table>
+
+</div>
+<script>
+    const slides = document.querySelector('.slides');
+    const slideImages = document.querySelectorAll('.slide-image');
+    const prevButton = document.getElementById('prev');
+    const nextButton = document.getElementById('next');
+
+    let slideIndex = 0;
+
+    function showSlides() {
+        slideIndex++;
+        if (slideIndex >= slideImages.length) {
+            slideIndex = 0;
+        }
+        slides.style.transform = `translateX(-${slideIndex * 100}%)`;
+    }
+
+    let slideInterval = setInterval(showSlides, 3000); // Change slide every 3 seconds
+
+    function stopInterval() {
+        clearInterval(slideInterval);
+    }
+
+    function startInterval() {
+        slideInterval = setInterval(showSlides, 3000); // Change slide every 3 seconds
+    }
+
+    slides.addEventListener('mouseenter', stopInterval);
+    slides.addEventListener('mouseleave', startInterval);
+
+    prevButton.addEventListener('click', () => {
+        if (slideIndex > 0) {
+            slideIndex--;
             slides.style.transform = `translateX(-${slideIndex * 100}%)`;
         }
+        stopInterval();
+    });
 
-        let slideInterval = setInterval(showSlides, 3000); // Change slide every 3 seconds
-
-        function stopInterval() {
-            clearInterval(slideInterval);
+    nextButton.addEventListener('click', () => {
+        if (slideIndex < slideImages.length - 1) {
+            slideIndex++;
+            slides.style.transform = `translateX(-${slideIndex * 100}%)`;
         }
+        stopInterval();
+    });
 
-        function startInterval() {
-            slideInterval = setInterval(showSlides, 3000); // Change slide every 3 seconds
-        }
+    startInterval(); // Start automatic sliding on page load
 
-        slides.addEventListener('mouseenter', stopInterval);
-        slides.addEventListener('mouseleave', startInterval);
-
-        prevButton.addEventListener('click', () => {
-            if (slideIndex > 0) {
-                slideIndex--;
-                slides.style.transform = `translateX(-${slideIndex * 100}%)`;
-            }
-            stopInterval();
-        });
-
-        nextButton.addEventListener('click', () => {
-            if (slideIndex < slideImages.length - 1) {
-                slideIndex++;
-                slides.style.transform = `translateX(-${slideIndex * 100}%)`;
-            }
-            stopInterval();
-        });
-
-        startInterval(); // Start automatic sliding on page load
+</script>  
 
 
-
-        // dropdownContent
-
-        function toggleDropdown() {
-            const dropdownContent = document.getElementById('dropdownContent');
-            dropdownContent.style.display = (dropdownContent.style.display === 'block') ? 'none' : 'block';
-        }
-    </script>
-</body>
 
 {% endblock %}
+
+
+
