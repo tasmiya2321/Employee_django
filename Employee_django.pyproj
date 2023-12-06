@@ -23,6 +23,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Content Include="Emp_app\templates\Emp_app\base.html" />
+    <Content Include="Emp_app\templates\Emp_app\employee.html" />
     <Content Include="Emp_app\templates\Emp_app\forgetpassword.html" />
     <Content Include="Emp_app\templates\Emp_app\home.html" />
     <Content Include="Emp_app\templates\Emp_app\index.html" />

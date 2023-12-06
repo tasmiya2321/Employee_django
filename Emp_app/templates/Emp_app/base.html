@@ -1,12 +1,10 @@
 <!DOCTYPE html>
-{% load static %}
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/static/Comm.css">
-    <title>HOME</title>
-    <script src="https://kit.fontawesome.com/bc0ac06df1.js" crossorigin="anonymous"></script>
+ 
     <style>
         body {
             margin: 0;
@@ -220,8 +218,6 @@
             }
         }
 
-
-
     </style>
     {% block css %}
 
@@ -229,7 +225,9 @@
 </head>
 <body>
     <header class="header">
+
         <img src="/static/cf_logo.png" alt="CF Logo" class="logo">
+
         <span class="dropdown">
             <span class="id-symbol" onclick="toggleDropdown()">Jimmy Cherian &#9660; <i class="fa-solid fa-circle-user fa-2xl" style="color: #5c626a;"></i></span>
             <div class="dropdown-content" id="dropdownContent">
@@ -237,7 +235,7 @@
                 <a href="change.html">Change password</a>
                 <a href="index.html">Logout</a>
             </div>
-        </span>
+          </span>
     </header>
 
     <div class="container">
@@ -252,13 +250,12 @@
         </aside>
         <main class="main-content">
             <button class="sidebar-toggle-btn" onclick="toggleSidebar()">
-                <img src="./menuicon.jpg" alt=" menuicon" class="icon">
+                <img src="/static/menuicon.jpg" alt="menuicon">
             </button>
         </main>
         {% block content %}
 
         {% endblock %}
-
     </div><br />
     <footer class="footer">
         <a href="home mobile.html">Home</a> |
@@ -266,9 +263,10 @@
         <a href="employee.html">Employee</a>
     </footer>
 
+   
     <script>
 
-         function toggleDropdown() {
+        function toggleDropdown() {
             const dropdownContent = document.getElementById('dropdownContent');
             dropdownContent.style.display = (dropdownContent.style.display === 'block') ? 'none' : 'block';
         }
@@ -280,9 +278,6 @@
         }
 
     </script>
-
- 
-
 
 </body>
 </html>

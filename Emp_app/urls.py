@@ -8,8 +8,8 @@
 #     # path('', views.index,name="index"),
 #     # path("", views.login, name="login"),
 #     # path("home/",views.home,name="home"),
-#     path("Employee/",views.Employee,name="Employee")
-# ]
+       # path("employee/",views.employee,name="employee")
+
 
 
 
@@ -22,7 +22,8 @@ from . import views
 urlpatterns = [
       # Uncomment the next line to enable the admin:
     path('admin/', admin.site.urls),
-    path("home/",views.home,name="home"),
+    path("employee/", views.employee, name="employee"),
+    # path("home/",views.home,name="home"),
     #path('', views.index,name="index"),
     # path("", views.login, name="login"),
     # path('forgetpassword/', views.forgetpassword, name='forget_password')

@@ -3,8 +3,10 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from django.contrib.auth import authenticate, login
 
-def home(request):
-     return render(request, "Emp_app/home.html")
+# def home(request):
+#      return render(request, "Emp_app/home.html")
+
+
 
 # def forgetpassword(request):
 #      return render(request, "Emp_app/forgetpassword.html")
@@ -14,8 +16,8 @@ def home(request):
 #     return render(request, "Emp_app/index.html")
 
 
-# def employee(request):
-#      return render(request, "Emp_app/employee.html")
+def employee(request):
+     return render(request, "Emp_app/employee.html")
 
 
 
