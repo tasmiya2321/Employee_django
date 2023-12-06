@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/static/Comm.css">
+    <link rel="stylesheet" href="static/Comm.css">
  
     <style>
         body {
@@ -235,7 +235,7 @@
                 <a href="change.html">Change password</a>
                 <a href="index.html">Logout</a>
             </div>
-          </span>
+        </span>
     </header>
 
     <div class="container">
@@ -253,17 +253,18 @@
                 <img src="/static/menuicon.jpg" alt="menuicon">
             </button>
         </main>
-        {% block content %}
 
-        {% endblock %}
     </div><br />
+    {% block content %}
+
+    {% endblock %}
     <footer class="footer">
         <a href="home mobile.html">Home</a> |
         <a href="#session">Session</a> |
         <a href="employee.html">Employee</a>
     </footer>
 
-   
+
     <script>
 
         function toggleDropdown() {
