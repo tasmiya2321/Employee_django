@@ -2,9 +2,12 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.contrib.auth import authenticate, login
+from .models import Program 
 
 def home(request):
-     return render(request, "Emp_app/home.html")
+     programs = Program.objects.values('date', 'pgm_id', 'xref_id', 'activity', 'center_type', 'beneficiaries')
+     
+     return render(request, "Emp_app/home.html", {'programs': programs})
 
 
 
@@ -39,4 +42,4 @@ def userlogin(request):
             return render(request, 'login.html', {'error_message': 'Incorrect username and / or password.'})
       else:
         
-         return render(request, 'login.html')
+         return render(request, 'login.html') 

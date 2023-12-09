@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -125,7 +126,7 @@
         }
 
             .sidebar.open {
-                width: 250px;
+                width: 500%;
             }
 
         /* Navbar styles */
@@ -255,11 +256,13 @@
             </button>
         </main>
 
+
+
+        {% block content %}
+
+        {% endblock %}
+
     </div><br />
-
-    {% block content %}
-
-    {% endblock %}
     <footer class="footer">
         <a href="home mobile.html">Home</a> |
         <a href="#session">Session</a> |

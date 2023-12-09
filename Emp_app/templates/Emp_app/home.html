@@ -4,7 +4,6 @@
 
 {% block css %}
 <style>
-
     .slider-container {
         position: relative;
         overflow: hidden;
@@ -18,7 +17,7 @@
     }
 
     .slide-image {
-        width: 100%;
+        width: 50%;
         display: block;
     }
 
@@ -44,24 +43,23 @@
     }
 
 
-        table {
-            margin: 50px;
-            margin-top: 100px;
-            margin-left: 65px;
-        }
+    table {
+        margin: 50px;
+        margin-top: 100px;
+        margin-left: 65px;
+    }
 
 
-        table {
-            border-collapse: collapse;
-            width: 90%;
-        }
+    table {
+        border-collapse: collapse;
+        width: 80%;
+    }
 
-        th, td {
-            padding: 8px;
-            text-align: center;
-            border: 1px solid black;
-        }
-
+    th, td {
+        padding: 8px;
+        text-align: center;
+        border: 1px solid black;
+    }
 </style>
 
 {% endblock %}
@@ -102,89 +100,39 @@
     </div>
     <button class="prev" id="prev">&#10094;</button>
     <button class="next" id="next">&#10095;</button>
+
+
+    <div class="table">
+
+        <table bgcolor="">
+            <tr bgcolor="orange">
+
+                <th>Date</th>
+                <th>Program</th>
+                <th>Project</th>
+                <th>Activity</th>
+                <th>Center Type</th>
+                <th>Beneficiaries</th>
+
+
+            </tr>
+            {% for program in programs %}
+            <tr bgcolor="white">
+                <td>{{ program.date }}</td>
+                <td>{{ program.pgm_id }}</td>
+                <td>{{ program.xref_id }}</td>
+                <td>{{ program.activity }}</td>
+                <td>{{ program.center_type }}</td>
+                <td>{{ program.beneficiaries }}</td>
+            </tr>
+            {% endfor %}
+            
+          
+        </table>
+
+    </div>
 </div>
 
-
-<div class="table">
-
-    <table bgcolor="">
-        <tr bgcolor="orange">
-
-            <th>Date</th>
-            <th>Program</th>
-            <th>Project</th>
-            <th>Activity</th>
-            <th>Center Type</th>
-            <th>Beneficiaries</th>
-
-
-        </tr>
-        <tr bgcolor="white">
-            <td>1</td>
-            <td>1</td>
-            <td>1</td>
-            <td>1</td>
-            <td>1</td>
-            <td>1</td>
-
-
-
-        </tr>
-        <tr bgcolor="white">
-            <td>1</td>
-            <td>1</td>
-            <td>1</td>
-            <td>1</td>
-            <td>1</td>
-            <td>1</td>
-
-
-
-        </tr>
-        <tr bgcolor="white">
-            <td>1</td>
-            <td>1</td>
-            <td>1</td>
-            <td>1</td>
-            <td>1</td>
-            <td>1</td>
-
-
-        </tr>
-        <tr bgcolor="white">
-            <td>1</td>
-            <td>1</td>
-            <td>1</td>
-            <td>1</td>
-            <td>1</td>
-            <td>1</td>
-
-
-        </tr>
-        <tr bgcolor="white">
-            <td>1</td>
-            <td>1</td>
-            <td>1</td>
-            <td>1</td>
-            <td>1</td>
-            <td>1</td>
-
-
-        </tr>
-        <tr bgcolor="white">
-            <td>1</td>
-            <td>1</td>
-            <td>1</td>
-            <td>1</td>
-            <td>1</td>
-            <td>1</td>
-
-
-        </tr>
-
-    </table>
-
-</div>
 <script>
     const slides = document.querySelector('.slides');
     const slideImages = document.querySelectorAll('.slide-image');
@@ -232,7 +180,7 @@
 
     startInterval(); // Start automatic sliding on page load
 
-</script>  
+</script>
 
 
 

@@ -22,6 +22,38 @@
     <VisualStudioVersion Condition=" '$(VisualStudioVersion)' == '' ">10.0</VisualStudioVersion>
   </PropertyGroup>
   <ItemGroup>
+    <Content Include="Emp_app\static\1.jpeg" />
+    <Content Include="Emp_app\static\10.jpeg" />
+    <Content Include="Emp_app\static\11.jpeg" />
+    <Content Include="Emp_app\static\12.jpeg" />
+    <Content Include="Emp_app\static\13.jpeg" />
+    <Content Include="Emp_app\static\15.jpeg" />
+    <Content Include="Emp_app\static\16.jpg" />
+    <Content Include="Emp_app\static\17.jpg" />
+    <Content Include="Emp_app\static\18.jpg" />
+    <Content Include="Emp_app\static\19.jpg" />
+    <Content Include="Emp_app\static\2.jpeg" />
+    <Content Include="Emp_app\static\20.jpg" />
+    <Content Include="Emp_app\static\21.jpg" />
+    <Content Include="Emp_app\static\22.jpg" />
+    <Content Include="Emp_app\static\23.jpg" />
+    <Content Include="Emp_app\static\25.jpg" />
+    <Content Include="Emp_app\static\26.jpg" />
+    <Content Include="Emp_app\static\27.jpg" />
+    <Content Include="Emp_app\static\28.jpg" />
+    <Content Include="Emp_app\static\29.jpg" />
+    <Content Include="Emp_app\static\3.jpeg" />
+    <Content Include="Emp_app\static\4.jpeg" />
+    <Content Include="Emp_app\static\5.jpeg" />
+    <Content Include="Emp_app\static\6.jpeg" />
+    <Content Include="Emp_app\static\7.jpeg" />
+    <Content Include="Emp_app\static\8.jpeg" />
+    <Content Include="Emp_app\static\9.jpeg" />
+    <Content Include="Emp_app\static\cf_logo.png" />
+    <Content Include="Emp_app\static\div_reset.png" />
+    <Content Include="Emp_app\static\eyes close.jpg" />
+    <Content Include="Emp_app\static\eyes open.webp" />
+    <Content Include="Emp_app\static\menuicon.jpg" />
     <Content Include="Emp_app\templates\Emp_app\base.html" />
     <Content Include="Emp_app\templates\Emp_app\employee.html" />
     <Content Include="Emp_app\templates\Emp_app\forgetpassword.html" />
@@ -52,6 +84,7 @@
     <Folder Include="Employee_Management" />
     <Folder Include="Emp_app" />
     <Folder Include="Emp_app\migrations" />
+    <Folder Include="Emp_app\static\" />
     <Folder Include="Emp_app\templates\" />
     <Folder Include="Emp_app\templates\Emp_app" />
   </ItemGroup>
