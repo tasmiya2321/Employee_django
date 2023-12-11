@@ -204,6 +204,31 @@
 
 <button class="save-button" onclick="saveDetails()">Save</button>
 
+{% for emp in emp_details %}
+<p>Employee ID: {{ emp.emp_id }}</p>
+<p>Full Name: {{ emp.fullname }}</p>
+<p>Address: {{ emp.address }}</p>
+<p>Date of Birth: {{ emp.dob }}</p>
+<p>Phone_number: {{ emp.phone_number }}</p>
+<p>Email ID: {{ emp.email_id }}</p>
+<p>Gender: {{ emp.gender }}</p>
+<p>Center: {{ emp.center }}</p>
+<p>Designation: {{ emp.designation }}</p>
+<p>Date_of_joining: {{ emp.date_of_joining }}</p>
+<p>Education_qualification: {{ emp.education_qualification }}</p>
+<p>Status: {{ emp.status }}</p>
+<p>Resource_type: {{ emp.resource_type }}</p>
+<p>Date_of_resigning: {{ emp.date_of_resigning }}</p>
+<p>Bank_name: {{ emp.bank_name }}</p>
+<p>Name_as_per_bank: {{ emp.name_as_per_bank }}</p>
+<p>Account_number: {{ emp.account_number }}</p>
+<p>IFSC: {{ emp.ifsc }}</p>
+<p>branch: {{ emp.branch }}</p>
+<p>account_type: {{ emp.account_type }}</p>
+
+{% endfor %}
+
+
 <script>
     function toggleContent(id) {
         var content = document.getElementById(id);
