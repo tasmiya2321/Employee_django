@@ -1,6 +1,6 @@
 {% extends "Emp_app/base.html" %}
 
-
+{%  load lower_filter %}
 
 {% block css %}
 <style>
@@ -36,7 +36,7 @@
 
     .prev {
         left: 10px;
-        margin-top:-20%;
+        margin-top: -20%;
     }
 
     .next {
@@ -69,6 +69,12 @@
 
 
 {% block content %}
+
+{% load lower_filter %}
+<h1>{{value|program_to_string}}</h1>
+<h1>{{value|centertype_to_string}}</h1>
+
+
 <div class="slider-container">
     <div class="slides">
 
@@ -100,10 +106,7 @@
         <img src="/static/12.jpeg" alt="" class="slide-image">
         <img src="/static/13.jpeg" alt="" class="slide-image">
         <img src="/static/15.jpeg" alt="" class="slide-image">
-
-
-
-    </div>
+     </div>
     <button class="prev" id="prev">&#10094;</button>
     <button class="next" id="next">&#10095;</button>
 
@@ -124,18 +127,17 @@
             {% for program in programs %}
             <tr bgcolor="white">
                 <td>{{ program.date}}</td>
-                <td>{{ program.pgm_id }}</td>
-                <td>{{ program.xref_id }}</td>
+                <td>{{ program.pgm_id|program_to_string}}</td>
+                <td>{{ program.xref.project_name }}</td>
                 <td>{{ program.activity }}</td>
-                <td>{{ program.center_type }}</td>
+                <td>{{ program.center_type|centertype_to_string }}</td>
                 <td>{{ program.beneficiaries }}</td>
             </tr>
             {% endfor %}
 
 
         </table>
-
-    </div>
+     </div>
 </div>
 
 <script>

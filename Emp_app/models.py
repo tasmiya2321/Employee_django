@@ -34,7 +34,7 @@ class Program(models.Model):
     pgm_id = models.AutoField(db_column='PGM_ID', primary_key=True)  # Field name made lowercase.
     emp = models.ForeignKey(EmpDetails, models.DO_NOTHING, db_column='EMP_ID')  # Field name made lowercase.
     xref = models.ForeignKey('Xref', models.DO_NOTHING, db_column='XREF_ID')  # Field name made lowercase.
-    date = models.DateField(db_column='Date', blank=True, null=True)  # Field name made lowercase.
+    date = models.CharField(db_column='Date', blank=True, null=True,max_length=500)  # Field name made lowercase.
     activity = models.TextField(db_column='Activity', blank=True, null=True)  # Field name made lowercase.
     center_type = models.IntegerField(db_column='Center_Type', blank=True, null=True)  # Field name made lowercase.
     trainer_type = models.IntegerField(db_column='Trainer_Type', blank=True, null=True)  # Field name made lowercase.
