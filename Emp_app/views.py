@@ -5,15 +5,10 @@ from django.contrib.auth import authenticate, login
 from .models import Program 
 from .models import EmpDetails 
 
+
 def home(request):
-    programs = Program.objects.exclude(date__isnull=True).order_by('pgm_id')[:10]
-    
-    # Debugging: Print each program's date
-    for program in programs:
-        print(program.date)
-
-    return render(request, "Emp_app/home.html", {'programs': programs})
-
+    programs = Program.objects.all().order_by('pgm_id')[:10]
+    return render(request, 'Emp_app/home.html', {'programs': programs})
 
 
 
