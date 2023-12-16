@@ -1,0 +1,6 @@
+"EMP_ID","fullname","address","Dob","Phone_Number","Email_Id","Gender","Center","Designation","Date_of_Joining","Education_Qualification","Status","Resource_Type","Date_of_resigning","Bank_Name","Name_As_per_Bank","Account_Number","IFSC","Branch","Account_Type"
+1,Preethi,Bangalore,"05-03-1980",7678742158,preethiamuthan@gmail.com,female,1,coordinate,"12-10-2021",degree,1,1,"09-03-2022",Indian Bank,preethi,25700000000000000,"75832tew9583235238",Karnataka,1
+2,Sonia,Bangalore,"06-03-1980",7678742159,soniamathias@gmail.com,female,2,employee,"12-10-2023",degree,2,1,"04-12-2023",Asian Bank,sonia,34400000000000000,"6.44E+17",Karnataka,1
+3,Jimmy Cherian,Bangalore,"07-03-1980",7678742160,Jimmy@gmail.com,male,1,coordinate,"23-04-2022",degree,1,1,"04-02-2023",Baroda Bank,jimmy cherian,35700000000000000,"3543yr63752354t5587",Karnataka,1
+4,Smita,Bangalore,"08-03-1980",7678742161,smita@gmail.com,female,2,employee,"08-04-2021",degree,1,1,"09-06-2023",Indian Bank,smita,51000000000000000,"486u62358rf34656650",Karnataka,1
+5,Sujeeth,Bangalore,"09-03-1980",7678742162,sssujeeth@gmail.com,male,2,employee,"06-09-2020",degree,1,1,"08-07-2023",Indian Bank,sujeeth,97600000000000000,"442674tt75682375547",Karnataka,1
