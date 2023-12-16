@@ -1,6 +1,11 @@
+# This is an auto-generated Django model module.
+# You'll have to do the following manually to clean this up:
+#   * Rearrange models' order
+#   * Make sure each model has one field with primary_key=True
+#   * Make sure each ForeignKey and OneToOneField has `on_delete` set to the desired behavior
+#   * Remove `managed = False` lines if you wish to allow Django to create, modify, and delete the table
+# Feel free to rename the models, but don't rename db_table values or field names.
 from django.db import models
-
-# Create your models here.
 
 
 class EmpDetails(models.Model):
@@ -34,7 +39,7 @@ class Program(models.Model):
     pgm_id = models.AutoField(db_column='PGM_ID', primary_key=True)  # Field name made lowercase.
     emp = models.ForeignKey(EmpDetails, models.DO_NOTHING, db_column='EMP_ID')  # Field name made lowercase.
     xref = models.ForeignKey('Xref', models.DO_NOTHING, db_column='XREF_ID')  # Field name made lowercase.
-    date = models.DateField(db_column='Date', blank=True, null=True)  # Field name made lowercase.
+    date = models.CharField(db_column='Date', blank=True, null=True, max_length=255)  # Field name made lowercase.
     activity = models.TextField(db_column='Activity', blank=True, null=True)  # Field name made lowercase.
     center_type = models.IntegerField(db_column='Center_Type', blank=True, null=True)  # Field name made lowercase.
     trainer_type = models.IntegerField(db_column='Trainer_Type', blank=True, null=True)  # Field name made lowercase.
@@ -69,7 +74,7 @@ class Xref(models.Model):
     xref_id = models.AutoField(db_column='XREF_ID', primary_key=True)  # Field name made lowercase.
     date = models.DateField(db_column='Date', blank=True, null=True)  # Field name made lowercase.
     program_name = models.IntegerField(blank=True, null=True)
-    project_name = models.CharField(max_length=40000,db_column='Project_name', blank=True, null=True)  # Field name made lowercase.
+    project_name = models.CharField(db_column='Project_name', blank=True, null=True, max_length=255)  # Field name made lowercase.
 
     class Meta:
         managed = False
