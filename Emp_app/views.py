@@ -6,8 +6,9 @@ from .models import Program
 from .models import EmpDetails 
 
 def home(request):
-    programs = Program.objects.all().order_by('pgm_id')[:10]
+    programs = Program.objects.exclude(date__isnull=True).order_by('pgm_id')[:10]
     
+    # Debugging: Print each program's date
     for program in programs:
         print(program.date)
 
@@ -20,6 +21,7 @@ def home(request):
 def forgetpassword(request):
      return render(request, "Emp_app/forgetpassword.html")
 
+
     
 def index(request):
     return render(request, "Emp_app/index.html")
@@ -27,6 +29,9 @@ def index(request):
     
 def employee(request):
     return render(request, "Emp_app/employee.html")
+
+def reset_password(request):
+     return render(request, "Emp_app/reset_password.html")
 
 # def employee(request):
 #         # Query the EmpDetails model for all records
