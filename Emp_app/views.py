@@ -21,6 +21,7 @@ def home(request):
 def forgetpassword(request):
      return render(request, "Emp_app/forgetpassword.html")
 
+
     
 def index(request):
     return render(request, "Emp_app/index.html")
@@ -28,6 +29,9 @@ def index(request):
     
 def employee(request):
     return render(request, "Emp_app/employee.html")
+
+def reset_password(request):
+     return render(request, "Emp_app/reset_password.html")
 
 # def employee(request):
 #         # Query the EmpDetails model for all records
