@@ -2,213 +2,369 @@
 
 {% block css %}
 
+<script>
+            $(document).ready(function () {
+                var Role = document.getElementById("Role").innerText;
+                alert(Role)
+                debugger;
+                $.ajax({
+                    type: "POST",
+                    url: {% url "employee" %},
+                    data: { data: Role },
+                    success: function (result) {
+                        
+                        var resultobj = $.parseJSON(result.info);
+                        alert(result.info);
+                        debugger
+                        var listItems = $("input[type=text], input[type=date],input[type=number],input[type=email],input[type=radio],select,textarea");
+                        for (let li of listItems) {
+                            let product = $(li);
+                            let attrname = product.data("dbname");
+                            let inputtype = product.attr("type")
+
+                            if (inputtype == "radio") {
+                                let radioval = product.val();
+                                if (resultobj[attrname] == radioval) {
+                                    product.attr("checked", "checked")
+                                }
+
+                            }
+                            else {
+                                product.val(resultobj[attrname]);
+                            }
+                            
+                        }
+
+                    }
+            });
+                     });
+
+    
+
+            function Role() {
+                var Role = document.getElementById("Role");
+                alert(Role);
+                 }
+
+
+            function toggleEditUpdate() {
+                const editButton = document.getElementById("editButton");
+                if (editButton.textContent === "Edit") {
+                    editButton.textContent = "Update";
+                } else {
+                    editButton.textContent = "Edit";
+                }
+            }
+
+</script>
+
+
 <style>
-
-    /* Your existing styles */
-    h1 {
-        color: #333;
-        text-align: center;
-    }
-
-    .section {
-        margin-bottom: 30px;
-    }
-
-    .section-title {
-        font-size: 24px;
-        font-weight: bold;
-        color: #555;
-        cursor: pointer;
-        padding: 10px;
-        background-color: #fff;
-        border-radius: 5px;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        transition: background-color 0.3s ease;
-        margin-bottom: 5px;
-    }
-
-        .section-title:hover {
-            background-color: #f9f9f9;
-        }
-
-    .section-content {
-        display: none;
-        background: #fff;
+    body {
+        font-family: Arial, sans-serif;
         padding: 20px;
-        border-radius: 5px;
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-        animation: fadeIn 0.3s ease;
+        background-color: #f4f4f4;
     }
 
-    @keyframes fadeIn {
-        from {
-            opacity: 0;
-            transform: translateY(-10px);
-        }
+    h3 {
+        color: #333;
+        margin-bottom: 15px;
+    }
 
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
+    table {
+        width: 100%;
+        max-width: 600px;
+        margin-bottom: 20px;
+        border-collapse: collapse;
+    }
+
+    td {
+        padding: 8px;
     }
 
     input[type="text"],
+    input[type="date"],
+    input[type="number"],
+    input[type="email"],
+    textarea,
     select {
-        width: calc(100% - 12px);
-        padding: 8px;
-        margin: 8px 0;
-        border: 1px solid #ccc;
+        width: 100%;
+        padding: 10px;
+        margin: 5px 0;
+        border: 1px solid #ddd;
         border-radius: 4px;
         box-sizing: border-box;
-        font-size: 16px;
     }
 
-    select {
-        appearance: none;
-        -webkit-appearance: none;
-        -moz-appearance: none;
-        background: url('data:image/svg+xml;utf8,<svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path d="M7 10l5 5 5-5H7z" fill="#333"/></svg>') no-repeat right 10px center;
-        background-size: 20px;
-        padding-right: 30px;
-        outline: none;
+    input[type="radio"] {
+        margin-right: 5px;
     }
 
-    .save-button {
-        padding: 10px 20px;
-        background-color: #4CAF50;
+
+    Textarea {
+        resize: vertical;
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        margin-bottom: 10px;
+    }
+
+    button {
+        background-color: orange;
         color: white;
         border: none;
-        border-radius: 5px;
+        border-radius: 23px;
         cursor: pointer;
         font-size: 16px;
-        transition: background-color 0.3s;
-        margin-bottom: 20px;
-        margin-left: 87%;
     }
 
-        /* Hover effect for the Save button */
-        .save-button:hover {
+
+        button:hover {
             background-color: orange;
         }
+
+    .male {
+        padding: 5px;
+    }
+
+    .female {
+        padding: 5px;
+        margin-top: -31px;
+        margin-left: 75px
+    }
+
+    .other {
+        padding: 5px;
+        margin-top: -29px;
+        margin-left: 170px;
+    }
+
+    /* Mobile Responsiveness */
+    @media (max-width: 768px) {
+        table, input, textarea, select, button {
+            width: 100%;
+            max-width: 100%;
+        }
+
+        h1.employee-details-title {
+            font-size: 17px;
+        }
+
+        .female {
+            display: flex;
+            margin-top: -28px;
+            margin-right: 36%;
+            margin-left: 34%;
+        }
+
+        .other {
+            display: flex;
+            margin-top: -28px;
+            margin-right: 8%;
+            margin-left: 71%;
+        }
+
+        .male {
+            display: flex;
+            margin-top: 10px;
+            margin-right: 78%;
+        }
+    }
+
+
+    .button-container {
+        text-align: center;
+    }
 </style>
 {% endblock %}
 
 
 {% block content %}
-<h1>Employee Details</h1>
+<center>
+    <form action="">
 
-<div class="section">
-    <div class="section-title" onclick="toggleContent('personal')">Personal Details</div>
-    <div class="section-content" id="personal">
-        <!-- Personal details content -->
-        <label for="name">Full Name:</label>
-        <input type="text" id="name" value="Full name">
+        <h3>Personal Details</h3>
+        <table>
+            <!-- Full Name -->
+            <tr>
+                <td><label for="fullname">Full Name</label></td>
+                <td><input type="text" id="fullname" data-dbname="fullname" required></td>
+            </tr>
+            <!-- Address -->
+            <tr>
+                <td><label for="address">Address</label></td>
+                <td><textarea id="address" data-dbname="address" required></textarea></td>
+            </tr>
+            <!-- Date of Birth -->
+            <tr>
+                <td><label for="dateOfBirth">Date of Birth</label></td>
+                <td><input type="date" id="dateOfBirth" data-dbname="dob" required></td>
+            </tr>
+            <!-- Phone -->
+            <tr>
+                <td><label for="phoneNumber">Phone</label></td>
+                <td><input type="number" id="phoneNumber" data-dbname="phone_number" required></td>
+            </tr>
+            <!-- Email ID -->
+            <tr>
+                <td><label for="emailId">Email ID</label></td>
+                <td><input type="email" id="emailId" data-dbname="email_id" required></td>
+            </tr>
+            <!-- Gender -->
+            <tr>
+                <td>Gender</td>
+                <td>
+                    <div>
+                        <input type="radio" id="male" name="gender" value="male" data-dbname="gender" required>
+                        <label for="male">Male</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="female" name="gender" value="female" data-dbname="gender" required>
+                        <label for="female">Female</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="other" name="gender" value="other" data-dbname="gender" required>
+                        <label for="other">Other</label>
+                    </div>
+                </td>
+            </tr>
+        </table>
 
-        <label for="address">Address:</label>
-        <input type="text" id="address" value="Address">
+        <br><hr><br>
 
-        <label for="dob">Date of Birth:</label>
-        <input type="text" id="dob" value="date">
+        <h3>Employee Details</h3>
+        <table>
+            <!-- Employee ID -->
+            <tr>
+                <td><label for="employeeId">Employee ID</label></td>
+                <td><input type="text" id="employeeId" data-dbname="emp_id" required></td>
+            </tr>
 
-        <label for="mobile">Mobile Number:</label>
-        <input type="text" id="mobile" value="mobile Number">
+            <!-- Centre -->
+            <tr>
+                <td><label for="centre">Centre</label></td>
+                <td>
+                    <select id="centre" data-dbname="center" required>
+                        <option value="">Select an option</option>
+                        <option value="1">DJ Halli1</option>
+                        <option value="2">DJ Halli2</option>
+                        <option value="3">Bagalur</option>
+                        <option value="4">Mylanahalli</option>
+                        <option value="5">Kannur</option>
+                        <option value="6">Koramangala</option>
+                    </select>
+                </td>
+            </tr>
+
+            <!-- Designation -->
+            <tr>
+                <td><label for="designation">Designation</label></td>
+                <td><input type="text" id="designation" data-dbname="designation" required></td>
+            </tr>
+
+            <!-- Date of Joining -->
+            <tr>
+                <td><label for="dateOfJoining">Date of Joining</label></td>
+                <td><input type="date" id="dateOfJoining" data-dbname="date_of_joining" placeholder="dd-mm-YYYY" required></td>
+            </tr>
+
+            <!-- Education Qualification -->
+            <tr>
+                <td><label for="educationQualification">Education Qualification</label></td>
+                <td><input type="text" id="educationQualification" data-dbname="education_qualification" required></td>
+            </tr>
+
+            <!-- Status -->
+            <tr>
+                <td><label for="status">Status</label></td>
+                <td>
+                    <select id="status" data-dbname="status" required>
+                        <option value="">Select an option</option>
+                        <option value="1">Active</option>
+                        <option value="2">Resigned</option>
+                    </select>
+                </td>
+            </tr>
+
+            <!-- Date of Resigning -->
+            <tr>
+                <td><label for="dateOfResigning">Date of Resigning</label></td>
+                <td><input type="date" id="dateOfResigning" data-dbname="date_of_resigning"></td>
+            </tr>
+
+            <!-- Resource Type -->
+            <tr>
+                <td><label for="resourceType">Resource Type</label></td>
+                <td>
+                    <select id="resourceType" data-dbname="resource_type" required>
+                        <option value="">Select an option</option>
+                        <option value="1">Employee</option>
+                        <option value="2">Part-time</option>
+                        <option value="3">Consultant</option>
+                    </select>
+                </td>
+            </tr>
+        </table>
+
+        <br><hr><br>
+
+        <h3>Account Details</h3>
+        <table>
+            <!-- Name of the Bank -->
+            <tr>
+                <td><label for="bankName">Name of the Bank</label></td>
+                <td><input type="text" id="bankName" data-dbname="bank_name" required></td>
+            </tr>
+
+            <!-- Name as per Bank -->
+            <tr>
+                <td><label for="nameAsPerBank">Name as per Bank</label></td>
+                <td><input type="text" id="nameAsPerBank" data-dbname="name_as_per_bank" required></td>
+            </tr>
+
+            <!-- Account Number -->
+            <tr>
+                <td><label for="accountNumber">Account Number</label></td>
+                <td><input type="text" id="accountNumber" data-dbname="account_number" required></td>
+            </tr>
+
+            <!-- IFSC Code -->
+            <tr>
+                <td><label for="ifscCode">IFSC Code</label></td>
+                <td><input type="text" id="ifscCode" data-dbname="ifsc" required></td>
+            </tr>
+
+            <!-- Branch -->
+            <tr>
+                <td><label for="branchName">Branch</label></td>
+                <td><input type="text" id="branchName" data-dbname="branch" required></td>
+            </tr>
+
+            <!-- Account Type -->
+            <tr>
+                <td><label for="accountType">Account Type</label></td>
+                <td>
+                    <select id="accountType" data-dbname="account_type" required>
+                        <option value="">Select an option</option>
+                        <option value="1">Savings</option>
+                        <option value="2">Current</option>
+                    </select>
+                </td>
+            </tr>
+        </table>
 
 
-        <label>Gender:</label>
-        <div>
-            <input type="radio" id="male" name="gender" value="male">
-            <label for="male">Male</label>
-
-            <input type="radio" id="female" name="gender" value="female">
-            <label for="female">Female</label>
-
-            <input type="radio" id="transgender" name="gender" value="transgender">
-            <label for="transgender">Others</label>
+        <div class="button-container">
+            <button id="editButton" type="button" onclick="toggleEditUpdate()" style="border-radius: -12%; width: 30%;">Edit</button>
         </div>
-        <label for="email">Email:</label>
-        <input type="text" id="email" value="johndoe@example.com">
-        <!-- Add more personal input fields as needed -->
-    </div>
-</div>
-
-<div class="section">
-    <div class="section-title" onclick="toggleContent('employee')">Employee Detail</div>
-    <div class="section-content" id="employee">
-        <!-- Employee detail content -->
-        <label for="employeeId">Employee ID:</label>
-        <input type="text" id="employeeId" value="123456">
-
-        <label for="centreType">Centre Type:</label>
-        <select id="centreType">
-            <option value="Start">Start</option>
-            <option value="On-Going">On-Going</option>
-            <option value="On-Hold">On-Hold</option>
-            <option value="Completed">Completed</option>
-            <option value="Orientation">Orientation</option>
-            <option value="Travel">Travel</option>
-
-            <!-- Add more options as needed -->
-        </select>
 
 
-        <label for="Date of joining:">Date of joining:</label>
-        <input type="text" id="position" value="Senior Manager">
 
-        <label for="status">Status:</label>
-        <select id="status">
-            <option value="Active">Active</option>
-            <option value="Inactive">Inactive</option>
-            <option value="On Leave">On Leave</option>
-            <!-- Add more options as needed -->
-        </select>
+    </form><br><br>
 
-        <label for="resourceType">Resource Type:</label>
-        <select id="resourceType">
-            <option value="Human">Employee</option>
-            <option value="Material">Full Time</option>
-            <option value="Financial"></option>
-        </select>
-<<<<<<< HEAD
-        
-=======
-
->>>>>>> 8fecce7e253a36ed01b8ee153f28277c401f5624
-        <!-- Add more employee input fields as needed -->
-    </div>
-</div>
-
-<div class="section">
-    <div class="section-title" onclick="toggleContent('account')">Account Detail</div>
-    <div class="section-content" id="account">
-        <!-- Account detail content -->
-        <label for="username">Username:</label>
-        <input type="text" id="username" value="johndoe90">
-
-        <label for="accountName">Account Name:</label>
-        <input type="text" id="accountName" value="John Doe">
-
-        <label for="accountNumber">Account Number:</label>
-        <input type="text" id="accountNumber" value="1234567890">
-
-        <label for="ifsc">IFSC:</label>
-        <input type="text" id="ifsc" value="ABCD0123456">
-
-        <label for="branch">Branch:</label>
-        <input type="text" id="branch" value="Main Street Branch">
-
-        <label for="accountType">Account Type:</label>
-        <select id="accountType">
-            <option value="Savings">Savings</option>
-            <option value="Current">Current</option>
-            <!-- Add more options as needed -->
-        </select>
-        <!-- Add more account input fields as needed -->
-    </div>
-</div>
-
-<button class="save-button" onclick="saveDetails()">Save</button>
-
-{% for emp in emp_details %}
+</center>
+    {% for emp in emp_details %}
 <p>Employee ID: {{ emp.emp_id }}</p>
 <p>Full Name: {{ emp.fullname }}</p>
 <p>Address: {{ emp.address }}</p>
@@ -230,21 +386,8 @@
 <p>branch: {{ emp.branch }}</p>
 <p>account_type: {{ emp.account_type }}</p>
 
-{% endfor %}
+    {% endfor %}
 
 
-<script>
-    function toggleContent(id) {
-        var content = document.getElementById(id);
-        if (content.style.display === "none") {
-            content.style.display = "block";
-        } else {
-            content.style.display = "none";
-        }
-    }
 
-
-</script>
-
-
-{% endblock %}
+    {% endblock %}
