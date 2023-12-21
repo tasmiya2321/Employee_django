@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background: rgb(247,241,233);
+        }
+
+        .header {
+            text-align: center;
+            background: none;
+            color: #000; /* Changed color to black for better visibility */
+            padding: 10px;
+        }
+
+        .table-container {
+            overflow-x: auto; /* Enables horizontal scroll */
+            margin: 7px auto;
+            width: 85%;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th {
+            padding: 37px;
+            text-align: center;
+            border: 1px solid black;
+        }
+
+        td {
+            padding: 12px;
+            text-align: center;
+            border: 1px solid black;
+            background-color: white;
+        }
+
+        .add-row-button {
+            display: block;
+            margin: 10px auto;
+            padding: 5px 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        @media only screen and (max-width: 600px) {
+            /* Adjust styles for smaller screens */
+            .table-container {
+                width: 100%;
+                overflow-x: auto;
+                margin: 50px 0;
+            }
+        }
+        .popup {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    justify-content: center;
+    align-items: center; /* Center the popup vertically */
+}
+
+.blank-box {
+    width: 60%; /* Adjusted for better spacing */
+    max-width: 600px; /* Maximum width */
+    background-color: white;
+    border: 1px solid #ccc;
+    margin: 10px auto;
+    padding: 20px; /* Padding inside the box */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Box shadow for better visibility */
+}
+
+.scroll-container {
+    overflow-y: auto;
+    max-height: 500px; /* Increased height for better view */
+}
+
+/* Responsive form layout */
+.form-container {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+label {
+    display: block; /* Make labels block elements */
+    margin: 10px 0 5px; /* Adjust margins for labels */
+    font-weight: bold;
+}
+
+input[type="text"],
+input[type="date"],
+select {
+    width: 90%; /* Full width inputs */
+    margin: 5px 0; /* Adjusted margin */
+    padding: 8px; /* Padding for better touch */
+    border: 1px solid #ccc;
+    border-radius: 4px; /* Rounded corners */
+}
+
+.comment-box {
+    width: 90%; /* Adjusted width */
+    margin: 10px 0; /* Adjusted margin */
+    padding: 8px; /* Padding inside the box */
+}
+
+.comment-box textarea {
+    width: 100%; /* Full width textarea */
+    height: 100px; /* Increased height */
+    border: 1px solid #ccc;
+    border-radius: 4px; /* Rounded corners */
+}
+
+#btnSave {
+    width: auto; /* Auto width based on content */
+    background-color: orange; /* Button background color */
+    color: white; /* Text color */
+    padding: 10px 20px; /* Top and bottom padding and left and right padding */
+    border: none; /* No border */
+    border-radius: 5px; /* Rounded corners */
+    margin-right: 10px; /* Spacing between buttons */
+    cursor: pointer; /* Cursor to signify clickable item */
+    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2); /* Shadow for 3D effect */
+    font-weight: bold; /* Bold text */
+    transition: background-color 0.3s ease; /* Transition for hover effect */
+    display: block; /* Make the button a block element */
+    
+}
+
+#btnSaveDuplicate {
+    width: auto; /* Auto width based on content */
+    background-color: orange; /* Button background color */
+    color: white; /* Text color */
+    padding: 10px 20px; /* Top and bottom padding and left and right padding */
+    border: none; /* No border */
+    border-radius: 5px; /* Rounded corners */
+    margin-right: 10px; /* Spacing between buttons */
+    cursor: pointer; /* Cursor to signify clickable item */
+    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2); /* Shadow for 3D effect */
+    font-weight: bold; /* Bold text */
+    transition: background-color 0.3s ease; /* Transition for hover effect */
+    display: block; /* Make the button a block element */
+    
+}
+
+.button-container button {
+        background-color: orange; /* Button background color */
+        color: white; /* Text color */
+        padding: 10px 20px; /* Top and bottom padding and left and right padding */
+        border: none; /* No border */
+        border-radius: 5px; /* Rounded corners */
+        margin-right: 10px; /* Spacing between buttons */
+        cursor: pointer; /* Cursor to signify clickable item */
+        box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2); /* Shadow for 3D effect */
+        font-weight: bold; /* Bold text */
+        transition: background-color 0.3s ease; /* Transition for hover effect */
+    }
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .blank-box {
+        width: 80%; /* Increased width on smaller screens */
+    }
+
+    input[type="text"],
+    input[type="date"],
+    select,
+    .comment-box {
+        width: 100%; /* Full width on smaller screens */
+    }
+}
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1 style="color: black;">Session</h1>
+    </div>
+
+    <div class="table-container">
+        <table id="sessionTable" bgcolor="">
+              <tr bgcolor="orange">
+                <th>Date</th>
+                <th>Resource Name</th>
+                <th>Program</th>
+                <th>Project/Assignment</th>
+                <th>Activity</th>
+                <th>Center Type</th>
+                <th>Session Number</th>
+                <th>Trainer Type</th>
+                <th>Hours</th>
+                <th>Status</th>
+                <th>Beneficiaries</th>
+                <th>Category</th>
+                <th> Comments</th>
+            </tr>
+
+        </table>
+    </div>
+
+    <button class="add-row-button" onclick="showPopup()"> + </button>
+
+    <!-- Popup box -->
+<div id="popup" class="popup">
+    <div class="blank-box">
+        <div class="scroll-container">
+            <h2>Details</h2>
+            <label for="EmployeeID">Employee ID</label>
+            <input type="text" id="EmployeeID" name="EmployeeID"><br>
+
+            <label for="date">Date</label>
+            <input type="date" id="date" name="date"><br>
+
+            <label for="ResourceName">Resoure Name</label>
+            <input type="text" id="ResourceName" name="ResourceName"><br>
+
+            <label for="Program">Program</label>
+            <select id="Program" name="Program" required>
+                <option value="Select an option">Select an option</option>
+                <option value="Bridge Course"> Bridge Course</option>
+                <option value="Academics">Academics</option>
+                <option value="After School Program">After School Program</option>
+                <option value="Awareness Sessions">Awareness Sessions</option>
+                <option value="Camps(Summer/Winter)">Camps(Summer/Winter)</option>
+                <option value="Career Guidance">Career Guidance</option>
+                <option value="Computer Coaching-Advanced">Computer Coaching-Advanced</option>
+                <option value="Computer Coaching-Basics with Typing">Computer Coaching-Basics with Typing</option>
+                <option value="Computer Coaching-Basics without Typing">Computer Coaching-Basics without Typing</option>
+                <option value="Computer Coaching-Typing">Computer Coaching-Typing</option>
+                <option value="Counselling">Counselling</option>
+                <option value="E2E(Education to Employability)">E2E(Education to Employability)</option>                                    
+                <option value="program1">Program 1</option>
+                <option value="Emotional Management">Emotional Management</option>
+                <option value="Exam Readiness">Exam Readiness</option>
+                <option value="Gender Sensitivity">Gender Sensitivity</option>
+                <option value="Internship">Internship</option>
+                <option value="Integrated Program">Integrated Program</option>
+                <option value="Kannada">Kannada</option>
+                <option value="Life Skills">Life Skills</option>
+                <option value="Office Assistant">Office Assistant</option>
+                <option value="Parental Guidance">Parental Guidance</option>
+                <option value="Personality Development">Personality Development</option>
+                <option value="Soft Skills">Soft Skills</option>
+                <option value="Software Development">Software Development</option>
+                <option value="Spoken English">Spoken English</option>
+                <option value="Tailoring">Tailoring</option>
+                <option value="Tailoring-Tassel Typing">Tailoring-Tassel Typing</option>
+                <option value="Tally">Tally</option>
+                <option value="Teacher Development">Teacher Development</option>
+                <option value="TTT">TTT</option>
+                <option value="Wellbeing">Wellbeing</option>
+                <option value="Women Development">Women Development</option>
+                <option value="WSD">WSD</option>
+            </select><br>
+
+            <label for="Project">Project</label>
+            <input type="text" id="Project" name="Project"><br>
+
+            <label for="Activity">Activity</label>
+            <input type="text" id="Activity" name="Activity"><br>
+
+            <label for="CentreType">Centre Type</label>
+                <select id="CentreType" name="CentreType" required>
+                            <option value="">Select an option</option>
+                            <option value="DJ Halli 1">DJ Halli1</option>
+                            <option value="DJ Halli 2">DJ Halli2</option>
+                            <option value="Bagalur">Bagalur</option>
+                            <option value="Mylanahalli">Mylanahalli</option>
+                            <option value="Kannur">Kannur</option>
+                            <option value="Koramangala">Koramangala</option>
+                </select><br>
+
+                <label for="Sessionnumber">Session Number</label>
+                <input type="text" id="Sessionnumber" name="Sessionnumber"><br>
+
+                <label for="Sponsor">Sponsor</label>
+                <select id="Sponsor" name="Sponsor" required>
+                    <option value="">Select an option</option>
+                    <option value="Vajra">Vajra</option>
+                    <option value="Bridge">Bridge</option>
+                    <option value="Taste Master">Taste Master</option>
+                    <option value="LICT">LICT</option>
+                    <option value="Others">Others</option>
+                </select><br>
+
+                <label for="Trainer_Type">Trainer Type</label>
+                <select id="Trainer_Type" name="Trainer_Type" required>
+                    <option value="">Select an option</option>
+                    <option value="Lead">Lead</option>
+                    <option value="Co-Facilator">Co-Facilator</option>
+                    <option value="Volunteer">Volunteer</option>
+                </select><br>
+
+            <label for="Beneficiaries">Beneficiaries</label>
+            <input type="number" id="Beneficiaries" name="Beneficiaries" style=" width: 90%; margin: 5px 0; padding: 8px; border: 1px solid #ccc; border-radius: 4px;"><br>
+
+            <label for="Category">Category</label>
+                <select id="Category" name="Category" required>
+                    <option value="Select an option">Select an option</option>
+                    <option value="Consultant">Consultant</option>
+                    <option value="Employee">Employee</option>
+                    <option value="Internship">Internship</option>
+                    <option value="New-Volunteer">New-Volunteer</option>
+                    <option value="Ex-Volunteer">Ex-Volunteer</option>
+                </select><br>
+
+            <label for="Duration">Duration</label>
+            <input type="number" id="Duration" name="Duration" style="width: 90%;margin: 6px 0;padding: 9px;border: 1px solid #ccc;border-radius: 4px;"><br>
+
+            <label for="Status">Status</label>
+                <select id="Status" name="Status" required>
+                    <option value="Select an option">Select an option</option>
+                    <option value="Start">Start</option>
+                    <option value="On-Going">On-Going</option>
+                    <option value="On-Hold">On-Hold</option>
+                    <option value="Completed">Completed</option>
+                    <option value="Orientation">Orientation</option>
+                    <option value="Travel">Travel</option>
+                </select><br>
+
+            <label for="Comment">Comment</label>
+            <div class="comment-box">
+                <textarea id="Comment" placeholder="Write your comment here"></textarea>
+            </div>
+
+            <button onclick="validateAndSave()" id="btnSave">Save</button>
+            <br>
+            <button onclick="validateAndSave(true)" id="btnSaveDuplicate">Save and Duplicate</button>
+            <br>
+            <br>
+            <button onclick="hidePopup()" id="btnSaveDuplicate">Close</button>
+            <br>
+        </div>
+    </div>
+</div>
+
+<script>
+    function showPopup() {
+        document.getElementById('popup').style.display = 'flex';
+    }
+
+    function hidePopup() {
+        document.getElementById('popup').style.display = 'none';
+    }
+
+    function validateAndSave(isDuplicate = false) {
+        // Validation logic here
+        // Assuming validation passed
+        saveData(isDuplicate);
+    }
+
+    function saveData(isDuplicate) {
+        var table = document.getElementById("sessionTable");
+        var row = table.insertRow(-1);
+
+        // Assuming 13 columns in the table as per your structure
+        for (var i = 0; i < 13; i++) {
+            var cell = row.insertCell(i);
+            cell.innerHTML = getCellData(i); // Function to get data for each cell
+        }
+
+        if (isDuplicate) {
+            showPopup(); // Show popup again with the form still filled
+        } else {
+            hidePopup(); // Hide popup
+        }
+    }
+
+    function getCellData(index) {
+        switch (index) {
+            case 0: // For date
+                return document.getElementById("date").value;
+            case 1: // Resource Name
+                return document.getElementById("ResourceName").value;
+            case 2: // Program
+                return document.getElementById("Program").value;
+            case 3: // For Employee ID
+                return document.getElementById("Project").value;
+            case 4: // Resource Name
+                return document.getElementById("Activity").value;
+            case 7: // For date
+                return document.getElementById("Trainer_Type").value;
+            case 10: // For Benef
+                return document.getElementById("Beneficiaries").value;
+            case 11: // Resource Name
+                return document.getElementById("Category").value;
+            case 8: // For date
+                return document.getElementById("Duration").value;
+            case 9: // For Employee ID
+                return document.getElementById("Status").value;
+            case 12: // Resource Name
+                return document.getElementById("Comment").value;
+            case 6: //Sessionnumber
+                return document.getElementById("Sessionnumber").value;
+            case 5: //CenterType
+                return document.getElementById("CentreType").value;
+
+            default:
+                return ""; // Default value for unmatched cases
+        }
+    }
+</script>
+
+</body>
+</html>
