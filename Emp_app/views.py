@@ -4,6 +4,11 @@ from django.shortcuts import render
 from django.contrib.auth import authenticate, login
 from .models import Program 
 from .models import EmpDetails 
+from django.contrib import messages
+from django.contrib.auth import update_session_auth_hash
+from django.contrib.auth.forms import PasswordChangeForm
+from django.shortcuts import render, redirect
+
 
 def home(request):
     programs = Program.objects.exclude(date__isnull=True).order_by('pgm_id')[:10]
@@ -64,3 +69,23 @@ def userlogin(request):
       else:
         
          return render(request, 'login.html') 
+     
+     
+def change_password(request):
+    if request.method == 'POST':
+        form = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)  # Important!
+            messages.success(request, 'Your password was successfully updated!')
+            return redirect('change_password')
+        else:
+            messages.error(request, 'Please correct the error below.')
+    else:
+        form = PasswordChangeForm(request.user)
+    return render(request,'change_password.html',{
+        'form': form
+    })
+
+def login_base(request):
+    return render(request, "login_base.html")
