@@ -1,0 +1,577 @@
+body {
+    overflow: auto;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #F5F0EC;
+}
+
+
+
+
+
+
+/* FORGOT PASSWORD */
+body.forgotpass {
+    background-color: #fff;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    /* flex-direction: row;  */
+    height: 100vh;
+    overflow: hidden;
+}
+
+.left-div {
+    background-color: #f5f0ec; /* Off-white background color for left div */
+    width: 40%; /* Adjust the width as desired */
+    display: flex;
+    align-items: center;
+    /* justify-content: center; */
+}
+
+.right-div {
+    background-color: white;
+    width: 70%; /* Adjust the width as desired */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+}
+
+
+
+.Forgot-logo img {
+    width: 40%;
+    margin: 0;
+    margin-top: 70px;
+}
+
+input[type="email"] {
+    width: 348px;
+    padding: 10px 35px 10px 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-right: -64px;
+    margin-left: -70px;
+    text-align: left;
+    margin-top: 10px;
+}
+
+input[type="submit"] {
+    width: 400px;
+    padding: 10px 50px 10px 10px;
+    background-color: #ffb217;
+    color: #fff;
+    border: 2px;
+    border-radius: 5px;
+    margin-right: 10px;
+    margin-bottom: 70%;
+    cursor: pointer;
+    transition-duration: 0.4s;
+}
+
+
+
+.div_img img {
+    width: 120%;
+    margin-left: -30px;
+}
+
+.forgot-heading {
+    margin-top: -35px;
+    margin-bottom: 15px;
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: large;
+    color: #361463;
+    font-size: 28.4px;
+    /* margin: 6px; */
+}
+
+
+
+/* change password //
+/* Body styles */
+.chg-change-body {
+    font-family: Arial, sans-serif;
+    background-image: url('./Resetackground.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+/* Box styles */
+.chg-changeform-box {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    background-color: white;
+    width: 30%;
+    height: 85%;
+    transform: translate(-50%, -50%);
+    box-sizing: border-box;
+    border-radius: 30px;
+    box-shadow: 10px 10px 10px lightgray;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+/* Logo styles */
+.chg-change-logo img {
+    width: 220px;
+    height: 132px;
+    margin: 0;
+    margin-bottom: 5px;
+}
+
+/* Header styles */
+.chg-changeform-box h2 {
+    margin-top: 10px;
+    margin-bottom: 20px;
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 22px;
+    color: #361463;
+}
+
+/* Password input container styles */
+.chg-password {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+    /* Password input styles */
+    .chg-password input {
+        width: 220px;
+        padding: 10px 35px 10px 10px;
+        margin: 10px 0;
+        border: 1px solid #ccc;
+        border-radius: 20px;
+        text-align: left;
+    }
+
+/* Toggle button styles */
+.chg-toggle {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    width: 25px;
+    height: 25px;
+    background-image: url("closed.png");
+    background-size: 80%;
+    background-position: center;
+    background-repeat: no-repeat;
+    border: none;
+    background-color: white;
+}
+
+    .chg-toggle.showing {
+        background-image: url("open-eye.png");
+    }
+
+/* Horizontal rule styles */
+hr {
+    width: 100%;
+    border: none;
+    height: 2px;
+    background-color: lightgray;
+    margin: 5px 0;
+    margin-top: 1px;
+    margin-bottom: 27px;
+    text-align: left;
+}
+
+/* Submit button styles */
+.chg-changeform-box input[type="submit"] {
+    width: 100%;
+    padding: 10px 15px;
+    background-color: #ffb217;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    margin-top: 25px;
+}
+
+/* Image styles */
+.chg-changediv_img img {
+    width: 300%;
+    height: 130%;
+    position: absolute;
+    right: 15%;
+    top: 55%;
+    transform: translateY(-50%);
+    pointer-events: none;
+}
+
+/* //////////////////////////////RESET PASSWORD////////////////////////////////////// */
+
+.res-body {
+    font-family: Arial, sans-serif;
+    background-image: url('./Resetackground.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+/* Box styles */
+.res-box {
+    margin-top: 1%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    background-color: white;
+    width: 30%;
+    height: 85%;
+    transform: translate(-50%, -50%);
+    box-sizing: border-box;
+    border-radius: 30px;
+    box-shadow: 10px 10px 10px lightgray;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+/* Logo styles */
+.res-logo img {
+    width: 220px;
+    height: 132px;
+    margin: 0;
+    margin-bottom: 5px;
+}
+
+/* Header styles */
+.res-box h2 {
+    margin-top: 10px;
+    margin-bottom: 20px;
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 22px;
+    color: #361463;
+}
+
+/* Password input container styles */
+.res-password {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+    /* Password input styles */
+    .res-password input {
+        width: 220px;
+        padding: 10px 35px 10px 10px;
+        margin: 10px 0;
+        border: 1px solid #ccc;
+        border-radius: 20px;
+        text-align: left;
+    }
+
+/* Toggle button styles */
+.res-toggle {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    width: 25px;
+    height: 25px;
+    background-image: url("closed.png");
+    background-size: 80%;
+    background-position: center;
+    background-repeat: no-repeat;
+    border: none;
+    background-color: white;
+}
+
+    .res-toggle.showing {
+        background-image: url("open-eye.png");
+    }
+
+/* Submit button styles */
+.res-box input[type="submit"] {
+    width: 100%;
+    padding: 10px 15px;
+    background-color: #ffb217;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    margin-top: 25px;
+}
+
+/* Image styles */
+.res-div_img img {
+    width: 300%;
+    height: 130%;
+    position: absolute;
+    right: 15%;
+    top: 55%;
+    transform: translateY(-50%);
+    pointer-events: none;
+}
+
+
+
+
+
+/* navbar */
+.header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    /* height: 38%; */
+    margin-bottom: 26px;
+    margin-top: -55px;
+    margin-left: -3%;
+    margin-right: -15%;
+}
+
+
+.logo img {
+    height: 40px;
+}
+
+.menu-toggle {
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    transition: transform 0.3s;
+}
+
+    .menu-toggle:hover {
+        transform: scale(1.1);
+    }
+
+.bar {
+    width: 25px;
+    height: 3px;
+    background-color: #1e1c1c;
+    margin: 3px 0;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+    .bar:hover {
+        background-color: orange;
+    }
+
+nav#sidebar {
+    position: fixed;
+    left: -250px;
+    top: 0;
+    width: 250px;
+    height: 100%;
+    background-color: white;
+    overflow-y: hidden;
+    transition: left 0.5s, transform 0.5s;
+    transform: scaleX(0);
+}
+
+    nav#sidebar.active {
+        left: 0;
+        transform: scaleX(1);
+    }
+
+    nav#sidebar ul {
+        padding: 0;
+        list-style: none;
+    }
+
+        nav#sidebar ul li {
+            padding: 15px;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s, transform 0.5s;
+        }
+
+    nav#sidebar.active ul li {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    nav#sidebar ul li a {
+        text-decoration: none;
+        color: #100d0d;
+        transition: color 0.3s;
+    }
+
+        nav#sidebar ul li a:hover {
+            color: orange;
+        }
+
+/* .left {
+    margin-left: 50%;
+    margin-bottom: -8px;
+    margin-top: 54px
+}
+ */
+
+
+
+.menu-icon {
+    margin-right: 10px; /* Adjust the value to control the space between the icon and text */
+}
+
+/* Rest of your existing CSS for the navigation menu */
+.menu-icon {
+    margin-right: 10px; /* Adjust the value to control the space between the icon and text */
+}
+
+
+
+/* 
+jimmy */
+
+/* .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    background-color: #f8f8f8; 
+    margin-top: -54px;
+    margin-bottom: 20px;
+} */
+.dropdown {
+    position: relative;
+    display: inline-block;
+    margin-left: 97%;
+    margin-right: -110%;
+    margin-top: -15%;
+}
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #FCAF40;
+    min-width: 160px;
+    z-index: 1;
+    border-radius: none;
+    background: none;
+}
+
+.dropdown-content a {
+        padding: -10px 16px;
+        text-decoration: none;
+        display: block;
+        color: black;
+    padding-right: 15px;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+    border-radius: 10px;
+    border-radius: 10px solid orange;
+    background: orange;
+    display: flex;
+    flex-direction: column;
+    font-size: 15px;
+    margin-left: -91px;
+}
+
+.para {
+    font-size: 14px;
+    margin-left: -32px;
+    /* padding: 3px; */
+    margin-top: -10px;
+}
+
+.dropbtn {
+    font-size: 16px;
+    margin-left: -45%;
+}
+.left {
+    margin-left: 187%;
+    margin-bottom: -34px;
+    margin-top: 44px;
+}
+
+.white-footer {
+    background-color: #ffffff;
+    padding: 73px;
+    padding-left: 700px;
+    /* text-align: center;  */
+}
+
+.white-footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #ffffff;
+    padding: 20px;
+    position: absolute;
+    left: 0;
+    right: 0;
+}
+.white-footer a {
+    text-decoration: none;
+}
+.footer-section {
+    margin: 0 174px;
+}
+/* image */
+.slider-container {
+    position: relative;
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.slide-image {
+    display: none;
+    width: 100%;
+    height: auto;
+}
+
+    .slide-image.active {
+        display: block;
+    }
+
+.prev, .next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0,0,0,0.5);
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+}
+
+.prev {
+    left: 10px;
+}
+
+.next {
+    right: 10px;
+}
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    height: 134px;
+    margin-bottom: 26px;
+    margin-top: -30px;
+}

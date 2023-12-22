@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="comm.css">
+    <script src="https://kit.fontawesome.com/bc0ac06df1.js" crossorigin="anonymous"></script>
+    <title>Document</title>
+
+    <style>
+    /* Basic Styling */
+    body {
+        font-family: Arial, sans-serif;
+        padding: 20px;
+        background-color: #f4f4f4;
+    }
+
+    h3 {
+        color: #333;
+        margin-bottom: 15px;
+    }
+
+    table {
+        width: 100%;
+        max-width: 600px; /* Adjust as per your requirement */
+        margin-bottom: 20px;
+        border-collapse: collapse;
+    }
+
+    td {
+        padding: 8px;
+    }
+
+    input[type="text"],
+    input[type="date"],
+    input[type="number"],
+    input[type="email"],
+    textarea,
+    select {
+        width: 100%;
+        padding: 10px;
+        margin: 5px 0;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        box-sizing: border-box; /* Makes sure padding doesn't affect overall width */
+    }
+
+    input[type="radio"] {
+        margin-right: 5px;
+    }
+
+     
+    Textarea {
+        resize: vertical;
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        margin-bottom: 10px;
+    } 
+    button {
+        padding: 10px 57px;
+        background-color:orange;
+        color: white;
+        border: none;
+        border-radius: 23px;
+        cursor: pointer;
+        font-size: 16px;
+       
+    }
+
+
+    button:hover {
+        background-color:orange;
+    }
+
+    .male {
+    /* Add your specific styles for the male option here */
+    padding: 5px; /* Example: Add padding */
+    }
+
+    /* Style for the female gender option */
+    .female {
+        padding: 5px;
+        margin-top: -31px;
+        margin-left: 75px 
+    }
+
+    /* Style for the other gender option */
+    .other {
+        padding: 5px;
+        margin-top: -29px;
+        margin-left: 170px;
+    }
+
+    /* Mobile Responsiveness */
+    @media (max-width: 768px) {
+        table, input, textarea, select, button {
+            width: 100%;
+            max-width: 100%; /* Makes sure elements don't overflow on small screens */
+        }
+
+        h1.employee-details-title {
+        font-size: 17px; /* Adjust the font size as needed */
+        }
+
+        .female{
+            display: flex;
+        margin-top: -28px;
+        margin-right: 36%;
+        margin-left: 34%;
+        }   
+        
+        .other {
+        display: flex;
+        margin-top: -28px;
+        margin-right: 8%;
+        margin-left: 71%;
+        }  
+
+        .male {
+        display: flex; /* Each div will take the full width of the td */
+        margin-top: 10px; /* Add space between the options */
+        margin-right: 78%;
+        }  
+    }
+
+
+    .button-container {
+        text-align: center; /* Center align the button */
+    }
+  
+
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <header>
+
+            <div class="menu-toggle" id="menuToggle" style="margin-top: 33px;">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+            </div>
+        </header>
+        <nav id="sidebar">
+            <ul>
+                <li>
+                    <img src="./cf_logo.png" width="105%">
+                </li>
+                <li><a href="home.html"><span class="menu-icon"><i class="fa-solid fa-house" style="color: #d66e29;"></i></span> Home</a></li>
+                <li>
+                    <a href="sessdetails.html">
+                        <span class="menu-icon">
+                            <i class="fa-solid fa-business-time" style="color: #c58326; margin-left: 15px;"></i>
+                        </span> Sessions
+                    </a>
+                </li>
+                <li><a href="emp.html"><span class="menu-icon" style="margin-left: 23px;"><i class="fa-solid fa-chart-simple" style="color: #dd7c22;"></i></span> Employee</a></li>
+
+            </ul>
+        </nav>
+        <center>
+        <h1 class="employee-details-title">Employee Details</h1>
+        </center>
+        
+        <div>
+            <div class="left">
+                <i class="fa-solid fa-circle-user fa-2xl" style="color: #5c626a;"></i>
+            </div>
+
+            <div class="dropdown">
+                <p class="dropbtn">Jimmy Cherian</p>
+                <p class="para">Administrator</p>
+                <div class="dropdown-content">
+                    <a href="changepass.html"><i class="fa-solid fa-key" style="margin: 10px;"></i>Change Password</a>
+                    <a href="#"><i class="fa-solid fa-right-from-bracket" style="margin: 10px;"></i>Log out</a>
+                </div>
+            </div>
+        </div>
+        <main>
+
+        </main>
+    </div>
+    <!--<h1 style=" margin-top: 31px;">Details</h1>-->
+    <script>
+        const menuToggle = document.getElementById("menuToggle")
+        const sidebar = document.getElementById("sidebar");
+
+        menuToggle.addEventListener("click", () => {
+            sidebar.classList.toggle("active");
+        });
+
+        // Close the sidebar if the user clicks outside of it
+        window.addEventListener("click", (event) => {
+            if (sidebar.classList.contains("active") && event.target !== menuToggle && event.target !== sidebar) {
+                sidebar.classList.remove("active");
+            }
+        });
+
+    </script>
+    <center>
+    <form action="">
+
+
+            <h3>Personal Details</h3>
+
+
+        <table>
+            <tr>
+                <td>Full name</td>
+                <td><input type="text" required></td>
+            </tr>
+            <tr>
+                <td>Address</td>
+                <td><textarea id="addressTextarea" required></textarea></td>
+            </tr>
+            <tr>
+                <td>Date of Birth</td>
+                <td><input type="Date" id="Date of Birth" name="Date of Birth"  required></td>
+            </tr>
+            <tr>
+                <td>Phone</td>
+                <td><input type="number" id="Phonenumber" name="Phonenumber" required></td>
+            </tr>
+            <tr>
+                <td>Email ID</td>
+                <td><input type="email" id="EmailID" name="EmailID" required></td>
+            </tr>
+
+            <tr>
+                <td>Gender</td>
+                <td>
+                    <div class = "male">
+                        <input type="radio" id="male" name="gender" value="male" required>
+                        <label for="male">Male</label>
+                    </div>
+                    <div class = "female">
+                        <input type="radio" id="female" name="gender" value="female" required>
+                        <label for="female">Female</label>
+                    </div>
+                    <div class = "other">
+                        <input type="radio" id="other" name="gender" value="other" required>
+                        <label for="other">Other</label>
+                    </div>
+                </td>
+            </tr>
+
+        </table><br>
+        <hr><br>
+
+        <h3>Employee Details</h3>
+        <table>
+            <tr>
+                <td>Employee ID</td>
+                <td><input type="text" required></td>
+            </tr>
+            <tr>
+
+                <td>Centre</td>
+                <td>
+                    <select required>
+                        <option value="">Select an option</option>
+                        <option value="DJ Halli 1">DJ Halli1</option>
+                        <option value="DJ Halli 2">DJ Halli2</option>
+                        <option value="Bagalur">Bagalur</option>
+                        <option value="Mylanahalli">Mylanahalli</option>
+                        <option value="Kannur">Kannur</option>
+                        <option value="Koramangala">Koramangala</option>
+                    </select>
+                </td>
+
+
+            </tr>
+            <tr>
+                <td>Designation</td>
+                <td><input type="text"  required></td>
+            </tr>
+            <tr>
+                <td>Date of joining</td>
+                <td><input type="date" required></td>
+            </tr>
+            <tr>
+                <td>Education Qualification</td>
+                <td><input type="text" required></td>
+            </tr>
+            <tr>
+                <td>Status</td>
+                <td>
+                    <select required>
+                        <option value="">Select an option</option>
+                        <option value="Active">Active</option>
+                        <option value="Resigned">Resigned</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Resource Type</td>
+                <td>
+                    <select>
+                        <option value="">Select an option</option>
+                        <option value="Employee">Employee</option>
+                        <option value="Part-time">Part-time</option>
+                        <option value="Consultant">Consultant</option>
+                    </select>
+                </td>
+            </tr>
+        </table><br>
+
+        <hr><br>
+        <h3>Account Details</h3>
+
+        <table>
+            <tr>
+                <td>Name of the Bank</td>
+                <td><input type="text" required></td>
+            </tr>
+            <tr>
+                <td>Name </td>
+                <td><input type="text" placeholder="   As per Bank" required></td>
+            </tr>
+            <tr>
+                <td>Account Number</td>
+                <td><input type="text"  required></td>
+            </tr>
+            <tr>
+                <td>IFSC</td>
+                <td><input type="text" required></td>
+            </tr>
+            <tr>
+                <td>Branch</td>
+                <td><input type="text" required></td>
+            </tr>
+            <tr>
+                <td>Account Type</td>
+                <td>
+                    <select>
+                        <option value="">Select an option</option>
+                        <option value="Savings">Savings</option>
+                        <option value="Current">Current</option>
+                    </select>
+                </td>
+            </tr>
+        </table>
+
+    <div class="button-container">
+        <button id="editButton" type="button" onclick="toggleEditUpdate()" style="border-radius: 23px; width: 10%;">Edit</button>
+    </div>
+</form><br><br>
+</center>
+    <script>
+        function toggleEditUpdate() {
+            const editButton = document.getElementById("editButton");
+            if (editButton.textContent === "Edit") {
+                editButton.textContent = "Update";
+            } else {
+                editButton.textContent = "Edit";
+            }
+        }
+    </script>
+
+</body>
+</html>

@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="static/Comm.css">
-    <a href="forgetpassword.html">forgetpassword.html</a>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <!--<a href="forgetpassword.html">forgetpassword.html</a>-->
     <script src="https://kit.fontawesome.com/bc0ac06df1.js" crossorigin="anonymous"></script>
     <style>
         body {
@@ -35,7 +36,7 @@
         .headline {
             font-size: 24px; /* Set the font size */
             position: relative; /* Set position for animation */
-            font-style: bold;
+            font-weight: bold;
         }
 
         /* Dropdown styles */
@@ -128,7 +129,7 @@
         }
 
             .sidebar.open {
-                width: 500%;
+                width: 585%;
             }
 
         /* Navbar styles */
@@ -169,10 +170,10 @@
                     }
 
         /* Main content styles */
-        .main-content {
+        /*.main-content {
             flex: 1;
             padding: 20px;
-        }
+        }*/
 
         /* Media query for mobile responsiveness */
         @media screen and (max-width: 768px) {
@@ -230,14 +231,14 @@
 
         <img src="/static/cf_logo.png" alt="CF Logo" class="logo">
 
-        <span class="dropdown">
-            <span class="id-symbol" onclick="toggleDropdown()">Jimmy Cherian &#9660; <i class="fa-solid fa-circle-user fa-2xl" style="color: #5c626a;"></i></span>
+        <div class="dropdown">
+            <span id="Role" class="id-symbol" onclick="toggleDropdown()">Jimmy Cherian &#9660; <i class="fa-solid fa-circle-user fa-2xl" style="color: #5c626a;"></i></span>
             <div class="dropdown-content" id="dropdownContent">
                 <a href="employee.html">Profile</a>
                 <a href="change.html">Change password</a>
                 <a href="index.html">Logout</a>
             </div>
-        </span>
+        </div>
     </header>
 
     <div class="container">

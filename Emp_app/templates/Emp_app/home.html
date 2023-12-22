@@ -1,6 +1,6 @@
 {% extends "Emp_app/base.html" %}
 
-
+{% load lower_filter %}
 
 {% block css %}
 <style>
@@ -21,10 +21,10 @@
         display: block;
     }
 
-    .prev,
+  /*  .prev,
     .next {
         position: absolute;
-        top: 50%;
+        top: 22%;
         transform: translateY(-50%);
         background-color: rgba(0, 0, 0, 0.5);
         color: white;
@@ -36,14 +36,14 @@
 
     .prev {
         left: 10px;
-        margin-top:-20%;
+        margin-top: -20%;
     }
 
     .next {
         right: 10px;
         margin-top: -20%;
     }
-
+*/
 
     table {
         margin: 50px;
@@ -67,8 +67,12 @@
 {% endblock %}
 
 
-
 {% block content %}
+
+{% load lower_filter %}
+<h1>{{value|program_to_string}}</h1>
+<h1>{{value|centertype_to_string}}</h1>
+
 <div class="slider-container">
     <div class="slides">
 
@@ -104,8 +108,8 @@
 
 
     </div>
-    <button class="prev" id="prev">&#10094;</button>
-    <button class="next" id="next">&#10095;</button>
+    <!--<button class="prev" id="prev">&#10094;</button>
+    <button class="next" id="next">&#10095;</button>-->
 
     <div class="table">
 
@@ -123,14 +127,15 @@
             </tr>
             {% for program in programs %}
             <tr bgcolor="white">
-                <td>{{ program.date}}</td>
-                <td>{{ program.pgm_id }}</td>
-                <td>{{ program.xref_id }}</td>
+                <td>{{ program.date }}</td>
+                <td>{{ program.pgm_id|program_to_string }}</td>
+                <td>{{ program.xref.project_name }}</td>
                 <td>{{ program.activity }}</td>
-                <td>{{ program.center_type }}</td>
+                <td>{{ program.center_type|centertype_to_string }}</td>
                 <td>{{ program.beneficiaries }}</td>
             </tr>
             {% endfor %}
+
 
 
         </table>

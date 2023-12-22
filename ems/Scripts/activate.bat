@@ -8,11 +8,7 @@ if defined _OLD_CODEPAGE (
     "%SystemRoot%\System32\chcp.com" 65001 > nul
 )
 
-<<<<<<< HEAD
-set VIRTUAL_ENV=E:\cf_employee project\ems
-=======
-set VIRTUAL_ENV=E:\Employee_Django\ems
->>>>>>> 8fecce7e253a36ed01b8ee153f28277c401f5624
+set VIRTUAL_ENV=C:\Users\hp\source\repos\tasmiya2321\Employee_django\ems
 
 if not defined PROMPT set PROMPT=$P$G
 
@@ -29,10 +25,6 @@ if defined _OLD_VIRTUAL_PATH set PATH=%_OLD_VIRTUAL_PATH%
 if not defined _OLD_VIRTUAL_PATH set _OLD_VIRTUAL_PATH=%PATH%
 
 set PATH=%VIRTUAL_ENV%\Scripts;%PATH%
-<<<<<<< HEAD
-set VIRTUAL_ENV_PROMPT=(ems) 
-=======
->>>>>>> 8fecce7e253a36ed01b8ee153f28277c401f5624
 
 :END
 if defined _OLD_CODEPAGE (

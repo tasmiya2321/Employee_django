@@ -55,10 +55,12 @@
     <Content Include="Emp_app\static\eyes open.webp" />
     <Content Include="Emp_app\static\menuicon.jpg" />
     <Content Include="Emp_app\templates\Emp_app\base.html" />
+    <Content Include="Emp_app\templates\Emp_app\email.html" />
     <Content Include="Emp_app\templates\Emp_app\employee.html" />
     <Content Include="Emp_app\templates\Emp_app\forgetpassword.html" />
     <Content Include="Emp_app\templates\Emp_app\home.html" />
     <Content Include="Emp_app\templates\Emp_app\index.html" />
+    <Content Include="Emp_app\templates\Emp_app\subject_email.txt" />
     <Content Include="Emp_app\templates\Emp_app\WebPage1.html" />
     <Content Include="Emp_app\templates\Emp_app\WebPage2.html" />
     <Content Include="Emp_app\templates\reset.html" />
@@ -75,6 +77,12 @@
     <Compile Include="Emp_app\apps.py" />
     <Compile Include="Emp_app\migrations\__init__.py" />
     <Compile Include="Emp_app\models.py" />
+    <Compile Include="Emp_app\templatetags\lower_filter.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Emp_app\templatetags\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Emp_app\tests.py" />
     <Compile Include="Emp_app\urls.py" />
     <Compile Include="Emp_app\views.py" />
@@ -86,6 +94,7 @@
     <Folder Include="Employee_Management" />
     <Folder Include="Emp_app" />
     <Folder Include="Emp_app\migrations" />
+    <Folder Include="Emp_app\templatetags\" />
     <Folder Include="Emp_app\static\" />
     <Folder Include="Emp_app\templates\" />
     <Folder Include="Emp_app\templates\Emp_app" />
