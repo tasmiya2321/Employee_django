@@ -128,6 +128,6 @@ def change_password(request):
     return render(request,'change_password.html',{
         'form': form
     })
-
+    
 def login_base(request):
     return render(request, "login_base.html")
