@@ -63,6 +63,7 @@
     <Content Include="Emp_app\templates\Emp_app\subject_email.txt" />
     <Content Include="Emp_app\templates\Emp_app\WebPage1.html" />
     <Content Include="Emp_app\templates\Emp_app\WebPage2.html" />
+    <Content Include="Emp_app\templates\Registration\password_reset_form.html" />
     <Content Include="Emp_app\templates\reset.html" />
     <Content Include="Emp_app\templates\Emp_app\reset_password.html" />
     <Content Include="readme.html" />
@@ -94,6 +95,7 @@
     <Folder Include="Employee_Management" />
     <Folder Include="Emp_app" />
     <Folder Include="Emp_app\migrations" />
+    <Folder Include="Emp_app\templates\Registration\" />
     <Folder Include="Emp_app\templatetags\" />
     <Folder Include="Emp_app\static\" />
     <Folder Include="Emp_app\templates\" />
