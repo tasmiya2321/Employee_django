@@ -8,7 +8,7 @@
     <title>Document</title>
 
     <style>
-   
+    /* Basic Styling */
     body {
         font-family: Arial, sans-serif;
         padding: 20px;
@@ -22,7 +22,7 @@
 
     table {
         width: 100%;
-        max-width: 600px; 
+        max-width: 600px; /* Adjust as per your requirement */
         margin-bottom: 20px;
         border-collapse: collapse;
     }
@@ -42,7 +42,7 @@
         margin: 5px 0;
         border: 1px solid #ddd;
         border-radius: 4px;
-        box-sizing: border-box; 
+        box-sizing: border-box; /* Makes sure padding doesn't affect overall width */
     }
 
     input[type="radio"] {
@@ -59,7 +59,7 @@
         margin-bottom: 10px;
     } 
     button {
-  
+        padding: 10px 57px;
         background-color:orange;
         color: white;
         border: none;
@@ -75,15 +75,18 @@
     }
 
     .male {
-    padding: 5px;
+    /* Add your specific styles for the male option here */
+    padding: 5px; /* Example: Add padding */
     }
 
+    /* Style for the female gender option */
     .female {
         padding: 5px;
         margin-top: -31px;
         margin-left: 75px 
     }
 
+    /* Style for the other gender option */
     .other {
         padding: 5px;
         margin-top: -29px;
@@ -94,11 +97,11 @@
     @media (max-width: 768px) {
         table, input, textarea, select, button {
             width: 100%;
-            max-width: 100%; 
-       }
+            max-width: 100%; /* Makes sure elements don't overflow on small screens */
+        }
 
         h1.employee-details-title {
-        font-size: 17px;
+        font-size: 17px; /* Adjust the font size as needed */
         }
 
         .female{
@@ -116,15 +119,15 @@
         }  
 
         .male {
-        display: flex; 
-        margin-top: 10px; 
+        display: flex; /* Each div will take the full width of the td */
+        margin-top: 10px; /* Add space between the options */
         margin-right: 78%;
         }  
     }
 
 
     .button-container {
-        text-align: center;
+        text-align: center; /* Center align the button */
     }
   
 

@@ -5,6 +5,10 @@ from django.shortcuts import render
 from django.contrib.auth import authenticate, login
 from .models import Program 
 from .models import EmpDetails 
+from django.contrib import messages
+from django.contrib.auth import update_session_auth_hash
+from django.contrib.auth.forms import PasswordChangeForm
+from django.shortcuts import render, redirect
 import json
 
 
@@ -25,8 +29,7 @@ from django.contrib.messages.views import SuccessMessageMixin
 
 def home(request):
     programs = Program.objects.exclude(date__isnull=True).order_by('pgm_id')[:10]
-    
-    # Debugging: Print each program's date
+
     for program in programs:
         print(program.date)
 
@@ -60,7 +63,7 @@ def employee(request):
            emp_details=EmpDetails.objects.filter(**{ strfilter:var })
 
            my_dict = model_to_dict(emp_details[0], fields=['fullname', 'emp_id', 'address', 'dob', 'phone_number','email_id', 'gender', 'center', 'designation','date_of_joining', 'education_qualification', 'status','resource_type', 'date_of_resigning', 'bank_name', 
-                  'name_as_per_bank', 'account_number', 'ifsc', 'account_type'])
+                  'name_as_per_bank', 'account_number', 'ifsc', 'branch','account_type'])
           
            return JsonResponse( {"info": json.dumps(my_dict)} )
           # return render(request, "Emp_app/employee.html",{"info":emp_details})
@@ -108,3 +111,23 @@ def userlogin(request):
       else:
         
          return render(request, 'login.html') 
+     
+     
+def change_password(request):
+    if request.method == 'POST':
+        form = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)  # Important!
+            messages.success(request, 'Your password was successfully updated!')
+            return redirect('change_password')
+        else:
+            messages.error(request, 'Please correct the error below.')
+    else:
+        form = PasswordChangeForm(request.user)
+    return render(request,'change_password.html',{
+        'form': form
+    })
+
+def login_base(request):
+    return render(request, "login_base.html")

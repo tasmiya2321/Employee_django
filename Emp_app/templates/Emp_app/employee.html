@@ -3,58 +3,58 @@
 {% block css %}
 
 <script>
-            $(document).ready(function () {
-                var Role = document.getElementById("Role").innerText;
-                alert(Role)
-                debugger;
-                $.ajax({
-                    type: "POST",
-                    url: {% url "employee" %},
-                    data: { data: Role },
-                    success: function (result) {
-                        
-                        var resultobj = $.parseJSON(result.info);
-                        alert(result.info);
-                        debugger
-                        var listItems = $("input[type=text], input[type=date],input[type=number],input[type=email],input[type=radio],select,textarea");
-                        for (let li of listItems) {
-                            let product = $(li);
-                            let attrname = product.data("dbname");
-                            let inputtype = product.attr("type")
+    $(document).ready(function () {
+        var Role = document.getElementById("Role").innerText;
+        alert(Role)
+        debugger;
+        $.ajax({
+            type: "POST",
+            url: {% url "employee" %},
+            data: { data: Role },
+            success: function (result) {
 
-                            if (inputtype == "radio") {
-                                let radioval = product.val();
-                                if (resultobj[attrname] == radioval) {
-                                    product.attr("checked", "checked")
-                                }
+                var resultobj = $.parseJSON(result.info);
+                alert(result.info);
+                debugger
+                var listItems = $("input[type=text], input[type=date],input[type=number],input[type=email],input[type=radio],select,textarea");
+                for (let li of listItems) {
+                    let product = $(li);
+                    let attrname = product.data("dbname");
+                    let inputtype = product.attr("type")
 
-                            }
-                            else {
-                                product.val(resultobj[attrname]);
-                            }
-                            
+                    if (inputtype == "radio") {
+                        let radioval = product.val();
+                        if (resultobj[attrname] == radioval) {
+                            product.attr("checked", "checked")
                         }
 
                     }
+                    else {
+                        product.val(resultobj[attrname]);
+                    }
+
+                }
+
+            }
             });
                      });
 
-    
-
-            function Role() {
-                var Role = document.getElementById("Role");
-                alert(Role);
-                 }
 
 
-            function toggleEditUpdate() {
-                const editButton = document.getElementById("editButton");
-                if (editButton.textContent === "Edit") {
-                    editButton.textContent = "Update";
-                } else {
-                    editButton.textContent = "Edit";
-                }
-            }
+    function Role() {
+        var Role = document.getElementById("Role");
+        alert(Role);
+    }
+
+
+    function toggleEditUpdate() {
+        const editButton = document.getElementById("editButton");
+        if (editButton.textContent === "Edit") {
+            editButton.textContent = "Update";
+        } else {
+            editButton.textContent = "Edit";
+        }
+    }
 
 </script>
 
@@ -66,6 +66,14 @@
         background-color: #f4f4f4;
     }
 
+
+
+    .employee-details-title {
+        text-align: center;
+        margin-top: -51%;
+        margin-bottom: 20px;
+    }
+    }
     h3 {
         color: #333;
         margin-bottom: 15px;
@@ -176,16 +184,24 @@
     .button-container {
         text-align: center;
     }
+  
 </style>
 {% endblock %}
 
 
 {% block content %}
+
+
+
 <center>
+
+
     <form action="">
+
 
         <h3>Personal Details</h3>
         <table>
+
             <!-- Full Name -->
             <tr>
                 <td><label for="fullname">Full Name</label></td>
@@ -336,6 +352,7 @@
             </tr>
 
             <!-- Branch -->
+           
             <tr>
                 <td><label for="branchName">Branch</label></td>
                 <td><input type="text" id="branchName" data-dbname="branch" required></td>
