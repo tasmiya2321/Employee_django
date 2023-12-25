@@ -1,3 +1,4 @@
+from multiprocessing import Value
 from django.views.decorators.csrf import csrf_exempt
 from django.forms.models import model_to_dict
 from django.http import HttpResponse, JsonResponse
@@ -5,6 +6,7 @@ from django.shortcuts import render
 from django.contrib.auth import authenticate, login
 from .models import Program 
 from .models import EmpDetails 
+from django.contrib import messages
 import json
 
 
@@ -34,7 +36,6 @@ def home(request):
 
 
 
-
 def forgetpassword(request):
      return render(request, "Emp_app/forgetpassword.html")
 
@@ -42,6 +43,8 @@ def forgetpassword(request):
     
 def index(request):
     return render(request, "Emp_app/index.html")
+
+
 
 @csrf_exempt
 def employee(request):
@@ -66,6 +69,60 @@ def employee(request):
           # return render(request, "Emp_app/employee.html",{"info":emp_details})
            
        
+def saveemployee(request):
+     Value=request.POST.get('fullname')
+     emp_details = EmpDetails.objects.get(fullname=Value)
+     Value=request.POST.get('address')
+     emp_details.address =Value
+     Value=request.POST.get('dob')
+     emp_details.dob=Value  
+     Value=request.POST.get('phonenumber')
+     emp_details.phonenumber=Value  
+     Value=request.POST.get('emailId')
+     emp_details.emailId=Value  
+     Value=request.POST.get('gender')
+     emp_details.gender=Value   
+     Value=request.POST.get('employeeId')
+     emp_details.employeeId=Value  
+     Value=request.POST.get('center')
+     emp_details.center=Value  
+     Value=request.POST.get('designation')
+     emp_details.designation=Value   
+     Value=request.POST.get('dateofJoining')
+     emp_details.dateofJoining=Value   
+     Value=request.POST.get('educationQualification')
+     emp_details.educationQualification=Value    
+     Value=request.POST.get('status')
+     emp_details.status=Value  
+     Value=request.POST.get('dateofResigning')
+     emp_details.dateofResigning=Value  
+     Value=request.POST.get('resourceType')
+     emp_details.resourceType=Value   
+     Value=request.POST.get('bankName')
+     emp_details.bankName=Value  
+     Value=request.POST.get('nameAsPerBank')
+     emp_details.nameAsPerBank=Value  
+     Value=request.POST.get('accountNumber')
+     emp_details.accountNumber=Value  
+     Value=request.POST.get('ifscCode')
+     emp_details.ifscCode=Value  
+     Value=request.POST.get('branchName')
+     emp_details.branchName=Value  
+     Value=request.POST.get('accountType')
+     emp_details.accountType=Value  
+     
+    
+     emp_details.save()
+     
+     try:
+ 
+       messages.success(request, 'Employee details updated successfully!')
+     except Exception as e:
+
+       messages.error(request, 'Failed to update employee details: {}'.format(e))
+
+    
+     return render(request, "Emp_app/employee.html")
 
 def reset_password(request):
      return render(request, "Emp_app/reset_password.html")
@@ -73,19 +130,9 @@ def reset_password(request):
 def email(request):
      return render(request, "Emp_app/email.html")
 
+
 def subject_email(request):
      return render(request, "Emp_app/subject_email.txt")
-
-# def employee(request):
-#         # Query the EmpDetails model for all records
-#     emp_details = EmpDetails.objects.all()
-
-#     # Pass the queried data to the template
-#     context = {
-#         'emp_details': emp_details
-#     }
-#     return render(request, "Emp_app/employee.html", context)
-
 
 
 def userlogin(request):

@@ -10,25 +10,25 @@ from django.db import models
 
 class EmpDetails(models.Model):
     emp_id = models.AutoField(db_column='EMP_ID', primary_key=True)  # Field name made lowercase.
-    fullname = models.TextField(blank=True, null=True)
-    address = models.TextField(blank=True, null=True)
-    dob = models.IntegerField(db_column='Dob', blank=True, null=True)  # Field name made lowercase.
+    fullname = models.CharField(blank=True, null=True, max_length=252)
+    address = models.CharField(blank=True, null=True, max_length=252)
+    dob = models.CharField(db_column='Dob', blank=True, null=True, max_length=252)  # Field name made lowercase.
     phone_number = models.IntegerField(db_column='Phone_Number', blank=True, null=True)  # Field name made lowercase.
-    email_id = models.TextField(db_column='Email_Id', blank=True, null=True)  # Field name made lowercase.
-    gender = models.TextField(db_column='Gender', blank=True, null=True)  # Field name made lowercase.
+    email_id = models.CharField(db_column='Email_Id', blank=True, null=True, max_length=252)  # Field name made lowercase.
+    gender = models.CharField(db_column='Gender', blank=True, null=True, max_length=252)  # Field name made lowercase.
     center = models.IntegerField(db_column='Center', blank=True, null=True)  # Field name made lowercase.
-    designation = models.TextField(db_column='Designation', blank=True, null=True)  # Field name made lowercase.
-    date_of_joining = models.IntegerField(db_column='Date_of_Joining', blank=True, null=True)  # Field name made lowercase.
-    education_qualification = models.TextField(db_column='Education_Qualification', blank=True, null=True)  # Field name made lowercase.
+    designation = models.CharField(db_column='Designation', blank=True, null=True, max_length=252)  # Field name made lowercase.
+    date_of_joining = models.CharField(db_column='Date_of_Joining', blank=True, null=True, max_length=252)  # Field name made lowercase.
+    education_qualification = models.CharField(db_column='Education_Qualification', blank=True, null=True, max_length=252)  # Field name made lowercase.
     status = models.IntegerField(db_column='Status', blank=True, null=True)  # Field name made lowercase.
     resource_type = models.IntegerField(db_column='Resource_Type', blank=True, null=True)  # Field name made lowercase.
-    date_of_resigning = models.IntegerField(db_column='Date_of_resigning', blank=True, null=True)  # Field name made lowercase.
-    bank_name = models.TextField(db_column='Bank_Name', blank=True, null=True)  # Field name made lowercase.
-    name_as_per_bank = models.TextField(db_column='Name_As_per_Bank', blank=True, null=True)  # Field name made lowercase.
-    account_number = models.IntegerField(db_column='Account_Number', blank=True, null=True)  # Field name made lowercase.
-    ifsc = models.TextField(db_column='IFSC', blank=True, null=True)  # Field name made lowercase.
-    branch = models.TextField(db_column='Branch', blank=True, null=True)  # Field name made lowercase.
-    account_type = models.IntegerField(db_column='Account_Type', blank=True, null=True)  # Field name made lowercase.
+    date_of_resigning = models.CharField(db_column='Date_of_resigning', blank=True, null=True, max_length=252)  # Field name made lowercase.
+    bank_name = models.CharField(db_column='Bank_Name', blank=True, null=True, max_length=252)  # Field name made lowercase.
+    name_as_per_bank = models.CharField(db_column='Name_As_per_Bank', blank=True, null=True, max_length=252)  # Field name made lowercase.
+    account_number = models.CharField(db_column='Account_Number', blank=True, null=True, max_length=252)  # Field name made lowercase.
+    ifsc = models.CharField(db_column='IFSC', blank=True, null=True, max_length=252)  # Field name made lowercase.
+    branch = models.CharField(db_column='Branch', blank=True, null=True, max_length=252)  # Field name made lowercase.
+    account_type = models.IntegerField(db_column='Account_Type',unique=True)  # Field name made lowercase.
 
     class Meta:
         managed = False
@@ -39,7 +39,7 @@ class Program(models.Model):
     pgm_id = models.AutoField(db_column='PGM_ID', primary_key=True)  # Field name made lowercase.
     emp = models.ForeignKey(EmpDetails, models.DO_NOTHING, db_column='EMP_ID')  # Field name made lowercase.
     xref = models.ForeignKey('Xref', models.DO_NOTHING, db_column='XREF_ID')  # Field name made lowercase.
-    date = models.CharField(db_column='Date', blank=True, null=True, max_length=255)  # Field name made lowercase.
+    date = models.CharField(db_column='Date', blank=True, null=True, max_length=252)  # Field name made lowercase.
     activity = models.TextField(db_column='Activity', blank=True, null=True)  # Field name made lowercase.
     center_type = models.IntegerField(db_column='Center_Type', blank=True, null=True)  # Field name made lowercase.
     trainer_type = models.IntegerField(db_column='Trainer_Type', blank=True, null=True)  # Field name made lowercase.
@@ -74,7 +74,7 @@ class Xref(models.Model):
     xref_id = models.AutoField(db_column='XREF_ID', primary_key=True)  # Field name made lowercase.
     date = models.DateField(db_column='Date', blank=True, null=True)  # Field name made lowercase.
     program_name = models.IntegerField(blank=True, null=True)
-    project_name = models.CharField(db_column='Project_name', blank=True, null=True, max_length=255)  # Field name made lowercase.
+    project_name = models.CharField(db_column='Project_name', blank=True, null=True, max_length=252)  # Field name made lowercase.
 
     class Meta:
         managed = False

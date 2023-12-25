@@ -29,8 +29,10 @@ urlpatterns = [
     path("subject_email/", views.subject_email, name="subject_email"),
     path("", views.login, name="login"),
     path("employee/", views.employee, name="employee"),
-    path('forgetpassword/', views.forgetpassword, name='forget_password'),  # Add a comma here
-    path('reset_password/', views.reset_password, name='reset_password')
+    path("saveemployee/",views.saveemployee, name="saveemployee"),
+    path('forgetpassword/', views.forgetpassword, name='forget_password'),  
+    path('reset_password/', views.reset_password, name='reset_password'),
+    path('home/', views.home, name='home')
 ]
 # if settings.DEBUG:
 #     from django.contrib.staticfiles.urls import staticfiles_urlpatterns
