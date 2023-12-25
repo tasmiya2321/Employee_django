@@ -1,4 +1,3 @@
-from multiprocessing import Value
 from django.views.decorators.csrf import csrf_exempt
 from django.forms.models import model_to_dict
 from django.http import HttpResponse, JsonResponse
@@ -10,19 +9,18 @@ from django.contrib import messages
 import json
 
 
-
 from django.urls import reverse_lazy
 from django.contrib.auth.views import PasswordResetView
 from django.contrib.messages.views import SuccessMessageMixin
-class ResetPasswordView(SuccessMessageMixin, PasswordResetView):
-    template_name = 'Emp_app/reset_password.html'
-    email_template_name = 'Emp_app/email.html'
-    subject_template_name ='Emp_app/subject_email'
-    success_message = "We've emailed you instructions for setting your password, " \
-                      "if an account exists with the email you entered. You should receive them shortly." \
-                      " If you don't receive an email, " \
-                      "please make sure you've entered the address you registered with, and check your spam folder."
-    success_url = reverse_lazy('index')
+# class ResetPasswordView(SuccessMessageMixin, PasswordResetView):
+#     template_name = 'Emp_app/reset_password.html'
+#     email_template_name = 'Emp_app/email.html'
+#     subject_template_name ='Emp_app/subject_email'
+#     success_message = "We've emailed you instructions for setting your password, " \
+#                       "if an account exists with the email you entered. You should receive them shortly." \
+#                       " If you don't receive an email, " \
+#                       "please make sure you've entered the address you registered with, and check your spam folder."
+#     success_url = reverse_lazy('index')
     
 
 
@@ -135,6 +133,7 @@ def subject_email(request):
      return render(request, "Emp_app/subject_email.txt")
 
 
+
 def userlogin(request):
 
       if request.method == 'POST':
@@ -154,3 +153,23 @@ def userlogin(request):
       else:
         
          return render(request, 'login.html') 
+     
+     
+def change_password(request):
+    if request.method == 'POST':
+        form = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)  # Important!
+            messages.success(request, 'Your password was successfully updated!')
+            return redirect('change_password')
+        else:
+            messages.error(request, 'Please correct the error below.')
+    else:
+        form = PasswordChangeForm(request.user)
+    return render(request,'change_password.html',{
+        'form': form
+    })
+
+def login_base(request):
+    return render(request, "login_base.html")
