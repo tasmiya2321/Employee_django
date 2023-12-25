@@ -20,6 +20,7 @@
             background-color: rgb(255, 255, 255);
             padding: 50px;
             text-align: center;
+            
         }
         /* CSS Styles */
         .logo {
@@ -37,10 +38,11 @@
             font-size: 24px; /* Set the font size */
             position: relative; /* Set position for animation */
             font-weight: bold;
+           
         }
 
         /* Dropdown styles */
-        .dropdown {
+        .dropdow {
             margin-right: -73%;
             position: relative;
             display: inline-block;
@@ -52,7 +54,7 @@
             cursor: pointer;
         }
 
-        .dropdown-content {
+        .dropdow-content {
             display: none;
             position: absolute;
             background-color: #f9f9f9;
@@ -61,20 +63,20 @@
             z-index: 1;
         }
 
-            .dropdown-content a {
+            .dropdow-content a {
                 color: black;
                 padding: 12px 16px;
                 text-decoration: none;
                 display: block;
             }
 
-                .dropdown-content a:hover {
+                .dropdow-content a:hover {
                     background-color: #f1f1f1;
                 }
 
         /* Dropdown styles for mobile */
         @media screen and (max-width: 768px) {
-            .dropdown {
+            .dropdow {
                 display: block;
                 margin-top: 10px;
                 text-align: center;
@@ -86,7 +88,7 @@
                 cursor: pointer;
             }
 
-            .dropdown-content {
+            .dropdow-content {
                 display: none;
                 position: static;
                 background-color: #f9f9f9;
@@ -94,7 +96,7 @@
                 z-index: 1;
             }
 
-                .dropdown-content a {
+                .dropdow-content a {
                     display: block;
                     padding: 10px;
                     border-bottom: 1px solid #ccc;
@@ -231,9 +233,9 @@
 
         <img src="/static/cf_logo.png" alt="CF Logo" class="logo">
 
-        <div class="dropdown">
+        <div class="dropdow">
             <span id="Role" class="id-symbol" onclick="toggleDropdown()">Jimmy Cherian &#9660; <i class="fa-solid fa-circle-user fa-2xl" style="color: #5c626a;"></i></span>
-            <div class="dropdown-content" id="dropdownContent">
+            <div class="dropdow-content" id="dropdowContent">
                 <a href="employee.html">Profile</a>
                 <a href="change.html">Change password</a>
                 <a href="index.html">Logout</a>
@@ -276,8 +278,8 @@
     <script>
 
         function toggleDropdown() {
-            const dropdownContent = document.getElementById('dropdownContent');
-            dropdownContent.style.display = (dropdownContent.style.display === 'block') ? 'none' : 'block';
+            const dropdowContent = document.getElementById('dropdowContent');
+            dropdowContent.style.display = (dropdowContent.style.display === 'block') ? 'none' : 'block';
         }
 
 

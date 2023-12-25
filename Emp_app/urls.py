@@ -31,7 +31,9 @@ urlpatterns = [
     path("employee/", views.employee, name="employee"),
     path('forgetpassword/', views.forgetpassword, name='forget_password'),  # Add a comma here
     path('reset_password/', views.reset_password, name='reset_password'),
-    path('change_password/',views.change_password, name='change_password')
+    path('change_password/',views.change_password, name='change_password'),
+    path('Session_main/',views.Session_main,name='Session_main')
+    
 ]
 
 

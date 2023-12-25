@@ -42,8 +42,9 @@ def home(request):
 def forgetpassword(request):
      return render(request, "Emp_app/forgetpassword.html")
 
+def Session_main(request):
+     return render(request, "Emp_app/Session_main.html")
 
-    
 def index(request):
     return render(request, "Emp_app/index.html")
 
@@ -68,8 +69,6 @@ def employee(request):
           
            return JsonResponse( {"info": json.dumps(my_dict)} )
           # return render(request, "Emp_app/employee.html",{"info":emp_details})
-           
-       
 
 def reset_password(request):
      return render(request, "Emp_app/reset_password.html")
