@@ -6,9 +6,6 @@ from django.contrib.auth import authenticate, login
 from .models import Program 
 from .models import EmpDetails 
 from django.contrib import messages
-from django.contrib.auth import update_session_auth_hash
-from django.contrib.auth.forms import PasswordChangeForm
-from django.shortcuts import render, redirect
 import json
 
 
@@ -37,7 +34,6 @@ def home(request):
 
 
 
-
 def forgetpassword(request):
      return render(request, "Emp_app/forgetpassword.html")
 
@@ -45,6 +41,8 @@ def forgetpassword(request):
     
 def index(request):
     return render(request, "Emp_app/index.html")
+
+
 
 @csrf_exempt
 def employee(request):
@@ -79,14 +77,6 @@ def reset_password(request):
 def email(request):
      return render(request, "Emp_app/email.html")
 
-def subject_email(request):
-     return render(request, "Emp_app/subject_email.txt")
-
-def password_reset_confirm(request):
-     return render(request, "password_reset_confirm.html")
-
-def password_reset_complete(request):
-     return render(request, "password_reset_complete.html")
 
 def subject_email(request):
      return render(request, "Emp_app/subject_email.txt")
