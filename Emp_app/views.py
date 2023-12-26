@@ -68,13 +68,25 @@ def employee(request):
            return JsonResponse( {"info": json.dumps(my_dict)} )
           # return render(request, "Emp_app/employee.html",{"info":emp_details})
            
-       
+    
+          
+def login(request):
+     return render(request, "Registration/login.html")
 
 def reset_password(request):
      return render(request, "Emp_app/reset_password.html")
 
 def email(request):
      return render(request, "Emp_app/email.html")
+
+def subject_email(request):
+     return render(request, "Emp_app/subject_email.txt")
+
+def password_reset_confirm(request):
+     return render(request, "password_reset_confirm.html")
+
+def password_reset_complete(request):
+     return render(request, "password_reset_complete.html")
 
 def subject_email(request):
      return render(request, "Emp_app/subject_email.txt")
