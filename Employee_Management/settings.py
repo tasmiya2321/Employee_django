@@ -28,6 +28,7 @@ SECRET_KEY = '977ed121-3491-4b6b-b00f-6d0b8d99df29'
 DEBUG = True
 
 ALLOWED_HOSTS = [
+       'preethi7339.pythonanywhere.com',
        '198.211.99.20',
        'localhost',
        '127.0.0.1'
