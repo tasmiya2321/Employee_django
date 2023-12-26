@@ -126,7 +126,7 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
 DEFAULT_FROM_EMAIL='hariraj2292003@gmail.com'
-<<<<<<< HEAD
+
 
 
 
@@ -134,7 +134,7 @@ DEFAULT_FROM_EMAIL='hariraj2292003@gmail.com'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-=======
+
 LOGIN_REDIRECT_URL = "/home/"
->>>>>>> 8d2d0c45ce4383c322238faaba36d72a6c614bfd
+
 
