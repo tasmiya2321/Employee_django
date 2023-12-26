@@ -76,10 +76,9 @@
 
 
     .success-message {
-        background-color:green;
-        padding: 10px;
-        border-radius: 20px;
-        margin-left: 23%;
+        background-color: lightgreen;
+        padding: 15px;
+        border-radius: 30px;
     }
      .error-message, .danger-message {
         background-color: red;
@@ -132,23 +131,31 @@
         margin-bottom: 10px;
     }
 
-    button {
+   /* #button {
         background-color: orange;
         color: white;
-        border: none;
-        border-radius: 23px;
+        border: none; 
+        border-radius: 10px;
         cursor: pointer;
-        font-size: 16px;
+        font-size: 25px;
     }
+   
 
-
-        button:hover {
-            background-color: orange;
-        }
-
-    .male {
+     #button:hover {
+         background-color: orange;
+     }*/
+    #editButton {
+        width: 15%;
+        border-radius: 10px;
+        background-color: orange;
+        cursor: pointer;
         padding: 5px;
     }
+    }
+     
+        .male {
+            padding: 5px;
+        }
 
     .female {
         padding: 5px;
@@ -161,12 +168,22 @@
         margin-top: -29px;
         margin-left: 170px;
     }
+    .form-container {
+        max-width: 600px; /* Adjust based on your preference */
+        margin: 0 auto; /* Centers the form */
+        padding: 15px;
+        box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1); /* Optional: adds a slight shadow for better focus */
+        background-color: white; /* Optional: or any color you prefer */
+    }
 
     /* Mobile Responsiveness */
     @media (max-width: 768px) {
-        table, input, textarea, select, button {
+        table, input, textarea, select,button {
             width: 100%;
             max-width: 100%;
+        }
+        .form-container {
+            padding: 10px;
         }
 
         h1.employee-details-title {
@@ -396,15 +413,9 @@
 
 
         <div class="button-container">
-            <button id="editButton" type="submit" value="submit" onclick="toggleEditUpdate()" style="border-radius: -12%; width: 30%;">Edit</button>
+            <button id="editButton" type="submit" value="submit" onclick="toggleEditUpdate()">Edit</button>
         </div>
-
-
-
     </form><br><br>
 
 </center>
-
-
-
 {% endblock %}

@@ -5,27 +5,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="static/Comm.css">
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <!--<a href="forgetpassword.html">forgetpassword.html</a>-->
     <script src="https://kit.fontawesome.com/bc0ac06df1.js" crossorigin="anonymous"></script>
     <style>
+       
+        /* Reset default margin and padding */
+        body, h1, h2, h3, ul {
+            margin: 0;
+            padding: 0;
+        }
+
         body {
             margin: 0;
             padding: 0;
-            font-family: Helvetica;
             background-color: #F5F0EC;
         }
+
 
         .header {
             background-color: rgb(255, 255, 255);
             padding: 50px;
             text-align: center;
         }
-        /* CSS Styles */
+
         .logo {
             width: 187px;
             height: auto;
-            margin-top: -47px; /* Maintain aspect ratio */
+            margin-top: -47px;
             position: absolute;
             left: 50%;
             transform: translateX(-50%);
@@ -34,12 +42,11 @@
 
 
         .headline {
-            font-size: 24px; /* Set the font size */
-            position: relative; /* Set position for animation */
-            font-weight: bold;
+            font-size: 24px;
+            position: relative;
+           
         }
 
-        /* Dropdown styles */
         .dropdown {
             margin-right: -73%;
             position: relative;
@@ -72,7 +79,7 @@
                     background-color: #f1f1f1;
                 }
 
-        /* Dropdown styles for mobile */
+
         @media screen and (max-width: 768px) {
             .dropdown {
                 display: block;
@@ -101,12 +108,14 @@
                 }
         }
 
-        /* Container to hold sidebar and main content */
+
+
         .container {
             display: flex;
         }
 
-        /* Sidebar toggle button styles */
+
+
         .sidebar-toggle-btn {
             background: none;
             border: none;
@@ -114,11 +123,10 @@
         }
 
             .sidebar-toggle-btn img {
-                width: 30px; /* Adjust image width as needed */
-                height: auto; /* Maintain aspect ratio */
+                width: 30px;
+                height: auto;
             }
 
-        /* Sidebar styles */
         .sidebar {
             background-color: #333;
             color: white;
@@ -129,10 +137,9 @@
         }
 
             .sidebar.open {
-                width: 585%;
+                width: 250px;
             }
 
-        /* Navbar styles */
         .navbar ul {
             list-style: none;
             padding: 0;
@@ -145,7 +152,7 @@
             .navbar ul li {
                 padding: 10px;
                 text-align: center;
-                width: 100%; /* Adjust width as needed */
+                width: 100%;
             }
 
                 .navbar ul li a {
@@ -169,13 +176,14 @@
                         border-radius: 5px;
                     }
 
-        /* Main content styles */
-        /*.main-content {
+
+        .main-content {
             flex: 1;
             padding: 20px;
-        }*/
+        }
 
-        /* Media query for mobile responsiveness */
+
+
         @media screen and (max-width: 768px) {
             .container {
                 flex-direction: column;
@@ -205,7 +213,7 @@
                 margin: 0 5px;
             }
 
-        /* Sticky Footer */
+
         @media screen and (max-width: 768px) {
             body {
                 display: flex;
@@ -221,6 +229,8 @@
                 margin-top: auto;
             }
         }
+
+   
     </style>
     {% block css %}
 
@@ -254,16 +264,18 @@
 
         <main class="main-content">
             <button class="sidebar-toggle-btn" onclick="toggleSidebar()">
-                <img src="/static/menuicon.jpg" alt="menuicon">
+                <img src="../../static/menuicon.jpg" alt="">
             </button>
-        </main>
 
+      
 
-        {% block content %}
+            {% block content %}
 
-        {% endblock %}
-
+            {% endblock %}
+         </main>
+       
     </div><br />
+
 
 
     <footer class="footer">
