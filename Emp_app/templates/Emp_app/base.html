@@ -242,7 +242,7 @@
         <img src="/static/cf_logo.png" alt="CF Logo" class="logo">
 
         <div class="dropdown">
-            <span id="Role" class="id-symbol" onclick="toggleDropdown()">Jimmy Cherian &#9660; <i class="fa-solid fa-circle-user fa-2xl" style="color: #5c626a;"></i></span>
+            <span id="Role" class="id-symbol" onclick="toggleDropdown()">{{ user.get_username }} &#9660; <i class="fa-solid fa-circle-user fa-2xl" style="color: #5c626a;"></i></span>
             <div class="dropdown-content" id="dropdownContent">
                 <a href="employee.html">Profile</a>
                 <a href="change.html">Change password</a>

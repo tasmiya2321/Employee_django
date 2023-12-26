@@ -112,8 +112,8 @@
   <ItemGroup>
     <Interpreter Include="ems\">
       <Id>ems</Id>
-      <Version>3.9</Version>
-      <Description>ems (Python 3.9 (64-bit))</Description>
+      <Version>3.11</Version>
+      <Description>ems (Python 3.11)</Description>
       <InterpreterPath>Scripts\python.exe</InterpreterPath>
       <WindowsInterpreterPath>Scripts\pythonw.exe</WindowsInterpreterPath>
       <PathEnvironmentVariable>PYTHONPATH</PathEnvironmentVariable>

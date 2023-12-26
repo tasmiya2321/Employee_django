@@ -8,7 +8,7 @@ from .models import EmpDetails
 from django.contrib import messages
 import json
 
-
+from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy
 from django.contrib.auth.views import PasswordResetView
 from django.contrib.messages.views import SuccessMessageMixin
@@ -23,7 +23,7 @@ from django.contrib.messages.views import SuccessMessageMixin
 #     success_url = reverse_lazy('index')
     
 
-
+@login_required
 def home(request):
     programs = Program.objects.exclude(date__isnull=True).order_by('pgm_id')[:10]
 
@@ -44,7 +44,8 @@ def index(request):
 
 
 
-@csrf_exempt
+
+@login_required
 def employee(request):
        if request.method=='GET':
    
@@ -65,7 +66,8 @@ def employee(request):
           
            return JsonResponse( {"info": json.dumps(my_dict)} )
           # return render(request, "Emp_app/employee.html",{"info":emp_details})
-           
+   
+@login_required
 def saveemployee(request):
      Value=request.POST.get('fullname')
      emp_details = EmpDetails.objects.get(fullname=Value)
@@ -159,7 +161,7 @@ def userlogin(request):
         
          return render(request, 'login.html') 
      
-     
+@login_required    
 def change_password(request):
     if request.method == 'POST':
         form = PasswordChangeForm(request.user, request.POST)
