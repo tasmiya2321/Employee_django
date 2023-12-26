@@ -106,6 +106,7 @@
         /* Container to hold sidebar and main content */
         .container {
             display: flex;
+           
         }
 
         /* Sidebar toggle button styles */
@@ -181,6 +182,7 @@
         @media screen and (max-width: 768px) {
             .container {
                 flex-direction: column;
+             
             }
 
             .sidebar {
@@ -217,6 +219,7 @@
 
             .container {
                 flex: 1;
+               
             }
 
             .footer {
@@ -235,7 +238,7 @@
 
         <div class="dropdow">
             <span id="Role" class="id-symbol" onclick="toggleDropdown()">Jimmy Cherian &#9660; <i class="fa-solid fa-circle-user fa-2xl" style="color: #5c626a;"></i></span>
-            <div class="dropdow-content" id="dropdowContent">
+            <div class="dropdow-content" id="dropdownContent">
                 <a href="employee.html">Profile</a>
                 <a href="change.html">Change password</a>
                 <a href="index.html">Logout</a>
@@ -276,12 +279,10 @@
 
 
     <script>
-
         function toggleDropdown() {
-            const dropdowContent = document.getElementById('dropdowContent');
-            dropdowContent.style.display = (dropdowContent.style.display === 'block') ? 'none' : 'block';
+            const dropdownContent = document.getElementById('dropdownContent');
+            dropdownContent.style.display = (dropdownContent.style.display === 'block') ? 'none' : 'block';
         }
-
 
         function toggleSidebar() {
             const sidebar = document.getElementById('sidebar');

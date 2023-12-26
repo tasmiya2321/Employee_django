@@ -47,6 +47,7 @@ class Program(models.Model):
     beneficiaries = models.IntegerField(db_column='Beneficiaries', blank=True, null=True)  # Field name made lowercase.
     category = models.IntegerField(db_column='Category', blank=True, null=True)  # Field name made lowercase.
     duration = models.IntegerField(db_column='Duration', blank=True, null=True)  # Field name made lowercase.
+    
     status = models.IntegerField(db_column='Status', blank=True, null=True)  # Field name made lowercase.
     comments = models.TextField(db_column='Comments', blank=True, null=True)  # Field name made lowercase.
 
