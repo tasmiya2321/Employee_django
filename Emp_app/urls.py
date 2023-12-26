@@ -28,11 +28,12 @@ urlpatterns = [
    # path("email/", views.email, name="email"),
     #path("subject_email/", views.subject_email, name="subject_email"),
     path("", views.login, name="login"),
+
     path("employee/", views.employee, name="employee"),
-    # path("saveemployee/",views.saveemployee, name="saveemployee"),
-   # path('forgetpassword/', views.forgetpassword, name='forget_password'),   
-    #path('reset_password/', views.reset_password, name='reset_password'),
-    #path('home/', views.home, name='home')
+    path("saveemployee/",views.saveemployee, name="saveemployee"),
+    path('forgetpassword/', views.forgetpassword, name='forget_password'),  
+    path('reset_password/', views.reset_password, name='reset_password'),
+    path('home/', views.home, name='home'),
     path('admin/', admin.site.urls),
     path("accounts/",include("django.contrib.auth.urls"))
 

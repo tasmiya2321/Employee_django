@@ -114,7 +114,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 STATIC_URL = '/static/'
 STATIC_ROOT = posixpath.join(*(BASE_DIR.split(os.path.sep) + ['static']))
-
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'Emp_app/static'),  # Update this to your static directory
+]
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
@@ -124,5 +126,15 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
 DEFAULT_FROM_EMAIL='hariraj2292003@gmail.com'
+<<<<<<< HEAD
+
+
+
+# Use BigAutoField as the default ID field for models
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+=======
 LOGIN_REDIRECT_URL = "/home/"
+>>>>>>> 8d2d0c45ce4383c322238faaba36d72a6c614bfd
 
