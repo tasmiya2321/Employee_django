@@ -244,9 +244,9 @@
         <div class="dropdown">
             <span id="Role" class="id-symbol" onclick="toggleDropdown()">{{ user.get_username }} &#9660; <i class="fa-solid fa-circle-user fa-2xl" style="color: #5c626a;"></i></span>
             <div class="dropdown-content" id="dropdownContent">
-                <a href="employee.html">Profile</a>
-                <a href="change.html">Change password</a>
-                <a href="index.html">Logout</a>
+                <a href="{% url 'saveemployee' %}">Profile</a>
+                <a href="change_password.html">Change password</a>
+                <a href="{% url 'login' %}">Logout</a>
             </div>
         </div>
     </header>
