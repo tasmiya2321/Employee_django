@@ -62,12 +62,18 @@
     <Content Include="Emp_app\templates\Emp_app\index.html" />
     <Content Include="Emp_app\templates\Emp_app\Session_main.html" />
     <Content Include="Emp_app\templates\Emp_app\subject_email.txt" />
-    <Content Include="Emp_app\templates\Emp_app\WebPage1.html" />
-    <Content Include="Emp_app\templates\Emp_app\WebPage2.html" />
+    <Content Include="templates\Registration\login.html">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="templates\Registration\password_reset_complete.html" />
+    <Content Include="templates\Registration\password_reset_confirm.html" />
+    <Content Include="templates\Registration\password_reset_done.html" />
+    <Content Include="Emp_app\templates\Registration\password_reset_form.html" />
     <Content Include="Emp_app\templates\reset.html" />
     <Content Include="Emp_app\templates\Emp_app\reset_password.html" />
     <Content Include="readme.html" />
     <Content Include="requirements.txt" />
+    <Content Include="templates\Registration\password_reset_form.html" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Employee_Management\settings.py" />
@@ -94,10 +100,15 @@
     <Folder Include="Employee_Management" />
     <Folder Include="Emp_app" />
     <Folder Include="Emp_app\migrations" />
+    <Folder Include="Emp_app\templates\Registration\" />
     <Folder Include="Emp_app\templatetags\" />
     <Folder Include="Emp_app\static\" />
     <Folder Include="Emp_app\templates\" />
     <Folder Include="Emp_app\templates\Emp_app" />
+    <Folder Include="templates\" />
+    <Folder Include="templates\Registration\" />
+    <Folder Include="venv\" />
+    <Folder Include="venv\Scripts\" />
   </ItemGroup>
   <ItemGroup>
     <Interpreter Include="ems\">

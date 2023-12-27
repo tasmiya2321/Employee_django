@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
@@ -5,9 +6,6 @@
     <meta charset="utf-8" />
     <title></title>
     <style>
-        body{
-            overflow:hidden;
-        }
         img {
             width: 30%;
             margin-left: 36%;
@@ -17,6 +15,7 @@
             margin-left: 43%;
             font-family:helvetica;
         }
+
         .circle1 {
             width: 500px;
             height: 500px;
@@ -28,6 +27,7 @@
             transform: translate(-50%, -50%);
             z-index: -1;
         }
+
         :root {
             --praimery: #FCB040;
         }
@@ -64,7 +64,10 @@
     <div class="circle1"></div>
     <div class="circle2"></div>
     <div class="circle3"></div>
-    <img src="../../static/cf_logo.png" />
+    <!--<img src="../../static/cf_logo.png" />-->
+    <img src="{% static 'cf_logo.png' %}" />
+
+
     <h2>
         {% block title %}
 
@@ -79,3 +82,5 @@
     {% endblock %}
 </body>
 </html>
+
+  

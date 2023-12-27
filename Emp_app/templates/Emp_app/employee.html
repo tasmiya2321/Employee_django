@@ -4,16 +4,16 @@
 <script>
     $(document).ready(function () {
         var Role = document.getElementById("Role").innerText;
-        alert(Role)
+        /*  alert(Role)*/
         debugger;
         $.ajax({
             type: "POST",
-            url: {% url "employee" %},
+            url: "{% url 'employee' %}",
             data: { data: Role },
             success: function (result) {
 
                 var resultobj = $.parseJSON(result.info);
-                alert(result.info);
+                /*  alert(result.info);*/
                 debugger
                 var listItems = $("input[type=text], input[type=date],input[type=number],input[type=email],input[type=radio],select,textarea");
                 for (let li of listItems) {
@@ -35,8 +35,8 @@
                 }
 
             }
-            });
-                     });
+        });
+    });
 
 
 
@@ -69,11 +69,22 @@
 
     .employee-details-title {
         text-align: center;
-        margin-top: -51%;
+        margin-top: 10%;
         margin-bottom: 20px;
     }
 
+
+    .success-message {
+        background-color: lightgreen;
+        padding: 15px;
+        border-radius: 30px;
     }
+     .error-message, .danger-message {
+        background-color: red;
+        padding: 10px;
+        margin-left: 20px;
+        border-radius: 20px;
+     }
 
     h3 {
         color: #333;
@@ -119,23 +130,31 @@
         margin-bottom: 10px;
     }
 
-    button {
+   /* #button {
         background-color: orange;
         color: white;
-        border: none;
-        border-radius: 23px;
+        border: none; 
+        border-radius: 10px;
         cursor: pointer;
-        font-size: 16px;
+        font-size: 25px;
     }
+   
 
-
-        button:hover {
-            background-color: orange;
-        }
-
-    .male {
+     #button:hover {
+         background-color: orange;
+     }*/
+    #editButton {
+        width: 15%;
+        border-radius: 10px;
+        background-color: orange;
+        cursor: pointer;
         padding: 5px;
     }
+    }
+     
+        .male {
+            padding: 5px;
+        }
 
     .female {
         padding: 5px;
@@ -148,12 +167,22 @@
         margin-top: -29px;
         margin-left: 170px;
     }
+    .form-container {
+        max-width: 600px; /* Adjust based on your preference */
+        margin: 0 auto; /* Centers the form */
+        padding: 15px;
+        box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1); /* Optional: adds a slight shadow for better focus */
+        background-color: white; /* Optional: or any color you prefer */
+    }
 
     /* Mobile Responsiveness */
     @media (max-width: 768px) {
-        table, input, textarea, select, button {
+        table, input, textarea, select,button {
             width: 100%;
             max-width: 100%;
+        }
+        .form-container {
+            padding: 10px;
         }
 
         h1.employee-details-title {
@@ -196,7 +225,17 @@
 <center>
 
 
-    <form action="">
+    <form action="{% url 'saveemployee' %}" method="POST">
+        {% csrf_token %}
+
+
+
+        {% if messages %}
+        {% for message in messages %}
+
+        <div class="{% if message.tags %}{{ message.tags }}{% endif %}-message">{{ message }}</div>
+        {% endfor %}
+        {% endif %}
 
 
         <h3>Personal Details</h3>
@@ -205,27 +244,27 @@
             <!-- Full Name -->
             <tr>
                 <td><label for="fullname">Full Name</label></td>
-                <td><input type="text" id="fullname" data-dbname="fullname" required></td>
+                <td><input type="text" name="fullname" id="fullname" data-dbname="fullname" required></td>
             </tr>
             <!-- Address -->
             <tr>
                 <td><label for="address">Address</label></td>
-                <td><textarea id="address" data-dbname="address" required></textarea></td>
+                <td><textarea id="address" name="address" data-dbname="address" required></textarea></td>
             </tr>
             <!-- Date of Birth -->
             <tr>
                 <td><label for="dateOfBirth">Date of Birth</label></td>
-                <td><input type="date" id="dateOfBirth" data-dbname="dob" required></td>
+                <td><input type="date" name="dob" id="dateOfBirth" data-dbname="dob" required></td>
             </tr>
             <!-- Phone -->
             <tr>
                 <td><label for="phoneNumber">Phone</label></td>
-                <td><input type="number" id="phoneNumber" data-dbname="phone_number" required></td>
+                <td><input type="number" name="phonenumber" id="phoneNumber" data-dbname="phone_number" required></td>
             </tr>
             <!-- Email ID -->
             <tr>
                 <td><label for="emailId">Email ID</label></td>
-                <td><input type="email" id="emailId" data-dbname="email_id" required></td>
+                <td><input type="email" name="emailId" id="emailId" data-dbname="email_id" required></td>
             </tr>
             <!-- Gender -->
             <tr>
@@ -254,14 +293,14 @@
             <!-- Employee ID -->
             <tr>
                 <td><label for="employeeId">Employee ID</label></td>
-                <td><input type="text" id="employeeId" data-dbname="emp_id" required></td>
+                <td><input type="text" id="employeeId" name="employeeId" data-dbname="emp_id" required></td>
             </tr>
 
             <!-- Centre -->
             <tr>
                 <td><label for="centre">Centre</label></td>
                 <td>
-                    <select id="centre" data-dbname="center" required>
+                    <select id="centre" name="centre" data-dbname="centre" required>
                         <option value="">Select an option</option>
                         <option value="1">DJ Halli1</option>
                         <option value="2">DJ Halli2</option>
@@ -276,26 +315,26 @@
             <!-- Designation -->
             <tr>
                 <td><label for="designation">Designation</label></td>
-                <td><input type="text" id="designation" data-dbname="designation" required></td>
+                <td><input type="text" name="designation" id="designation" data-dbname="designation" required></td>
             </tr>
 
             <!-- Date of Joining -->
             <tr>
-                <td><label for="dateOfJoining">Date of Joining</label></td>
-                <td><input type="date" id="dateOfJoining" data-dbname="date_of_joining" placeholder="dd-mm-YYYY" required></td>
+                <td><label for="dateofJoining">Date of Joining</label></td>
+                <td><input type="date" name="dateofJoining" id="dateofJoining" data-dbname="date_of_joining" placeholder="dd-mm-YYYY" required></td>
             </tr>
 
             <!-- Education Qualification -->
             <tr>
                 <td><label for="educationQualification">Education Qualification</label></td>
-                <td><input type="text" id="educationQualification" data-dbname="education_qualification" required></td>
+                <td><input type="text" name="educationQualification" id="educationQualification" data-dbname="education_qualification" required></td>
             </tr>
 
             <!-- Status -->
             <tr>
                 <td><label for="status">Status</label></td>
                 <td>
-                    <select id="status" data-dbname="status" required>
+                    <select id="status" name="status" data-dbname="status" required>
                         <option value="">Select an option</option>
                         <option value="1">Active</option>
                         <option value="2">Resigned</option>
@@ -306,14 +345,14 @@
             <!-- Date of Resigning -->
             <tr>
                 <td><label for="dateOfResigning">Date of Resigning</label></td>
-                <td><input type="date" id="dateOfResigning" data-dbname="date_of_resigning"></td>
+                <td><input type="date" name="dateOfResigning" id="dateOfResigning" data-dbname="date_of_resigning"></td>
             </tr>
 
             <!-- Resource Type -->
             <tr>
                 <td><label for="resourceType">Resource Type</label></td>
                 <td>
-                    <select id="resourceType" data-dbname="resource_type" required>
+                    <select id="resourceType" name="resourceType" data-dbname="resource_type" required>
                         <option value="">Select an option</option>
                         <option value="1">Employee</option>
                         <option value="2">Part-time</option>
@@ -330,39 +369,39 @@
             <!-- Name of the Bank -->
             <tr>
                 <td><label for="bankName">Name of the Bank</label></td>
-                <td><input type="text" id="bankName" data-dbname="bank_name" required></td>
+                <td><input type="text" name="bankName" id="bankName" data-dbname="bank_name" required></td>
             </tr>
 
             <!-- Name as per Bank -->
             <tr>
                 <td><label for="nameAsPerBank">Name as per Bank</label></td>
-                <td><input type="text" id="nameAsPerBank" data-dbname="name_as_per_bank" required></td>
+                <td><input type="text" name="nameAsPerBank" id="nameAsPerBank" data-dbname="name_as_per_bank" required></td>
             </tr>
 
             <!-- Account Number -->
             <tr>
                 <td><label for="accountNumber">Account Number</label></td>
-                <td><input type="text" id="accountNumber" data-dbname="account_number" required></td>
+                <td><input type="text" name="accountNumber" id="accountNumber" data-dbname="account_number" required></td>
             </tr>
 
             <!-- IFSC Code -->
             <tr>
                 <td><label for="ifscCode">IFSC Code</label></td>
-                <td><input type="text" id="ifscCode" data-dbname="ifsc" required></td>
+                <td><input type="text" name="ifscCode" id="ifscCode" data-dbname="ifsc" required></td>
             </tr>
 
             <!-- Branch -->
 
             <tr>
                 <td><label for="branchName">Branch</label></td>
-                <td><input type="text" id="branchName" data-dbname="branch" required></td>
+                <td><input type="text" name="branchName" id="branchName" data-dbname="branch" required></td>
             </tr>
 
             <!-- Account Type -->
             <tr>
                 <td><label for="accountType">Account Type</label></td>
                 <td>
-                    <select id="accountType" data-dbname="account_type" required>
+                    <select id="accountType" name="accountType" data-dbname="account_type" required>
                         <option value="">Select an option</option>
                         <option value="1">Savings</option>
                         <option value="2">Current</option>
@@ -373,40 +412,9 @@
 
 
         <div class="button-container">
-            <button id="editButton" type="button" onclick="toggleEditUpdate()" style="border-radius: -12%; width: 30%;">Edit</button>
+            <button id="editButton" type="submit" value="submit" onclick="toggleEditUpdate()">Edit</button>
         </div>
-
-
-
     </form><br><br>
 
 </center>
-    {% for emp in emp_details %}
-<p>Employee ID: {{ emp.emp_id }}</p>
-<p>Full Name: {{ emp.fullname }}</p>
-<p>Address: {{ emp.address }}</p>
-<p>Date of Birth: {{ emp.dob }}</p>
-<p>Phone_number: {{ emp.phone_number }}</p>
-<p>Email ID: {{ emp.email_id }}</p>
-<p>Gender: {{ emp.gender }}</p>
-<p>Center: {{ emp.center }}</p>
-<p>Designation: {{ emp.designation }}</p>
-<p>Date_of_joining: {{ emp.date_of_joining }}</p>
-<p>Education_qualification: {{ emp.education_qualification }}</p>
-<p>Status: {{ emp.status }}</p>
-<p>Resource_type: {{ emp.resource_type }}</p>
-<p>Date_of_resigning: {{ emp.date_of_resigning }}</p>
-<p>Bank_name: {{ emp.bank_name }}</p>
-<p>Name_as_per_bank: {{ emp.name_as_per_bank }}</p>
-<p>Account_number: {{ emp.account_number }}</p>
-<p>IFSC: {{ emp.ifsc }}</p>
-<p>branch: {{ emp.branch }}</p>
-<p>account_type: {{ emp.account_type }}</p>
-
-    {% endfor %}
-
-
-
-    {% endblock %}
-
-
+{% endblock %}
