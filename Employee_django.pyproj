@@ -61,6 +61,7 @@
     <Content Include="Emp_app\templates\Emp_app\forgetpassword.html" />
     <Content Include="Emp_app\templates\Emp_app\home.html" />
     <Content Include="Emp_app\templates\Emp_app\index.html" />
+    <Content Include="Emp_app\templates\Emp_app\Session_main.html" />
     <Content Include="Emp_app\templates\Emp_app\subject_email.txt" />
     <Content Include="templates\Registration\login.html">
       <SubType>Code</SubType>

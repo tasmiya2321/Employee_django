@@ -42,8 +42,13 @@ def home(request):
 def forgetpassword(request):
      return render(request, "Emp_app/forgetpassword.html")
 
+def Session_main(request):
+    programs = Program.objects.exclude(date__isnull=True).order_by('pgm_id')
+    for program in programs:
+        print(program.date)
+    return render(request, "Emp_app/Session_main.html", {'programs': programs})
 
-    
+
 def index(request):
     return render(request, "Emp_app/index.html")
 
@@ -182,7 +187,7 @@ def change_password(request):
     return render(request,'change_password.html',{
         'form': form
     })
-
+    
 def login_base(request):
     return render(request, "login_base.html")
 
