@@ -30,7 +30,8 @@ urlpatterns = [
     path('reset_password/', views.reset_password, name='reset_password'),
     path('home/', views.home, name='home'),
     path('admin/', admin.site.urls),
-    path("accounts/",include("django.contrib.auth.urls"))
+    path("accounts/",include("django.contrib.auth.urls")),
+    path('change_password/', views.change_password, name='change_password'),
 
 ]
 # if settings.DEBUG:
