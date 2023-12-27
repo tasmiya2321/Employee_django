@@ -139,7 +139,7 @@ DEFAULT_FROM_EMAIL='hariraj2292003@gmail.com'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-
+LOGIN_URL = "/accounts/login/"
 LOGIN_REDIRECT_URL = "/home/"
 
 

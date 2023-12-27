@@ -1,19 +1,229 @@
-{% extends "Emp_app\login_base.html" %}
+﻿{% extends "Emp_app\login_base.html" %}
 {% block css %}
+{% load static %}
 <style>
-    p {
-        text-align: center;
+    :root {
+        --praimery: #FCB040;
     }
-    button {
-        text-align: center;
+
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: #f4f4f4;
+        overflow: hidden; /* Prevent scrolling */
+    }
+
+    .circle1 {
+        width: 500px;
+        height: 500px;
+        border-radius: 60%;
+        background: var(--praimery);
+        position: absolute;
+        top: 50%;
+        left: -9%;
+        transform: translate(-50%, -50%);
+        z-index: -1;
+    }
+
+    .circle2 {
+        width: 500px;
+        height: 500px;
+        border-radius: 60%;
+        background: var(--praimery);
+        position: absolute;
+        top: -14%;
+        left: 97%;
+        transform: translate(-50%, -50%);
+        z-index: -1;
+    }
+
+    .circle3 {
+        width: 500px;
+        height: 500px;
+        border-radius: 60%;
+        background: var(--praimery);
+        position: absolute;
+        top: 104%;
+        left: 97%;
+        transform: translate(-50%, -50%);
+        z-index: -1;
+    }
+
+    .login-container {
+        background: white;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+        position: relative;
+        z-index: 1;
+        width: auto; /* Adjust width */
+        max-width: 500px; /* Max width for larger screens */
+        margin-left: -45%;
+    }
+
+        .login-container h2 {
+            color: var(--praimery);
+            text-align: center;
+        }
+
+    .input-group {
+        margin-bottom: 20px;
+        position: relative;
+    }
+
+        .input-group input {
+            width: calc(100% - 22px); /* Adjust width to account for padding and border */
+            padding: 10px;
+            margin: 5px 0;
+            display: block;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+    .login-btn {
+        background: var(--praimery);
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        cursor: pointer;
+        width: 100%;
+        border-radius: 5px;
+        margin-top: 8%;
+    }
+
+    .image-container {
+        max-width: 100%;
+        height: auto;
+    }
+
+    .logo {
+        width: 60%; /* Default width */
+        margin-left: 20%; /* Default margin-left */
+        display: block; /* To ensure margin applies correctly */
+        height: auto; /* Maintain aspect ratio */
+    }
+
+    @media only screen and (max-width: 1200px) {
+        .circle1, .circle2, .circle3 {
+            width: 400px;
+            height: 400px;
+        }
+    }
+
+    @media only screen and (max-width: 992px) {
+        .circle1, .circle2, .circle3 {
+            width: 300px;
+            height: 300px;
+        }
+
+        .login-container {
+            max-width: 350px;
+        }
+    }
+
+    @media only screen and (max-width: 768px) {
+        .circle1, .circle2, .circle3 {
+            width: 200px;
+            height: 200px;
+        }
+
+        .login-container {
+            max-width: 300px;
+        }
+
+        .logo {
+            width: 80%; /* Larger percentage of the width for smaller screens */
+            margin-left: 10%; /* Adjust margin to keep it centered */
+        }
+    }
+
+    @media only screen and (max-width: 576px) {
+
+        .circle1 {
+            width: 900px;
+            height: 500px;
+            top: -2%;
+            left: 89%
+        }
+
+        .circle2 {
+            width: 900px;
+            height: 500px;
+            top: 178%;
+            left: 89%
+        }
+
+        .circle3 {
+            display: none; /* Hide the circles on very small screens to focus on the form */
+        }
+
+        .login-container {
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 16px -23px 8px rgba(0, 0, 0, 0.1);
+            position: relative;
+            z-index: 1;
+            width: 126%;
+            max-width: 600px;
+            min-height: 400px;
+            top: 35%;
+            left: 40%;
+        }
+
+
+
+        .logo {
+            width: 80%; /* Larger percentage of the width for smaller screens */
+            margin-left: 10%; /* Adjust margin to keep it centered */
+        }
+    }
+
+
+    #id_username, #id_password {
+        width: calc(100% - 22px); /* Adjust width to account for padding and border */
+        padding: 10px;
+        margin: 5px 0;
+        display: block;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+    .forgot-password {
+        margin-left: 61%;
+        margin-top: 4%;
     }
 </style>
 {% endblock %}
 {% block content %}
-<h2>Log In</h2>
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Log In</button>
-</form>
+
+<div class="login-container">
+
+    <h1 style="margin-left: 73px; color: orange;">Sign in to your Account</h1>
+
+    <img src="{% static 'cf_logo.png' %}" alt="Creating Futures Logo" class="logo"> 
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <div class="forgot-password">
+            <a href="{% url 'password_reset' %}"><i>Forgot Password?</i></a>
+        </div>
+
+        <button class="login-btn" onclick="validateForm()">Login</button>
+</div>
+    </form>
+</div>
 {% endblock %}
+
+
+
+
+
+
+
