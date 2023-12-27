@@ -6,9 +6,10 @@ from django.contrib.auth import authenticate, login
 from .models import Program 
 from .models import EmpDetails 
 from django.contrib import messages
+from django.http import HttpResponseServerError
 import json
 
-
+from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy
 from django.contrib.auth.views import PasswordResetView
 from django.contrib.messages.views import SuccessMessageMixin
@@ -22,6 +23,10 @@ from django.contrib.messages.views import SuccessMessageMixin
 #                       "please make sure you've entered the address you registered with, and check your spam folder."
 #     success_url = reverse_lazy('index')
     
+
+def custom_502_view(request, exception=None):
+    """Custom view to handle 502 Bad Gateway errors."""
+    return HttpResponseServerError('A problem occurred with our server. We\'re working on it!')
 
 
 def home(request):
@@ -49,7 +54,8 @@ def index(request):
 
 
 
-@csrf_exempt
+
+@login_required
 def employee(request):
        if request.method=='GET':
    
@@ -70,8 +76,66 @@ def employee(request):
           
            return JsonResponse( {"info": json.dumps(my_dict)} )
           # return render(request, "Emp_app/employee.html",{"info":emp_details})
-           
-       
+   
+@login_required
+def saveemployee(request):
+     Value=request.POST.get('fullname')
+     emp_details = EmpDetails.objects.get(fullname=Value)
+     Value=request.POST.get('address')
+     emp_details.address =Value
+     Value=request.POST.get('dob')
+     emp_details.dob=Value  
+     Value=request.POST.get('phonenumber')
+     emp_details.phonenumber=Value  
+     Value=request.POST.get('emailId')
+     emp_details.emailId=Value  
+     Value=request.POST.get('gender')
+     emp_details.gender=Value   
+     Value=request.POST.get('employeeId')
+     emp_details.employeeId=Value  
+     Value=request.POST.get('center')
+     emp_details.center=Value  
+     Value=request.POST.get('designation')
+     emp_details.designation=Value   
+     Value=request.POST.get('dateofJoining')
+     emp_details.dateofJoining=Value   
+     Value=request.POST.get('educationQualification')
+     emp_details.educationQualification=Value    
+     Value=request.POST.get('status')
+     emp_details.status=Value  
+     Value=request.POST.get('dateofResigning')
+     emp_details.dateofResigning=Value  
+     Value=request.POST.get('resourceType')
+     emp_details.resourceType=Value   
+     Value=request.POST.get('bankName')
+     emp_details.bankName=Value  
+     Value=request.POST.get('nameAsPerBank')
+     emp_details.nameAsPerBank=Value  
+     Value=request.POST.get('accountNumber')
+     emp_details.accountNumber=Value  
+     Value=request.POST.get('ifscCode')
+     emp_details.ifscCode=Value  
+     Value=request.POST.get('branchName')
+     emp_details.branchName=Value  
+     Value=request.POST.get('accountType')
+     emp_details.accountType=Value  
+     
+    
+     emp_details.save()
+     
+     try:
+ 
+       messages.success(request, 'Employee details updated successfully!')
+     except Exception as e:
+
+       messages.error(request, 'Failed to update employee details: {}'.format(e))
+
+    
+     return render(request, "Emp_app/employee.html")
+
+
+def login(request):
+     return render(request, "Registration/login.html")
 
 def reset_password(request):
      return render(request, "Emp_app/reset_password.html")
@@ -83,15 +147,6 @@ def email(request):
 def subject_email(request):
      return render(request, "Emp_app/subject_email.txt")
 
-# def employee(request):
-#         # Query the EmpDetails model for all records
-#     emp_details = EmpDetails.objects.all()
-
-#     # Pass the queried data to the template
-#     context = {
-#         'emp_details': emp_details
-#     }
-#     return render(request, "Emp_app/employee.html", context)
 
 
 
@@ -116,7 +171,7 @@ def userlogin(request):
         
          return render(request, 'login.html') 
      
-     
+@login_required    
 def change_password(request):
     if request.method == 'POST':
         form = PasswordChangeForm(request.user, request.POST)
@@ -135,3 +190,7 @@ def change_password(request):
     
 def login_base(request):
     return render(request, "login_base.html")
+
+def CreatePage(request):
+     return render(request, "Emp_app/createpage.html")
+    

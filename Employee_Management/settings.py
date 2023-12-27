@@ -27,7 +27,12 @@ SECRET_KEY = '977ed121-3491-4b6b-b00f-6d0b8d99df29'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+       'preethi7339.pythonanywhere.com',
+       '198.211.99.20',
+       'localhost',
+       '127.0.0.1'
+    ]
 
 # Application references
 # https://docs.djangoproject.com/en/2.1/ref/settings/#std:setting-INSTALLED_APPS
@@ -126,7 +131,7 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
 DEFAULT_FROM_EMAIL='hariraj2292003@gmail.com'
-<<<<<<< HEAD
+
 
 
 
@@ -134,7 +139,7 @@ DEFAULT_FROM_EMAIL='hariraj2292003@gmail.com'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-=======
+LOGIN_URL = "/accounts/login/"
 LOGIN_REDIRECT_URL = "/home/"
->>>>>>> 8d2d0c45ce4383c322238faaba36d72a6c614bfd
+
 

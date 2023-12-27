@@ -4,7 +4,108 @@
 
 {% block css %}
 
+<script>
+    function togglDropdown() {
+        var dropdown = document.querySelector('.main-filter .dropdown');
+        dropdown.style.display = (dropdown.style.display === 'block') ? 'none' : 'block';
+        document.querySelector('.main-filter').classList.toggle('active');
+    }
 
+
+
+
+    document.getElementById('sa').addEventListener('click', function () {
+        var san = document.getElementById('san');
+        san.style.display = (san.style.display === 'none' || san.style.display === '') ? 'block' : 'none';
+    });
+    document.getElementById('ha').addEventListener('click', function () {
+        var sh = document.getElementById('sh');
+        sh.style.display = (san.style.display === 'none' || sh.style.display === '') ? 'block' : 'none';
+    });
+
+
+
+
+
+    function showpopup() {
+        document.getElementById('popup').style.display = 'flex';
+    }
+
+    function hidePopup() {
+        document.getElementById('popup').style.display = 'none';
+    }
+
+    function validateAndSave(isDuplicate = false) {
+
+        saveData(isDuplicate);
+    }
+
+
+</script>
+
+<script>
+    function searchTable() {
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("searchInput");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("sessionsTable");
+        tr = table.getElementsByTagName("tr");
+
+        // Loop through all table rows, and hide those who don't match the search query
+        for (i = 1; i < tr.length; i++) { // Start from 1 to skip the header row
+            td = tr[i].getElementsByTagName("td");
+            var showRow = false;
+
+            for (var j = 0; j < td.length; j++) {
+                if (td[j]) {
+                    txtValue = td[j].textContent || td[j].innerText;
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        showRow = true;
+                        break; // This cell matches the search, no need to check further
+                    }
+                }
+            }
+
+            tr[i].style.display = showRow ? "" : "none";
+        }
+    }
+
+    document.getElementById("searchInput").addEventListener("input", searchTable);
+
+
+
+    document.querySelector('.filter-icon').addEventListener('click', function () {
+        // Assuming 'Bridge Course' is clicked
+        fetch('/get_bridge_course_programs/', { // Update with the correct URL
+            method: 'GET' // or 'POST' if you're sending data
+        })
+            .then(response => response.json())
+            .then(data => {
+                updateTable(data.programs);
+            });
+    });
+
+    function updateTable(programs) {
+        let table = document.getElementById('sessionsTable');
+        // Clear existing table rows, except the header
+        let newTbody = document.createElement('tbody');
+        programs.forEach(program => {
+            // Create new row for each program
+            let row = newTbody.insertRow();
+            // Add cells and fill them with program data
+            let dateCell = row.insertCell();
+            dateCell.textContent = program.date;
+
+            // ...add other cells for resource name, program, etc.
+
+            let beneficiariesCell = row.insertCell();
+            beneficiariesCell.textContent = program.beneficiaries;
+        });
+        table.replaceChild(newTbody, table.getElementsByTagName('tbody')[0]);
+    }
+
+  
+</script>
 
 <style>
     body {
@@ -18,7 +119,6 @@
         background: none;
         color: #fff;
         padding: 10px;
-        
     }
 
     .search-container {
@@ -26,7 +126,6 @@
         padding: 20px;
         position: relative;
         margin-top: 0%;
-        
     }
 
     .search-box {
@@ -41,7 +140,7 @@
         display: inline-block;
         font-size: 20px;
         cursor: pointer;
-        margin-left:30%;
+        margin-left: 30%;
     }
 
     .main-filter {
@@ -322,11 +421,11 @@
         }
     }
 
-    .san select{
-        width:6%;
-
+    .san select {
+        width: 6%;
     }
 </style>
+
 {% endblock %}
 
 
@@ -352,7 +451,7 @@
             <div class="dropdown-item sub-dropdown">
                 Program
                 <div class="sub-dropdown-content">
-                    <div class="sub-dropdown-item">Bridge Course</div>
+                    <div class="sub-dropdown-item" data-value="Bridge Course">Bridge Course</div>
                     <div class="sub-dropdown-item">Acadamics</div>
                     <div class="sub-dropdown-item">After School Programming</div>
                     <div class="sub-dropdown-item">Awarness Sessions</div>
@@ -426,7 +525,6 @@
         </div>
     </div>
 </div>
-</div>
 
 
 <div class="actions">
@@ -465,7 +563,7 @@
 
 
 <div class="table">
-    <table bgcolor="">
+    <table id="sessionsTable">
         <tr bgcolor="orange">
 
             <th>Date</th>
@@ -475,7 +573,7 @@
             <th>Center Type</th>
             <th>Activity</th>
             <th>Session_Number</th>
-            <th>Trainer Type</th>
+            <th>Trainer_Type</th>
             <th>Hours</th>
             <th>Status</th>
             <th>beneficiaries</th>
@@ -486,7 +584,7 @@
         </tr>
 
         {% for program in programs %}
-        <tr bgcolor="white">
+        <tr bgcolor="white" data-program="{{program.name}}">
             <td>{{program.date }}</td>
             <td>{{program.emp.fullname}}</td>
             <td>{{program.pgm_id|program_to_string }}</td>
@@ -499,7 +597,7 @@
             <td>{{program.status}}</td>
             <td>{{program.beneficiaries }}</td>
             <td>{{program.category }}</td>
-            
+
 
             <td class="tdtd">
                 <button class="add-row-button" onclick="showpopup()"> <i class="fa-solid fa-eye" style="color: #ff7b00;"></i> </button>
@@ -508,215 +606,148 @@
         </tr>
         {% endfor %}
 
-      
 
 
 
-     </table>
+
+    </table>
 </div>
 
-    <!-- Add Modal -->
-    <!-- Popup box -->
-    <div id="popup" class="popup">
-        <div class="blank-box">
-            <div class="scroll-container">
-                <h2>Details</h2>
-                <label for="EmployeeID">Employee ID</label>
-                <input type="text" id="EmployeeID" name="EmployeeID"><br>
+<!-- Add Modal -->
+<!-- Popup box -->
+<div id="popup" class="popup">
+    <div class="blank-box">
+        <div class="scroll-container">
+            <h2>Details</h2>
+            <label for="EmployeeID">Employee ID</label>
+            <input type="text" id="EmployeeID" name="EmployeeID"><br>
 
-                <label for="date">Date</label>
-                <input type="date" id="date" name="date"><br>
+            <label for="date">Date</label>
+            <input type="date" id="date" name="date"><br>
 
-                <label for="ResourceName">Resoure Name</label>
-                <input type="text" id="ResourceName" name="ResourceName"><br>
+            <label for="ResourceName">Resoure Name</label>
+            <input type="text" id="ResourceName" name="ResourceName"><br>
 
-                <label for="Program">Program</label>
-                <select id="Program" name="Program" required>
-                    <option value="Select an option">Select an option</option>
-                    <option value="Bridge Course"> Bridge Course</option>
-                    <option value="Academics">Academics</option>
-                    <option value="After School Program">After School Program</option>
-                    <option value="Awareness Sessions">Awareness Sessions</option>
-                    <option value="Camps(Summer/Winter)">Camps(Summer/Winter)</option>
-                    <option value="Career Guidance">Career Guidance</option>
-                    <option value="Computer Coaching-Advanced">Computer Coaching-Advanced</option>
-                    <option value="Computer Coaching-Basics with Typing">Computer Coaching-Basics with Typing</option>
-                    <option value="Computer Coaching-Basics without Typing">Computer Coaching-Basics without Typing</option>
-                    <option value="Computer Coaching-Typing">Computer Coaching-Typing</option>
-                    <option value="Counselling">Counselling</option>
-                    <option value="E2E(Education to Employability)">E2E(Education to Employability)</option>
-                    <option value="program1">Program 1</option>
-                    <option value="Emotional Management">Emotional Management</option>
-                    <option value="Exam Readiness">Exam Readiness</option>
-                    <option value="Gender Sensitivity">Gender Sensitivity</option>
-                    <option value="Internship">Internship</option>
-                    <option value="Integrated Program">Integrated Program</option>
-                    <option value="Kannada">Kannada</option>
-                    <option value="Life Skills">Life Skills</option>
-                    <option value="Office Assistant">Office Assistant</option>
-                    <option value="Parental Guidance">Parental Guidance</option>
-                    <option value="Personality Development">Personality Development</option>
-                    <option value="Soft Skills">Soft Skills</option>
-                    <option value="Software Development">Software Development</option>
-                    <option value="Spoken English">Spoken English</option>
-                    <option value="Tailoring">Tailoring</option>
-                    <option value="Tailoring-Tassel Typing">Tailoring-Tassel Typing</option>
-                    <option value="Tally">Tally</option>
-                    <option value="Teacher Development">Teacher Development</option>
-                    <option value="TTT">TTT</option>
-                    <option value="Wellbeing">Wellbeing</option>
-                    <option value="Women Development">Women Development</option>
-                    <option value="WSD">WSD</option>
-                </select><br>
+            <label for="Program">Program</label>
+            <select id="Program" name="Program" required>
+                <option value="Select an option">Select an option</option>
+                <option value="Bridge Course"> Bridge Course</option>
+                <option value="Academics">Academics</option>
+                <option value="After School Program">After School Program</option>
+                <option value="Awareness Sessions">Awareness Sessions</option>
+                <option value="Camps(Summer/Winter)">Camps(Summer/Winter)</option>
+                <option value="Career Guidance">Career Guidance</option>
+                <option value="Computer Coaching-Advanced">Computer Coaching-Advanced</option>
+                <option value="Computer Coaching-Basics with Typing">Computer Coaching-Basics with Typing</option>
+                <option value="Computer Coaching-Basics without Typing">Computer Coaching-Basics without Typing</option>
+                <option value="Computer Coaching-Typing">Computer Coaching-Typing</option>
+                <option value="Counselling">Counselling</option>
+                <option value="E2E(Education to Employability)">E2E(Education to Employability)</option>
+                <option value="program1">Program 1</option>
+                <option value="Emotional Management">Emotional Management</option>
+                <option value="Exam Readiness">Exam Readiness</option>
+                <option value="Gender Sensitivity">Gender Sensitivity</option>
+                <option value="Internship">Internship</option>
+                <option value="Integrated Program">Integrated Program</option>
+                <option value="Kannada">Kannada</option>
+                <option value="Life Skills">Life Skills</option>
+                <option value="Office Assistant">Office Assistant</option>
+                <option value="Parental Guidance">Parental Guidance</option>
+                <option value="Personality Development">Personality Development</option>
+                <option value="Soft Skills">Soft Skills</option>
+                <option value="Software Development">Software Development</option>
+                <option value="Spoken English">Spoken English</option>
+                <option value="Tailoring">Tailoring</option>
+                <option value="Tailoring-Tassel Typing">Tailoring-Tassel Typing</option>
+                <option value="Tally">Tally</option>
+                <option value="Teacher Development">Teacher Development</option>
+                <option value="TTT">TTT</option>
+                <option value="Wellbeing">Wellbeing</option>
+                <option value="Women Development">Women Development</option>
+                <option value="WSD">WSD</option>
+            </select><br>
 
-                <label for="Project">Project</label>
-                <input type="text" id="Project" name="Project"><br>
+            <label for="Project">Project</label>
+            <input type="text" id="Project" name="Project"><br>
 
-                <label for="Activity">Activity</label>
-                <input type="text" id="Activity" name="Activity"><br>
+            <label for="Activity">Activity</label>
+            <input type="text" id="Activity" name="Activity"><br>
 
-                <label for="CentreType">Centre Type</label>
-                <select id="CentreType" name="CentreType" required>
-                    <option value="">Select an option</option>
-                    <option value="DJ Halli 1">DJ Halli1</option>
-                    <option value="DJ Halli 2">DJ Halli2</option>
-                    <option value="Bagalur">Bagalur</option>
-                    <option value="Mylanahalli">Mylanahalli</option>
-                    <option value="Kannur">Kannur</option>
-                    <option value="Koramangala">Koramangala</option>
-                </select><br>
+            <label for="CentreType">Centre Type</label>
+            <select id="CentreType" name="CentreType" required>
+                <option value="">Select an option</option>
+                <option value="DJ Halli 1">DJ Halli1</option>
+                <option value="DJ Halli 2">DJ Halli2</option>
+                <option value="Bagalur">Bagalur</option>
+                <option value="Mylanahalli">Mylanahalli</option>
+                <option value="Kannur">Kannur</option>
+                <option value="Koramangala">Koramangala</option>
+            </select><br>
 
-                <label for="Sessionnumber">Session Number</label>
-                <input type="text" id="Sessionnumber" name="Sessionnumber"><br>
+            <label for="Sessionnumber">Session Number</label>
+            <input type="text" id="Sessionnumber" name="Sessionnumber"><br>
 
-                <label for="Sponsor">Sponsor</label>
-                <select id="Sponsor" name="Sponsor" required>
-                    <option value="">Select an option</option>
-                    <option value="Vajra">Vajra</option>
-                    <option value="Bridge">Bridge</option>
-                    <option value="Taste Master">Taste Master</option>
-                    <option value="LICT">LICT</option>
-                    <option value="Others">Others</option>
-                </select><br>
+            <label for="Sponsor">Sponsor</label>
+            <select id="Sponsor" name="Sponsor" required>
+                <option value="">Select an option</option>
+                <option value="Vajra">Vajra</option>
+                <option value="Bridge">Bridge</option>
+                <option value="Taste Master">Taste Master</option>
+                <option value="LICT">LICT</option>
+                <option value="Others">Others</option>
+            </select><br>
 
-                <label for="Trainer_Type">Trainer Type</label>
-                <select id="Trainer_Type" name="Trainer_Type" required>
-                    <option value="">Select an option</option>
-                    <option value="Lead">Lead</option>
-                    <option value="Co-Facilator">Co-Facilator</option>
-                    <option value="Volunteer">Volunteer</option>
-                </select><br>
+            <label for="Trainer_Type">Trainer Type</label>
+            <select id="Trainer_Type" name="Trainer_Type" required>
+                <option value="">Select an option</option>
+                <option value="Lead">Lead</option>
+                <option value="Co-Facilator">Co-Facilator</option>
+                <option value="Volunteer">Volunteer</option>
+            </select><br>
 
-                <label for="Beneficiaries">Beneficiaries</label>
-                <input type="number" id="Beneficiaries" name="Beneficiaries" style=" width: 90%; margin: 5px 0; padding: 8px; border: 1px solid #ccc; border-radius: 4px;"><br>
+            <label for="Beneficiaries">Beneficiaries</label>
+            <input type="number" id="Beneficiaries" name="Beneficiaries" style=" width: 90%; margin: 5px 0; padding: 8px; border: 1px solid #ccc; border-radius: 4px;"><br>
 
-                <label for="Category">Category</label>
-                <select id="Category" name="Category" required>
-                    <option value="Select an option">Select an option</option>
-                    <option value="Consultant">Consultant</option>
-                    <option value="Employee">Employee</option>
-                    <option value="Internship">Internship</option>
-                    <option value="New-Volunteer">New-Volunteer</option>
-                    <option value="Ex-Volunteer">Ex-Volunteer</option>
-                </select><br>
+            <label for="Category">Category</label>
+            <select id="Category" name="Category" required>
+                <option value="Select an option">Select an option</option>
+                <option value="Consultant">Consultant</option>
+                <option value="Employee">Employee</option>
+                <option value="Internship">Internship</option>
+                <option value="New-Volunteer">New-Volunteer</option>
+                <option value="Ex-Volunteer">Ex-Volunteer</option>
+            </select><br>
 
-                <label for="Duration">Duration</label>
-                <input type="number" id="Duration" name="Duration" style="width: 90%;margin: 6px 0;padding: 9px;border: 1px solid #ccc;border-radius: 4px;"><br>
+            <label for="Duration">Duration</label>
+            <input type="number" id="Duration" name="Duration" style="width: 90%;margin: 6px 0;padding: 9px;border: 1px solid #ccc;border-radius: 4px;"><br>
 
-                <label for="Status">Status</label>
-                <select id="Status" name="Status" required>
-                    <option value="Select an option">Select an option</option>
-                    <option value="Start">Start</option>
-                    <option value="On-Going">On-Going</option>
-                    <option value="On-Hold">On-Hold</option>
-                    <option value="Completed">Completed</option>
-                    <option value="Orientation">Orientation</option>
-                    <option value="Travel">Travel</option>
-                </select><br>
+            <label for="Status">Status</label>
+            <select id="Status" name="Status" required>
+                <option value="Select an option">Select an option</option>
+                <option value="Start">Start</option>
+                <option value="On-Going">On-Going</option>
+                <option value="On-Hold">On-Hold</option>
+                <option value="Completed">Completed</option>
+                <option value="Orientation">Orientation</option>
+                <option value="Travel">Travel</option>
+            </select><br>
 
-                <label for="Comment">Comment</label>
-                <div class="comment-box">
-                    <textarea id="Comment" placeholder="Write your comment here"></textarea>
-                </div>
-
-                <button onclick="validateAndSave()" id="btnSave">Edit</button>
-                <br>
-                
-                <br>
-                <button onclick="hidePopup()" id="btnSaveDuplicate">Close</button>
-                <br>
+            <label for="Comment">Comment</label>
+            <div class="comment-box">
+                <textarea id="Comment" placeholder="Write your comment here"></textarea>
             </div>
+
+            <button onclick="validateAndSave()" id="btnSave">Edit</button>
+            <br>
+
+            <br>
+            <button onclick="hidePopup()" id="btnSaveDuplicate">Close</button>
+            <br>
         </div>
     </div>
-
-    <script>
-        function togglDropdown() {
-            var dropdown = document.querySelector('.main-filter .dropdown');
-            dropdown.style.display = (dropdown.style.display === 'block') ? 'none' : 'block';
-            document.querySelector('.main-filter').classList.toggle('active');
-        }
+</div>
 
 
-
-
-    document.getElementById('sa').addEventListener('click', function () {
-        var san = document.getElementById('san');
-        san.style.display = (san.style.display === 'none' || san.style.display === '') ? 'block' : 'none';
-    });
-    document.getElementById('ha').addEventListener('click', function () {
-        var sh = document.getElementById('sh');
-        sh.style.display = (san.style.display === 'none' || sh.style.display === '') ? 'block' : 'none';
-    });
-
-
-
-
-
-        function showPopup() {
-            document.getElementById('popup').style.display = 'flex';
-        }
-
-        function hidePopup() {
-            document.getElementById('popup').style.display = 'none';
-        }
-
-        function validateAndSave(isDuplicate = false) {
-            
-            saveData(isDuplicate);
-        }
-
-
-    </script>
-
-    <script>
-    function searchTable() {
-        // Declare variables
-        var input, filter, table, tr, td, i, txtValue;
-        input = document.getElementById("searchInput");
-        filter = input.value.toUpperCase();
-        table = document.getElementById("sessionsTable");
-        tr = table.getElementsByTagName("tr");
-
-        // Loop through all table rows, hide those that don't match the search query
-        for (i = 0; i < tr.length; i++) {
-            td = tr[i].getElementsByTagName("td");
-            for (var j = 0; j < td.length; j++) {
-                if (td[j]) {
-                    txtValue = td[j].textContent || td[j].innerText;
-                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                        tr[i].style.display = "";
-                        break; // Show the row and move to the next one
-                    } else {
-                        tr[i].style.display = "none"; // Hide the row if no match
-                    }
-                }
-            }
-        }
-    }
-
-    // Attach event listener for input change in the search box
-    document.getElementById("searchInput").addEventListener("input", searchTable);
-    </script>
 
 
     {% endblock %}

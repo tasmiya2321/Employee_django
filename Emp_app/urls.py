@@ -28,7 +28,7 @@ urlpatterns = [
     path("email/", views.email, name="email"),
     path("subject_email/", views.subject_email, name="subject_email"),
     path("", views.login, name="login"),
-
+    path("Session_main",views.Session_main,name="Session_main"),
     path("employee/", views.employee, name="employee"),
     path("saveemployee/",views.saveemployee, name="saveemployee"),
     path('forgetpassword/', views.forgetpassword, name='forget_password'),  
