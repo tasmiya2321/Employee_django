@@ -23,8 +23,7 @@ urlpatterns = [
   
    #path("", views.login, name="login"),
     # path('forgetpassword/', views.forgetpassword, name='forget_password'),  # Add a comma here
-    # path('reset_password/', views.ResetPasswordView.as_view(), name='reset_password'),
-    path("home/", views.home, name="home"),
+    # path('reset_password/', views.ResetPasswordView.as_view(), name='reset_password'
     path("email/", views.email, name="email"),
     path("subject_email/", views.subject_email, name="subject_email"),
     path("", views.login, name="login"),
