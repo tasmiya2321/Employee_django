@@ -6,6 +6,7 @@ from django.contrib.auth import authenticate, login
 from .models import Program 
 from .models import EmpDetails 
 from django.contrib import messages
+from django.http import HttpResponseServerError
 import json
 
 from django.contrib.auth.decorators import login_required
@@ -23,7 +24,11 @@ from django.contrib.messages.views import SuccessMessageMixin
 #     success_url = reverse_lazy('index')
     
 
-@login_required
+def custom_502_view(request, exception=None):
+    """Custom view to handle 502 Bad Gateway errors."""
+    return HttpResponseServerError('A problem occurred with our server. We\'re working on it!')
+
+
 def home(request):
     programs = Program.objects.exclude(date__isnull=True).order_by('pgm_id')[:10]
 
@@ -37,8 +42,13 @@ def home(request):
 def forgetpassword(request):
      return render(request, "Emp_app/forgetpassword.html")
 
+def Session_main(request):
+    programs = Program.objects.exclude(date__isnull=True).order_by('pgm_id')
+    for program in programs:
+        print(program.date)
+    return render(request, "Emp_app/Session_main.html", {'programs': programs})
 
-    
+
 def index(request):
     return render(request, "Emp_app/index.html")
 
@@ -177,6 +187,10 @@ def change_password(request):
     return render(request,'change_password.html',{
         'form': form
     })
-
+    
 def login_base(request):
     return render(request, "login_base.html")
+
+def CreatePage(request):
+     return render(request, "Emp_app/createpage.html")
+    

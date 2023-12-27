@@ -53,3 +53,52 @@ def centertype_to_string(value):
         6: "Koramangala"
     }
     return centertype_names.get(value, f"{value}")
+
+@register.filter()
+def Sponser_to_string(value):
+    Sponser_names = {
+        1: "Vajira",
+        2: "Bridge",
+        3: "Taste master",
+        4: "LICT"
+       
+    }
+    return Sponser_names.get(value, f"{value}")
+
+@register.filter()
+def TrainerType_to_string(value):
+    TrainerType_names = {
+        1: "Lead",
+        2: "CO-Facilator",
+        3: "Volunteer Type",
+      
+    }
+    return TrainerType_names.get(value, f"{value}")
+
+@register.filter()
+def Catagory_to_string(value):
+     Category_names = {
+        1: "Consultant",
+        2: "Employee",
+        3: "Internship",
+        4: "New Volunteer",
+        5: "EX-Volunteer"
+       
+    }
+     return Category_names.get(value, f"{value}")
+
+ 
+@register.filter()
+def Status_to_string(value):
+     Status_names = {
+        1: "Start",
+        2: "On-going",
+        3: "On-Hold",
+        4: "Completed",
+        5: "Travel",
+        6: "Orientation"
+       
+    }
+     return Status_names.get(value, f"{value}")
+
+ 
