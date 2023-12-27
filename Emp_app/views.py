@@ -6,6 +6,7 @@ from django.contrib.auth import authenticate, login
 from .models import Program 
 from .models import EmpDetails 
 from django.contrib import messages
+from django.http import HttpResponseServerError
 import json
 
 
@@ -22,6 +23,10 @@ from django.contrib.messages.views import SuccessMessageMixin
 #                       "please make sure you've entered the address you registered with, and check your spam folder."
 #     success_url = reverse_lazy('index')
     
+
+def custom_502_view(request, exception=None):
+    """Custom view to handle 502 Bad Gateway errors."""
+    return HttpResponseServerError('A problem occurred with our server. We\'re working on it!')
 
 
 def home(request):
@@ -178,3 +183,7 @@ def change_password(request):
 
 def login_base(request):
     return render(request, "login_base.html")
+
+def CreatePage(request):
+     return render(request, "Emp_app/createpage.html")
+    

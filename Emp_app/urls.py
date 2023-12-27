@@ -17,7 +17,7 @@ from django.contrib.messages.views import SuccessMessageMixin
 # class ResetPasswordView(SuccessMessageMixin, PasswordResetView):
 #     template_name = 'users/password_reset.html'
 #     email_template_name = 'users/password_reset_email.html'
-
+handler502 = 'myapp.views.custom_502_view'
 
 urlpatterns = [
   
@@ -35,7 +35,9 @@ urlpatterns = [
     path('reset_password/', views.reset_password, name='reset_password'),
     path('home/', views.home, name='home'),
     path('admin/', admin.site.urls),
-    path("accounts/",include("django.contrib.auth.urls"))
+    path("accounts/",include("django.contrib.auth.urls")),
+    path("createpage", views.CreatePage, name='createpage')
+    
 
     # path('forgetpassword/', views.forgetpassword, name='forget_password'),  # Add a comma here
     # path('reset_password/', views.reset_password, name='reset_password')
