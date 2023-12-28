@@ -32,7 +32,9 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path("accounts/",include("django.contrib.auth.urls")),
     path('change_password/', views.change_password, name='change_password'),
-    path('createpage', views.CreatePage, name='createpage')
+    path('Session_main/',views.Session_main,name='Session_main'),
+    path('filter_programs/', views.filter_programs, name='filter_programs')
+    # path('createpage', views.CreatePage, name='createpage')
 
 ]
 # if settings.DEBUG:

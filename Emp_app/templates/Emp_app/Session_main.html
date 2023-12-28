@@ -44,68 +44,32 @@
 </script>
 
 <script>
-    function searchTable() {
-        var input, filter, table, tr, td, i, txtValue;
-        input = document.getElementById("searchInput");
-        filter = input.value.toUpperCase();
-        table = document.getElementById("sessionsTable");
-        tr = table.getElementsByTagName("tr");
+   
+    document.querySelectorAll('.sub-dropdown-item').forEach(item => {
+        item.addEventListener('click', () => {
+            // Get the selected value (e.g., "Bridge Course")
+            const selectedValue = item.textContent.trim();
 
-        // Loop through all table rows, and hide those who don't match the search query
-        for (i = 1; i < tr.length; i++) { // Start from 1 to skip the header row
-            td = tr[i].getElementsByTagName("td");
-            var showRow = false;
-
-            for (var j = 0; j < td.length; j++) {
-                if (td[j]) {
-                    txtValue = td[j].textContent || td[j].innerText;
-                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                        showRow = true;
-                        break; // This cell matches the search, no need to check further
-                    }
-                }
-            }
-
-            tr[i].style.display = showRow ? "" : "none";
-        }
-    }
-
-    document.getElementById("searchInput").addEventListener("input", searchTable);
-
-
-
-    document.querySelector('.filter-icon').addEventListener('click', function () {
-        // Assuming 'Bridge Course' is clicked
-        fetch('/get_bridge_course_programs/', { // Update with the correct URL
-            method: 'GET' // or 'POST' if you're sending data
-        })
-            .then(response => response.json())
-            .then(data => {
-                updateTable(data.programs);
-            });
+            // Make an AJAX call to your Django view with the selected filter
+            fetch(`/filter_programs/?filter_value=${encodeURIComponent(selectedValue)}`)
+                .then(response => response.json())
+                .then(data => {
+                    // Update your table with the new data
+                    updateTable(data);
+                });
+        });
     });
 
-    function updateTable(programs) {
-        let table = document.getElementById('sessionsTable');
-        // Clear existing table rows, except the header
-        let newTbody = document.createElement('tbody');
-        programs.forEach(program => {
-            // Create new row for each program
-            let row = newTbody.insertRow();
-            // Add cells and fill them with program data
-            let dateCell = row.insertCell();
-            dateCell.textContent = program.date;
-
-            // ...add other cells for resource name, program, etc.
-
-            let beneficiariesCell = row.insertCell();
-            beneficiariesCell.textContent = program.beneficiaries;
-        });
-        table.replaceChild(newTbody, table.getElementsByTagName('tbody')[0]);
+    function updateTable(data) {
+        // ... existing code to update the table ...
     }
 
-  
+
+
+
+
 </script>
+
 
 <style>
     body {
@@ -451,7 +415,7 @@
             <div class="dropdown-item sub-dropdown">
                 Program
                 <div class="sub-dropdown-content">
-                    <div class="sub-dropdown-item" data-value="Bridge Course">Bridge Course</div>
+                    <div class="sub-dropdown-item">Bridge Course</div>
                     <div class="sub-dropdown-item">Acadamics</div>
                     <div class="sub-dropdown-item">After School Programming</div>
                     <div class="sub-dropdown-item">Awarness Sessions</div>
@@ -562,56 +526,61 @@
 
 
 
-<div class="table">
-    <table id="sessionsTable">
-        <tr bgcolor="orange">
-
-            <th>Date</th>
-            <th>Resource Name</th>
-            <th>Program</th>
-            <th>Project</th>
-            <th>Center Type</th>
-            <th>Activity</th>
-            <th>Session_Number</th>
-            <th>Trainer_Type</th>
-            <th>Hours</th>
-            <th>Status</th>
-            <th>beneficiaries</th>
-            <th>Category</th>
-            <th>Actions</th>
-
-
-        </tr>
-
-        {% for program in programs %}
-        <tr bgcolor="white" data-program="{{program.name}}">
-            <td>{{program.date }}</td>
-            <td>{{program.emp.fullname}}</td>
-            <td>{{program.pgm_id|program_to_string }}</td>
-            <td>{{program.xref.project_name }}</td>
-            <td>{{program.center_type|centertype_to_string }}</td>
-            <td>{{program.activity }}</td>
-            <td>{{program.trainer_type}}</td>
-            <td>{{program.trainer_type}}</td>
-            <td>{{program.duration}}</td>
-            <td>{{program.status}}</td>
-            <td>{{program.beneficiaries }}</td>
-            <td>{{program.category }}</td>
-
-
-            <td class="tdtd">
-                <button class="add-row-button" onclick="showpopup()"> <i class="fa-solid fa-eye" style="color: #ff7b00;"></i> </button>
-            </td>
-
-        </tr>
-        {% endfor %}
+    <div class="table">
 
 
 
 
+        <table id="sessionsTable">
+            <tr bgcolor="orange">
 
-    </table>
-</div>
+                <th>Date</th>
+                <th>Resource Name</th>
+                <th>Program</th>
+                <th>Project</th>
+                <th>Center Type</th>
+                <th>Activity</th>
+                <th>Session_Number</th>
+                <th>Trainer_Type</th>
+                <th>Hours</th>
+                <th>Status</th>
+                <th>beneficiaries</th>
+                <th>Category</th>
+                <th>Actions</th>
+
+
+            </tr>
+
+            {% for program in programs %}
+            <tr bgcolor="white">
+                <td>{{program.date }}</td>
+                <td>{{program.emp.fullname}}</td>
+                <td>{{program.pgm_id|program_to_string }}</td>
+                <td>{{program.xref.project_name }}</td>
+                <td>{{program.center_type|centertype_to_string }}</td>
+                <td>{{program.activity }}</td>
+                <td>{{program.trainer_type}}</td>
+                <td>{{program.trainer_type}}</td>
+                <td>{{program.duration}}</td>
+                <td>{{program.status}}</td>
+                <td>{{program.beneficiaries }}</td>
+                <td>{{program.category }}</td>
+
+
+                <td class="tdtd">
+                    <button class="add-row-button" onclick="showpopup()"> <i class="fa-solid fa-eye" style="color: #ff7b00;"></i> </button>
+                </td>
+
+            </tr>
+            {% endfor %}
+
+
+
+
+
+        </table>
+    </div>
+
 
 <!-- Add Modal -->
 <!-- Popup box -->
@@ -630,7 +599,7 @@
 
             <label for="Program">Program</label>
             <select id="Program" name="Program" required>
-                <option value="Select an option">Select an option</option>
+                <option value="Select an option" >Select an option</option>
                 <option value="Bridge Course"> Bridge Course</option>
                 <option value="Academics">Academics</option>
                 <option value="After School Program">After School Program</option>
