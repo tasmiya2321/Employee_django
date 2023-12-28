@@ -80,7 +80,7 @@
   <ItemGroup>
     <Compile Include="Employee_Management\settings.py" />
     <Compile Include="Employee_Management\urls.py" />
-    <Compile Include="Employee_Management\wsgi.py" />
+    <Compile Include="templates\Registration\wsgi.py" />
     <Compile Include="Employee_Management\__init__.py" />
     <Compile Include="Emp_app\admin.py" />
     <Compile Include="Emp_app\apps.py" />
