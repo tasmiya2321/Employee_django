@@ -49,6 +49,9 @@ def Session_main(request):
     return render(request, "Emp_app/Session_main.html", {'programs': programs})
 
 
+
+
+
 def index(request):
     return render(request, "Emp_app/index.html")
 

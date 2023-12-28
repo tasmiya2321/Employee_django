@@ -35,7 +35,9 @@ urlpatterns = [
     path('reset_password/', views.reset_password, name='reset_password'),
     path('home/', views.home, name='home'),
     path('admin/', admin.site.urls),
-    path("accounts/",include("django.contrib.auth.urls"))
+    path("accounts/",include("django.contrib.auth.urls")),
+      path('session/filter/', views.Session_main, name='session_filter'),
+ 
 
     # path('forgetpassword/', views.forgetpassword, name='forget_password'),  # Add a comma here
     # path('reset_password/', views.reset_password, name='reset_password')

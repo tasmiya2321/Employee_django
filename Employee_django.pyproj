@@ -84,6 +84,9 @@
     <Compile Include="Employee_Management\__init__.py" />
     <Compile Include="Emp_app\admin.py" />
     <Compile Include="Emp_app\apps.py" />
+    <Compile Include="Emp_app\filters.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Emp_app\migrations\__init__.py" />
     <Compile Include="Emp_app\models.py" />
     <Compile Include="Emp_app\templatetags\lower_filter.py">
