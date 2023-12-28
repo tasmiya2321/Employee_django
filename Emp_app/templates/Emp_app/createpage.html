@@ -1,6 +1,7 @@
-{% extends "Emp_app/base.html" %}
+{% extends "Emp_app/base2_no_footer.html" %}
 
 {% block css %}
+
 
 <script>
     function showPopup() {
@@ -249,10 +250,10 @@
         }
     }
 </style>
+
 {% endblock %}
 
 {% block content %}
-
 <div class="header">
     <h1 style="color: black;">Session</h1>
 </div>
@@ -414,6 +415,72 @@
     </div>
 </div>
 
+<script>
+    function showPopup() {
+        document.getElementById('popup').style.display = 'flex';
+    }
+
+    function hidePopup() {
+        document.getElementById('popup').style.display = 'none';
+    }
+
+    function validateAndSave(isDuplicate = false) {
+        // Validation logic here
+        // Assuming validation passed
+        saveData(isDuplicate);
+    }
+
+    function saveData(isDuplicate) {
+        var table = document.getElementById("sessionTable");
+        var row = table.insertRow(-1);
+
+        // Assuming 13 columns in the table as per your structure
+        for (var i = 0; i < 13; i++) {
+            var cell = row.insertCell(i);
+            cell.innerHTML = getCellData(i); // Function to get data for each cell
+        }
+
+        if (isDuplicate) {
+            showPopup(); // Show popup again with the form still filled
+        } else {
+            hidePopup(); // Hide popup
+        }
+    }
+
+    function getCellData(index) {
+        switch (index) {
+            case 0: // For date
+                return document.getElementById("date").value;
+            case 1: // Resource Name
+                return document.getElementById("ResourceName").value;
+            case 2: // Program
+                return document.getElementById("Program").value;
+            case 3: // For Employee ID
+                return document.getElementById("Project").value;
+            case 4: // Resource Name
+                return document.getElementById("Activity").value;
+            case 7: // For date
+                return document.getElementById("Trainer_Type").value;
+            case 10: // For Benef
+                return document.getElementById("Beneficiaries").value;
+            case 11: // Resource Name
+                return document.getElementById("Category").value;
+            case 8: // For date
+                return document.getElementById("Duration").value;
+            case 9: // For Employee ID
+                return document.getElementById("Status").value;
+            case 12: // Resource Name
+                return document.getElementById("Comment").value;
+            case 6: //Sessionnumber
+                return document.getElementById("Sessionnumber").value;
+            case 5: //CenterType
+                return document.getElementById("CentreType").value;
+
+            default:
+                return ""; // Default value for unmatched cases
+        }
+    }
+</script>
 
 
 {% endblock %}
