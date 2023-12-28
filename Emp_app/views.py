@@ -7,6 +7,10 @@ from .models import Program
 from .models import EmpDetails 
 from django.contrib import messages
 import json
+from django.contrib.auth.forms import PasswordChangeForm
+from django.contrib.auth import update_session_auth_hash
+from django.shortcuts import render, redirect
+
 
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy
@@ -161,7 +165,7 @@ def userlogin(request):
         
          return render(request, 'login.html') 
      
-@login_required    
+# @login_required    
 def change_password(request):
     if request.method == 'POST':
         form = PasswordChangeForm(request.user, request.POST)
@@ -184,3 +188,26 @@ def login_base(request):
 def CreatePage(request):
      return render(request, "Emp_app/createpage.html")
     
+def Session_main(request):
+    programs = Program.objects.all()  # Fetch all program records from the database
+    context = {'programs': programs}
+    return render(request, 'Emp_app/Session_main.html', context)
+
+
+
+
+def filter_programs(request):
+   
+    filter_value = request.GET.get('filter_value', None)
+
+   
+    if filter_value:
+       
+        filtered_programs = Program.objects.filter(xref__program_name=filter_value)
+    else:
+        filtered_programs = Program.objects.all()
+
+  
+    data = list(filtered_programs.values('pgm_id', 'emp__name', 'xref__program_name', 'date', 'activity', ...)) 
+
+    return JsonResponse(data, safe=False)

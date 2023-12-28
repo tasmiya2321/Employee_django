@@ -45,13 +45,13 @@
 
 <script>
    
-    document.querySelectorAll('.filter-option').forEach(item => {
-        item.addEventListener('change', () => {
-            // Get the selected value
-            const selectedValue = item.value;
+    document.querySelectorAll('.sub-dropdown-item').forEach(item => {
+        item.addEventListener('click', () => {
+            // Get the selected value (e.g., "Bridge Course")
+            const selectedValue = item.textContent.trim();
 
             // Make an AJAX call to your Django view with the selected filter
-            fetch(`/session/filter/?filter_option=${selectedValue}`)
+            fetch(`/filter_programs/?filter_value=${encodeURIComponent(selectedValue)}`)
                 .then(response => response.json())
                 .then(data => {
                     // Update your table with the new data
@@ -61,8 +61,9 @@
     });
 
     function updateTable(data) {
-        // Logic to update your table based on the returned data
+        // ... existing code to update the table ...
     }
+
 
 
 
