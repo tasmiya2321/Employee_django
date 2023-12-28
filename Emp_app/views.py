@@ -180,3 +180,6 @@ def change_password(request):
 
 def login_base(request):
     return render(request, "login_base.html")
+
+def CreatePage(request):
+     return render(request, "Emp_app/createpage.html")

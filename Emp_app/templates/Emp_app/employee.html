@@ -150,18 +150,20 @@
         cursor: pointer;
         padding: 5px;
     }
-    
-     
-        .male {
-            padding: 5px;
-        }
 
+    .male {
+        /* Add your specific styles for the male option here */
+        padding: 5px; /* Example: Add padding */
+    }
+
+    /* Style for the female gender option */
     .female {
         padding: 5px;
         margin-top: -31px;
         margin-left: 75px
     }
 
+    /* Style for the other gender option */
     .other {
         padding: 5px;
         margin-top: -29px;
@@ -177,10 +179,11 @@
 
     /* Mobile Responsiveness */
     @media (max-width: 768px) {
-        table, input, textarea, select,button {
+        table, input, textarea, select, button {
             width: 100%;
             max-width: 100%;
         }
+
         .form-container {
             padding: 10px;
         }
@@ -188,6 +191,7 @@
         h1.employee-details-title {
             font-size: 17px;
         }
+
 
         .female {
             display: flex;
@@ -204,10 +208,12 @@
         }
 
         .male {
-            display: flex;
-            margin-top: 10px;
+            display: flex; /* Each div will take the full width of the td */
+            margin-top: 10px; /* Add space between the options */
             margin-right: 78%;
         }
+    }
+
     }
 
 
@@ -267,7 +273,7 @@
                 <td><input type="email" name="emailId" id="emailId" data-dbname="email_id" required></td>
             </tr>
             <!-- Gender -->
-            <tr>
+            <!--<tr>
                 <td>Gender</td>
                 <td>
                     <div>
@@ -283,7 +289,26 @@
                         <label for="other">Other</label>
                     </div>
                 </td>
+            </tr>-->
+
+            <tr>
+                <td>Gender</td>
+                <td>
+                    <div class="male">
+                        <input type="radio" id="male" name="gender" value="male" data-dbname="gender" required>
+                        <label for="male">Male</label>
+                    </div>
+                    <div class="female">
+                        <input type="radio" id="female" name="gender" value="female" data-dbname="gender" required>
+                        <label for="female">Female</label>
+                    </div>
+                    <div class="other">
+                        <input type="radio" id="other" name="gender" value="other" data-dbname="gender" required>
+                        <label for="other">Other</label>
+                    </div>
+                </td>
             </tr>
+
         </table>
 
         <br><hr><br>
