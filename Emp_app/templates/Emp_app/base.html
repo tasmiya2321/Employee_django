@@ -241,7 +241,7 @@
         <div class="dropdown">
             <span id="Role" class="id-symbol" onclick="toggleDropdown()">{{ user.get_username }} &#9660; <i class="fa-solid fa-circle-user fa-2xl" style="color: #5c626a;"></i></span>
             <div class="dropdown-content" id="dropdownContent">
-                <a href="{% url 'saveemployee' %}">Profile</a>
+                <a href="{% url 'employee' %}">Profile</a>
                 <a href="{% url 'change_password' %}">Change password</a>
                 <a href="{% url 'login' %}">Logout</a>
             </div>
@@ -253,9 +253,9 @@
         <aside class="sidebar" id="sidebar">
             <nav class="navbar">
                 <ul>
-                    <li><a href="#home"><i class="fas fa-home" style="color: #d66e29;"></i>Home</a></li>
-                    <li><a href="#session"><i class="fas fa-business-time" style="color: #c58326;"></i>Session</a></li>
-                    <li><a href="#employee"><i class="fas fa-chart-bar" style="color: #dd7c22;"></i>Employee</a></li>
+                    <li><a href="{% url 'home' %}"><i class="fas fa-home" style="color: #d66e29;"></i>Home</a></li>
+                    <li><a href="{% url 'Session_main' %}"><i class="fas fa-business-time" style="color: #c58326;"></i>Session</a></li>
+                    <li><a href="{% url 'employee' %}"><i class="fas fa-chart-bar" style="color: #dd7c22;"></i>Employee</a></li>
                 </ul>
             </nav>
         </aside>
