@@ -124,7 +124,6 @@ def saveemployee(request):
 
        messages.error(request, 'Failed to update employee details: {}'.format(e))
 
-    
      return render(request, "Emp_app/employee.html")
 
 
