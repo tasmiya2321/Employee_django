@@ -9,6 +9,9 @@
         $.ajax({
             type: "POST",
             url: "{% url 'employee' %}",
+            headers: {
+                'X-CSRFToken': $("input[name='csrfmiddlewaretoken']").val()
+            },
             data: { data: Role },
             success: function (result) {
 
@@ -231,7 +234,7 @@
 <center>
 
 
-    <form action="{% url 'saveemployee' %}" method="POST">
+    <form method="POST" action="{% url 'saveemployee' %}" >
       
     {% csrf_token %}
 
@@ -265,7 +268,7 @@
             </tr>
             <!-- Phone -->
             <tr>
-                <td><label for="phoneNumber">Phone</label></td>
+                <td><label for="phoneNumber">Phonenumber</label></td>
                 <td><input type="number" name="phonenumber" id="phoneNumber" data-dbname="phone_number" required></td>
             </tr>
             <!-- Email ID -->
