@@ -1,0 +1,755 @@
+{% extends "Emp_app/base.html" %}
+
+{% load lower_filter %}
+
+{% block css %}
+
+<script>
+    function togglDropdown() {
+        var dropdown = document.querySelector('.main-filter .dropdown');
+        dropdown.style.display = (dropdown.style.display === 'block') ? 'none' : 'block';
+        document.querySelector('.main-filter').classList.toggle('active');
+    }
+
+
+
+
+    document.getElementById('sa').addEventListener('click', function () {
+        var san = document.getElementById('san');
+        san.style.display = (san.style.display === 'none' || san.style.display === '') ? 'block' : 'none';
+    });
+    document.getElementById('ha').addEventListener('click', function () {
+        var sh = document.getElementById('sh');
+        sh.style.display = (san.style.display === 'none' || sh.style.display === '') ? 'block' : 'none';
+    });
+
+
+
+
+
+    function showpopup() {
+        document.getElementById('popup').style.display = 'flex';
+    }
+
+    function hidePopup() {
+        document.getElementById('popup').style.display = 'none';
+    }
+
+    function validateAndSave(isDuplicate = false) {
+
+        saveData(isDuplicate);
+    }
+
+
+</script>
+
+<script>
+    function searchTable() {
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("searchInput");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("sessionsTable");
+        tr = table.getElementsByTagName("tr");
+
+        // Loop through all table rows, and hide those who don't match the search query
+        for (i = 1; i < tr.length; i++) { // Start from 1 to skip the header row
+            td = tr[i].getElementsByTagName("td");
+            var showRow = false;
+
+            for (var j = 0; j < td.length; j++) {
+                if (td[j]) {
+                    txtValue = td[j].textContent || td[j].innerText;
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        showRow = true;
+                        break; // This cell matches the search, no need to check further
+                    }
+                }
+            }
+
+            tr[i].style.display = showRow ? "" : "none";
+        }
+    }
+
+    document.getElementById("searchInput").addEventListener("input", searchTable);
+
+
+
+
+    function filterTable(programName) {
+        var table, tr, i, programData;
+        table = document.getElementById("sessionsTable");
+        tr = table.getElementsByTagName("tr");
+
+        // Loop through all rows, hide those that don't match the selected program
+        for (i = 1; i < tr.length; i++) { // Skip the header row
+            programData = tr[i].getAttribute("data-program");
+            if (programData) {
+                // Compare data-program attribute to the selected program
+                if (programData.toUpperCase() === programName.toUpperCase() || programName === "all") {
+                    tr[i].style.display = ""; // Show row
+                } else {
+                    tr[i].style.display = "none"; // Hide row
+                }
+            }
+        }
+    }
+
+    // Event listeners for each dropdown item
+    document.querySelectorAll('.sub-dropdown-item').forEach(item => {
+        item.addEventListener('click', event => {
+            // Get the program name from the clicked item
+            var programName = event.target.getAttribute('data-value');
+            filterTable(programName); // Filter the table based on the selection
+        });
+    });
+
+    // Optional: Reset filter to show all
+    function resetFilter() {
+        filterTable("all");
+    }
+</script>
+
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+    }
+
+    .heade {
+        text-align: center;
+        background: none;
+        color: #fff;
+        padding: 10px;
+    }
+
+    .search-container {
+        text-align: center;
+        padding: 20px;
+        position: relative;
+        margin-top: 0%;
+    }
+
+    .search-box {
+        display: inline-block;
+        padding: 10px;
+        font-size: 16px;
+        width: 60%; /* Adjusted width */
+        max-width: 300px;
+    }
+
+    .filter-icon {
+        display: inline-block;
+        font-size: 20px;
+        cursor: pointer;
+        margin-left: 30%;
+    }
+
+    .main-filter {
+        display: inline-block;
+        cursor: pointer;
+    }
+
+    .dropdown {
+        position: absolute;
+        top: 80%;
+        left: 60%;
+        background-color: #f9f9f9;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        z-index: 1;
+        display: none;
+    }
+
+    .main-filter.active .dropdown {
+        display: block;
+    }
+
+    .dropdown-item {
+        padding: 12px 16px;
+        display: block;
+        cursor: pointer;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .sub-dropdown {
+        position: relative;
+        display: block;
+    }
+
+        .sub-dropdown:hover .sub-dropdown-content {
+            display: block;
+        }
+
+
+    .sub-dropdown-content {
+        position: absolute;
+        top: 0;
+        left: 100%;
+        background-color: #f9f9f9;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        display: none;
+    }
+
+    .sub-dropdown-item {
+        padding: 12px 16px;
+        display: block;
+        cursor: pointer;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .actions {
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    .button {
+        padding: 10px;
+        background-color: orange;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        margin: 0 5px;
+    }
+
+    @media only screen and (max-width: 600px) {
+        .search-box {
+            width: 100%;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .modal {
+            width: 80%;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .modal {
+            width: 90%;
+        }
+    }
+
+
+
+
+
+    .sub-dropdown-content {
+        position: absolute;
+        top: 0;
+        left: 100%;
+        background-color: #f9f9f9;
+        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+        display: none;
+        max-height: 400px; /* Set a maximum height for the dropdown */
+        overflow-y: auto; /* Enable vertical scrolling */
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 60px; /* Adjust the margin to prevent content overlap */
+        margin-bottom: 20px;
+    }
+
+    th, td {
+        border: 1px solid #ddd;
+        padding: 7px;
+        text-align: center;
+    }
+
+
+
+    .right {
+        margin-left: 20%;
+    }
+
+    #bts {
+        margin-left: 65%;
+        background-color: orange;
+        width: 100px;
+        height: 15%;
+    }
+
+
+    .form-columns {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    /* Apply styles to each form column */
+    .form-column {
+        width: 48%; /* Adjust the width as needed */
+    }
+
+
+
+    #san {
+        display: none;
+        margin-left: 47%;
+        cursor: pointer;
+    }
+
+    #sh {
+        margin-left: 40%;
+        display: flex;
+        justify-content: stretch;
+        display: none;
+        cursor: pointer;
+    }
+
+    #select {
+        margin-left: 3%;
+    }
+
+    .tdtd {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        justify-content: space-evenly;
+        cursor: pointer;
+    }
+
+    .popup {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+        justify-content: center;
+        align-items: center; /* Center the popup vertically */
+    }
+
+    .blank-box {
+        width: 60%; /* Adjusted for better spacing */
+        max-width: 600px; /* Maximum width */
+        background-color: white;
+        border: 1px solid #ccc;
+        margin: 10px auto;
+        padding: 20px; /* Padding inside the box */
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Box shadow for better visibility */
+    }
+
+    .scroll-container {
+        overflow-y: auto;
+        max-height: 500px; /* Increased height for better view */
+    }
+
+    label {
+        display: block; /* Make labels block elements */
+        margin: 10px 0 5px; /* Adjust margins for labels */
+        font-weight: bold;
+    }
+
+    input[type="text"],
+    input[type="date"],
+    select {
+        width: 90%; /* Full width inputs */
+        margin: 5px 0; /* Adjusted margin */
+        padding: 8px; /* Padding for better touch */
+        border: 1px solid #ccc;
+        border-radius: 4px; /* Rounded corners */
+    }
+
+    .comment-box {
+        width: 90%; /* Adjusted width */
+        margin: 10px 0; /* Adjusted margin */
+        padding: 8px; /* Padding inside the box */
+    }
+
+        .comment-box textarea {
+            width: 100%; /* Full width textarea */
+            height: 100px; /* Increased height */
+            border: 1px solid #ccc;
+            border-radius: 4px; /* Rounded corners */
+        }
+
+    #btnSave {
+        width: auto; /* Auto width based on content */
+        background-color: orange; /* Button background color */
+        color: white; /* Text color */
+        padding: 10px 20px; /* Top and bottom padding and left and right padding */
+        border: none; /* No border */
+        border-radius: 5px; /* Rounded corners */
+        margin-right: 10px; /* Spacing between buttons */
+        cursor: pointer; /* Cursor to signify clickable item */
+        box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2); /* Shadow for 3D effect */
+        font-weight: bold; /* Bold text */
+        transition: background-color 0.3s ease; /* Transition for hover effect */
+        display: block; /* Make the button a block element */
+    }
+
+    #btnSaveDuplicate {
+        width: auto; /* Auto width based on content */
+        background-color: orange; /* Button background color */
+        color: white; /* Text color */
+        padding: 10px 20px; /* Top and bottom padding and left and right padding */
+        border: none; /* No border */
+        border-radius: 5px; /* Rounded corners */
+        margin-right: 10px; /* Spacing between buttons */
+        cursor: pointer; /* Cursor to signify clickable item */
+        box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2); /* Shadow for 3D effect */
+        font-weight: bold; /* Bold text */
+        transition: background-color 0.3s ease; /* Transition for hover effect */
+        display: block; /* Make the button a block element */
+    }
+
+    .button-container button {
+        background-color: orange; /* Button background color */
+        color: white; /* Text color */
+        padding: 10px 20px; /* Top and bottom padding and left and right padding */
+        border: none; /* No border */
+        border-radius: 5px; /* Rounded corners */
+        margin-right: 10px; /* Spacing between buttons */
+        cursor: pointer; /* Cursor to signify clickable item */
+        box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2); /* Shadow for 3D effect */
+        font-weight: bold; /* Bold text */
+        transition: background-color 0.3s ease; /* Transition for hover effect */
+    }
+
+    /* Responsive design */
+    @media (max-width: 768px) {
+        .blank-box {
+            width: 80%; /* Increased width on smaller screens */
+        }
+
+        input[type="text"],
+        input[type="date"],
+        select,
+        .comment-box {
+            width: 100%; /* Full width on smaller screens */
+        }
+    }
+
+    .san select {
+        width: 6%;
+    }
+</style>
+
+{% endblock %}
+
+
+{% block content %}
+<!--{% load lower_filter %}
+<h1>{{value|program_to_string}}</h1>
+<h1>{{value|centertype_to_string}}</h1>
+<h1>{{value|Sponser_to_string}}</h1>
+<h1>{{value|TrainerType_to_string}}</h1>
+<h1>{{value|Catagory_to_string}}</h1>
+<h1>{{value|Status_to_string}}</h1>-->
+
+<div class="heade">
+    <h1 style="color: black;">Sessions</h1>
+</div>
+
+<div class="search-container">
+    <input type="text" class="search-box" id="searchInput" placeholder="Search (Program, Project)">
+    <div class="main-filter" onclick="togglDropdown()">
+        <div class="filter-icon"><i class="fa-solid fa-filter"></i></div>
+
+        <div class="dropdown">
+            <div class="dropdown-item sub-dropdown">
+                Program
+                <div class="sub-dropdown-content">
+                    <div class="sub-dropdown-item" data-value="Bridge Course">Bridge Course</div>
+                    <div class="sub-dropdown-item">Acadamics</div>
+                    <div class="sub-dropdown-item">After School Programming</div>
+                    <div class="sub-dropdown-item">Awarness Sessions</div>
+                    <div class="sub-dropdown-item">Camps(Summer/Winter)</div>
+                    <div class="sub-dropdown-item">Career Guidance</div>
+                    <div class="sub-dropdown-item">Computer Coaching-Advanced</div>
+                    <div class="sub-dropdown-item">Computer Coaching-Basics with Typing</div>
+                    <div class="sub-dropdown-item">Computer Coaching-Basics without Typing</div>
+                    <div class="sub-dropdown-item">Computer Coaching-Typing</div>
+                    <div class="sub-dropdown-item">Counselling</div>
+                    <div class="sub-dropdown-item">E2E(Education to Employability)</div>
+                    <div class="sub-dropdown-item">Emotional Management</div>
+                    <div class="sub-dropdown-item">Exam Readiness</div>
+                    <div class="sub-dropdown-item">Gender Sensitivity</div>
+                    <div class="sub-dropdown-item">Internship</div>
+                    <div class="sub-dropdown-item">Integrated Program</div>
+                    <div class="sub-dropdown-item">Kannada</div>
+                    <div class="sub-dropdown-item">Life Skills</div>
+                    <div class="sub-dropdown-item">Office Assistant</div>
+                    <div class="sub-dropdown-item">Parental Guidance</div>
+                    <div class="sub-dropdown-item">Personality Development</div>
+                    <div class="sub-dropdown-item">Soft Skills</div>
+                    <div class="sub-dropdown-item">Software Development</div>
+                    <div class="sub-dropdown-item">Spoken English</div>
+                    <div class="sub-dropdown-item">Tailoring</div>
+                    <div class="sub-dropdown-item">Tailoring-Tassel Typing</div>
+                    <div class="sub-dropdown-item">Tally</div>
+                    <div class="sub-dropdown-item">Teacher Development</div>
+                    <div class="sub-dropdown-item">TTT</div>
+                    <div class="sub-dropdown-item">Wellbeing</div>
+                    <div class="sub-dropdown-item">Women Development</div>
+                    <div class="sub-dropdown-item">WSD</div>
+
+
+                </div>
+            </div>
+            <!-- Repeat similar structure for other dropdown items -->
+            <div class="dropdown-item sub-dropdown" id="sa">
+                Project
+
+            </div>
+            <div class="dropdown-item sub-dropdown" id="ha">
+                Date
+                <div class="sub-dropdown-content">
+
+
+
+
+                </div>
+            </div>
+            <div class="dropdown-item sub-dropdown">
+                Center type
+                <div class="sub-dropdown-content">
+                    <div class="sub-dropdown-item">DJ Halli 1</div>
+                    <div class="sub-dropdown-item">DJ Halli 2</div>
+                    <div class="sub-dropdown-item">Kannur</div>
+                    <div class="sub-dropdown-item">Koramangalam</div>
+                    <div class="sub-dropdown-item">Bagalur</div>
+                    <div class="sub-dropdown-item">Mylanhalli</div>
+                </div>
+            </div>
+            <div class="dropdown-item sub-dropdown">
+                Trainer
+                <div class="sub-dropdown-content">
+                    <div class="sub-dropdown-item">Lead</div>
+                    <div class="sub-dropdown-item">Co-Facilator</div>
+                    <div class="sub-dropdown-item">Volunteer</div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="actions">
+    <button class="add-btn" id="bts" href="details">Create</button>
+
+</div>
+
+<div id="san">
+    <select id="Centre" name="Centre">
+        <option value="">Select an option</option>
+        <option value="DJ Halli 1">DJ Halli1</option>
+        <option value="DJ Halli 2">DJ Halli2</option>
+        <option value="Bagalur">Bagalur</option>
+        <option value="Mylanahalli">Mylanahalli</option>
+        <option value="Kannur">Kannur</option>
+        <option value="Koramangala">Koramangala</option>
+    </select>
+
+</div>
+<div id="sh">
+    From:<input type="date">
+    To:<input type="date">
+    or<select id="select" name="select month">
+        <option value="">select month</option>
+        <option value="">1 month</option>
+        <option value="DJ Halli 1">2 month</option>
+        <option value="DJ Halli 2">4 month</option>
+        <option value="Bagalur">6 month</option>
+        <option value="Mylanahalli">10 month</option>
+        <option value="Kannur">1 year</option>
+        <option value="Koramangala">2 year</option>
+    </select>
+
+</div>
+
+
+
+<div class="table">
+    <table id="sessionsTable">
+        <tr bgcolor="orange">
+
+            <th>Date</th>
+            <th>Resource Name</th>
+            <th>Program</th>
+            <th>Project</th>
+            <th>Center Type</th>
+            <th>Activity</th>
+            <th>Session_Number</th>
+            <th>Trainer_Type</th>
+            <th>Hours</th>
+            <th>Status</th>
+            <th>beneficiaries</th>
+            <th>Category</th>
+            <th>Actions</th>
+
+
+        </tr>
+
+        {% for program in programs %}
+        <tr bgcolor="white" data-program="{{program.name}}">
+            <td>{{program.date }}</td>
+            <td>{{program.emp.fullname}}</td>
+            <td>{{program.pgm_id|program_to_string }}</td>
+            <td>{{program.xref.project_name }}</td>
+            <td>{{program.center_type|centertype_to_string }}</td>
+            <td>{{program.activity }}</td>
+            <td>{{program.trainer_type}}</td>
+            <td>{{program.trainer_type}}</td>
+            <td>{{program.duration}}</td>
+            <td>{{program.status}}</td>
+            <td>{{program.beneficiaries }}</td>
+            <td>{{program.category }}</td>
+
+
+            <td class="tdtd">
+                <button class="add-row-button" onclick="showpopup()"> <i class="fa-solid fa-eye" style="color: #ff7b00;"></i> </button>
+            </td>
+
+        </tr>
+        {% endfor %}
+
+
+
+
+
+    </table>
+</div>
+
+<!-- Add Modal -->
+<!-- Popup box -->
+<div id="popup" class="popup">
+    <div class="blank-box">
+        <div class="scroll-container">
+            <h2>Details</h2>
+            <label for="EmployeeID">Employee ID</label>
+            <input type="text" id="EmployeeID" name="EmployeeID"><br>
+
+            <label for="date">Date</label>
+            <input type="date" id="date" name="date"><br>
+
+            <label for="ResourceName">Resoure Name</label>
+            <input type="text" id="ResourceName" name="ResourceName"><br>
+
+            <label for="Program">Program</label>
+            <select id="Program" name="Program" required>
+                <option value="Select an option">Select an option</option>
+                <option value="Bridge Course"> Bridge Course</option>
+                <option value="Academics">Academics</option>
+                <option value="After School Program">After School Program</option>
+                <option value="Awareness Sessions">Awareness Sessions</option>
+                <option value="Camps(Summer/Winter)">Camps(Summer/Winter)</option>
+                <option value="Career Guidance">Career Guidance</option>
+                <option value="Computer Coaching-Advanced">Computer Coaching-Advanced</option>
+                <option value="Computer Coaching-Basics with Typing">Computer Coaching-Basics with Typing</option>
+                <option value="Computer Coaching-Basics without Typing">Computer Coaching-Basics without Typing</option>
+                <option value="Computer Coaching-Typing">Computer Coaching-Typing</option>
+                <option value="Counselling">Counselling</option>
+                <option value="E2E(Education to Employability)">E2E(Education to Employability)</option>
+                <option value="program1">Program 1</option>
+                <option value="Emotional Management">Emotional Management</option>
+                <option value="Exam Readiness">Exam Readiness</option>
+                <option value="Gender Sensitivity">Gender Sensitivity</option>
+                <option value="Internship">Internship</option>
+                <option value="Integrated Program">Integrated Program</option>
+                <option value="Kannada">Kannada</option>
+                <option value="Life Skills">Life Skills</option>
+                <option value="Office Assistant">Office Assistant</option>
+                <option value="Parental Guidance">Parental Guidance</option>
+                <option value="Personality Development">Personality Development</option>
+                <option value="Soft Skills">Soft Skills</option>
+                <option value="Software Development">Software Development</option>
+                <option value="Spoken English">Spoken English</option>
+                <option value="Tailoring">Tailoring</option>
+                <option value="Tailoring-Tassel Typing">Tailoring-Tassel Typing</option>
+                <option value="Tally">Tally</option>
+                <option value="Teacher Development">Teacher Development</option>
+                <option value="TTT">TTT</option>
+                <option value="Wellbeing">Wellbeing</option>
+                <option value="Women Development">Women Development</option>
+                <option value="WSD">WSD</option>
+            </select><br>
+
+            <label for="Project">Project</label>
+            <input type="text" id="Project" name="Project"><br>
+
+            <label for="Activity">Activity</label>
+            <input type="text" id="Activity" name="Activity"><br>
+
+            <label for="CentreType">Centre Type</label>
+            <select id="CentreType" name="CentreType" required>
+                <option value="">Select an option</option>
+                <option value="DJ Halli 1">DJ Halli1</option>
+                <option value="DJ Halli 2">DJ Halli2</option>
+                <option value="Bagalur">Bagalur</option>
+                <option value="Mylanahalli">Mylanahalli</option>
+                <option value="Kannur">Kannur</option>
+                <option value="Koramangala">Koramangala</option>
+            </select><br>
+
+            <label for="Sessionnumber">Session Number</label>
+            <input type="text" id="Sessionnumber" name="Sessionnumber"><br>
+
+            <label for="Sponsor">Sponsor</label>
+            <select id="Sponsor" name="Sponsor" required>
+                <option value="">Select an option</option>
+                <option value="Vajra">Vajra</option>
+                <option value="Bridge">Bridge</option>
+                <option value="Taste Master">Taste Master</option>
+                <option value="LICT">LICT</option>
+                <option value="Others">Others</option>
+            </select><br>
+
+            <label for="Trainer_Type">Trainer Type</label>
+            <select id="Trainer_Type" name="Trainer_Type" required>
+                <option value="">Select an option</option>
+                <option value="Lead">Lead</option>
+                <option value="Co-Facilator">Co-Facilator</option>
+                <option value="Volunteer">Volunteer</option>
+            </select><br>
+
+            <label for="Beneficiaries">Beneficiaries</label>
+            <input type="number" id="Beneficiaries" name="Beneficiaries" style=" width: 90%; margin: 5px 0; padding: 8px; border: 1px solid #ccc; border-radius: 4px;"><br>
+
+            <label for="Category">Category</label>
+            <select id="Category" name="Category" required>
+                <option value="Select an option">Select an option</option>
+                <option value="Consultant">Consultant</option>
+                <option value="Employee">Employee</option>
+                <option value="Internship">Internship</option>
+                <option value="New-Volunteer">New-Volunteer</option>
+                <option value="Ex-Volunteer">Ex-Volunteer</option>
+            </select><br>
+
+            <label for="Duration">Duration</label>
+            <input type="number" id="Duration" name="Duration" style="width: 90%;margin: 6px 0;padding: 9px;border: 1px solid #ccc;border-radius: 4px;"><br>
+
+            <label for="Status">Status</label>
+            <select id="Status" name="Status" required>
+                <option value="Select an option">Select an option</option>
+                <option value="Start">Start</option>
+                <option value="On-Going">On-Going</option>
+                <option value="On-Hold">On-Hold</option>
+                <option value="Completed">Completed</option>
+                <option value="Orientation">Orientation</option>
+                <option value="Travel">Travel</option>
+            </select><br>
+
+            <label for="Comment">Comment</label>
+            <div class="comment-box">
+                <textarea id="Comment" placeholder="Write your comment here"></textarea>
+            </div>
+
+            <button onclick="validateAndSave()" id="btnSave">Edit</button>
+            <br>
+
+            <br>
+            <button onclick="hidePopup()" id="btnSaveDuplicate">Close</button>
+            <br>
+        </div>
+    </div>
+</div>
+
+
+
+
+    {% endblock %}
