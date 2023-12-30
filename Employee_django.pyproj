@@ -64,7 +64,6 @@
     <Content Include="Emp_app\templates\Emp_app\index.html" />
     <Content Include="Emp_app\templates\Emp_app\Session_main.html" />
     <Content Include="Emp_app\templates\Emp_app\subject_email.txt" />
-    <Content Include="Emp_app\templates\Emp_app\logn_bas.html" />
     <Content Include="templates\Registration\login.html">
       <SubType>Code</SubType>
     </Content>
