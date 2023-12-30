@@ -11,7 +11,7 @@
 
     <h1 style="margin-left: 73px; color: orange;">Sign in to your Account</h1>
 
-    <img src="{% static 'cf_logo.png' %}" alt="Creating Futures Logo" class="logo"> 
+    <img src="{% static 'cf_logo.png' %}" alt="Creating Futures Logo" class="logo">
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
@@ -21,9 +21,9 @@
         </div>
 
         <button class="login-btn" onclick="validateForm()">Login</button>
-</div>
-    </form>
 
+    </form>
+</div>
 {% endblock %}
 
 

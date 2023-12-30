@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="static/Comm.css">
+    <link rel="stylesheet" href="/static/Comm.css">
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <!--<a href="forgetpassword.html">forgetpassword.html</a>-->
@@ -21,21 +21,22 @@
             margin: 0;
             padding: 0;
             background-color: #F5F0EC;
+            font-family: Helvetica;
         }
 
 
         .header {
             background-color: rgb(255, 255, 255);
-            padding: 50px;
+            padding: 40px;
             text-align: center;
         }
 
         .logo {
-            width: 187px;
+            width: 185px;
             height: auto;
-            margin-top: -47px;
+            margin-top: -40px;
             position: absolute;
-            left: 50%;
+            left: 8%;
             transform: translateX(-50%);
         }
 
@@ -47,10 +48,10 @@
         }
 
         .dropdown {
-            margin-right: -73%;
+            margin-right: -80%;
             position: relative;
             display: inline-block;
-            margin-top: 20px;
+            margin-top: 10px;
         }
 
         .id-symbol {
@@ -127,12 +128,12 @@
             }
 
         .sidebar {
-            background-color: #333;
+            background-color: white;
             color: white;
             width: 0;
             overflow: hidden;
             transition: width 0.3s ease;
-            height: 100vh;
+            height: 250vh;
         }
 
             .sidebar.open {
@@ -155,7 +156,7 @@
             }
 
                 .navbar ul li a {
-                    color: white;
+                    color:#FCB040;
                     text-decoration: none;
                     transition: 0.3s;
                     width: 100%;
@@ -170,8 +171,7 @@
                         margin-right: 10px;
                     }
 
-                    .navbar ul li a:hover {
-                        background-color: #555;
+                    .navbar ul li a:hover { 
                         border-radius: 5px;
                     }
 
@@ -227,6 +227,16 @@
             .footer {
                 margin-top: auto;
             }
+
+            .fixed-header {
+                display: flex;
+            }
+
+        .fixed-header {
+            margin-top: -3%;
+            width: 30%;
+            margin-left: 35%;
+        }
         }
     </style>
     {% block css %}
@@ -246,19 +256,24 @@
                 <a href="{% url 'login' %}">Logout</a>
             </div>
         </div>
-        </div>
-    </header>
 
+        {% block header %}
+
+        {% endblock %}
+
+    </header>
+          
     <div class="container">
         <aside class="sidebar" id="sidebar">
             <nav class="navbar">
-                <ul>
-                    <li><a href="{% url 'home' %}"><i class="fas fa-home" style="color: #d66e29;"></i>Home</a></li>
-                    <li><a href="{% url 'Session_main' %}"><i class="fas fa-business-time" style="color: #c58326;"></i>Session</a></li>
-                    <li><a href="{% url 'employee' %}"><i class="fas fa-chart-bar" style="color: #dd7c22;"></i>Employee</a></li>
+                <ul style="display: flex; flex-direction: column;">
+                    <li style="flex: 1;"><a href="{% url 'home' %}" style="margin-left: 10px;"><i class="fas fa-home" style="color: #FCB040; margin-left: -20px; }"></i>Home</a></li>
+                    <li style="flex: 1;"><a href="{% url 'Session_main' %}"><i class="fas fa-business-time" style="color: #FCB040; margin-left: 8px;"></i>Session</a></li>
+                    <li style="flex: 1;"><a href="{% url 'employee' %}"><i class="fas fa-chart-bar" style="color: #FCB040; margin-left: 20px;"></i>Employee</a></li>
                 </ul>
             </nav>
         </aside>
+
 
         <main class="main-content">
             <button class="sidebar-toggle-btn" onclick="toggleSidebar()">

@@ -1,29 +1,6 @@
 EMP_ID,fullname,address,Dob,Phone_Number,Email_Id,Gender,Center,Designation,Date_of_Joining,Education_Qualification,Status,Resource_Type,Date_of_resigning,Bank_Name,Name_As_per_Bank,Account_Number,IFSC,Branch,Account_Type
-1,Preethi,Bangalore,1980-02-12,7678742158,preethiamuthan@gmail.com,female,1,coordinate,2021-10-12,degree,1,1,2022-03-09,Indian Bank,preethi,2.57E+16,75832tew9583235238,Karnataka,1
-2,Sonia,Bangalore,1980-03-06,7678742159,soniamathias@gmail.com,female,2,employee,2023-10-12,degree,2,1,2023-12-04,Asian Bank,sonia,3.44E+16,6.44E+17,Karnataka,1
-3,Jimmy Cherian,Bangalore,1980-03-07,7678742160,Jimmy@gmail.com,male,1,coordinate,2022-04-23,degree,1,1,2023-02-04,Baroda Bank,jimmy cherian,3.57E+16,3543yr63752354t5587,Karnataka,1
-4,Smita,Bangalore,1980-03-08,7678742161,smita@gmail.com,female,2,employee,2021-04-08,degree,1,1,2023-06-09,Indian Bank,smita,5.1E+16,486u62358rf34656650,Karnataka,1
-5,Sujeeth,Bangalore,1980-03-09,7678742162,sssujeeth@gmail.com,male,2,employee,2020-09-06,degree,1,1,2023-07-08,Indian Bank,sujeeth,9.76E+16,442674tt75682375547,Karnataka,1
-,,,,,,,,,,,,,,,,,,,
-,,,,,,,,,,,,,,,,,,,
-,,,,,,,,,,,,,,,,,,,
-,,,,,,,,,,,,,,,,,,,
-,,,,,,,,,,,,,,,,,,,
-,,,,,,,,,,,,,,,,,,,
-,,,,,,,,,,,,,,,,,,,
-,,,,,,,,,,,,,,,,,,,
-,,,,,,,,,,,,,,,,,,,
-,,,,,,,,,,,,,,,,,,,
-,,,,,,,,,,,,,,,,,,,
-,,,,,,,,,,,,,,,,,,,
-,,,,,,,,,,,,,,,,,,,
-,,,,,,,,,,,,,,,,,,,
-,,,,,,,,,,,,,,,,,,,
-,,,,,,,,,,,,,,,,,,,
-,,,,,,,,,,,,,,,,,,,
-,,,,,,,,,,,,,,,,,,,
-,,,,,,,,,,,,,,,,,,,
-,,,,,,,,,,,,,,,,,,,
-,,,,,,,,,,,,,,,,,,,
-,,,,,,,,,,,,,,,,,,,
-,,,,,,,,,,,,,,,,,,,
+1,Preethi,Bangalore,1980-02-12,7678742158,preethiamuthan@gmail.com,female,1,coordinate,2021-10-12,degree,1,1,2022-03-09,Indian Bank,preethi,2.55E+05,342355,Karnataka,1
+2,Sonia,Bangalore,1980-03-06,7678742159,soniamathias@gmail.com,female,2,employee,2023-10-12,degree,2,1,2023-12-04,Asian Bank,sonia,5.66E+03,2.35E+04,Karnataka,1
+3,Jimmy Cherian,Bangalore,1980-03-07,7678742160,Jimmy@gmail.com,male,1,coordinate,2022-04-23,degree,1,1,2023-02-04,Baroda Bank,jimmy cherian,2.46E+04,3245235256,Karnataka,1
+4,Smita,Bangalore,1980-03-08,7678742161,smita@gmail.com,female,2,employee,2021-04-08,degree,1,1,2023-06-09,Indian Bank,smita,5.10E+16,3242399098,Karnataka,1
+5,Sujeeth,Bangalore,1980-03-09,7678742162,sssujeeth@gmail.com,male,2,employee,2020-09-06,degree,1,1,2023-07-08,Indian Bank,sujeeth,9.76E+16,78778874342,Karnataka,1

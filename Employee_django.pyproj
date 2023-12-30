@@ -50,6 +50,7 @@
     <Content Include="Emp_app\static\8.jpeg" />
     <Content Include="Emp_app\static\9.jpeg" />
     <Content Include="Emp_app\static\cf_logo.png" />
+    <Content Include="Emp_app\static\css\Comm.css" />
     <Content Include="Emp_app\static\div_reset.png" />
     <Content Include="Emp_app\static\eyes close.jpg" />
     <Content Include="Emp_app\static\eyes open.webp" />
@@ -103,6 +104,7 @@
     <Folder Include="Employee_Management" />
     <Folder Include="Emp_app" />
     <Folder Include="Emp_app\migrations" />
+    <Folder Include="Emp_app\static\css\" />
     <Folder Include="Emp_app\templatetags\" />
     <Folder Include="Emp_app\static\" />
     <Folder Include="Emp_app\templates\" />
