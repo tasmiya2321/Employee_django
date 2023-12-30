@@ -63,7 +63,7 @@
 
 <style>
     body {
-        font-family: Arial, sans-serif;
+        font-family: helvetica;
         padding: 20px;
         background-color: #f4f4f4;
     }
@@ -82,12 +82,13 @@
         padding: 15px;
         border-radius: 30px;
     }
-     .error-message, .danger-message {
+
+    .error-message, .danger-message {
         background-color: red;
         padding: 10px;
         margin-left: 20px;
         border-radius: 20px;
-     }
+    }
 
     h3 {
         color: #333;
@@ -118,11 +119,11 @@
         border-radius: 4px;
         box-sizing: border-box;
     }
-/*
-    input[type="radio"] {
-        margin-right: 5px;
-    }
-*/
+    /*
+        input[type="radio"] {
+            margin-right: 5px;
+        }
+    */
 
     Textarea {
         resize: vertical;
@@ -133,19 +134,19 @@
         margin-bottom: 10px;
     }
 
-   /* #button {
-        background-color: orange;
-        color: white;
-        border: none; 
-        border-radius: 10px;
-        cursor: pointer;
-        font-size: 25px;
-    }
-   
+    /* #button {
+            background-color: orange;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 25px;
+        }
 
-     #button:hover {
-         background-color: orange;
-     }*/
+
+         #button:hover {
+             background-color: orange;
+         }*/
     #editButton {
         width: 15%;
         border-radius: 10px;
@@ -172,6 +173,7 @@
         margin-top: -29px;
         margin-left: 170px;
     }
+
     .form-container {
         max-width: 600px; /* Adjust based on your preference */
         margin: 0 auto; /* Centers the form */
@@ -191,9 +193,6 @@
             padding: 10px;
         }
 
-        h1.employee-details-title {
-            font-size: 17px;
-        }
 
 
         .female {
@@ -217,36 +216,43 @@
         }
     }
 
-    }
-
-
     .button-container {
         text-align: center;
     }
+
+    
 </style>
 {% endblock %}
 
 
+{% block header %}
+
+<div class="fixed-header">
+    <h1 style=" margin-top: -25px; ">Employee details</h1>
+</div>
+
+
+{% endblock %}
+
 {% block content %}
-
-
 
 <center>
 
 
-    <form method="POST" action="{% url 'saveemployee' %}" >
-      
-    {% csrf_token %}
+    <form method="POST" action="{% url 'saveemployee' %}">
+
+        {% csrf_token %}
 
 
 
         {% if messages %}
-        {% for message in messages %}
 
+        {% for message in messages %}
         <div class="{% if message.tags %}{{ message.tags }}{% endif %}-message">{{ message }}</div>
         {% endfor %}
-        {% endif %}
 
+        {% endif %}
+         <br /><br />
 
         <h3>Personal Details</h3>
         <table>
@@ -308,7 +314,7 @@
                 <td><input type="text" id="employeeId" name="employeeId" data-dbname="emp_id" required></td>
             </tr>
 
-           
+
             <!-- Centre -->
             <tr>
                 <td><label for="centre">Centre</label></td>
@@ -358,7 +364,7 @@
             <!-- Date of Resigning -->
             <tr>
                 <td><label for="dateOfResigning">Date of Resigning</label></td>
-                <td><input type="date" name="dateOfResigning" id="dateOfResigning" data-dbname="date_of_resigning"></td>
+                <td><input type="date" name="dateofResigning" id="dateOfResigning" data-dbname="date_of_resigning" placeholder="dd-mm-YYYY"></td>
             </tr>
 
             <!-- Resource Type -->
