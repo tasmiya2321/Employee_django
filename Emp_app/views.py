@@ -87,7 +87,7 @@ def saveemployee(request):
         emp_details.date_of_joining = request.POST.get('dateofJoining')  
         emp_details.education_qualification = request.POST.get('educationQualification') 
         emp_details.status = request.POST.get('status')
-        emp_details.date_of_resigning = request.POST.get('dateofResigning') 
+        emp_details.date_of_resigning = request.POST.get('dateofResigning')
         emp_details.resource_type = request.POST.get('resourceType') 
         emp_details.bank_name = request.POST.get('bankName') 
         emp_details.name_as_per_bank = request.POST.get('nameAsPerBank')  
