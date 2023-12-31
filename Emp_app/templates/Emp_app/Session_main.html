@@ -10,7 +10,7 @@
             var dropdown = document.querySelector(".dropdowns"); // Updated class name here
             dropdown.style.display = dropdown.style.display === "none" ? "flex" : "none";
         });
-   
+
         document.getElementById("date-icon").addEventListener("click", function () {
             // Toggle visibility of the date inputs
             var fromDate = document.getElementById("from-date");
@@ -31,8 +31,14 @@
 
         saveData(isDuplicate);
     }
-  
+
+
+
+   
 </script>
+
+
+
 
 
 <style>
@@ -55,7 +61,7 @@
         align-items: center;
         gap: 10px;
         padding: 20px;
-        position:relative;
+        position: relative;
     }
 
     .search-box input, .search-box button, .dropdown select, .dropdown input[type="date"] {
@@ -74,7 +80,6 @@
         font-size: 23px;
         cursor: pointer;
         margin: 5px;
-       
     }
 
 
@@ -84,9 +89,7 @@
         gap: 5px;
         align-items: center;
         margin-top: 10%;
-        position:absolute;
-       
-    
+        position: absolute;
     }
 
 
@@ -134,7 +137,7 @@
 
 
 
-    
+
 
     .tdtd {
         display: flex;
@@ -171,22 +174,22 @@
         max-height: 500px; /* Increased height for better view */
     }
 
-    .scroll-container label {
-        display: block; /* Make labels block elements */
-        margin: 10px 0 5px; /* Adjust margins for labels */
-        font-weight: bold;
-    }
+        .scroll-container label {
+            display: block; /* Make labels block elements */
+            margin: 10px 0 5px; /* Adjust margins for labels */
+            font-weight: bold;
+        }
 
-    .scroll-container input[type="text"],
-    .scroll-container input[type="date"],
-    .scroll-container select {
-        width: 90%; /* Full width inputs */
-        margin: 5px 0; /* Adjusted margin */
-        padding: 8px; /* Padding for better touch */
-        border: 1px solid #ccc;
-        border-radius: 4px; /* Rounded corners */
-    }
-        
+        .scroll-container input[type="text"],
+        .scroll-container input[type="date"],
+        .scroll-container select {
+            width: 90%; /* Full width inputs */
+            margin: 5px 0; /* Adjusted margin */
+            padding: 8px; /* Padding for better touch */
+            border: 1px solid #ccc;
+            border-radius: 4px; /* Rounded corners */
+        }
+
         .scroll-container.comment-box {
             width: 90%; /* Adjusted width */
             margin: 10px 0; /* Adjusted margin */
@@ -257,13 +260,13 @@
             width: 100%; /* Full width on smaller screens */
         }
     }
+
     .date-input {
         display: none; /* Keep them hidden initially */
         padding: 10px;
         border: 1px solid #ccc;
         border-radius: 5px;
         margin: 5px;
-       
     }
 
         /* Style the placeholder text */
@@ -286,16 +289,18 @@
             color: #888;
             font-style: italic;
         }
-    #program-select, #project-select, #center-select,#trainer-select {
+
+    #program-select, #project-select, #center-select, #trainer-select {
         padding: 10px;
         border: 1px solid #ccc;
         border-radius: 5px;
         margin: 5px;
     }
+
     #but {
         margin-left: 87%;
         width: 9%;
-        background:orange;
+        background: orange;
     }
     }
 </style>
@@ -328,10 +333,10 @@
     <!-- Hidden Date Inputs -->
     <input type="date" id="from-date" class="date-input" placeholder="From Date" style="display:none;">
     <input type="date" id="to-date" class="date-input" placeholder="To Date" style="display:none;">
-    
+
     <div class="dropdowns">
         <select id="program-select">
-            <option value="Select an option">Select an option</option>
+            <option value="Select an Program">Select an Program</option>
             <option value="Bridge Course"> Bridge Course</option>
             <option value="Academics">Academics</option>
             <option value="After School Program">After School Program</option>
@@ -379,7 +384,7 @@
 
 
         <select id="center-select">
-            <option value="">Select an option</option>
+            <option value="">Select an Center</option>
             <option value="DJ Halli 1">DJ Halli1</option>
             <option value="DJ Halli 2">DJ Halli2</option>
             <option value="Bagalur">Bagalur</option>
@@ -389,13 +394,14 @@
         </select>
 
         <select id="trainer-select">
-            <option value="">Select Trainer</option>
-            <option value="Trainer1">Trainer 1</option>
-            <option value="Trainer2">Trainer 2</option>
+            <option value="">Select an option</option>
+            <option value="Lead">Lead</option>
+            <option value="Co-Facilator">Co-Facilator</option>
+            <option value="Volunteer">Volunteer</option>
             <!-- Add more trainer options here -->
         </select>
 
-        <button type="button" style="background:orange;">Filter</button>
+        <button type="button" onclick="applyFilters()" style="background:orange;">Filter</button>
     </div>
 </div>
 
