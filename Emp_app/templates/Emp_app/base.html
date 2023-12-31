@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/static/Comm.css">
+    
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <!--<a href="forgetpassword.html">forgetpassword.html</a>-->
@@ -12,7 +12,7 @@
     <style>
 
         /* Reset default margin and padding */
-        body, h1, h2, h3, ul {
+        body, h1, h2, h3 {
             margin: 0;
             padding: 0;
         }
@@ -47,7 +47,7 @@
             position: relative;
         }
 
-        .dropdown {
+        .dropdow {
             margin-right: -80%;
             position: relative;
             display: inline-block;
@@ -81,7 +81,7 @@
 
 
         @media screen and (max-width: 768px) {
-            .dropdown {
+            .dropdow {
                 display: block;
                 margin-top: 10px;
                 text-align: center;
@@ -110,7 +110,7 @@
 
 
 
-        .container {
+        .containers {
             display: flex;
         }
 
@@ -184,7 +184,7 @@
 
 
         @media screen and (max-width: 768px) {
-            .container {
+            .containers {
                 flex-direction: column;
             }
 
@@ -220,7 +220,7 @@
                 min-height: 100vh;
             }
 
-            .container {
+            .containers {
                 flex: 1;
             }
 
@@ -248,7 +248,7 @@
 
         <img src="/static/cf_logo.png" alt="CF Logo" class="logo">
 
-        <div class="dropdown">
+        <div class="dropdow">
             <span id="Role" class="id-symbol" onclick="toggleDropdown()">{{ user.get_username }} &#9660; <i class="fa-solid fa-circle-user fa-2xl" style="color: #5c626a;"></i></span>
             <div class="dropdown-content" id="dropdownContent">
                 <a href="{% url 'employee' %}">Profile</a>
@@ -263,7 +263,7 @@
 
     </header>
           
-    <div class="container">
+    <div class="containers">
         <aside class="sidebar" id="sidebar">
             <nav class="navbar">
                 <ul style="display: flex; flex-direction: column;">
@@ -310,7 +310,8 @@
             const sidebar = document.getElementById('sidebar');
             sidebar.classList.toggle('open');
         }
-
+        // Ensure the DOM is fully loaded before running scripts
+       
     </script>
 
 </body>
