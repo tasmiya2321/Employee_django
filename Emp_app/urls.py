@@ -35,7 +35,7 @@ urlpatterns = [
     path('Session_main/',views.Session_main,name='Session_main'),
   
 
-    path('createpage/', views.createpage, name='createpage')
+    #path('createpage/', views.createpage, name='createpage')
   
   
 

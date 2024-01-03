@@ -9,6 +9,9 @@
         $.ajax({
             type: "POST",
             url: "{% url 'employee' %}",
+            headers: {
+                'X-CSRFToken': $("input[name='csrfmiddlewaretoken']").val()
+            },
             data: { data: Role },
             success: function (result) {
 
@@ -60,7 +63,7 @@
 
 <style>
     body {
-        font-family: Arial, sans-serif;
+        font-family: helvetica;
         padding: 20px;
         background-color: #f4f4f4;
     }
@@ -79,12 +82,13 @@
         padding: 15px;
         border-radius: 30px;
     }
-     .error-message, .danger-message {
+
+    .error-message, .danger-message {
         background-color: red;
         padding: 10px;
         margin-left: 20px;
         border-radius: 20px;
-     }
+    }
 
     h3 {
         color: #333;
@@ -115,11 +119,11 @@
         border-radius: 4px;
         box-sizing: border-box;
     }
-/*
-    input[type="radio"] {
-        margin-right: 5px;
-    }
-*/
+    /*
+        input[type="radio"] {
+            margin-right: 5px;
+        }
+    */
 
     Textarea {
         resize: vertical;
@@ -130,19 +134,19 @@
         margin-bottom: 10px;
     }
 
-   /* #button {
-        background-color: orange;
-        color: white;
-        border: none; 
-        border-radius: 10px;
-        cursor: pointer;
-        font-size: 25px;
-    }
-   
+    /* #button {
+            background-color: orange;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 25px;
+        }
 
-     #button:hover {
-         background-color: orange;
-     }*/
+
+         #button:hover {
+             background-color: orange;
+         }*/
     #editButton {
         width: 15%;
         border-radius: 10px;
@@ -169,6 +173,7 @@
         margin-top: -29px;
         margin-left: 170px;
     }
+
     .form-container {
         max-width: 600px; /* Adjust based on your preference */
         margin: 0 auto; /* Centers the form */
@@ -188,9 +193,6 @@
             padding: 10px;
         }
 
-        h1.employee-details-title {
-            font-size: 17px;
-        }
 
 
         .female {
@@ -214,9 +216,6 @@
         }
     }
 
-    }
-
-
     .button-container {
         text-align: center;
     }
@@ -224,25 +223,34 @@
 {% endblock %}
 
 
+{% block header %}
+
+<div class="fixed-header">
+    <h1 style=" margin-top: -25px; ">Employee details</h1>
+</div>
+
+
+{% endblock %}
+
 {% block content %}
-
-
 
 <center>
 
 
-    <form action="{% url 'saveemployee' %}" method="POST">
+    <form method="POST" action="{% url 'saveemployee' %}">
+
         {% csrf_token %}
 
 
 
         {% if messages %}
-        {% for message in messages %}
 
+        {% for message in messages %}
         <div class="{% if message.tags %}{{ message.tags }}{% endif %}-message">{{ message }}</div>
         {% endfor %}
-        {% endif %}
 
+        {% endif %}
+        <br /><br />
 
         <h3>Personal Details</h3>
         <table>
@@ -264,7 +272,7 @@
             </tr>
             <!-- Phone -->
             <tr>
-                <td><label for="phoneNumber">Phone</label></td>
+                <td><label for="phoneNumber">Phonenumber</label></td>
                 <td><input type="number" name="phonenumber" id="phoneNumber" data-dbname="phone_number" required></td>
             </tr>
             <!-- Email ID -->
@@ -273,23 +281,6 @@
                 <td><input type="email" name="emailId" id="emailId" data-dbname="email_id" required></td>
             </tr>
             <!-- Gender -->
-            <!--<tr>
-                <td>Gender</td>
-                <td>
-                    <div>
-                        <input type="radio" id="male" name="gender" value="male" data-dbname="gender" required>
-                        <label for="male">Male</label>
-                    </div>
-                    <div>
-                        <input type="radio" id="female" name="gender" value="female" data-dbname="gender" required style="margin-left: 30%;">
-                        <label for="female">Female</label>
-                    </div>
-                    <div>
-                        <input type="radio" id="other" name="gender" value="other" data-dbname="gender" required style=" margin-left: 60%; margin-top: -15%; ">
-                        <label for="other">Other</label>
-                    </div>
-                </td>
-            </tr>-->
 
             <tr>
                 <td>Gender</td>
@@ -321,11 +312,12 @@
                 <td><input type="text" id="employeeId" name="employeeId" data-dbname="emp_id" required></td>
             </tr>
 
+
             <!-- Centre -->
             <tr>
                 <td><label for="centre">Centre</label></td>
                 <td>
-                    <select id="centre" name="centre" data-dbname="centre" required>
+                    <select id="centre" name="center" data-dbname="center" required>
                         <option value="">Select an option</option>
                         <option value="1">DJ Halli1</option>
                         <option value="2">DJ Halli2</option>
@@ -370,7 +362,7 @@
             <!-- Date of Resigning -->
             <tr>
                 <td><label for="dateOfResigning">Date of Resigning</label></td>
-                <td><input type="date" name="dateOfResigning" id="dateOfResigning" data-dbname="date_of_resigning"></td>
+                <td><input type="date" name="dateofResigning" id="dateOfResigning" data-dbname="date_of_resigning" placeholder="dd-mm-YYYY"></td>
             </tr>
 
             <!-- Resource Type -->

@@ -19,7 +19,7 @@
 
     .slide-image {
         width: 100%;
-        max-height: 90vh; /* Adjust the maximum height as needed */
+        max-height: 112vh; /* Adjust the maximum height as needed */
         height: auto;
         flex: 0 0 auto;
     }
@@ -63,11 +63,18 @@
         text-align: center;
         border: 1px solid black;
     }
-
 </style>
 
 {% endblock %}
 
+{% block header %}
+
+<div class="fixed-header">
+    <h1 style=" margin-top: -20px; margin-left: 50px; ">Home</h1>
+</div>
+
+
+{% endblock %}
 
 {% block content %}
 
@@ -75,8 +82,8 @@
 <h1>{{value|program_to_string}}</h1>
 <h1>{{value|centertype_to_string}}</h1>
 
-    <div class="slider-container">
-        <div class="slides">
+<div class="slider-container">
+    <div class="slides">
         <img src="../../static/16.jpg" alt="" class="slide-image active">
         <img src="../../static/17.jpg" alt="" class="slide-image">
         <img src="../../static/18.jpg" alt="" class="slide-image">
@@ -104,37 +111,37 @@
         <img src="../../static/12.jpeg" alt="" class="slide-image">
         <img src="../../static/13.jpeg" alt="" class="slide-image">
         <img src="../../static/15.jpeg" alt="" class="slide-image">
-         </div>
-         <!--<button class="prev" id="prev">&#10094;</button>
-             <button class="next" id="next">&#10095;</button>-->
     </div>
+    <!--<button class="prev" id="prev">&#10094;</button>
+        <button class="next" id="next">&#10095;</button>-->
+</div>
 
 <div class="table-container">
     <!-- Wrap your table with this new container -->
     <table style="margin-top:15%">
         <tr bgcolor="orange">
 
-                <th>Date</th>
-                <th>Program</th>
-                <th>Project</th>
-                <th>Activity</th>
-                <th>Center Type</th>
-                <th>Beneficiaries</th>
+            <th>Date</th>
+            <th>Program</th>
+            <th>Project</th>
+            <th>Activity</th>
+            <th>Center Type</th>
+            <th>Beneficiaries</th>
 
 
-            </tr>
-            {% for program in programs %}
-            <tr bgcolor="white">
-                <td>{{ program.date }}</td>
-                <td>{{ program.pgm_id|program_to_string }}</td>
-                <td>{{ program.xref.project_name }}</td>
-                <td>{{ program.activity }}</td>
-                <td>{{ program.center_type|centertype_to_string }}</td>
-                <td>{{ program.beneficiaries }}</td>
-            </tr>
-            {% endfor %}
-        </table>
-    </div>
+        </tr>
+        {% for program in programs %}
+        <tr bgcolor="white">
+            <td>{{ program.date }}</td>
+            <td>{{ program.pgm_id|program_to_string }}</td>
+            <td>{{ program.xref.project_name }}</td>
+            <td>{{ program.activity }}</td>
+            <td>{{ program.center_type|centertype_to_string }}</td>
+            <td>{{ program.beneficiaries }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
 
 <script>
     const slides = document.querySelector('.slides');
@@ -148,7 +155,7 @@
             slideIndex = 0;
         }
         // Translate by 100% of the slide for each new index
-        slides.style.transform = `translateX(-${slideIndex * 100}%)`;
+        slides.style.transform = translateX(-${ slideIndex * 100} %);
     }
 
     let slideInterval = setInterval(showSlides, 2000); // Change slide every 3 seconds
