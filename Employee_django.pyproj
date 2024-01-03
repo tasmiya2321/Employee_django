@@ -50,12 +50,10 @@
     <Content Include="Emp_app\static\8.jpeg" />
     <Content Include="Emp_app\static\9.jpeg" />
     <Content Include="Emp_app\static\cf_logo.png" />
-    <Content Include="Emp_app\static\css\Comm.css" />
     <Content Include="Emp_app\static\div_reset.png" />
     <Content Include="Emp_app\static\eyes close.jpg" />
     <Content Include="Emp_app\static\eyes open.webp" />
     <Content Include="Emp_app\static\menuicon.jpg" />
-    <Content Include="Emp_app\templates\change_password.html" />
     <Content Include="Emp_app\templates\Emp_app\base.html" />
     <Content Include="Emp_app\templates\Emp_app\change_password.html" />
     <Content Include="Emp_app\templates\Emp_app\createpage.html" />
@@ -65,21 +63,22 @@
     <Content Include="Emp_app\templates\Emp_app\index.html" />
     <Content Include="Emp_app\templates\Emp_app\Session_main.html" />
     <Content Include="Emp_app\templates\Emp_app\subject_email.txt" />
-    <Content Include="templates\registration\login.html">
+    <Content Include="Emp_app\templates\Emp_app\logn_bas.html" />
+    <Content Include="templates\Registration\login.html">
       <SubType>Code</SubType>
     </Content>
-    <Content Include="templates\registration\password_reset_complete.html" />
-    <Content Include="templates\registration\password_reset_confirm.html" />
-    <Content Include="templates\registration\password_reset_done.html" />
+    <Content Include="templates\Registration\password_reset_complete.html" />
+    <Content Include="templates\Registration\password_reset_confirm.html" />
+    <Content Include="templates\Registration\password_reset_done.html" />
     <Content Include="Emp_app\templates\reset.html" />
     <Content Include="readme.html" />
     <Content Include="requirements.txt" />
-    <Content Include="templates\registration\password_reset_form.html" />
+    <Content Include="templates\Registration\password_reset_form.html" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Employee_Management\settings.py" />
     <Compile Include="Employee_Management\urls.py" />
-    <Compile Include="templates\registration\wsgi.py" />
+    <Compile Include="templates\Registration\wsgi.py" />
     <Compile Include="Employee_Management\__init__.py" />
     <Compile Include="Emp_app\admin.py" />
     <Compile Include="Emp_app\apps.py" />
@@ -104,13 +103,12 @@
     <Folder Include="Employee_Management" />
     <Folder Include="Emp_app" />
     <Folder Include="Emp_app\migrations" />
-    <Folder Include="Emp_app\static\css\" />
     <Folder Include="Emp_app\templatetags\" />
     <Folder Include="Emp_app\static\" />
     <Folder Include="Emp_app\templates\" />
     <Folder Include="Emp_app\templates\Emp_app" />
     <Folder Include="templates\" />
-    <Folder Include="templates\registration\" />
+    <Folder Include="templates\Registration\" />
     <Folder Include="venv\" />
     <Folder Include="venv\Scripts\" />
   </ItemGroup>
@@ -118,7 +116,7 @@
     <Interpreter Include="ems\">
       <Id>ems</Id>
       <Version>3.11</Version>
-      <Description>ems (Python 3.11)</Description>
+      <Description>ems (Python 3.11 (64-bit))</Description>
       <InterpreterPath>Scripts\python.exe</InterpreterPath>
       <WindowsInterpreterPath>Scripts\pythonw.exe</WindowsInterpreterPath>
       <PathEnvironmentVariable>PYTHONPATH</PathEnvironmentVariable>

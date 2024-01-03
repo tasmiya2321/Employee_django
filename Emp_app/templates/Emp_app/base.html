@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+    <link rel="stylesheet" href="static/Comm.css">
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <!--<a href="forgetpassword.html">forgetpassword.html</a>-->
@@ -12,7 +12,7 @@
     <style>
 
         /* Reset default margin and padding */
-        body, h1, h2, h3 {
+        body, h1, h2, h3, ul {
             margin: 0;
             padding: 0;
         }
@@ -21,22 +21,21 @@
             margin: 0;
             padding: 0;
             background-color: #F5F0EC;
-            font-family: Helvetica;
         }
 
 
         .header {
             background-color: rgb(255, 255, 255);
-            padding: 40px;
+            padding: 50px;
             text-align: center;
         }
 
         .logo {
-            width: 185px;
+            width: 187px;
             height: auto;
-            margin-top: -40px;
+            margin-top: -47px;
             position: absolute;
-            left: 8%;
+            left: 50%;
             transform: translateX(-50%);
         }
 
@@ -47,11 +46,11 @@
             position: relative;
         }
 
-        .dropdow {
-            margin-right: -80%;
+        .dropdown {
+            margin-right: -73%;
             position: relative;
             display: inline-block;
-            margin-top: 10px;
+            margin-top: 20px;
         }
 
         .id-symbol {
@@ -81,7 +80,7 @@
 
 
         @media screen and (max-width: 768px) {
-            .dropdow {
+            .dropdown {
                 display: block;
                 margin-top: 10px;
                 text-align: center;
@@ -110,7 +109,7 @@
 
 
 
-        .containers {
+        .container {
             display: flex;
         }
 
@@ -128,12 +127,12 @@
             }
 
         .sidebar {
-            background-color: white;
+            background-color: #333;
             color: white;
             width: 0;
             overflow: hidden;
             transition: width 0.3s ease;
-            height: 250vh;
+            height: 100vh;
         }
 
             .sidebar.open {
@@ -156,7 +155,7 @@
             }
 
                 .navbar ul li a {
-                    color:#FCB040;
+                    color: white;
                     text-decoration: none;
                     transition: 0.3s;
                     width: 100%;
@@ -171,7 +170,8 @@
                         margin-right: 10px;
                     }
 
-                    .navbar ul li a:hover { 
+                    .navbar ul li a:hover {
+                        background-color: #555;
                         border-radius: 5px;
                     }
 
@@ -184,7 +184,7 @@
 
 
         @media screen and (max-width: 768px) {
-            .containers {
+            .container {
                 flex-direction: column;
             }
 
@@ -220,23 +220,13 @@
                 min-height: 100vh;
             }
 
-            .containers {
+            .container {
                 flex: 1;
             }
 
             .footer {
                 margin-top: auto;
             }
-
-            .fixed-header {
-                display: flex;
-            }
-
-        .fixed-header {
-            margin-top: -3%;
-            width: 30%;
-            margin-left: 35%;
-        }
         }
     </style>
     {% block css %}
@@ -248,32 +238,27 @@
 
         <img src="/static/cf_logo.png" alt="CF Logo" class="logo">
 
-        <div class="dropdow">
+        <div class="dropdown">
             <span id="Role" class="id-symbol" onclick="toggleDropdown()">{{ user.get_username }} &#9660; <i class="fa-solid fa-circle-user fa-2xl" style="color: #5c626a;"></i></span>
             <div class="dropdown-content" id="dropdownContent">
-                <a href="{% url 'employee' %}">Profile</a>
+                <a href="{% url 'saveemployee' %}">Profile</a>
                 <a href="{% url 'change_password' %}">Change password</a>
                 <a href="{% url 'login' %}">Logout</a>
             </div>
         </div>
-
-        {% block header %}
-
-        {% endblock %}
-
+        </div>
     </header>
-          
-    <div class="containers">
+
+    <div class="container">
         <aside class="sidebar" id="sidebar">
             <nav class="navbar">
-                <ul style="display: flex; flex-direction: column;">
-                    <li style="flex: 1;"><a href="{% url 'home' %}" style="margin-left: 10px;"><i class="fas fa-home" style="color: #FCB040; margin-left: -20px; }"></i>Home</a></li>
-                    <li style="flex: 1;"><a href="{% url 'Session_main' %}"><i class="fas fa-business-time" style="color: #FCB040; margin-left: 8px;"></i>Session</a></li>
-                    <li style="flex: 1;"><a href="{% url 'employee' %}"><i class="fas fa-chart-bar" style="color: #FCB040; margin-left: 20px;"></i>Employee</a></li>
+                <ul>
+                    <li><a href="#home"><i class="fas fa-home" style="color: #d66e29;"></i>Home</a></li>
+                    <li><a href="#session"><i class="fas fa-business-time" style="color: #c58326;"></i>Session</a></li>
+                    <li><a href="#employee"><i class="fas fa-chart-bar" style="color: #dd7c22;"></i>Employee</a></li>
                 </ul>
             </nav>
         </aside>
-
 
         <main class="main-content">
             <button class="sidebar-toggle-btn" onclick="toggleSidebar()">
@@ -300,18 +285,17 @@
 
     <script>
 
-            function toggleDropdown() {
-                const dropdownContent = document.getElementById('dropdownContent');
-                dropdownContent.style.display = (dropdownContent.style.display === 'block') ? 'none' : 'block';
-            }
+        function toggleDropdown() {
+            const dropdownContent = document.getElementById('dropdownContent');
+            dropdownContent.style.display = (dropdownContent.style.display === 'block') ? 'none' : 'block';
+        }
 
 
-            function toggleSidebar() {
-                const sidebar = document.getElementById('sidebar');
-                sidebar.classList.toggle('open');
-            }
-            // Ensure the DOM is fully loaded before running scripts
-       
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('open');
+        }
+
     </script>
 
 </body>
