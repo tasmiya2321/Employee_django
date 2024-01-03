@@ -1,24 +1,32 @@
-﻿{% extends "Emp_app/base.html" %}
+{% extends "Emp_app/base.html" %}
 
 {% load lower_filter %}
 
 {% block css %}
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        // Your existing JavaScript goes here
-        document.querySelector(".filter-icon").addEventListener("click", function () {
-            var dropdown = document.querySelector(".dropdowns"); // Updated class name here
-            dropdown.style.display = dropdown.style.display === "none" ? "flex" : "none";
-        });
 
-        document.getElementById("date-icon").addEventListener("click", function () {
-            // Toggle visibility of the date inputs
-            var fromDate = document.getElementById("from-date");
-            var toDate = document.getElementById("to-date");
-            fromDate.style.display = fromDate.style.display === "none" ? "block" : "none";
-            toDate.style.display = toDate.style.display === "none" ? "block" : "none";
-        });
+<script>
+    function togglDropdown() {
+        var dropdown = document.querySelector('.main-filter .dropdown');
+        dropdown.style.display = (dropdown.style.display === 'block') ? 'none' : 'block';
+        document.querySelector('.main-filter').classList.toggle('active');
+    }
+
+
+
+
+    document.getElementById('sa').addEventListener('click', function () {
+        var san = document.getElementById('san');
+        san.style.display = (san.style.display === 'none' || san.style.display === '') ? 'block' : 'none';
     });
+    document.getElementById('ha').addEventListener('click', function () {
+        var sh = document.getElementById('sh');
+        sh.style.display = (san.style.display === 'none' || sh.style.display === '') ? 'block' : 'none';
+    });
+
+
+
+
+
     function showpopup() {
         document.getElementById('popup').style.display = 'flex';
     }
@@ -33,12 +41,54 @@
     }
 
 
-
-
 </script>
 
 
 
+                .then(response => response.json())
+                .then(data => {
+        });
+    });
+
+
+            // ...add other cells for resource name, program, etc.
+
+            let beneficiariesCell = row.insertCell();
+            beneficiariesCell.textContent = program.beneficiaries;
+        });
+        table.replaceChild(newTbody, table.getElementsByTagName('tbody')[0]);
+    }
+
+
+</script>
+
+<script>
+    document.getElementById('searchButton').addEventListener('click', function () {
+        var searchInput = document.getElementById('searchInput').value;
+        fetch(/search_program/ ? searchInput = ${ encodeURIComponent(searchInput) })
+            .then(response => response.json())
+            .then(data => {
+                // Clear the existing table rows
+                var table = document.getElementById('sessionsTable');
+                var rowCount = table.rows.length;
+                for (var i = 1; i < rowCount; i++) {
+                    table.deleteRow(1);
+                }
+
+                // Populate the table with new rows
+                data.forEach(function (program) {
+                    var row = table.insertRow(-1);
+                    // Insert new cells and set their text content
+                    Object.values(program).forEach(text => {
+                        var cell = row.insertCell(-1);
+                        cell.textContent = text;
+                    });
+                    // Add more cells for buttons or other interactive elements if needed
+                });
+            })
+            .catch(error => console.error('Error:', error));
+    });
+</script>
 
 
 <style>
@@ -46,57 +96,135 @@
         margin: 0;
         padding: 0;
         font-family: Arial, sans-serif;
-        background-color: #f4f4f4;
     }
 
-    h1 {
+    .heade {
         text-align: center;
-        margin-top: 10px;
+        background: none;
+        color: #fff;
+        padding: 10px;
     }
 
-    .container {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        align-items: center;
-        gap: 10px;
+    .search-container {
+        text-align: center;
         padding: 20px;
         position: relative;
+        margin-top: 0%;
     }
 
-    .search-box input, .search-box button, .dropdown select, .dropdown input[type="date"] {
+    .search-box {
+        display: inline-block;
         padding: 10px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        margin: 5px;
-    }
-
-    .search-box button, .dropdown button {
-        background-color: #d7ca94;
-        cursor: pointer;
+        font-size: 16px;
+        width: 60%; /* Adjusted width */
+        max-width: 300px;
     }
 
     .filter-icon {
-        font-size: 23px;
+        display: inline-block;
+        font-size: 20px;
         cursor: pointer;
-        margin: 5px;
+        margin-left: 30%;
     }
 
+    .main-filter {
+        display: inline-block;
+        cursor: pointer;
+    }
 
-    .dropdowns {
-        display: none; /* Add this line */
-        flex-wrap: wrap;
-        gap: 5px;
-        align-items: center;
-        margin-top: 10%;
+    .dropdown {
         position: absolute;
+        top: 80%;
+        left: 60%;
+        background-color: #f9f9f9;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        z-index: 1;
+        display: none;
     }
 
+    .main-filter.active .dropdown {
+        display: block;
+    }
+
+    .dropdown-item {
+        padding: 12px 16px;
+        display: block;
+        cursor: pointer;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .sub-dropdown {
+        position: relative;
+        display: block;
+    }
+
+        .sub-dropdown:hover .sub-dropdown-content {
+            display: block;
+        }
+
+
+    .sub-dropdown-content {
+        position: absolute;
+        top: 0;
+        left: 100%;
+        background-color: #f9f9f9;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        display: none;
+    }
+
+    .sub-dropdown-item {
+        padding: 12px 16px;
+        display: block;
+        cursor: pointer;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .actions {
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    .button {
+        padding: 10px;
+        background-color: orange;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        margin: 0 5px;
+    }
+
+    @media only screen and (max-width: 600px) {
+        .search-box {
+            width: 100%;
+        }
+    }
 
     @media (max-width: 768px) {
-        .container {
-            flex-direction: column;
+        .modal {
+            width: 80%;
         }
+    }
+
+    @media (max-width: 480px) {
+        .modal {
+            width: 90%;
+        }
+    }
+
+
+
+
+
+    .sub-dropdown-content {
+        position: absolute;
+        top: 0;
+        left: 100%;
+        background-color: #f9f9f9;
+        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+        display: none;
+        max-height: 400px; /* Set a maximum height for the dropdown */
+        overflow-y: auto; /* Enable vertical scrolling */
     }
 
     table {
@@ -114,6 +242,9 @@
 
 
 
+    .right {
+        margin-left: 20%;
+    }
 
     #bts {
         margin-left: 65%;
@@ -135,9 +266,23 @@
 
 
 
+    #san {
+        display: none;
+        margin-left: 47%;
+        cursor: pointer;
+    }
 
+    #sh {
+        margin-left: 40%;
+        display: flex;
+        justify-content: stretch;
+        display: none;
+        cursor: pointer;
+    }
 
-
+    #select {
+        margin-left: 3%;
+    }
 
     .tdtd {
         display: flex;
@@ -170,82 +315,81 @@
     }
 
     .scroll-container {
-        overflow: auto;
+        overflow-y: auto;
         max-height: 500px; /* Increased height for better view */
     }
 
-        .scroll-container label {
-            display: block; /* Make labels block elements */
-            margin: 10px 0 5px; /* Adjust margins for labels */
-            font-weight: bold;
-        }
+    label {
+        display: block; /* Make labels block elements */
+        margin: 10px 0 5px; /* Adjust margins for labels */
+        font-weight: bold;
+    }
 
-        .scroll-container input[type="text"],
-        .scroll-container input[type="date"],
-        .scroll-container select {
-            width: 90%; /* Full width inputs */
-            margin: 5px 0; /* Adjusted margin */
-            padding: 8px; /* Padding for better touch */
+    input[type="text"],
+    input[type="date"],
+    select {
+        width: 90%; /* Full width inputs */
+        margin: 5px 0; /* Adjusted margin */
+        padding: 8px; /* Padding for better touch */
+        border: 1px solid #ccc;
+        border-radius: 4px; /* Rounded corners */
+    }
+
+    .comment-box {
+        width: 90%; /* Adjusted width */
+        margin: 10px 0; /* Adjusted margin */
+        padding: 8px; /* Padding inside the box */
+    }
+
+        .comment-box textarea {
+            width: 100%; /* Full width textarea */
+            height: 100px; /* Increased height */
             border: 1px solid #ccc;
             border-radius: 4px; /* Rounded corners */
         }
 
-        .scroll-container.comment-box {
-            width: 90%; /* Adjusted width */
-            margin: 10px 0; /* Adjusted margin */
-            padding: 8px; /* Padding inside the box */
-        }
+    #btnSave {
+        width: auto; /* Auto width based on content */
+        background-color: orange; /* Button background color */
+        color: white; /* Text color */
+        padding: 10px 20px; /* Top and bottom padding and left and right padding */
+        border: none; /* No border */
+        border-radius: 5px; /* Rounded corners */
+        margin-right: 10px; /* Spacing between buttons */
+        cursor: pointer; /* Cursor to signify clickable item */
+        box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2); /* Shadow for 3D effect */
+        font-weight: bold; /* Bold text */
+        transition: background-color 0.3s ease; /* Transition for hover effect */
+        display: block; /* Make the button a block element */
+    }
 
-            .scroll-container.comment-box textarea {
-                width: 100%; /* Full width textarea */
-                height: 100px; /* Increased height */
-                border: 1px solid #ccc;
-                border-radius: 4px; /* Rounded corners */
-            }
+    #btnSaveDuplicate {
+        width: auto; /* Auto width based on content */
+        background-color: orange; /* Button background color */
+        color: white; /* Text color */
+        padding: 10px 20px; /* Top and bottom padding and left and right padding */
+        border: none; /* No border */
+        border-radius: 5px; /* Rounded corners */
+        margin-right: 10px; /* Spacing between buttons */
+        cursor: pointer; /* Cursor to signify clickable item */
+        box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2); /* Shadow for 3D effect */
+        font-weight: bold; /* Bold text */
+        transition: background-color 0.3s ease; /* Transition for hover effect */
+        display: block; /* Make the button a block element */
+    }
 
-
-        .scroll-container#btnSave {
-            width: auto; /* Auto width based on content */
-            background-color: orange; /* Button background color */
-            color: white; /* Text color */
-            padding: 10px 20px; /* Top and bottom padding and left and right padding */
-            border: none; /* No border */
-            border-radius: 5px; /* Rounded corners */
-            margin-right: 10px; /* Spacing between buttons */
-            cursor: pointer; /* Cursor to signify clickable item */
-            box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2); /* Shadow for 3D effect */
-            font-weight: bold; /* Bold text */
-            transition: background-color 0.3s ease; /* Transition for hover effect */
-            display: block; /* Make the button a block element */
-        }
-
-        .scroll-container#btnSaveDuplicate {
-            width: auto; /* Auto width based on content */
-            background-color: orange; /* Button background color */
-            color: white; /* Text color */
-            padding: 10px 20px; /* Top and bottom padding and left and right padding */
-            border: none; /* No border */
-            border-radius: 5px; /* Rounded corners */
-            margin-right: 10px; /* Spacing between buttons */
-            cursor: pointer; /* Cursor to signify clickable item */
-            box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2); /* Shadow for 3D effect */
-            font-weight: bold; /* Bold text */
-            transition: background-color 0.3s ease; /* Transition for hover effect */
-            display: block; /* Make the button a block element */
-        }
-
-        .scroll-container.button-container button {
-            background-color: orange; /* Button background color */
-            color: white; /* Text color */
-            padding: 10px 20px; /* Top and bottom padding and left and right padding */
-            border: none; /* No border */
-            border-radius: 5px; /* Rounded corners */
-            margin-right: 10px; /* Spacing between buttons */
-            cursor: pointer; /* Cursor to signify clickable item */
-            box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2); /* Shadow for 3D effect */
-            font-weight: bold; /* Bold text */
-            transition: background-color 0.3s ease; /* Transition for hover effect */
-        }
+    .button-container button {
+        background-color: orange; /* Button background color */
+        color: white; /* Text color */
+        padding: 10px 20px; /* Top and bottom padding and left and right padding */
+        border: none; /* No border */
+        border-radius: 5px; /* Rounded corners */
+        margin-right: 10px; /* Spacing between buttons */
+        cursor: pointer; /* Cursor to signify clickable item */
+        box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2); /* Shadow for 3D effect */
+        font-weight: bold; /* Bold text */
+        transition: background-color 0.3s ease; /* Transition for hover effect */
+    }
 
     /* Responsive design */
     @media (max-width: 768px) {
@@ -253,48 +397,12 @@
             width: 80%; /* Increased width on smaller screens */
         }
 
-        .scroll-container input[type="text"],
-        .scroll-container input[type="date"],
-        .scroll-container select,
-        .scroll-container.comment-box {
+        input[type="text"],
+        input[type="date"],
+        select,
+        .comment-box {
             width: 100%; /* Full width on smaller screens */
         }
-    }
-
-    .date-input {
-        display: none; /* Keep them hidden initially */
-        padding: 10px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        margin: 5px;
-    }
-
-        /* Style the placeholder text */
-        .date-input::-webkit-input-placeholder { /* Chrome/Opera/Safari */
-            color: #888;
-            font-style: italic;
-        }
-
-        .date-input::-moz-placeholder { /* Firefox 19+ */
-            color: #888;
-            font-style: italic;
-        }
-
-        .date-input:-ms-input-placeholder { /* IE 10+ */
-            color: #888;
-            font-style: italic;
-        }
-
-        .date-input:-moz-placeholder { /* Firefox 18- */
-            color: #888;
-            font-style: italic;
-        }
-
-    #program-select, #project-select, #center-select, #trainer-select {
-        padding: 10px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        margin: 5px;
     }
 
     #but {
@@ -317,143 +425,175 @@
 <h1>{{value|Catagory_to_string}}</h1>
 <h1>{{value|Status_to_string}}</h1>-->
 
-<h1>Session Details</h1>
+<div class="heade">
+    <h1 style="color: black;">Sessions</h1>
+</div>
 
-<div class="container">
-    <div class="search-box">
-        <input type="text" name="q" placeholder="Search (Program, Activity)" required>
-        <button type="submit" class="search-btn"><i class="fas fa-search"></i></button>
-    </div>
+<div class="search-container">
+    <input type="text" class="search-box" id="searchInput" placeholder="Search (Program, Project)">
+    <div class="main-filter" onclick="togglDropdown()">
+        <div class="filter-icon"><i class="fa-solid fa-filter"></i></div>
 
-    <i class="fas fa-filter filter-icon"></i>
-    <div id="date-icon" style="cursor:pointer;">
-        📅
-    </div>
+        <div class="dropdown">
+            <div class="dropdown-item sub-dropdown">
+                Program
+                <div class="sub-dropdown-content">
+                    <div class="sub-dropdown-item">Acadamics</div>
+                    <div class="sub-dropdown-item">After School Programming</div>
+                    <div class="sub-dropdown-item">Awarness Sessions</div>
+                    <div class="sub-dropdown-item">Camps(Summer/Winter)</div>
+                    <div class="sub-dropdown-item">Career Guidance</div>
+                    <div class="sub-dropdown-item">Computer Coaching-Advanced</div>
+                    <div class="sub-dropdown-item">Computer Coaching-Basics with Typing</div>
+                    <div class="sub-dropdown-item">Computer Coaching-Basics without Typing</div>
+                    <div class="sub-dropdown-item">Computer Coaching-Typing</div>
+                    <div class="sub-dropdown-item">Counselling</div>
+                    <div class="sub-dropdown-item">E2E(Education to Employability)</div>
+                    <div class="sub-dropdown-item">Emotional Management</div>
+                    <div class="sub-dropdown-item">Exam Readiness</div>
+                    <div class="sub-dropdown-item">Gender Sensitivity</div>
+                    <div class="sub-dropdown-item">Internship</div>
+                    <div class="sub-dropdown-item">Integrated Program</div>
+                    <div class="sub-dropdown-item">Kannada</div>
+                    <div class="sub-dropdown-item">Life Skills</div>
+                    <div class="sub-dropdown-item">Office Assistant</div>
+                    <div class="sub-dropdown-item">Parental Guidance</div>
+                    <div class="sub-dropdown-item">Personality Development</div>
+                    <div class="sub-dropdown-item">Soft Skills</div>
+                    <div class="sub-dropdown-item">Software Development</div>
+                    <div class="sub-dropdown-item">Spoken English</div>
+                    <div class="sub-dropdown-item">Tailoring</div>
+                    <div class="sub-dropdown-item">Tailoring-Tassel Typing</div>
+                    <div class="sub-dropdown-item">Tally</div>
+                    <div class="sub-dropdown-item">Teacher Development</div>
+                    <div class="sub-dropdown-item">TTT</div>
+                    <div class="sub-dropdown-item">Wellbeing</div>
+                    <div class="sub-dropdown-item">Women Development</div>
+                    <div class="sub-dropdown-item">WSD</div>
 
-    <!-- Hidden Date Inputs -->
-    <input type="date" id="from-date" class="date-input" placeholder="From Date" style="display:none;">
-    <input type="date" id="to-date" class="date-input" placeholder="To Date" style="display:none;">
 
-    <div class="dropdowns">
-        <select id="program-select">
-            <option value="Select an Program">Select an Program</option>
-            <option value="Bridge Course"> Bridge Course</option>
-            <option value="Academics">Academics</option>
-            <option value="After School Program">After School Program</option>
-            <option value="Awareness Sessions">Awareness Sessions</option>
-            <option value="Camps(Summer/Winter)">Camps(Summer/Winter)</option>
-            <option value="Career Guidance">Career Guidance</option>
-            <option value="Computer Coaching-Advanced">Computer Coaching-Advanced</option>
-            <option value="Computer Coaching-Basics with Typing">Computer Coaching-Basics with Typing</option>
-            <option value="Computer Coaching-Basics without Typing">Computer Coaching-Basics without Typing</option>
-            <option value="Computer Coaching-Typing">Computer Coaching-Typing</option>
-            <option value="Counselling">Counselling</option>
-            <option value="E2E(Education to Employability)">E2E(Education to Employability)</option>
-            <option value="program1">Program 1</option>
-            <option value="Emotional Management">Emotional Management</option>
-            <option value="Exam Readiness">Exam Readiness</option>
-            <option value="Gender Sensitivity">Gender Sensitivity</option>
-            <option value="Internship">Internship</option>
-            <option value="Integrated Program">Integrated Program</option>
-            <option value="Kannada">Kannada</option>
-            <option value="Life Skills">Life Skills</option>
-            <option value="Office Assistant">Office Assistant</option>
-            <option value="Parental Guidance">Parental Guidance</option>
-            <option value="Personality Development">Personality Development</option>
-            <option value="Soft Skills">Soft Skills</option>
-            <option value="Software Development">Software Development</option>
-            <option value="Spoken English">Spoken English</option>
-            <option value="Tailoring">Tailoring</option>
-            <option value="Tailoring-Tassel Typing">Tailoring-Tassel Typing</option>
-            <option value="Tally">Tally</option>
-            <option value="Teacher Development">Teacher Development</option>
-            <option value="TTT">TTT</option>
-            <option value="Wellbeing">Wellbeing</option>
-            <option value="Women Development">Women Development</option>
-            <option value="WSD">WSD</option>
-        </select>
+                </div>
+            </div>
+            <!-- Repeat similar structure for other dropdown items -->
+            <div class="dropdown-item sub-dropdown" id="sa">
+                Project
 
-        <select id="project-select">
-            <option value="">Select Project</option>
-            <option value="Project1">Project 1</option>
-            <option value="Project2">Project 2</option>
-            <!-- Add more project options here -->
-        </select>
+            </div>
+            <div class="dropdown-item sub-dropdown" id="ha">
+                Date
+                <div class="sub-dropdown-content">
 
 
 
 
-        <select id="center-select">
-            <option value="">Select an Center</option>
-            <option value="DJ Halli 1">DJ Halli1</option>
-            <option value="DJ Halli 2">DJ Halli2</option>
-            <option value="Bagalur">Bagalur</option>
-            <option value="Mylanahalli">Mylanahalli</option>
-            <option value="Kannur">Kannur</option>
-            <option value="Koramangala">Koramangala</option>
-        </select>
+                </div>
+            </div>
+            <div class="dropdown-item sub-dropdown">
+                Center type
+                <div class="sub-dropdown-content">
+                    <div class="sub-dropdown-item">DJ Halli 1</div>
+                    <div class="sub-dropdown-item">DJ Halli 2</div>
+                    <div class="sub-dropdown-item">Kannur</div>
+                    <div class="sub-dropdown-item">Koramangalam</div>
+                    <div class="sub-dropdown-item">Bagalur</div>
+                    <div class="sub-dropdown-item">Mylanhalli</div>
+                </div>
+            </div>
+            <div class="dropdown-item sub-dropdown">
+                Trainer
+                <div class="sub-dropdown-content">
+                    <div class="sub-dropdown-item">Lead</div>
+                    <div class="sub-dropdown-item">Co-Facilator</div>
+                    <div class="sub-dropdown-item">Volunteer</div>
 
-        <select id="trainer-select">
-            <option value="">Select an option</option>
-            <option value="Lead">Lead</option>
-            <option value="Co-Facilator">Co-Facilator</option>
-            <option value="Volunteer">Volunteer</option>
-            <!-- Add more trainer options here -->
-        </select>
-
-        <button type="button" onclick="applyFilters()" style="background:orange;">Filter</button>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
-<button id="but">Create</button>
 
-<div class="table">
+<div class="actions">
+    <button class="add-btn" id="bts" href="details">Create</button>
 
+</div>
 
+<div id="san">
+    <select id="Centre" name="Centre">
+        <option value="">Select an option</option>
+        <option value="DJ Halli 1">DJ Halli1</option>
+        <option value="DJ Halli 2">DJ Halli2</option>
+        <option value="Bagalur">Bagalur</option>
+        <option value="Mylanahalli">Mylanahalli</option>
+        <option value="Kannur">Kannur</option>
+        <option value="Koramangala">Koramangala</option>
+    </select>
 
+</div>
+<div id="sh">
+    From:<input type="date">
+    To:<input type="date">
+    or<select id="select" name="select month">
+        <option value="">select month</option>
+        <option value="">1 month</option>
+        <option value="DJ Halli 1">2 month</option>
+        <option value="DJ Halli 2">4 month</option>
+        <option value="Bagalur">6 month</option>
+        <option value="Mylanahalli">10 month</option>
+        <option value="Kannur">1 year</option>
+        <option value="Koramangala">2 year</option>
+    </select>
 
-    <table id="sessionsTable">
-        <tr bgcolor="orange">
-
-            <th>Date</th>
-            <th>Resource Name</th>
-            <th>Program</th>
-            <th>Project</th>
-            <th>Center Type</th>
-            <th>Activity</th>
-            <th>Session_Number</th>
-            <th>Trainer_Type</th>
-            <th>Hours</th>
-            <th>Status</th>
-            <th>beneficiaries</th>
-            <th>Category</th>
-            <th>Actions</th>
-
-
-        </tr>
-
-        {% for program in programs %}
-        <tr bgcolor="white">
-            <td>{{program.date }}</td>
-            <td>{{program.emp.fullname}}</td>
-            <td>{{program.pgm_id|program_to_string }}</td>
-            <td>{{program.xref.project_name }}</td>
-            <td>{{program.center_type|centertype_to_string }}</td>
-            <td>{{program.activity }}</td>
-            <td>{{program.trainer_type}}</td>
-            <td>{{program.trainer_type}}</td>
-            <td>{{program.duration}}</td>
-            <td>{{program.status}}</td>
-            <td>{{program.beneficiaries }}</td>
-            <td>{{program.category }}</td>
+</div>
 
 
-            <td class="tdtd">
-                <button class="add-row-button" onclick="showpopup()"> <i class="fa-solid fa-eye" style="color: #ff7b00;"></i> </button>
-            </td>
 
-        </tr>
-        {% endfor %}
+    <div class="table">
+
+
+
+
+        <table id="sessionsTable">
+            <tr bgcolor="orange">
+
+                <th>Date</th>
+                <th>Resource Name</th>
+                <th>Program</th>
+                <th>Project</th>
+                <th>Center Type</th>
+                <th>Activity</th>
+                <th>Session_Number</th>
+                <th>Trainer_Type</th>
+                <th>Hours</th>
+                <th>Status</th>
+                <th>beneficiaries</th>
+                <th>Category</th>
+                <th>Actions</th>
+
+
+            </tr>
+
+            {% for program in programs %}
+                <td>{{program.date }}</td>
+                <td>{{program.emp.fullname}}</td>
+                <td>{{program.pgm_id|program_to_string }}</td>
+                <td>{{program.xref.project_name }}</td>
+                <td>{{program.center_type|centertype_to_string }}</td>
+                <td>{{program.activity }}</td>
+                <td>{{program.trainer_type}}</td>
+                <td>{{program.trainer_type}}</td>
+                <td>{{program.duration}}</td>
+                <td>{{program.status}}</td>
+                <td>{{program.beneficiaries }}</td>
+                <td>{{program.category }}</td>
+
+
+                <td class="tdtd">
+                    <button class="add-row-button" onclick="showpopup()"> <i class="fa-solid fa-eye" style="color: #ff7b00;"></i> </button>
+                </td>
+
+            </tr>
+            {% endfor %}
 
     </table>
 </div>
@@ -468,7 +608,6 @@
 <div id="popup" class="popup">
     <div class="blank-box">
         <div class="scroll-container">
-
             <h2>Details</h2>
             <label for="EmployeeID">Employee ID</label>
             <input type="text" id="EmployeeID" name="EmployeeID"><br>
@@ -481,7 +620,6 @@
 
             <label for="Program">Program</label>
             <select id="Program" name="Program" required>
-                <option value="Select an option">Select an option</option>
                 <option value="Bridge Course"> Bridge Course</option>
                 <option value="Academics">Academics</option>
                 <option value="After School Program">After School Program</option>

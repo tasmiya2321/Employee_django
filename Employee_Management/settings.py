@@ -70,9 +70,6 @@ ROOT_URLCONF = 'Employee_Management.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'Emp_app/Session_main.html')],        
-
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [BASE_DIR + "/" + "templates"],
         'APP_DIRS': True,
         'OPTIONS': {
