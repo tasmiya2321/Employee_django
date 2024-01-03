@@ -25,7 +25,13 @@ from django.contrib.messages.views import SuccessMessageMixin
 #                       " If you don't receive an email, " \
 #                       "please make sure you've entered the address you registered with, and check your spam folder."
 #     success_url = reverse_lazy('index')
-    
+from django.shortcuts import render, redirect
+from django.http import JsonResponse
+from django.contrib import messages
+from .models import Program  # Make sure to import your actual Program model
+from django.core.serializers import serialize
+from django.contrib.auth.decorators import login_required
+
 
 @login_required
 def home(request):
@@ -59,7 +65,7 @@ def employee(request):
            var=var[:len(var)-1]
            var=var.strip()
         
-           #emp_details = EmpDetails.objects.filter(fullname=var).values()
+           
            variable_column = 'fullname'
            search_type = 'iexact'
            strfilter = variable_column + '__' + search_type
@@ -166,8 +172,6 @@ def change_password(request):
 def login_base(request):
     return render(request, "login_base.html")
 
-def CreatePage(request):
-     return render(request, "Emp_app/createpage.html")
     
 def Session_main(request):
     programs = Program.objects.all()  # Fetch all program records from the database

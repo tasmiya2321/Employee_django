@@ -46,16 +46,16 @@
         right: 10px;
     }
 
-    table {
-        margin: 50px;
-        margin-top: 100px;
-        margin-left: 65px;
+    .table-container {
+        width: 60%; /* Adjust the width of the table container */
+        overflow-x: auto; /* Horizontal scrollbar */
+        margin-left: auto; /* Centering the table container */
+        margin-right: auto;
     }
 
-
     table {
-        border-collapse: collapse;
-        width: 90%;
+        width: 100%; /* Full width inside the container */
+        /* ...other styles... */
     }
 
     th, td {
@@ -109,9 +109,10 @@
              <button class="next" id="next">&#10095;</button>-->
     </div>
 
-    <div class="table">
-        <table style="margin-top:15%">
-            <tr bgcolor="orange">
+<div class="table-container">
+    <!-- Wrap your table with this new container -->
+    <table style="margin-top:15%">
+        <tr bgcolor="orange">
 
                 <th>Date</th>
                 <th>Program</th>

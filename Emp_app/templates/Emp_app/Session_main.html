@@ -43,14 +43,7 @@
 
 </script>
 
-<script>
-    function searchTable() {
-        var input, filter, table, tr, td, i, txtValue;
-        input = document.getElementById("searchInput");
-        filter = input.value.toUpperCase();
-        table = document.getElementById("sessionsTable");
-        tr = table.getElementsByTagName("tr");
-   
+
 
                 .then(response => response.json())
                 .then(data => {
@@ -412,9 +405,12 @@
         }
     }
 
-    .san select {
-        width: 6%;
+    #but {
+        margin-left: 87%;
+        width: 9%;
+        background: orange;
     }
+
 </style>
 
 {% endblock %}
@@ -599,12 +595,12 @@
             </tr>
             {% endfor %}
 
+    </table>
+</div>
 
 
 
 
-        </table>
-    </div>
 
 
 <!-- Add Modal -->
