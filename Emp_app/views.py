@@ -177,18 +177,3 @@ def Session_main(request):
 
 
 
-def filter_programs(request):
-   
-    filter_value = request.GET.get('filter_value', None)
-
-   
-    if filter_value:
-       
-        filtered_programs = Program.objects.filter(xref__program_name=filter_value)
-    else:
-        filtered_programs = Program.objects.all()
-
-  
-    data = list(filtered_programs.values('pgm_id', 'emp__name', 'xref__program_name', 'date', 'activity', ...)) 
-
-    return JsonResponse(data, safe=False)

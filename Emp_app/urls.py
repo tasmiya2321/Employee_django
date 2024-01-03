@@ -1,7 +1,7 @@
 from os import name
 from django.contrib import admin
 from django.urls import path
-from . import views
+from .import views
 from django.conf.urls import include
 from django.urls import reverse_lazy
 from django.contrib.auth.views import PasswordResetView
@@ -33,8 +33,8 @@ urlpatterns = [
     path("accounts/",include("django.contrib.auth.urls")),
     path('change_password/', views.change_password, name='change_password'),
     path('Session_main/',views.Session_main,name='Session_main'),
-    path('filter_programs/', views.filter_programs, name='filter_programs')
-    # path('createpage', views.CreatePage, name='createpage')
+   # path('filter_programs/', views.filter_programs, name='filter_programs'),
+    path('createpage', views.CreatePage, name='createpage')
 
 ]
 # if settings.DEBUG:
