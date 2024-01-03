@@ -176,8 +176,11 @@ def login_base(request):
 def Session_main(request):
     programs = Program.objects.all()  # Fetch all program records from the database
     context = {'programs': programs}
+    program_names = Program.objects.using('xref').values_list('program_name', flat=True).distinct()
     return render(request, 'Emp_app/Session_main.html', context)
 
+def CreatePage(request):
+     return render(request, "Emp_app/createpage.html")
 
 
 

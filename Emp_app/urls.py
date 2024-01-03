@@ -33,7 +33,7 @@ urlpatterns = [
     path("accounts/",include("django.contrib.auth.urls")),
     path('change_password/', views.change_password, name='change_password'),
     path('Session_main/',views.Session_main,name='Session_main'),
-  
+    path('createpage/', views.CreatePage, name='createpage'),
 
     #path('createpage/', views.createpage, name='createpage')
   
