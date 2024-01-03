@@ -1,6 +1,6 @@
 
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" style="overflow-x: hidden;">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -34,9 +34,9 @@
         .logo {
             width: 185px;
             height: auto;
-            margin-top: -40px;
+            margin-top: -24px;
             position: absolute;
-            left: 8%;
+            left: 12%;
             transform: translateX(-50%);
         }
 
@@ -235,7 +235,7 @@
         .fixed-header {
             margin-top: -3%;
             width: 30%;
-            margin-left: 35%;
+            margin-left: 30%;
         }
         }
     </style>
@@ -292,9 +292,9 @@
 
 
     <footer class="footer">
-        <a href="home mobile.html">Home</a> |
-        <a href="#session">Session</a> |
-        <a href="employee.html">Employee</a>
+        <a href="{% url 'home' %}">Home</a> |
+        <a href="{% url 'Session_main' %}">Session</a> |
+        <a href="{% url 'employee' %}">Employee</a>
     </footer>
 
 
