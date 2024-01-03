@@ -6,8 +6,11 @@ from django.contrib.auth import authenticate, login
 from .models import Program 
 from .models import EmpDetails 
 from django.contrib import messages
-from django.http import HttpResponseServerError
 import json
+from django.contrib.auth.forms import PasswordChangeForm
+from django.contrib.auth import update_session_auth_hash
+from django.shortcuts import render, redirect
+
 
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy
@@ -24,11 +27,7 @@ from django.contrib.messages.views import SuccessMessageMixin
 #     success_url = reverse_lazy('index')
     
 
-def custom_502_view(request, exception=None):
-    """Custom view to handle 502 Bad Gateway errors."""
-    return HttpResponseServerError('A problem occurred with our server. We\'re working on it!')
-
-
+@login_required
 def home(request):
     programs = Program.objects.exclude(date__isnull=True).order_by('pgm_id')[:10]
 
@@ -166,7 +165,7 @@ def userlogin(request):
         
          return render(request, 'login.html') 
      
-@login_required    
+# @login_required    
 def change_password(request):
     if request.method == 'POST':
         form = PasswordChangeForm(request.user, request.POST)
@@ -189,3 +188,36 @@ def login_base(request):
 def CreatePage(request):
      return render(request, "Emp_app/createpage.html")
     
+def Session_main(request):
+    programs = Program.objects.all()  # Fetch all program records from the database
+    context = {'programs': programs}
+    return render(request, 'Emp_app/Session_main.html', context)
+
+
+
+
+def search_program(request):
+    # Get the query from the request
+    query = request.GET.get('searchInput', '')
+
+    # Filter the programs based on the query
+    if query:
+        programs = Program.objects.filter(
+            activity__icontains=query
+            # Add any other fields you want to search by
+        )
+    else:
+        programs = Program.objects.all()
+
+    # Prepare the data to be JSON-ified
+    data = list(programs.values(
+        'date', 'emp_fullname', 'pgm_id', 'xref_project_name',
+        'center_type', 'activity', 'trainer_type', 'duration', 
+        'status', 'beneficiaries', 'category'
+        # Add any other fields you need
+    ))
+
+    # Return the data as JSON
+    return JsonResponse(data, safe=False)
+
+  

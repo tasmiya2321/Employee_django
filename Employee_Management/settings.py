@@ -45,7 +45,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'Emp_app.apps.Emp_appConfig'
+    'Emp_app.apps.Emp_appConfig',
+
+    
 ]
 
 # Middleware framework
@@ -61,6 +63,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'Employee_Management.urls'
+
 
 # Template configuration
 # https://docs.djangoproject.com/en/2.1/topics/templates/

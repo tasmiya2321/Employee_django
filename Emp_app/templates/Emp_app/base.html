@@ -10,7 +10,7 @@
     <!--<a href="forgetpassword.html">forgetpassword.html</a>-->
     <script src="https://kit.fontawesome.com/bc0ac06df1.js" crossorigin="anonymous"></script>
     <style>
-       
+
         /* Reset default margin and padding */
         body, h1, h2, h3, ul {
             margin: 0;
@@ -44,7 +44,6 @@
         .headline {
             font-size: 24px;
             position: relative;
-           
         }
 
         .dropdown {
@@ -229,8 +228,6 @@
                 margin-top: auto;
             }
         }
-
-   
     </style>
     {% block css %}
 
@@ -244,10 +241,11 @@
         <div class="dropdown">
             <span id="Role" class="id-symbol" onclick="toggleDropdown()">{{ user.get_username }} &#9660; <i class="fa-solid fa-circle-user fa-2xl" style="color: #5c626a;"></i></span>
             <div class="dropdown-content" id="dropdownContent">
-                <a href="employee.html">Profile</a>
-                <a href="change.html">Change password</a>
-                <a href="index.html">Logout</a>
+                <a href="{% url 'saveemployee' %}">Profile</a>
+                <a href="{% url 'change_password' %}">Change password</a>
+                <a href="{% url 'login' %}">Logout</a>
             </div>
+        </div>
         </div>
     </header>
 
@@ -267,13 +265,13 @@
                 <img src="../../static/menuicon.jpg" alt="">
             </button>
 
-      
+
 
             {% block content %}
 
             {% endblock %}
-         </main>
-       
+        </main>
+
     </div><br />
 
 
@@ -302,3 +300,5 @@
 
 </body>
 </html>
+
+

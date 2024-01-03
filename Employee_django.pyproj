@@ -55,12 +55,15 @@
     <Content Include="Emp_app\static\eyes open.webp" />
     <Content Include="Emp_app\static\menuicon.jpg" />
     <Content Include="Emp_app\templates\Emp_app\base.html" />
+    <Content Include="Emp_app\templates\Emp_app\change_password.html" />
     <Content Include="Emp_app\templates\Emp_app\createpage.html" />
     <Content Include="Emp_app\templates\Emp_app\email.html" />
     <Content Include="Emp_app\templates\Emp_app\employee.html" />
     <Content Include="Emp_app\templates\Emp_app\home.html" />
     <Content Include="Emp_app\templates\Emp_app\index.html" />
+    <Content Include="Emp_app\templates\Emp_app\Session_main.html" />
     <Content Include="Emp_app\templates\Emp_app\subject_email.txt" />
+    <Content Include="Emp_app\templates\Emp_app\logn_bas.html" />
     <Content Include="templates\Registration\login.html">
       <SubType>Code</SubType>
     </Content>
@@ -75,10 +78,13 @@
   <ItemGroup>
     <Compile Include="Employee_Management\settings.py" />
     <Compile Include="Employee_Management\urls.py" />
-    <Compile Include="Employee_Management\wsgi.py" />
+    <Compile Include="templates\Registration\wsgi.py" />
     <Compile Include="Employee_Management\__init__.py" />
     <Compile Include="Emp_app\admin.py" />
     <Compile Include="Emp_app\apps.py" />
+    <Compile Include="Emp_app\filters.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Emp_app\migrations\__init__.py" />
     <Compile Include="Emp_app\models.py" />
     <Compile Include="Emp_app\templatetags\lower_filter.py">
