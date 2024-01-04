@@ -33,9 +33,60 @@
     }
 
 
+   
+    // This function will be called when the filter button is clicked.
+        function applyFilters() {
+        // Get the values from your filters
+        var selectedProgram = document.getElementById('program-select').value;
+        var selectedProject = document.getElementById('project-select').value;
+        var selectedCenter = document.getElementById('center-select').value;
+        var selectedTrainer = document.getElementById('trainer-select').value;
 
+        // Send the filter data to your Django view via AJAX
+        fetch('/filter_sessions/', { // Make sure the URL matches your URL configuration
+            method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        'X-CSRFToken': getCookie('csrftoken')  // Ensure you're sending the CSRF token
+            },
+        body: JSON.stringify({
+            program: selectedProgram,
+        project: selectedProject,
+        center: selectedCenter,
+        trainer: selectedTrainer,
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            // Call a function to update your table with the new data
+            updateTable(data);
+        });
+    }
 
+        // Helper function to get the CSRF token
+        function getCookie(name) {
+            let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+        if (cookie.substring(0, name.length + 1) === (name + '=')) {
+            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+        break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
+        // Function to update the table with the filtered data
+        function updateTable(data) {
+            // You'll need to implement this based on how you want to display the data
+            // Typically, you'll clear the existing rows and add new rows based on the data returned from your server
+        }
 </script>
+
+
 
 
 
@@ -302,6 +353,9 @@
         width: 9%;
         background: orange;
     }
+    #btnSave, #btnSaveDuplicate{
+        background:orange;
+        width:11%;
     }
 </style>
 
@@ -309,13 +363,6 @@
 
 
 {% block content %}
-{% load lower_filter %}
-<h1>{{value|program_to_string}}</h1>
-<h1>{{value|centertype_to_string}}</h1>
-<h1>{{value|Sponser_to_string}}</h1>
-<h1>{{value|TrainerType_to_string}}</h1>
-<h1>{{value|Catagory_to_string}}</h1>
-<h1>{{value|Status_to_string}}</h1>
 
 <h1>Session Details</h1>
 
@@ -337,16 +384,16 @@
     <div class="dropdowns">
         <select id="program-select">
             <option>Select an Program</option>
-            {% for program in programs %}
+            {% for program in program_names %}
 
-            <option value="{{ program.pgm_id }}">{{ program.xref.program_name|program_to_string }}</option>
+            <option value="{{ program.program_name }}">{{ program.program_name|program_to_string }}</option>
             {% endfor %}
         </select>
 
         <select id="project-select">
             <option>Select Project</option>
-            {% for program in programs %}
-            <option value="{{ project.xref }}">{{program.xref.project_name }}</option>
+            {% for project in project_names %}
+            <option value="{{ project.project_name }}">{{ project.project_name }}</option>
             {% endfor %}
             <!-- Add more project options here -->
         </select>
@@ -356,17 +403,15 @@
 
         <select id="center-select">
             <option value="">Select an Center</option>
-            {% for program in programs %}
-
-            <option value="{{ project.center_type }}">{{program.center_type|centertype_to_string }}</option>
+            {% for center in centers %}
+            <option value="{{ center.center_type }}">{{ center.center_type|centertype_to_string }}</option>
             {% endfor %}
         </select>
 
         <select id="trainer-select">
-            <option value="">Select an option</option>
-            {% for program in programs %}
-
-            <option value="{{ project.trainer_type }}">{{program.trainer_type }}</option>
+            <option value="">Select an Trainer</option>
+            {% for trainer in trainers %}
+            <option value="{{ trainer.trainer_type }}">{{ trainer.trainer_type|TrainerType_to_string }}</option>  <!-- Adjusted to 'trainer_type' -->
             {% endfor %}
         </select>
 
@@ -407,7 +452,7 @@
             <td>{{program.emp.fullname}}</td>
             <td>{{program.pgm_id|program_to_string }}</td>
             <td>{{program.xref.project_name }}</td>
-            <td>{{program.center_type|centertype_to_string }}</td>
+            <td>{{program.center_type|centertype_to_string}}</td>
             <td>{{program.activity }}</td>
             <td>{{program.trainer_type}}</td>
             <td>{{program.trainer_type}}</td>
