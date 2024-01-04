@@ -1,17 +1,19 @@
+from distutils.sysconfig import project_base
 from django.views.decorators.csrf import csrf_exempt
 from django.forms.models import model_to_dict
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
 from django.contrib.auth import authenticate, login
-from .models import Program 
+from .models import Program ,Xref
 from .models import EmpDetails 
 from django.contrib import messages
 import json
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
 from django.shortcuts import render, redirect
-
-
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from datetime import datetime
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy
 from django.contrib.auth.views import PasswordResetView
@@ -191,13 +193,56 @@ def change_password(request):
 def login_base(request):
     return render(request, "login_base.html")
 
-    
-def Session_main(request):
-    programs = Program.objects.all()  # Fetch all program records from the database
-    context = {'programs': programs}
-    return render(request, 'Emp_app/Session_main.html', context)
-
-
 
 def createpage(request):
     return render(request, "createpage.html")
+
+    
+def Session_main(request):
+    programs = Program.objects.all()  # Fetch all program records from the database
+    project_names = Xref.objects.values('project_name').distinct()
+    program_names = Xref.objects.values("program_name").distinct()
+    centers = Program.objects.values('center_type').distinct()  # Adjusted to 'center_type'
+    trainers = Program.objects.values('trainer_type').distinct()
+    context = {'programs': programs, 'program_names':program_names,'project_names': project_names,'centers': centers,
+        'trainers': trainers}
+    if request.method == 'POST':
+        # Get the filter values from the request
+        data = json.loads(request.body)
+        program_filter = data.get('program')
+        project_filter = data.get('project')
+        center_filter = data.get('center')
+        trainer_filter = data.get('trainer')
+        
+        # Filter your programs based on the provided values
+        programs = Program.objects.all()
+        if program_filter:
+            programs = programs.filter(pgm_id__program_name=program_filter)
+        if project_filter:
+            programs = programs.filter(xref__project_name=project_filter)
+        if center_filter:
+            programs = programs.filter(center_type=center_filter)
+        if trainer_filter:
+            programs = programs.filter(trainer_type=trainer_filter)
+
+        # Serialize your programs data into a format that can be sent as JSON
+        programs_data = list(programs.values())  # Adjust as needed to serialize your data
+
+        return JsonResponse({'programs': programs_data})  # Send the filtered data back to the front end
+
+    else:
+         # Your existing code for handling GET requests
+        # ...
+      from_date_str = request.GET.get('from_date')
+      to_date_str = request.GET.get('to_date')
+      from_date = datetime.strptime(from_date_str, '%Y-%m-%d').date() if from_date_str else None
+      to_date = datetime.strptime(to_date_str, '%Y-%m-%d').date() if to_date_str else None
+    
+      return render(request, 'Emp_app/Session_main.html', context)
+
+
+
+
+
+
+ 
