@@ -34,8 +34,59 @@
 
 
 
+    // This function will be called when the filter button is clicked.
+    function applyFilters() {
+        // Get the values from your filters
+        var selectedProgram = document.getElementById('program-select').value;
+        var selectedProject = document.getElementById('project-select').value;
+        var selectedCenter = document.getElementById('center-select').value;
+        var selectedTrainer = document.getElementById('trainer-select').value;
 
+        // Send the filter data to your Django view via AJAX
+        fetch('/filter_sessions/', { // Make sure the URL matches your URL configuration
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': getCookie('csrftoken')  // Ensure you're sending the CSRF token
+            },
+            body: JSON.stringify({
+                program: selectedProgram,
+                project: selectedProject,
+                center: selectedCenter,
+                trainer: selectedTrainer,
+            })
+        })
+            .then(response => response.json())
+            .then(data => {
+                // Call a function to update your table with the new data
+                updateTable(data);
+            });
+    }
+
+    // Helper function to get the CSRF token
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
+    // Function to update the table with the filtered data
+    function updateTable(data) {
+        // You'll need to implement this based on how you want to display the data
+        // Typically, you'll clear the existing rows and add new rows based on the data returned from your server
+    }
 </script>
+
+
 
 
 
@@ -302,19 +353,17 @@
         width: 9%;
         background: orange;
     }
+
+    #btnSave, #btnSaveDuplicate {
+        background: orange;
+        width: 11%;
+    }
 </style>
 
 {% endblock %}
 
 
 {% block content %}
-<!--{% load lower_filter %}
-<h1>{{value|program_to_string}}</h1>
-<h1>{{value|centertype_to_string}}</h1>
-<h1>{{value|Sponser_to_string}}</h1>
-<h1>{{value|TrainerType_to_string}}</h1>
-<h1>{{value|Catagory_to_string}}</h1>
-<h1>{{value|Status_to_string}}</h1>-->
 
 <h1>Session Details</h1>
 
@@ -335,47 +384,18 @@
 
     <div class="dropdowns">
         <select id="program-select">
-            <option value="Select an Program">Select an Program</option>
-            <option value="Bridge Course"> Bridge Course</option>
-            <option value="Academics">Academics</option>
-            <option value="After School Program">After School Program</option>
-            <option value="Awareness Sessions">Awareness Sessions</option>
-            <option value="Camps(Summer/Winter)">Camps(Summer/Winter)</option>
-            <option value="Career Guidance">Career Guidance</option>
-            <option value="Computer Coaching-Advanced">Computer Coaching-Advanced</option>
-            <option value="Computer Coaching-Basics with Typing">Computer Coaching-Basics with Typing</option>
-            <option value="Computer Coaching-Basics without Typing">Computer Coaching-Basics without Typing</option>
-            <option value="Computer Coaching-Typing">Computer Coaching-Typing</option>
-            <option value="Counselling">Counselling</option>
-            <option value="E2E(Education to Employability)">E2E(Education to Employability)</option>
-            <option value="program1">Program 1</option>
-            <option value="Emotional Management">Emotional Management</option>
-            <option value="Exam Readiness">Exam Readiness</option>
-            <option value="Gender Sensitivity">Gender Sensitivity</option>
-            <option value="Internship">Internship</option>
-            <option value="Integrated Program">Integrated Program</option>
-            <option value="Kannada">Kannada</option>
-            <option value="Life Skills">Life Skills</option>
-            <option value="Office Assistant">Office Assistant</option>
-            <option value="Parental Guidance">Parental Guidance</option>
-            <option value="Personality Development">Personality Development</option>
-            <option value="Soft Skills">Soft Skills</option>
-            <option value="Software Development">Software Development</option>
-            <option value="Spoken English">Spoken English</option>
-            <option value="Tailoring">Tailoring</option>
-            <option value="Tailoring-Tassel Typing">Tailoring-Tassel Typing</option>
-            <option value="Tally">Tally</option>
-            <option value="Teacher Development">Teacher Development</option>
-            <option value="TTT">TTT</option>
-            <option value="Wellbeing">Wellbeing</option>
-            <option value="Women Development">Women Development</option>
-            <option value="WSD">WSD</option>
+            <option>Select an Program</option>
+            {% for program in program_names %}
+
+            <option value="{{ program.program_name }}">{{ program.program_name|program_to_string }}</option>
+            {% endfor %}
         </select>
 
         <select id="project-select">
-            <option value="">Select Project</option>
-            <option value="Project1">Project 1</option>
-            <option value="Project2">Project 2</option>
+            <option>Select Project</option>
+            {% for project in project_names %}
+            <option value="{{ project.project_name }}">{{ project.project_name }}</option>
+            {% endfor %}
             <!-- Add more project options here -->
         </select>
 
@@ -384,30 +404,23 @@
 
         <select id="center-select">
             <option value="">Select an Center</option>
-            <option value="DJ Halli 1">DJ Halli1</option>
-            <option value="DJ Halli 2">DJ Halli2</option>
-            <option value="Bagalur">Bagalur</option>
-            <option value="Mylanahalli">Mylanahalli</option>
-            <option value="Kannur">Kannur</option>
-            <option value="Koramangala">Koramangala</option>
+            {% for center in centers %}
+            <option value="{{ center.center_type }}">{{ center.center_type|centertype_to_string }}</option>
+            {% endfor %}
         </select>
 
         <select id="trainer-select">
-            <option value="">Select an option</option>
-            <option value="Lead">Lead</option>
-            <option value="Co-Facilator">Co-Facilator</option>
-            <option value="Volunteer">Volunteer</option>
-            <!-- Add more trainer options here -->
+            <option value="">Select an Trainer</option>
+            {% for trainer in trainers %}
+            <option value="{{ trainer.trainer_type }}">{{ trainer.trainer_type|TrainerType_to_string }}</option>  <!-- Adjusted to 'trainer_type' -->
+            {% endfor %}
         </select>
 
         <button type="button" onclick="applyFilters()" style="background:orange;">Filter</button>
     </div>
 </div>
 
-<button id="but">
-    <a href="{% url 'createpage' %}">Create</a>
-</button>
-
+<button id="but">Create</button>
 
 <div class="table">
 
@@ -440,7 +453,7 @@
             <td>{{program.emp.fullname}}</td>
             <td>{{program.pgm_id|program_to_string }}</td>
             <td>{{program.xref.project_name }}</td>
-            <td>{{program.center_type|centertype_to_string }}</td>
+            <td>{{program.center_type|centertype_to_string}}</td>
             <td>{{program.activity }}</td>
             <td>{{program.trainer_type}}</td>
             <td>{{program.trainer_type}}</td>
@@ -457,12 +470,12 @@
         </tr>
         {% endfor %}
 
+
+
+
+
     </table>
 </div>
-
-
-
-
 
 
 <!-- Add Modal -->
@@ -587,7 +600,7 @@
 
             <label for="Comment">Comment</label>
             <div class="comment-box">
-                <textarea id="Comment" placeholder="Write your comment here"></textarea>
+                <textarea id="Comment" placeholder="Write our comment here"></textarea>
             </div>
 
             <button onclick="validateAndSave()" id="btnSave">Edit</button>
