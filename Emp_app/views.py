@@ -1,10 +1,9 @@
-from distutils.sysconfig import project_base
 from django.views.decorators.csrf import csrf_exempt
 from django.forms.models import model_to_dict
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
 from django.contrib.auth import authenticate, login
-from .models import Program ,Xref
+from .models import Program 
 from .models import EmpDetails 
 from django.contrib import messages
 import json
@@ -24,13 +23,7 @@ from django.contrib.messages.views import SuccessMessageMixin
 #                       " If you don't receive an email, " \
 #                       "please make sure you've entered the address you registered with, and check your spam folder."
 #     success_url = reverse_lazy('index')
-from django.shortcuts import render, redirect
-from django.http import JsonResponse
-from django.contrib import messages
-from .models import Program  # Make sure to import your actual Program model
-from django.core.serializers import serialize
-from django.contrib.auth.decorators import login_required
-
+    
 
 @login_required
 def home(request):
@@ -78,59 +71,40 @@ def employee(request):
    
 @login_required
 def saveemployee(request):
-     Value=request.POST.get('fullname')
-     emp_details = EmpDetails.objects.get(fullname=Value)
-     Value=request.POST.get('address')
-     emp_details.address =Value
-     Value=request.POST.get('dob')
-     emp_details.dob=Value  
-     Value=request.POST.get('phonenumber')
-     emp_details.phonenumber=Value  
-     Value=request.POST.get('emailId')
-     emp_details.emailId=Value  
-     Value=request.POST.get('gender')
-     emp_details.gender=Value   
-     Value=request.POST.get('employeeId')
-     emp_details.employeeId=Value  
-     Value=request.POST.get('center')
-     emp_details.center=Value  
-     Value=request.POST.get('designation')
-     emp_details.designation=Value   
-     Value=request.POST.get('dateofJoining')
-     emp_details.dateofJoining=Value   
-     Value=request.POST.get('educationQualification')
-     emp_details.educationQualification=Value    
-     Value=request.POST.get('status')
-     emp_details.status=Value  
-     Value=request.POST.get('dateofResigning')
-     emp_details.dateofResigning=Value  
-     Value=request.POST.get('resourceType')
-     emp_details.resourceType=Value   
-     Value=request.POST.get('bankName')
-     emp_details.bankName=Value  
-     Value=request.POST.get('nameAsPerBank')
-     emp_details.nameAsPerBank=Value  
-     Value=request.POST.get('accountNumber')
-     emp_details.accountNumber=Value  
-     Value=request.POST.get('ifscCode')
-     emp_details.ifscCode=Value  
-     Value=request.POST.get('branchName')
-     emp_details.branchName=Value  
-     Value=request.POST.get('accountType')
-     emp_details.accountType=Value  
-     
-    
-     emp_details.save()
-     
-     try:
- 
-       messages.success(request, 'Employee details updated successfully!')
-     except Exception as e:
+    try:
+        Value = request.POST.get('fullname')
+        emp_details = EmpDetails.objects.get(fullname=Value)
+        emp_details.address = request.POST.get('address')
+        emp_details.dob = request.POST.get('dob')
+        emp_details.phone_number = request.POST.get('phonenumber') 
+        emp_details.email_id = request.POST.get('emailId') 
+        emp_details.gender = request.POST.get('gender')
+        emp_details.employeeId = request.POST.get('employeeId') 
+        emp_details.centre = request.POST.get('centre')
+        emp_details.designation = request.POST.get('designation')
+        emp_details.date_of_joining = request.POST.get('dateofJoining')  
+        emp_details.education_qualification = request.POST.get('educationQualification') 
+        emp_details.status = request.POST.get('status')
+        emp_details.date_of_resigning = request.POST.get('dateofResigning')
+        emp_details.resource_type = request.POST.get('resourceType') 
+        emp_details.bank_name = request.POST.get('bankName') 
+        emp_details.name_as_per_bank = request.POST.get('nameAsPerBank')  
+        emp_details.account_number = request.POST.get('accountNumber')  
+        emp_details.ifsc = request.POST.get('ifscCode') 
+        emp_details.branch = request.POST.get('branchName') 
+        emp_details.account_type = request.POST.get('accountType') 
 
-       messages.error(request, 'Failed to update employee details: {}'.format(e))
+        # Save the changes to the database
+        emp_details.save()
+        messages.success(request, 'Employee details updated successfully!')
 
-    
-     return render(request, "Emp_app/employee.html")
+    except EmpDetails.DoesNotExist:
+        messages.error(request, 'Employee not found.')
+    except Exception as e:
+        messages.error(request, 'Failed to update employee details: {}'.format(e))
+
+    return render(request, "Emp_app/employee.html")
+
 
 
 def login(request):
@@ -178,7 +152,7 @@ def change_password(request):
             user = form.save()
             update_session_auth_hash(request, user)  # Important!
             messages.success(request, 'Your password was successfully updated!')
-            return redirect('Login')
+            return redirect('home')
         else:
             messages.error(request, 'Please correct the error below.')
     else:
@@ -190,9 +164,9 @@ def change_password(request):
 def login_base(request):
     return render(request, "login_base.html")
 
-
-def createpage(request):
-    return render(request, "createpage.html")
+def CreatePage(request):
+     return render(request, "Emp_app/createpage.html")
+    
 
     
 def Session_main(request):
@@ -229,10 +203,9 @@ def Session_main(request):
 
     else:
          # Your existing code for handling GET requests
-        # ...
-      from_date_str = request.GET.get('from_date')
-      to_date_str = request.GET.get('to_date')
-      from_date = datetime.strptime(from_date_str, '%Y-%m-%d').date() if from_date_str else None
-      to_date = datetime.strptime(to_date_str, '%Y-%m-%d').date() if to_date_str else None
-    
-      return render(request, 'Emp_app/Session_main.html', context)
+        
+        from_date_str = request.GET.get('from_date')
+        to_date_str = request.GET.get('to_date')
+        from_date = datetime.strptime(from_date_str, '%Y-%m-%d').date() if from_date_str else None
+        to_date = datetime.strptime(to_date_str, '%Y-%m-%d').date() if to_date_str else None
+        return render(request, 'Emp_app/Session_main.html', context)

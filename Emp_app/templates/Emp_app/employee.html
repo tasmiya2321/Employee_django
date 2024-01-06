@@ -1,3 +1,5 @@
+
+
 {% extends "Emp_app/base.html" %}
 {% block css %}
 
@@ -18,7 +20,7 @@
                 debugger;
                 var resultobj = $.parseJSON(result.info);
                 /*  alert(result.info);*/
-            
+
                 var listItems = $("input[type=text], input[type=date],input[type=number],input[type=email],input[type=radio],select,textarea");
                 for (let li of listItems) {
                     let product = $(li);
@@ -40,7 +42,7 @@
 
             }
         });
-    }); 
+    });
 
     function isPastDate(id) {
         var today = new Date();
@@ -97,12 +99,12 @@
 
         var formFields = document.querySelectorAll("input[type=text], input[type=date], input[type=number], input[type=email], input[type=radio], select, textarea");
 
-        if (updateButton.disabled === true) { 
+        if (updateButton.disabled === true) {
             formFields.forEach(field => {
                 field.disabled = false;
             });
-            updateButton.disabled = false; 
-        } else { 
+            updateButton.disabled = false;
+        } else {
             formFields.forEach(field => {
                 field.disabled = true;
             });
@@ -203,6 +205,7 @@
         cursor: pointer;
         padding: 5px;
     }
+
     #updateButton {
         width: 15%;
         border-radius: 10px;
@@ -213,18 +216,17 @@
 
 
     .male {
-        
-        padding: 5px; 
+        padding: 5px;
     }
 
- 
+
     .female {
         padding: 5px;
         margin-top: -31px;
         margin-left: 75px
     }
 
-   
+
     .other {
         padding: 5px;
         margin-top: -29px;
@@ -232,7 +234,7 @@
     }
 
     .form-container {
-        max-width: 600px; 
+        max-width: 600px;
         margin: 0 auto;
         padding: 15px;
         box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
@@ -264,8 +266,8 @@
         }
 
         .male {
-            display: flex; 
-            margin-top: 10px; 
+            display: flex;
+            margin-top: 10px;
             margin-right: 78%;
         }
     }
@@ -480,7 +482,7 @@
         </table>
 
         <div class="button-container">
-            <button id="editButton" type="button" onclick="toggleEdit()" >Edit</button>
+            <button id="editButton" type="button" onclick="toggleEdit()">Edit</button>
             <button id="updateButton" type="submit" disabled>Update</button>
         </div>
 
