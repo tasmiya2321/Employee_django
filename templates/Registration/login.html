@@ -1,11 +1,29 @@
 ﻿{% extends "Emp_app/login_base.html" %}
 {% block css %}
 {% load static %}
+<script>
+    function togglePasswordVisibility() {
+        var passwordInput = document.getElementById('id_password');
+        var eyeIcon = document.getElementById('eyeIcon');
+
+        if (passwordInput.type === "password") {
+            passwordInput.type = "text";
+            eyeIcon.innerHTML = '🙈'; // HTML entity for eye open
+        } else {
+            passwordInput.type = "password";
+            eyeIcon.innerHTML = '👁️'; // HTML entity for eye closed
+        }
+    }
+
+
+
+
+</script>
+
 <style>
-   
 </style>
-{% endblock %}
-{% block content %}
+    {% endblock %}
+    {% block content %}
 
 <div class="login-container">
 
@@ -14,7 +32,30 @@
     <img src="{% static 'cf_logo.png' %}" alt="Creating Futures Logo" class="logo">
     <form method="post">
         {% csrf_token %}
-        {{ form.as_p }}
+
+
+        <p>
+            <label for="id_username">Username:</label>
+            <input type="text" name="username" autofocus="" autocapitalize="none" autocomplete="username" maxlength="150" required="" id="id_username">
+
+
+        </p>
+
+
+
+
+        <div class="input-group" style="position: relative;">
+            <p>
+                <label for="id_password">Password:</label>
+                <input type="password" name="password" autocomplete="current-password" required="" id="id_password">
+                <span onclick="togglePasswordVisibility()" id="eyeIcon" style="cursor: pointer; position: absolute; right: 22px; top: 31px;">👁️</span>
+        </div>
+
+
+     
+
+
+        </p>
 
         <div class="forgot-password">
             <a href="{% url 'password_reset' %}"><i>Forgot Password?</i></a>
@@ -24,7 +65,7 @@
 
     </form>
 </div>
-{% endblock %}
+    {% endblock %}
 
 
 

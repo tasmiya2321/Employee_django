@@ -1,0 +1,87 @@
+{% load static %}
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <style>
+        body{
+            overflow:hidden;
+        }
+        img {
+            width: 30%;
+            margin-left: 36%;
+        }
+
+        h2 {
+            margin-left: 43%;
+            font-family: helvetica;
+        }
+
+        .circle1 {
+            width: 500px;
+            height: 500px;
+            border-radius: 60%;
+            background: var(--praimery);
+            position: absolute;
+            top: 50%;
+            left: -9%;
+            transform: translate(-50%, -50%);
+            z-index: -1;
+        }
+
+        :root {
+            --praimery: #FCB040;
+        }
+
+        .circle2 {
+            width: 500px;
+            height: 500px;
+            border-radius: 60%;
+            background: var(--praimery);
+            position: absolute;
+            top: -14%;
+            left: 97%;
+            transform: translate(-50%, -50%);
+            z-index: -1;
+        }
+
+        .circle3 {
+            width: 500px;
+            height: 500px;
+            border-radius: 60%;
+            background: var(--praimery);
+            position: absolute;
+            top: 104%;
+            left: 97%;
+            transform: translate(-50%, -50%);
+            z-index: -1;
+        }
+    </style>
+    {% block css %}
+
+    {% endblock %}
+</head>
+<body>
+    <div class="circle1"></div>
+    <div class="circle2"></div>
+    <div class="circle3"></div>
+    
+    <img src="{% static 'cf_logo.png' %}" alt="CF Logo" />
+
+
+    <h2>
+        {% block title %}
+
+
+        {% endblock %}
+    </h2>
+
+
+    {% block content %}
+
+
+    {% endblock %}
+</body>
+</html>
