@@ -155,7 +155,7 @@
             slideIndex = 0;
         }
         // Translate by 100% of the slide for each new index
-        slides.style.transform = translateX(-${ slideIndex * 100} %);
+        slides.style.transform = `translateX(-${slideIndex * 100}%)`;
     }
 
     let slideInterval = setInterval(showSlides, 2000); // Change slide every 3 seconds
@@ -176,3 +176,15 @@
 
 
 {% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+

@@ -10,8 +10,6 @@ import json
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
 from django.shortcuts import render, redirect
-
-
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy
 from django.contrib.auth.views import PasswordResetView
@@ -51,25 +49,25 @@ def index(request):
 
 @login_required
 def employee(request):
-       if request.method=='GET':
-   
-         return render(request, "Emp_app/employee.html")
-       else:
-           var=request.POST.get("data")
-           var=var[:len(var)-1]
-           var=var.strip()
-        
-           #emp_details = EmpDetails.objects.filter(fullname=var).values()
-           variable_column = 'fullname'
-           search_type = 'iexact'
-           strfilter = variable_column + '__' + search_type
-           emp_details=EmpDetails.objects.filter(**{ strfilter:var })
+    if request.method == 'GET':
+        return render(request, "Emp_app/employee.html")
+    else:
+        var = request.POST.get("data")
+        var = var[:-1]
+        var = var.strip()
 
-           my_dict = model_to_dict(emp_details[0], fields=['fullname', 'emp_id', 'address', 'dob', 'phone_number','email_id', 'gender', 'center', 'designation','date_of_joining', 'education_qualification', 'status','resource_type', 'date_of_resigning', 'bank_name', 
-                  'name_as_per_bank', 'account_number', 'ifsc', 'branch','account_type'])
-          
-           return JsonResponse( {"info": json.dumps(my_dict)} )
-          # return render(request, "Emp_app/employee.html",{"info":emp_details})
+        variable_column = 'fullname'
+        search_type = 'iexact'
+        strfilter = variable_column + '__' + search_type
+        emp_details = EmpDetails.objects.filter(**{strfilter: var})
+
+        my_dict = {}
+
+        if emp_details.exists():
+            my_dict = model_to_dict(emp_details.first(), fields=['fullname', 'emp_id', 'address', 'dob', 'phone_number', 'email_id', 'gender', 'center', 'designation', 'date_of_joining', 'education_qualification', 'status', 'resource_type', 'date_of_resigning', 'bank_name', 'name_as_per_bank', 'account_number', 'ifsc', 'branch', 'account_type'])
+
+        return JsonResponse({"info": json.dumps(my_dict)})
+
    
 @login_required
 def saveemployee(request):

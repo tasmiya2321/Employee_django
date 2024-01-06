@@ -1,14 +1,16 @@
 
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml" style="overflow-x: hidden;">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <!--<a href="forgetpassword.html">forgetpassword.html</a>-->
     <script src="https://kit.fontawesome.com/bc0ac06df1.js" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
     <style>
 
         /* Reset default margin and padding */
@@ -34,9 +36,9 @@
         .logo {
             width: 185px;
             height: auto;
-            margin-top: -24px;
+            margin-top: -40px;
             position: absolute;
-            left: 12%;
+            left: 8%;
             transform: translateX(-50%);
         }
 
@@ -132,15 +134,12 @@
             color: white;
             width: 0;
             overflow: hidden;
-            transform: translateX(-100%);
-            transition: transform 0.3s ease;
+            transition: width 0.3s ease;
             height: 250vh;
-
         }
 
             .sidebar.open {
                 width: 250px;
-                transform: translateX(0);
             }
 
         .navbar ul {
@@ -159,7 +158,7 @@
             }
 
                 .navbar ul li a {
-                    color:#FCB040;
+                    color: #FCB040;
                     text-decoration: none;
                     transition: 0.3s;
                     width: 100%;
@@ -174,7 +173,7 @@
                         margin-right: 10px;
                     }
 
-                    .navbar ul li a:hover { 
+                    .navbar ul li a:hover {
                         border-radius: 5px;
                     }
 
@@ -192,18 +191,13 @@
             }
 
             .sidebar {
-              
-                height: 100vh;
-                position: fixed; /* Changed to fixed to overlay on top of content */
-                z-index: 1000; /* Ensure it's above other content */
-                width: 80%;
+                width: 100%;
+                height: auto;
+                position: static;
             }
 
             .main-content {
                 margin-left: 0;
-            }
-            .sidebar-toggle-btn {
-                display: block; /* Ensure the toggle button is visible */
             }
         }
 
@@ -240,11 +234,11 @@
                 display: flex;
             }
 
-        .fixed-header {
-            margin-top: -3%;
-            width: 30%;
-            margin-left: 30%;
-        }
+            .fixed-header {
+                margin-top: -3%;
+                width: 30%;
+                margin-left: 35%;
+            }
         }
     </style>
     {% block css %}
@@ -319,7 +313,7 @@
                 sidebar.classList.toggle('open');
             }
             // Ensure the DOM is fully loaded before running scripts
-       
+            
     </script>
 
 </body>
