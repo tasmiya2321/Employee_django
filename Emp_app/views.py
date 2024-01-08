@@ -18,6 +18,8 @@ from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy
 from django.contrib.auth.views import PasswordResetView
 from django.contrib.messages.views import SuccessMessageMixin
+from django.db.models import Q
+
 # class ResetPasswordView(SuccessMessageMixin, PasswordResetView):
 #     template_name = 'Emp_app/reset_password.html'
 #     email_template_name = 'Emp_app/email.html'
@@ -206,39 +208,33 @@ def Session_main(request):
     trainers = Program.objects.values('trainer_type').distinct()
     context = {'programs': programs, 'program_names':program_names,'project_names': project_names,'centers': centers,
         'trainers': trainers}
+   
     if request.method == 'POST':
-        # Get the filter values from the request
-        data = json.loads(request.body)
-        program_filter = data.get('program')
-        project_filter = data.get('project')
-        center_filter = data.get('center')
-        trainer_filter = data.get('trainer')
-        
-        # Filter your programs based on the provided values
-        programs = Program.objects.all()
-        if program_filter:
-            programs = programs.filter(pgm_id__program_name=program_filter)
-        if project_filter:
-            programs = programs.filter(xref__project_name=project_filter)
-        if center_filter:
-            programs = programs.filter(center_type=center_filter)
-        if trainer_filter:
-            programs = programs.filter(trainer_type=trainer_filter)
 
-        # Serialize your programs data into a format that can be sent as JSON
-        programs_data = list(programs.values())  # Adjust as needed to serialize your data
+        selected_program = request.POST.get('program-select')
+        selected_project = request.POST.get('project-select')
+        selected_center = request.POST.get('center-select')
+        selected_trainer = request.POST.get('trainer-select')
 
-        return JsonResponse({'programs': programs_data})  # Send the filtered data back to the front end
-
-    else:
-         # Your existing code for handling GET requests
-        # ...
-      from_date_str = request.GET.get('from_date')
-      to_date_str = request.GET.get('to_date')
-      from_date = datetime.strptime(from_date_str, '%Y-%m-%d').date() if from_date_str else None
-      to_date = datetime.strptime(to_date_str, '%Y-%m-%d').date() if to_date_str else None
     
-      return render(request, 'Emp_app/Session_main.html', context)
+        query = Q()
+        if selected_program and selected_program != '-1':
+            query &= Q(xref__program_name=selected_program)
+        if selected_project and selected_project != 'Select Project':
+            query &= Q(xref__project_name=selected_project)
+        if selected_center and selected_center != 'Select an Center':
+            query &= Q(center_type=selected_center)
+        if selected_trainer and selected_trainer != 'Select an Trainer':
+            query &= Q(trainer_type=selected_trainer)
+
+     
+        programs = programs.filter(query)
+
+ 
+    context = {'programs': programs, 'program_names': program_names, 'project_names': project_names, 'centers': centers, 'trainers': trainers}
+    return render(request, 'Emp_app/Session_main.html', context)
+    
+
 
 
 
