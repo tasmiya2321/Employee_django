@@ -33,9 +33,9 @@
     }
 
 
-   
+
     // This function will be called when the filter button is clicked.
-        function applyFilters() {
+    function applyFilters() {
         // Get the values from your filters
         var selectedProgram = document.getElementById('program-select').value;
         var selectedProject = document.getElementById('project-select').value;
@@ -45,45 +45,45 @@
         // Send the filter data to your Django view via AJAX
         fetch('/filter_sessions/', { // Make sure the URL matches your URL configuration
             method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        'X-CSRFToken': getCookie('csrftoken')  // Ensure you're sending the CSRF token
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': getCookie('csrftoken')  // Ensure you're sending the CSRF token
             },
-        body: JSON.stringify({
-            program: selectedProgram,
-        project: selectedProject,
-        center: selectedCenter,
-        trainer: selectedTrainer,
+            body: JSON.stringify({
+                program: selectedProgram,
+                project: selectedProject,
+                center: selectedCenter,
+                trainer: selectedTrainer,
             })
         })
-        .then(response => response.json())
-        .then(data => {
-            // Call a function to update your table with the new data
-            updateTable(data);
-        });
+            .then(response => response.json())
+            .then(data => {
+                // Call a function to update your table with the new data
+                updateTable(data);
+            });
     }
 
-        // Helper function to get the CSRF token
-        function getCookie(name) {
-            let cookieValue = null;
+    // Helper function to get the CSRF token
+    function getCookie(name) {
+        let cookieValue = null;
         if (document.cookie && document.cookie !== '') {
             const cookies = document.cookie.split(';');
-        for (let i = 0; i < cookies.length; i++) {
+            for (let i = 0; i < cookies.length; i++) {
                 const cookie = cookies[i].trim();
-        if (cookie.substring(0, name.length + 1) === (name + '=')) {
-            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-        break;
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
                 }
             }
         }
         return cookieValue;
     }
 
-        // Function to update the table with the filtered data
-        function updateTable(data) {
-            // You'll need to implement this based on how you want to display the data
-            // Typically, you'll clear the existing rows and add new rows based on the data returned from your server
-        }
+    // Function to update the table with the filtered data
+    function updateTable(data) {
+        // You'll need to implement this based on how you want to display the data
+        // Typically, you'll clear the existing rows and add new rows based on the data returned from your server
+    }
 </script>
 
 
@@ -353,9 +353,10 @@
         width: 9%;
         background: orange;
     }
-    #btnSave, #btnSaveDuplicate{
-        background:orange;
-        width:11%;
+
+    #btnSave, #btnSaveDuplicate {
+        background: orange;
+        width: 11%;
     }
 </style>
 

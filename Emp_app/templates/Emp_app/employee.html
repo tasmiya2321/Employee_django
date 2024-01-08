@@ -1,20 +1,26 @@
+
+
 {% extends "Emp_app/base.html" %}
 {% block css %}
 
 <script>
     $(document).ready(function () {
         var Role = document.getElementById("Role").innerText;
+        document.getElementsByTagName('form')[0].onsubmit = validateDates;
         /*  alert(Role)*/
         debugger;
         $.ajax({
             type: "POST",
             url: "{% url 'employee' %}",
+            headers: {
+                'X-CSRFToken': $("input[name='csrfmiddlewaretoken']").val()
+            },
             data: { data: Role },
             success: function (result) {
-
+                debugger;
                 var resultobj = $.parseJSON(result.info);
                 /*  alert(result.info);*/
-                debugger
+
                 var listItems = $("input[type=text], input[type=date],input[type=number],input[type=email],input[type=radio],select,textarea");
                 for (let li of listItems) {
                     let product = $(li);
@@ -38,34 +44,82 @@
         });
     });
 
+    function isPastDate(id) {
+        var today = new Date();
+        var inputDate = new Date(document.getElementById(id).value);
+        return inputDate < today;
+    }
 
+    function isAtLeast18YearsOld(id) {
+        var today = new Date();
+        var birthDate = new Date(document.getElementById(id).value);
+        var age = today.getFullYear() - birthDate.getFullYear();
+        var m = today.getMonth() - birthDate.getMonth();
+
+        if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+            age--;
+        }
+        return age >= 18;
+    }
+
+    function validateDates() {
+        debugger;
+
+        if (document.getElementById('dateofJoining').disabled === false) {
+            if (!isPastDate('dateofJoining')) {
+                alert('Date of Joining cannot be a future date or the same as the current date.');
+                return false;
+            }
+        }
+        if (document.getElementById('dateOfResigning').disabled === false) {
+            if (!isPastDate('dateOfResigning')) {
+                alert('Date of Resigning cannot be a future date or the same as the current date.');
+                return false;
+            }
+        }
+        if (document.getElementById('dateOfBirth').disabled === false) {
+            if (!isAtLeast18YearsOld('dateOfBirth')) {
+                alert('Date of Birth should be at least 18 years before and cannot be the current date or a future date.');
+                return false;
+            }
+        }
+
+        if (!toggleEditUpdate()) {
+            return false;
+        }
+        return true;
+    }
 
     function Role() {
         var Role = document.getElementById("Role");
         alert(Role);
     }
+    function toggleEdit() {
+        const updateButton = document.getElementById("updateButton");
 
+        var formFields = document.querySelectorAll("input[type=text], input[type=date], input[type=number], input[type=email], input[type=radio], select, textarea");
 
-    function toggleEditUpdate() {
-        const editButton = document.getElementById("editButton");
-        if (editButton.textContent === "Edit") {
-            editButton.textContent = "Update";
+        if (updateButton.disabled === true) {
+            formFields.forEach(field => {
+                field.disabled = false;
+            });
+            updateButton.disabled = false;
         } else {
-            editButton.textContent = "Edit";
+            formFields.forEach(field => {
+                field.disabled = true;
+            });
+            updateButton.disabled = true;
         }
     }
 
 </script>
 
-
 <style>
     body {
-        font-family: Arial, sans-serif;
+        font-family: helvetica;
         padding: 20px;
         background-color: #f4f4f4;
     }
-
-
 
     .employee-details-title {
         text-align: center;
@@ -79,12 +133,13 @@
         padding: 15px;
         border-radius: 30px;
     }
-     .error-message, .danger-message {
+
+    .error-message, .danger-message {
         background-color: red;
         padding: 10px;
         margin-left: 20px;
         border-radius: 20px;
-     }
+    }
 
     h3 {
         color: #333;
@@ -115,11 +170,11 @@
         border-radius: 4px;
         box-sizing: border-box;
     }
-/*
-    input[type="radio"] {
-        margin-right: 5px;
-    }
-*/
+    /*
+        input[type="radio"] {
+            margin-right: 5px;
+        }
+    */
 
     Textarea {
         resize: vertical;
@@ -130,18 +185,18 @@
         margin-bottom: 10px;
     }
 
-   /* #button {
-        background-color: orange;
-        color: white;
-        border: none; 
-        border-radius: 10px;
-        cursor: pointer;
-        font-size: 25px;
+    /* #button {
+          background-color: orange;
+          color: white;
+          border: none;
+          border-radius: 10px;
+          cursor: pointer;
+          font-size: 25px;
     }
-   
 
-     #button:hover {
-         background-color: orange;
+
+    #button:hover {
+          background-color: orange;
      }*/
     #editButton {
         width: 15%;
@@ -151,33 +206,41 @@
         padding: 5px;
     }
 
-    .male {
-        /* Add your specific styles for the male option here */
-        padding: 5px; /* Example: Add padding */
+    #updateButton {
+        width: 15%;
+        border-radius: 10px;
+        background-color: orange;
+        cursor: pointer;
+        padding: 5px;
     }
 
-    /* Style for the female gender option */
+
+    .male {
+        padding: 5px;
+    }
+
+
     .female {
         padding: 5px;
         margin-top: -31px;
         margin-left: 75px
     }
 
-    /* Style for the other gender option */
+
     .other {
         padding: 5px;
         margin-top: -29px;
         margin-left: 170px;
     }
+
     .form-container {
-        max-width: 600px; /* Adjust based on your preference */
-        margin: 0 auto; /* Centers the form */
+        max-width: 600px;
+        margin: 0 auto;
         padding: 15px;
-        box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1); /* Optional: adds a slight shadow for better focus */
-        background-color: white; /* Optional: or any color you prefer */
+        box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
+        background-color: white;
     }
 
-    /* Mobile Responsiveness */
     @media (max-width: 768px) {
         table, input, textarea, select, button {
             width: 100%;
@@ -187,11 +250,6 @@
         .form-container {
             padding: 10px;
         }
-
-        h1.employee-details-title {
-            font-size: 17px;
-        }
-
 
         .female {
             display: flex;
@@ -208,14 +266,11 @@
         }
 
         .male {
-            display: flex; /* Each div will take the full width of the td */
-            margin-top: 10px; /* Add space between the options */
+            display: flex;
+            margin-top: 10px;
             margin-right: 78%;
         }
     }
-
-    }
-
 
     .button-container {
         text-align: center;
@@ -224,86 +279,76 @@
 {% endblock %}
 
 
+{% block header %}
+
+<div class="fixed-header">
+    <h1 style=" margin-top: -25px; ">Employee details</h1>
+</div>
+
+
+{% endblock %}
+
 {% block content %}
-
-
 
 <center>
 
 
-    <form action="{% url 'saveemployee' %}" method="POST">
+    <form method="POST" action="{% url 'saveemployee' %}" name="employeeForm">
+
         {% csrf_token %}
 
-
-
         {% if messages %}
-        {% for message in messages %}
 
+        {% for message in messages %}
         <div class="{% if message.tags %}{{ message.tags }}{% endif %}-message">{{ message }}</div>
         {% endfor %}
-        {% endif %}
 
+        {% endif %}
+        <br /><br />
 
         <h3>Personal Details</h3>
-        <table>
+        <table name="tblPersonalDetails">
 
             <!-- Full Name -->
             <tr>
-                <td><label for="fullname">Full Name</label></td>
+                <td><label for="fullname">Full Name *</label></td>
                 <td><input type="text" name="fullname" id="fullname" data-dbname="fullname" required></td>
             </tr>
             <!-- Address -->
             <tr>
-                <td><label for="address">Address</label></td>
-                <td><textarea id="address" name="address" data-dbname="address" required></textarea></td>
+                <td><label for="address">Address *</label></td>
+                <td><textarea id="address" name="address" data-dbname="address" required disabled></textarea></td>
             </tr>
             <!-- Date of Birth -->
             <tr>
-                <td><label for="dateOfBirth">Date of Birth</label></td>
-                <td><input type="date" name="dob" id="dateOfBirth" data-dbname="dob" required></td>
+                <td><label for="dateOfBirth">Date of Birth *</label></td>
+                <td><input type="date" name="dob" id="dateOfBirth" data-dbname="dob" required disabled></td>
             </tr>
             <!-- Phone -->
             <tr>
-                <td><label for="phoneNumber">Phone</label></td>
-                <td><input type="number" name="phonenumber" id="phoneNumber" data-dbname="phone_number" required></td>
+                <td><label for="phoneNumber">Phone Number *</label></td>
+                <td><input type="number" name="phonenumber" id="phoneNumber" data-dbname="phone_number" required disabled></td>
             </tr>
             <!-- Email ID -->
             <tr>
-                <td><label for="emailId">Email ID</label></td>
-                <td><input type="email" name="emailId" id="emailId" data-dbname="email_id" required></td>
+                <td><label for="emailId">Email ID *</label></td>
+                <td><input type="email" name="emailId" id="emailId" data-dbname="email_id" required disabled></td>
             </tr>
             <!-- Gender -->
-            <!--<tr>
-                <td>Gender</td>
-                <td>
-                    <div>
-                        <input type="radio" id="male" name="gender" value="male" data-dbname="gender" required>
-                        <label for="male">Male</label>
-                    </div>
-                    <div>
-                        <input type="radio" id="female" name="gender" value="female" data-dbname="gender" required style="margin-left: 30%;">
-                        <label for="female">Female</label>
-                    </div>
-                    <div>
-                        <input type="radio" id="other" name="gender" value="other" data-dbname="gender" required style=" margin-left: 60%; margin-top: -15%; ">
-                        <label for="other">Other</label>
-                    </div>
-                </td>
-            </tr>-->
 
             <tr>
-                <td>Gender</td>
+                <td>Gender *</td>
                 <td>
                     <div class="male">
-                        <input type="radio" id="male" name="gender" value="male" data-dbname="gender" required>
+                        <input type="radio" id="male" name="gender" value="male" data-dbname="gender" required disabled>
                         <label for="male">Male</label>
                     </div>
                     <div class="female">
-                        <input type="radio" id="female" name="gender" value="female" data-dbname="gender" required>
+                        <input type="radio" id="female" name="gender" value="female" data-dbname="gender" required disabled>
                         <label for="female">Female</label>
                     </div>
                     <div class="other">
-                        <input type="radio" id="other" name="gender" value="other" data-dbname="gender" required>
+                        <input type="radio" id="other" name="gender" value="other" data-dbname="gender" required disabled>
                         <label for="other">Other</label>
                     </div>
                 </td>
@@ -317,15 +362,16 @@
         <table>
             <!-- Employee ID -->
             <tr>
-                <td><label for="employeeId">Employee ID</label></td>
-                <td><input type="text" id="employeeId" name="employeeId" data-dbname="emp_id" required></td>
+                <td><label for="employeeId">Employee ID *</label></td>
+                <td><input type="text" id="employeeId" name="employeeId" data-dbname="emp_id" required disabled></td>
             </tr>
+
 
             <!-- Centre -->
             <tr>
-                <td><label for="centre">Centre</label></td>
+                <td><label for="centre">Centre *</label></td>
                 <td>
-                    <select id="centre" name="centre" data-dbname="centre" required>
+                    <select id="centre" name="center" data-dbname="center" required disabled>
                         <option value="">Select an option</option>
                         <option value="1">DJ Halli1</option>
                         <option value="2">DJ Halli2</option>
@@ -339,27 +385,27 @@
 
             <!-- Designation -->
             <tr>
-                <td><label for="designation">Designation</label></td>
-                <td><input type="text" name="designation" id="designation" data-dbname="designation" required></td>
+                <td><label for="designation">Designation *</label></td>
+                <td><input type="text" name="designation" id="designation" data-dbname="designation" required disabled></td>
             </tr>
 
             <!-- Date of Joining -->
             <tr>
-                <td><label for="dateofJoining">Date of Joining</label></td>
-                <td><input type="date" name="dateofJoining" id="dateofJoining" data-dbname="date_of_joining" placeholder="dd-mm-YYYY" required></td>
+                <td><label for="dateofJoining">Date of Joining *</label></td>
+                <td><input type="date" name="dateofJoining" id="dateofJoining" data-dbname="date_of_joining" placeholder="dd-mm-YYYY" required disabled></td>
             </tr>
 
             <!-- Education Qualification -->
             <tr>
-                <td><label for="educationQualification">Education Qualification</label></td>
-                <td><input type="text" name="educationQualification" id="educationQualification" data-dbname="education_qualification" required></td>
+                <td><label for="educationQualification">Education Qualification  *</label></td>
+                <td><input type="text" name="educationQualification" id="educationQualification" data-dbname="education_qualification" required disabled></td>
             </tr>
 
             <!-- Status -->
             <tr>
-                <td><label for="status">Status</label></td>
+                <td><label for="status">Status *</label></td>
                 <td>
-                    <select id="status" name="status" data-dbname="status" required>
+                    <select id="status" name="status" data-dbname="status" required disabled>
                         <option value="">Select an option</option>
                         <option value="1">Active</option>
                         <option value="2">Resigned</option>
@@ -369,15 +415,15 @@
 
             <!-- Date of Resigning -->
             <tr>
-                <td><label for="dateOfResigning">Date of Resigning</label></td>
-                <td><input type="date" name="dateOfResigning" id="dateOfResigning" data-dbname="date_of_resigning"></td>
+                <td><label for="dateOfResigning">Date of Resigning *</label></td>
+                <td><input type="date" name="dateofResigning" id="dateOfResigning" data-dbname="date_of_resigning" placeholder="dd-mm-YYYY" required disabled></td>
             </tr>
 
             <!-- Resource Type -->
             <tr>
-                <td><label for="resourceType">Resource Type</label></td>
+                <td><label for="resourceType">Resource Type *</label></td>
                 <td>
-                    <select id="resourceType" name="resourceType" data-dbname="resource_type" required>
+                    <select id="resourceType" name="resourceType" data-dbname="resource_type" required disabled>
                         <option value="">Select an option</option>
                         <option value="1">Employee</option>
                         <option value="2">Part-time</option>
@@ -393,40 +439,40 @@
         <table>
             <!-- Name of the Bank -->
             <tr>
-                <td><label for="bankName">Name of the Bank</label></td>
-                <td><input type="text" name="bankName" id="bankName" data-dbname="bank_name" required></td>
+                <td><label for="bankName">Name of the Bank *</label></td>
+                <td><input type="text" name="bankName" id="bankName" data-dbname="bank_name" required disabled></td>
             </tr>
 
             <!-- Name as per Bank -->
             <tr>
-                <td><label for="nameAsPerBank">Name as per Bank</label></td>
-                <td><input type="text" name="nameAsPerBank" id="nameAsPerBank" data-dbname="name_as_per_bank" required></td>
+                <td><label for="nameAsPerBank">Name as per Bank *</label></td>
+                <td><input type="text" name="nameAsPerBank" id="nameAsPerBank" data-dbname="name_as_per_bank" required disabled></td>
             </tr>
 
             <!-- Account Number -->
             <tr>
-                <td><label for="accountNumber">Account Number</label></td>
-                <td><input type="text" name="accountNumber" id="accountNumber" data-dbname="account_number" required></td>
+                <td><label for="accountNumber">Account Number *</label></td>
+                <td><input type="text" name="accountNumber" id="accountNumber" data-dbname="account_number" required disabled></td>
             </tr>
 
             <!-- IFSC Code -->
             <tr>
-                <td><label for="ifscCode">IFSC Code</label></td>
-                <td><input type="text" name="ifscCode" id="ifscCode" data-dbname="ifsc" required></td>
+                <td><label for="ifscCode">IFSC Code *</label></td>
+                <td><input type="text" name="ifscCode" id="ifscCode" data-dbname="ifsc" required disabled></td>
             </tr>
 
             <!-- Branch -->
 
             <tr>
-                <td><label for="branchName">Branch</label></td>
-                <td><input type="text" name="branchName" id="branchName" data-dbname="branch" required></td>
+                <td><label for="branchName">Branch *</label></td>
+                <td><input type="text" name="branchName" id="branchName" data-dbname="branch" required disabled></td>
             </tr>
 
             <!-- Account Type -->
             <tr>
-                <td><label for="accountType">Account Type</label></td>
+                <td><label for="accountType">Account Type *</label></td>
                 <td>
-                    <select id="accountType" name="accountType" data-dbname="account_type" required>
+                    <select id="accountType" name="accountType" data-dbname="account_type" required disabled>
                         <option value="">Select an option</option>
                         <option value="1">Savings</option>
                         <option value="2">Current</option>
@@ -435,11 +481,13 @@
             </tr>
         </table>
 
-
         <div class="button-container">
-            <button id="editButton" type="submit" value="submit" onclick="toggleEditUpdate()">Edit</button>
+            <button id="editButton" type="button" onclick="toggleEdit()">Edit</button>
+            <button id="updateButton" type="submit" disabled>Update</button>
         </div>
+
     </form><br><br>
 
 </center>
+
 {% endblock %}

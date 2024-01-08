@@ -32,22 +32,23 @@ ALLOWED_HOSTS = [
        '198.211.99.20',
        'localhost',
        '127.0.0.1'
-    ]
+]
 
 # Application references
 # https://docs.djangoproject.com/en/2.1/ref/settings/#std:setting-INSTALLED_APPS
+
+
 INSTALLED_APPS = [
    
     # Add your apps here to enable them
     'django.contrib.auth',
     'django.contrib.admin',
-        'django.contrib.contenttypes',
+    'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'Emp_app.apps.Emp_appConfig',
-
-    
+ 
 ]
 
 # Middleware framework
