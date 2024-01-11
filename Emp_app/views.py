@@ -1,6 +1,7 @@
+from tkinter import Variable
 from django.views.decorators.csrf import csrf_exempt
 from django.forms.models import model_to_dict
-from django.http import HttpResponse, JsonResponse
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.shortcuts import render
 from django.contrib.auth import authenticate, login
 from .models import Program 
@@ -14,6 +15,8 @@ from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy
 from django.contrib.auth.views import PasswordResetView
 from django.contrib.messages.views import SuccessMessageMixin
+from .models import Xref
+from django.http import HttpResponseRedirect
 # class ResetPasswordView(SuccessMessageMixin, PasswordResetView):
 #     template_name = 'Emp_app/reset_password.html'
 #     email_template_name = 'Emp_app/email.html'
@@ -52,14 +55,22 @@ def employee(request):
     if request.method == 'GET':
         return render(request, "Emp_app/employee.html")
     else:
-        var = request.POST.get("data")
-        var = var[:-1]
-        var = var.strip()
+        # var = request.POST.get("data")
+        # var = var[:-1]
+        # var = var.strip()
 
-        variable_column = 'fullname'
-        search_type = 'iexact'
-        strfilter = variable_column + '__' + search_type
-        emp_details = EmpDetails.objects.filter(**{strfilter: var})
+        # variable_column = 'username'
+        # search_type = 'iexact'
+        # strfilter = variable_column + '__' + search_type
+        # emp_details = EmpDetails.objects.filter(**{strfilter: var})
+
+        emp_id = request.POST.get("data","")
+        emp_id = emp_id[:-1]
+        emp_id = emp_id.strip()
+    
+        strfilter = 'username__username__iexact' 
+        emp_details = EmpDetails.objects.filter(**{strfilter: emp_id})
+
 
         my_dict = {}
 
@@ -71,40 +82,44 @@ def employee(request):
    
 @login_required
 def saveemployee(request):
-    try:
-        Value = request.POST.get('fullname')
-        emp_details = EmpDetails.objects.get(fullname=Value)
-        emp_details.address = request.POST.get('address')
-        emp_details.dob = request.POST.get('dob')
-        emp_details.phone_number = request.POST.get('phonenumber') 
-        emp_details.email_id = request.POST.get('emailId') 
-        emp_details.gender = request.POST.get('gender')
-        emp_details.employeeId = request.POST.get('employeeId') 
-        emp_details.centre = request.POST.get('centre')
-        emp_details.designation = request.POST.get('designation')
-        emp_details.date_of_joining = request.POST.get('dateofJoining')  
-        emp_details.education_qualification = request.POST.get('educationQualification') 
-        emp_details.status = request.POST.get('status')
-        emp_details.date_of_resigning = request.POST.get('dateofResigning')
-        emp_details.resource_type = request.POST.get('resourceType') 
-        emp_details.bank_name = request.POST.get('bankName') 
-        emp_details.name_as_per_bank = request.POST.get('nameAsPerBank')  
-        emp_details.account_number = request.POST.get('accountNumber')  
-        emp_details.ifsc = request.POST.get('ifscCode') 
-        emp_details.branch = request.POST.get('branchName') 
-        emp_details.account_type = request.POST.get('accountType') 
+     if request.method == 'POST':
+        emp_id = request.POST.get('employeeId')
+        try:
+            emp_details = EmpDetails.objects.get(emp_id=emp_id)
 
-        # Save the changes to the database
-        emp_details.save()
-        messages.success(request, 'Employee details updated successfully!')
 
-    except EmpDetails.DoesNotExist:
-        messages.error(request, 'Employee not found.')
-    except Exception as e:
-        messages.error(request, 'Failed to update employee details: {}'.format(e))
+            emp_details.fullname = request.POST.get('fullname')
+            emp_details.address = request.POST.get('address')
+            emp_details.dob = request.POST.get('dob')
+            emp_details.phone_number = request.POST.get('phonenumber') 
+            emp_details.email_id = request.POST.get('emailId') 
+            emp_details.gender = request.POST.get('gender')
+            emp_details.employeeId = request.POST.get('employeeId') 
+            emp_details.centre = request.POST.get('centre')
+            emp_details.designation = request.POST.get('designation')
+            emp_details.date_of_joining = request.POST.get('dateofJoining')  
+            emp_details.education_qualification = request.POST.get('educationQualification') 
+            emp_details.status = request.POST.get('status')
+            emp_details.date_of_resigning = request.POST.get('dateofResigning')
+            emp_details.resource_type = request.POST.get('resourceType') 
+            emp_details.bank_name = request.POST.get('bankName') 
+            emp_details.name_as_per_bank = request.POST.get('nameAsPerBank')  
+            emp_details.account_number = request.POST.get('accountNumber')  
+            emp_details.ifsc = request.POST.get('ifscCode') 
+            emp_details.branch = request.POST.get('branchName') 
+            emp_details.account_type = request.POST.get('accountType') 
 
-    return render(request, "Emp_app/employee.html")
+            # Save the changes to the database
+            emp_details.save()
+            messages.success(request, 'Employee details updated successfully!')
+            return HttpResponseRedirect('/employee/')
 
+        except EmpDetails.DoesNotExist:
+                messages.error(request, 'Employee not found.')
+        except Exception as e:
+                messages.error(request, 'Failed to update employee details: {}'.format(e))
+     else:
+        return render(request, "Emp_app/employee.html")
 
 
 def login(request):
@@ -112,7 +127,6 @@ def login(request):
 
 def reset_password(request):
      return render(request, "Emp_app/reset_password.html")
-
 def email(request):
      return render(request, "Emp_app/email.html")
 

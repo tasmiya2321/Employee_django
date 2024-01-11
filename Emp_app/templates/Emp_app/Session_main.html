@@ -3,8 +3,7 @@
 {% load lower_filter %}
 
 {% block css %}
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
+<script>document.addEventListener('DOMContentLoaded', function () {
         // Your existing JavaScript goes here
         document.querySelector(".filter-icon").addEventListener("click", function () {
             var dropdown = document.querySelector(".dropdowns"); // Updated class name here
@@ -83,8 +82,7 @@
     function updateTable(data) {
         // You'll need to implement this based on how you want to display the data
         // Typically, you'll clear the existing rows and add new rows based on the data returned from your server
-    }
-</script>
+    }</script>
 
 
 
@@ -420,200 +418,205 @@
     </div>
 </div>
 
-<button id="but">Create</button>
+<button id="but" onclick="openCreatePage()">Create</button>
 
-<div class="table">
+<form method="post" action="{% url 'save_create' %}" id="createSessionForm">
+    {% csrf_token %}
 
-
-
-
-    <table id="sessionsTable">
-        <tr bgcolor="orange">
-
-            <th>Date</th>
-            <th>Resource Name</th>
-            <th>Program</th>
-            <th>Project</th>
-            <th>Center Type</th>
-            <th>Activity</th>
-            <th>Session_Number</th>
-            <th>Trainer_Type</th>
-            <th>Hours</th>
-            <th>Status</th>
-            <th>beneficiaries</th>
-            <th>Category</th>
-            <th>Actions</th>
-
-
-        </tr>
-
-        {% for program in programs %}
-        <tr bgcolor="white">
-            <td>{{program.date }}</td>
-            <td>{{program.emp.fullname}}</td>
-            <td>{{program.pgm_id|program_to_string }}</td>
-            <td>{{program.xref.project_name }}</td>
-            <td>{{program.center_type|centertype_to_string}}</td>
-            <td>{{program.activity }}</td>
-            <td>{{program.trainer_type}}</td>
-            <td>{{program.trainer_type}}</td>
-            <td>{{program.duration}}</td>
-            <td>{{program.status}}</td>
-            <td>{{program.beneficiaries }}</td>
-            <td>{{program.category }}</td>
-
-
-            <td class="tdtd">
-                <button class="add-row-button" onclick="showpopup()"> <i class="fa-solid fa-eye" style="color: #ff7b00;"></i> </button>
-            </td>
-
-        </tr>
-        {% endfor %}
+    <div class="table">
 
 
 
 
+        <table id="sessionsTable">
+            <tr bgcolor="orange">
 
-    </table>
-</div>
+                <th>Date</th>
+                <th>Resource Name</th>
+                <th>Program</th>
+                <th>Project</th>
+                <th>Center Type</th>
+                <th>Activity</th>
+                <th>Session_Number</th>
+                <th>Trainer_Type</th>
+                <th>Hours</th>
+                <th>Status</th>
+                <th>beneficiaries</th>
+                <th>Category</th>
+                <th>Actions</th>
 
 
-<!-- Add Modal -->
-<!-- Popup box -->
-<div id="popup" class="popup">
-    <div class="blank-box">
-        <div class="scroll-container">
+            </tr>
 
-            <h2>Details</h2>
-            <label for="EmployeeID">Employee ID</label>
-            <input type="text" id="EmployeeID" name="EmployeeID"><br>
+            {% for program in programs %}
+            <tr bgcolor="white">
+                <td>{{program.date }}</td>
+                <td>{{program.emp.fullname}}</td>
+                <td>{{program.pgm_id|program_to_string }}</td>
+                <td>{{program.xref.project_name }}</td>
+                <td>{{program.center_type|centertype_to_string}}</td>
+                <td>{{program.activity }}</td>
+                <td>{{program.trainer_type}}</td>
+                <td>{{program.trainer_type}}</td>
+                <td>{{program.duration}}</td>
+                <td>{{program.status}}</td>
+                <td>{{program.beneficiaries }}</td>
+                <td>{{program.category }}</td>
 
-            <label for="date">Date</label>
-            <input type="date" id="date" name="date"><br>
 
-            <label for="ResourceName">Resoure Name</label>
-            <input type="text" id="ResourceName" name="ResourceName"><br>
+                <td class="tdtd">
+                    <button class="add-row-button" onclick="showpopup()"> <i class="fa-solid fa-eye" style="color: #ff7b00;"></i> </button>
+                </td>
 
-            <label for="Program">Program</label>
-            <select id="Program" name="Program" required>
-                <option value="Select an option">Select an option</option>
-                <option value="Bridge Course"> Bridge Course</option>
-                <option value="Academics">Academics</option>
-                <option value="After School Program">After School Program</option>
-                <option value="Awareness Sessions">Awareness Sessions</option>
-                <option value="Camps(Summer/Winter)">Camps(Summer/Winter)</option>
-                <option value="Career Guidance">Career Guidance</option>
-                <option value="Computer Coaching-Advanced">Computer Coaching-Advanced</option>
-                <option value="Computer Coaching-Basics with Typing">Computer Coaching-Basics with Typing</option>
-                <option value="Computer Coaching-Basics without Typing">Computer Coaching-Basics without Typing</option>
-                <option value="Computer Coaching-Typing">Computer Coaching-Typing</option>
-                <option value="Counselling">Counselling</option>
-                <option value="E2E(Education to Employability)">E2E(Education to Employability)</option>
-                <option value="program1">Program 1</option>
-                <option value="Emotional Management">Emotional Management</option>
-                <option value="Exam Readiness">Exam Readiness</option>
-                <option value="Gender Sensitivity">Gender Sensitivity</option>
-                <option value="Internship">Internship</option>
-                <option value="Integrated Program">Integrated Program</option>
-                <option value="Kannada">Kannada</option>
-                <option value="Life Skills">Life Skills</option>
-                <option value="Office Assistant">Office Assistant</option>
-                <option value="Parental Guidance">Parental Guidance</option>
-                <option value="Personality Development">Personality Development</option>
-                <option value="Soft Skills">Soft Skills</option>
-                <option value="Software Development">Software Development</option>
-                <option value="Spoken English">Spoken English</option>
-                <option value="Tailoring">Tailoring</option>
-                <option value="Tailoring-Tassel Typing">Tailoring-Tassel Typing</option>
-                <option value="Tally">Tally</option>
-                <option value="Teacher Development">Teacher Development</option>
-                <option value="TTT">TTT</option>
-                <option value="Wellbeing">Wellbeing</option>
-                <option value="Women Development">Women Development</option>
-                <option value="WSD">WSD</option>
-            </select><br>
+            </tr>
+            {% endfor %}
 
-            <label for="Project">Project</label>
-            <input type="text" id="Project" name="Project"><br>
 
-            <label for="Activity">Activity</label>
-            <input type="text" id="Activity" name="Activity"><br>
 
-            <label for="CentreType">Centre Type</label>
-            <select id="CentreType" name="CentreType" required>
-                <option value="">Select an option</option>
-                <option value="DJ Halli 1">DJ Halli1</option>
-                <option value="DJ Halli 2">DJ Halli2</option>
-                <option value="Bagalur">Bagalur</option>
-                <option value="Mylanahalli">Mylanahalli</option>
-                <option value="Kannur">Kannur</option>
-                <option value="Koramangala">Koramangala</option>
-            </select><br>
 
-            <label for="Sessionnumber">Session Number</label>
-            <input type="text" id="Sessionnumber" name="Sessionnumber"><br>
 
-            <label for="Sponsor">Sponsor</label>
-            <select id="Sponsor" name="Sponsor" required>
-                <option value="">Select an option</option>
-                <option value="Vajra">Vajra</option>
-                <option value="Bridge">Bridge</option>
-                <option value="Taste Master">Taste Master</option>
-                <option value="LICT">LICT</option>
-                <option value="Others">Others</option>
-            </select><br>
+        </table>
+    </div>
 
-            <label for="Trainer_Type">Trainer Type</label>
-            <select id="Trainer_Type" name="Trainer_Type" required>
-                <option value="">Select an option</option>
-                <option value="Lead">Lead</option>
-                <option value="Co-Facilator">Co-Facilator</option>
-                <option value="Volunteer">Volunteer</option>
-            </select><br>
+    <script>function openCreatePage() {
+            var url = "{% url 'createpage' %}"; // Use the Django URL template tag
+            window.open(url, 'Create Page', 'height=600,width=800');
+        }</script>
+    <!-- Add Modal -->
+    <!-- Popup box -->
+    <div id="popup" class="popup">
+        <div class="blank-box">
+            <div class="scroll-container">
 
-            <label for="Beneficiaries">Beneficiaries</label>
-            <input type="number" id="Beneficiaries" name="Beneficiaries" style=" width: 90%; margin: 5px 0; padding: 8px; border: 1px solid #ccc; border-radius: 4px;"><br>
+                <h2>Details</h2>
+                <label for="EmployeeID">Employee ID</label>
+                <input type="text" id="EmployeeID" name="EmployeeID"><br>
 
-            <label for="Category">Category</label>
-            <select id="Category" name="Category" required>
-                <option value="Select an option">Select an option</option>
-                <option value="Consultant">Consultant</option>
-                <option value="Employee">Employee</option>
-                <option value="Internship">Internship</option>
-                <option value="New-Volunteer">New-Volunteer</option>
-                <option value="Ex-Volunteer">Ex-Volunteer</option>
-            </select><br>
+                <label for="date">Date</label>
+                <input type="date" id="date" name="date"><br>
 
-            <label for="Duration">Duration</label>
-            <input type="number" id="Duration" name="Duration" style="width: 90%;margin: 6px 0;padding: 9px;border: 1px solid #ccc;border-radius: 4px;"><br>
+                <label for="ResourceName">Resoure Name</label>
+                <input type="text" id="ResourceName" name="ResourceName"><br>
 
-            <label for="Status">Status</label>
-            <select id="Status" name="Status" required>
-                <option value="Select an option">Select an option</option>
-                <option value="Start">Start</option>
-                <option value="On-Going">On-Going</option>
-                <option value="On-Hold">On-Hold</option>
-                <option value="Completed">Completed</option>
-                <option value="Orientation">Orientation</option>
-                <option value="Travel">Travel</option>
-            </select><br>
+                <label for="Program">Program</label>
+                <select id="Program" name="Program" required>
+                    <option value="Select an option">Select an option</option>
+                    <option value="Bridge Course"> Bridge Course</option>
+                    <option value="Academics">Academics</option>
+                    <option value="After School Program">After School Program</option>
+                    <option value="Awareness Sessions">Awareness Sessions</option>
+                    <option value="Camps(Summer/Winter)">Camps(Summer/Winter)</option>
+                    <option value="Career Guidance">Career Guidance</option>
+                    <option value="Computer Coaching-Advanced">Computer Coaching-Advanced</option>
+                    <option value="Computer Coaching-Basics with Typing">Computer Coaching-Basics with Typing</option>
+                    <option value="Computer Coaching-Basics without Typing">Computer Coaching-Basics without Typing</option>
+                    <option value="Computer Coaching-Typing">Computer Coaching-Typing</option>
+                    <option value="Counselling">Counselling</option>
+                    <option value="E2E(Education to Employability)">E2E(Education to Employability)</option>
+                    <option value="program1">Program 1</option>
+                    <option value="Emotional Management">Emotional Management</option>
+                    <option value="Exam Readiness">Exam Readiness</option>
+                    <option value="Gender Sensitivity">Gender Sensitivity</option>
+                    <option value="Internship">Internship</option>
+                    <option value="Integrated Program">Integrated Program</option>
+                    <option value="Kannada">Kannada</option>
+                    <option value="Life Skills">Life Skills</option>
+                    <option value="Office Assistant">Office Assistant</option>
+                    <option value="Parental Guidance">Parental Guidance</option>
+                    <option value="Personality Development">Personality Development</option>
+                    <option value="Soft Skills">Soft Skills</option>
+                    <option value="Software Development">Software Development</option>
+                    <option value="Spoken English">Spoken English</option>
+                    <option value="Tailoring">Tailoring</option>
+                    <option value="Tailoring-Tassel Typing">Tailoring-Tassel Typing</option>
+                    <option value="Tally">Tally</option>
+                    <option value="Teacher Development">Teacher Development</option>
+                    <option value="TTT">TTT</option>
+                    <option value="Wellbeing">Wellbeing</option>
+                    <option value="Women Development">Women Development</option>
+                    <option value="WSD">WSD</option>
+                </select><br>
 
-            <label for="Comment">Comment</label>
-            <div class="comment-box">
-                <textarea id="Comment" placeholder="Write our comment here"></textarea>
+                <label for="Project">Project</label>
+                <input type="text" id="Project" name="Project"><br>
+
+                <label for="Activity">Activity</label>
+                <input type="text" id="Activity" name="Activity"><br>
+
+                <label for="CentreType">Centre Type</label>
+                <select id="CentreType" name="CentreType" required>
+                    <option value="">Select an option</option>
+                    <option value="DJ Halli 1">DJ Halli1</option>
+                    <option value="DJ Halli 2">DJ Halli2</option>
+                    <option value="Bagalur">Bagalur</option>
+                    <option value="Mylanahalli">Mylanahalli</option>
+                    <option value="Kannur">Kannur</option>
+                    <option value="Koramangala">Koramangala</option>
+                </select><br>
+
+                <label for="Sessionnumber">Session Number</label>
+                <input type="text" id="Sessionnumber" name="Sessionnumber"><br>
+
+                <label for="Sponsor">Sponsor</label>
+                <select id="Sponsor" name="Sponsor" required>
+                    <option value="">Select an option</option>
+                    <option value="Vajra">Vajra</option>
+                    <option value="Bridge">Bridge</option>
+                    <option value="Taste Master">Taste Master</option>
+                    <option value="LICT">LICT</option>
+                    <option value="Others">Others</option>
+                </select><br>
+
+                <label for="Trainer_Type">Trainer Type</label>
+                <select id="Trainer_Type" name="Trainer_Type" required>
+                    <option value="">Select an option</option>
+                    <option value="Lead">Lead</option>
+                    <option value="Co-Facilator">Co-Facilator</option>
+                    <option value="Volunteer">Volunteer</option>
+                </select><br>
+
+                <label for="Beneficiaries">Beneficiaries</label>
+                <input type="number" id="Beneficiaries" name="Beneficiaries" style=" width: 90%; margin: 5px 0; padding: 8px; border: 1px solid #ccc; border-radius: 4px;"><br>
+
+                <label for="Category">Category</label>
+                <select id="Category" name="Category" required>
+                    <option value="Select an option">Select an option</option>
+                    <option value="Consultant">Consultant</option>
+                    <option value="Employee">Employee</option>
+                    <option value="Internship">Internship</option>
+                    <option value="New-Volunteer">New-Volunteer</option>
+                    <option value="Ex-Volunteer">Ex-Volunteer</option>
+                </select><br>
+
+                <label for="Duration">Duration</label>
+                <input type="number" id="Duration" name="Duration" style="width: 90%;margin: 6px 0;padding: 9px;border: 1px solid #ccc;border-radius: 4px;"><br>
+
+                <label for="Status">Status</label>
+                <select id="Status" name="Status" required>
+                    <option value="Select an option">Select an option</option>
+                    <option value="Start">Start</option>
+                    <option value="On-Going">On-Going</option>
+                    <option value="On-Hold">On-Hold</option>
+                    <option value="Completed">Completed</option>
+                    <option value="Orientation">Orientation</option>
+                    <option value="Travel">Travel</option>
+                </select><br>
+
+                <label for="Comment">Comment</label>
+                <div class="comment-box">
+                    <textarea id="Comment" placeholder="Write our comment here"></textarea>
+                </div>
+
+                <button onclick="validateAndSave()" id="btnSave">Edit</button>
+                <br>
+
+                <br>
+                <button onclick="hidePopup()" id="btnSaveDuplicate">Close</button>
+                <br>
             </div>
-
-            <button onclick="validateAndSave()" id="btnSave">Edit</button>
-            <br>
-
-            <br>
-            <button onclick="hidePopup()" id="btnSaveDuplicate">Close</button>
-            <br>
         </div>
     </div>
-</div>
 
-
-
+</form>
 
     {% endblock %}

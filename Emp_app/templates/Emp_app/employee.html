@@ -37,11 +37,22 @@
                     else {
                         product.val(resultobj[attrname]);
                     }
-
                 }
-
             }
         });
+    
+        function handleStatusChange() {
+            var status = document.getElementById("status").value;
+            var dateOfResigningField = document.getElementById("dateOfResigning").parentNode.parentNode;
+
+            if (status === "2") {
+                dateOfResigningField.style.display = "";
+            } else {
+                dateOfResigningField.style.display = "none";
+            }
+        }
+        handleStatusChange();
+        document.getElementById("status").addEventListener("change", handleStatusChange);
     });
 
     function isPastDate(id) {
@@ -312,7 +323,7 @@
             <!-- Full Name -->
             <tr>
                 <td><label for="fullname">Full Name *</label></td>
-                <td><input type="text" name="fullname" id="fullname" data-dbname="fullname" required></td>
+                <td><input type="text" name="fullname" id="fullname" data-dbname="fullname" required disabled ></td>
             </tr>
             <!-- Address -->
             <tr>
@@ -405,7 +416,7 @@
             <tr>
                 <td><label for="status">Status *</label></td>
                 <td>
-                    <select id="status" name="status" data-dbname="status" required disabled>
+                    <select id="status" name="status" data-dbname="status" required disabled onchange="handleStatusChange()">
                         <option value="">Select an option</option>
                         <option value="1">Active</option>
                         <option value="2">Resigned</option>
