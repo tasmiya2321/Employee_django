@@ -85,7 +85,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'Employee_Management.wsgi.application'
-
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 DATABASES = {
