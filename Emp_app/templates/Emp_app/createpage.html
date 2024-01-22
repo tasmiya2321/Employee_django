@@ -108,6 +108,12 @@
         });
     });
 </script>
+<script>
+    function submitForm() {
+        document.getElementById("createSessionForm").submit();
+    }
+</script>
+
 
 
 <style>
@@ -303,16 +309,16 @@
             <th>Date</th>
             <th>Resource Name</th>
             <th>Program</th>
-            <th>Project/Assignment</th>
-            <th>Activity</th>
+            <th>Project</th>
             <th>Center Type</th>
-            <th>Session Number</th>
-            <th>Trainer Type</th>
+            <th>Activity</th>
+            <th>Session_Number</th>
+            <th>Trainer_Type</th>
             <th>Hours</th>
             <th>Status</th>
-            <th>Beneficiaries</th>
+            <th>beneficiaries</th>
             <th>Category</th>
-            <th> Comments</th>
+            <th>Actions</th>
         </tr>
 
     </table>
@@ -325,139 +331,143 @@
     <div class="blank-box">
         <div class="scroll-container">
             <h2>Details</h2>
-            <label for="EmployeeID">Employee ID</label>
-            <input type="text" id="EmployeeID" name="EmployeeID" data-dbname="EmployeeID"><br>
+            <form method="post" action="{% url 'save_session' %}" id="createSessionForm">
 
-            <label for="date">Date</label>
-            <input type="date" id="date" name="date" data-dbname="Date"><br>
+                {% csrf_token %}
+                <label for="EmployeeID">Employee ID</label>
+                <input type="text" id="EmployeeID" name="EmployeeID" data-dbname="EmployeeID"><br>
 
-
-            <label for="ResourceName">Resource Name</label>
-            <input type="text" id="ResourceName" name="ResourceName" data-dbname="ResourceName"><br>
-
-
-            <label for="Program">Program</label>
-            <select id="Program" name="Program" required>
-                <option value="Select an option" data-dbname="SelectAnOption">Select an option</option>
-                <option value="Bridge Course" data-dbname="BridgeCourse">Bridge Course</option>
-                <option value="Academics" data-dbname="Academics">Academics</option>
-                <option value="After School Program" data-dbname="AfterSchoolProgram">After School Program</option>
-                <option value="Awareness Sessions" data-dbname="AwarenessSessions">Awareness Sessions</option>
-                <option value="Camps(Summer/Winter)" data-dbname="Camps">Camps(Summer/Winter)</option>
-                <option value="Career Guidance" data-dbname="CareerGuidance">Career Guidance</option>
-                <option value="Computer Coaching-Advanced" data-dbname="ComputerCoachingAdvanced">Computer Coaching-Advanced</option>
-                <option value="Computer Coaching-Basics with Typing" data-dbname="ComputerCoachingBasicsWithTyping">Computer Coaching-Basics with Typing</option>
-                <option value="Computer Coaching-Basics without Typing" data-dbname="ComputerCoachingBasicsWithoutTyping">Computer Coaching-Basics without Typing</option>
-                <option value="Computer Coaching-Typing" data-dbname="ComputerCoachingTyping">Computer Coaching-Typing</option>
-                <option value="Counselling" data-dbname="Counselling">Counselling</option>
-                <option value="E2E(Education to Employability)" data-dbname="E2E">E2E(Education to Employability)</option>
-                <option value="program1" data-dbname="Program1">Program 1</option>
-                <option value="Emotional Management" data-dbname="EmotionalManagement">Emotional Management</option>
-                <option value="Exam Readiness" data-dbname="ExamReadiness">Exam Readiness</option>
-                <option value="Gender Sensitivity" data-dbname="GenderSensitivity">Gender Sensitivity</option>
-                <option value="Internship" data-dbname="Internship">Internship</option>
-                <option value="Integrated Program" data-dbname="IntegratedProgram">Integrated Program</option>
-                <option value="Kannada" data-dbname="Kannada">Kannada</option>
-                <option value="Life Skills" data-dbname="LifeSkills">Life Skills</option>
-                <option value="Office Assistant" data-dbname="OfficeAssistant">Office Assistant</option>
-                <option value="Parental Guidance" data-dbname="ParentalGuidance">Parental Guidance</option>
-                <option value="Personality Development" data-dbname="PersonalityDevelopment">Personality Development</option>
-                <option value="Soft Skills" data-dbname="SoftSkills">Soft Skills</option>
-                <option value="Software Development" data-dbname="SoftwareDevelopment">Software Development</option>
-                <option value="Spoken English" data-dbname="SpokenEnglish">Spoken English</option>
-                <option value="Tailoring" data-dbname="Tailoring">Tailoring</option>
-                <option value="Tailoring-Tassel Typing" data-dbname="TailoringTasselTyping">Tailoring-Tassel Typing</option>
-                <option value="Tally" data-dbname="Tally">Tally</option>
-                <option value="Teacher Development" data-dbname="TeacherDevelopment">Teacher Development</option>
-                <option value="TTT" data-dbname="TTT">TTT</option>
-                <option value="Wellbeing" data-dbname="Wellbeing">Wellbeing</option>
-                <option value="Women Development" data-dbname="WomenDevelopment">Women Development</option>
-                <option value="WSD" data-dbname="WSD">WSD</option>
-
-            </select><br>
-
-            <label for="Project">Project</label>
-            <input type="text" id="Project" data-dbname="Project" name="Project"><br>
-
-            <label for="Activity">Activity</label>
-            <input type="text" id="Activity" data-dbname="Activity" name="Activity"><br>
-
-            <label for="CentreType">Centre Type</label>
-            <select id="CentreType" name="CentreType" required>
-                <option value="" data-dbname="SelectOption">Select an option</option>
-                <option value="DJ Halli 1" data-dbname="DJHalli1">DJ Halli 1</option>
-                <option value="DJ Halli 2" data-dbname="DJHalli2">DJ Halli 2</option>
-                <option value="Bagalur" data-dbname="Bagalur">Bagalur</option>
-                <option value="Mylanahalli" data-dbname="Mylanahalli">Mylanahalli</option>
-                <option value="Kannur" data-dbname="Kannur">Kannur</option>
-                <option value="Koramangala" data-dbname="Koramangala">Koramangala</option>
-
-            </select><br>
-
-            <label for="Sessionnumber">Session Number</label>
-            <input type="text" id="Sessionnumber" name="Sessionnumber" data-dbname="SessionNumber"><br>
-
-            <label for="Sponsor">Sponsor</label>
-            <select id="Sponsor" name="Sponsor" required>
-                <option value="">Select an option</option>
-                <option value="Vajra" data-dbname="Vajra">Vajra</option>
-                <option value="Bridge" data-dbname="Bridge">Bridge</option>
-                <option value="Taste Master" data-dbname="TasteMaster">Taste Master</option>
-                <option value="LICT" data-dbname="LICT">LICT</option>
-                <option value="Others" data-dbname="Others">Others</option>
-
-            </select><br>
-
-            <label for="Trainer_Type">Trainer Type</label>
-            <select id="Trainer_Type" name="Trainer_Type" required>
-                <option value="">Select an option</option>
-                <option value="Lead" data-dbname="Lead">Lead</option>
-                <option value="Co-Facilator" data-dbname="Co-Facilator">Co-Facilator</option>
-                <option value="Volunteer" data-dbname="Volunteer">Volunteer</option>
-            </select><br>
-
-            <label for="Beneficiaries">Beneficiaries</label>
-            <input type="number" id="Beneficiaries" name="Beneficiaries" data-dbname="Beneficiaries" style=" width: 90%; margin: 5px 0; padding: 8px; border: 1px solid #ccc; border-radius: 4px;"><br>
-
-            <label for="Category">Category</label>
-            <select id="Category" name="Category" required>
-                <option value="Select an option" data-dbname="SelectAnOption">Select an option</option>
-                <option value="Consultant" data-dbname="Consultant">Consultant</option>
-                <option value="Employee" data-dbname="Employee">Employee</option>
-                <option value="Internship" data-dbname="Internship">Internship</option>
-                <option value="New-Volunteer" data-dbname="NewVolunteer">New-Volunteer</option>
-                <option value="Ex-Volunteer" data-dbname="ExVolunteer">Ex-Volunteer</option>
-
-            </select><br>
-
-            <label for="Duration">Duration</label>
-            <input type="number" id="Duration" name="Duration" data-dbname="Duration" style="width: 90%;margin: 6px 0;padding: 9px;border: 1px solid #ccc;border-radius: 4px;"><br>
+                <label for="date">Date</label>
+                <input type="date" id="date" name="date" data-dbname="Date"><br>
 
 
-            <label for="Status">Status</label>
-            <select id="Status" name="Status" required>
-                <option value="Select an option" data-dbname="SelectAnOption">Select an option</option>
-                <option value="Start" data-dbname="Start">Start</option>
-                <option value="On-Going" data-dbname="OnGoing">On-Going</option>
-                <option value="On-Hold" data-dbname="OnHold">On-Hold</option>
-                <option value="Completed" data-dbname="Completed">Completed</option>
-                <option value="Orientation" data-dbname="Orientation">Orientation</option>
-                <option value="Travel" data-dbname="Travel">Travel</option>
+                <label for="ResourceName">Resource Name</label>
+                <input type="text" id="ResourceName" name="ResourceName" data-dbname="ResourceName"><br>
 
-            </select><br>
 
-            <label for="Comment">Comment</label>
-            <div class="comment-box">
-                <textarea id="Comment" name="Comment" data-dbname="Comment" placeholder="Write your comment here"></textarea>
-            </div><br>
+                <label for="Program">Program</label>
+                <select id="Program" name="Program" required>
+                    <option value="Select an option" data-dbname="SelectAnOption">Select an option</option>
+                    <option value="Bridge Course" data-dbname="BridgeCourse">Bridge Course</option>
+                    <option value="Academics" data-dbname="Academics">Academics</option>
+                    <option value="After School Program" data-dbname="AfterSchoolProgram">After School Program</option>
+                    <option value="Awareness Sessions" data-dbname="AwarenessSessions">Awareness Sessions</option>
+                    <option value="Camps(Summer/Winter)" data-dbname="Camps">Camps(Summer/Winter)</option>
+                    <option value="Career Guidance" data-dbname="CareerGuidance">Career Guidance</option>
+                    <option value="Computer Coaching-Advanced" data-dbname="ComputerCoachingAdvanced">Computer Coaching-Advanced</option>
+                    <option value="Computer Coaching-Basics with Typing" data-dbname="ComputerCoachingBasicsWithTyping">Computer Coaching-Basics with Typing</option>
+                    <option value="Computer Coaching-Basics without Typing" data-dbname="ComputerCoachingBasicsWithoutTyping">Computer Coaching-Basics without Typing</option>
+                    <option value="Computer Coaching-Typing" data-dbname="ComputerCoachingTyping">Computer Coaching-Typing</option>
+                    <option value="Counselling" data-dbname="Counselling">Counselling</option>
+                    <option value="E2E(Education to Employability)" data-dbname="E2E">E2E(Education to Employability)</option>
+                    <option value="program1" data-dbname="Program1">Program 1</option>
+                    <option value="Emotional Management" data-dbname="EmotionalManagement">Emotional Management</option>
+                    <option value="Exam Readiness" data-dbname="ExamReadiness">Exam Readiness</option>
+                    <option value="Gender Sensitivity" data-dbname="GenderSensitivity">Gender Sensitivity</option>
+                    <option value="Internship" data-dbname="Internship">Internship</option>
+                    <option value="Integrated Program" data-dbname="IntegratedProgram">Integrated Program</option>
+                    <option value="Kannada" data-dbname="Kannada">Kannada</option>
+                    <option value="Life Skills" data-dbname="LifeSkills">Life Skills</option>
+                    <option value="Office Assistant" data-dbname="OfficeAssistant">Office Assistant</option>
+                    <option value="Parental Guidance" data-dbname="ParentalGuidance">Parental Guidance</option>
+                    <option value="Personality Development" data-dbname="PersonalityDevelopment">Personality Development</option>
+                    <option value="Soft Skills" data-dbname="SoftSkills">Soft Skills</option>
+                    <option value="Software Development" data-dbname="SoftwareDevelopment">Software Development</option>
+                    <option value="Spoken English" data-dbname="SpokenEnglish">Spoken English</option>
+                    <option value="Tailoring" data-dbname="Tailoring">Tailoring</option>
+                    <option value="Tailoring-Tassel Typing" data-dbname="TailoringTasselTyping">Tailoring-Tassel Typing</option>
+                    <option value="Tally" data-dbname="Tally">Tally</option>
+                    <option value="Teacher Development" data-dbname="TeacherDevelopment">Teacher Development</option>
+                    <option value="TTT" data-dbname="TTT">TTT</option>
+                    <option value="Wellbeing" data-dbname="Wellbeing">Wellbeing</option>
+                    <option value="Women Development" data-dbname="WomenDevelopment">Women Development</option>
+                    <option value="WSD" data-dbname="WSD">WSD</option>
 
-            <button onclick="validateAndSave()" id="btnSave">Save</button>
-            <br>
-            <button onclick="validateAndSave(true)" id="btnSaveDuplicate">Save and Duplicate</button>
-            <br>
-            <br>
-            <button onclick="hidePopup()" id="btnSaveDuplicate">Close</button>
-            <br>
+                </select><br>
+
+                <label for="Project">Project</label>
+                <input type="text" id="Project" data-dbname="Project" name="Project"><br>
+
+                <label for="Activity">Activity</label>
+                <input type="text" id="Activity" data-dbname="Activity" name="Activity"><br>
+
+                <label for="CentreType">Centre Type</label>
+                <select id="CentreType" name="CentreType" required>
+                    <option value="" data-dbname="SelectOption">Select an option</option>
+                    <option value="DJ Halli 1" data-dbname="DJHalli1">DJ Halli 1</option>
+                    <option value="DJ Halli 2" data-dbname="DJHalli2">DJ Halli 2</option>
+                    <option value="Bagalur" data-dbname="Bagalur">Bagalur</option>
+                    <option value="Mylanahalli" data-dbname="Mylanahalli">Mylanahalli</option>
+                    <option value="Kannur" data-dbname="Kannur">Kannur</option>
+                    <option value="Koramangala" data-dbname="Koramangala">Koramangala</option>
+
+                </select><br>
+
+                <label for="Sessionnumber">Session Number</label>
+                <input type="text" id="Sessionnumber" name="Sessionnumber" data-dbname="SessionNumber"><br>
+
+                <label for="Sponsor">Sponsor</label>
+                <select id="Sponsor" name="Sponsor" required>
+                    <option value="">Select an option</option>
+                    <option value="Vajra" data-dbname="Vajra">Vajra</option>
+                    <option value="Bridge" data-dbname="Bridge">Bridge</option>
+                    <option value="Taste Master" data-dbname="TasteMaster">Taste Master</option>
+                    <option value="LICT" data-dbname="LICT">LICT</option>
+                    <option value="Others" data-dbname="Others">Others</option>
+
+                </select><br>
+
+                <label for="Trainer_Type">Trainer Type</label>
+                <select id="Trainer_Type" name="Trainer_Type" required>
+                    <option value="">Select an option</option>
+                    <option value="Lead" data-dbname="Lead">Lead</option>
+                    <option value="Co-Facilator" data-dbname="Co-Facilator">Co-Facilator</option>
+                    <option value="Volunteer" data-dbname="Volunteer">Volunteer</option>
+                </select><br>
+
+                <label for="Beneficiaries">Beneficiaries</label>
+                <input type="number" id="Beneficiaries" name="Beneficiaries" data-dbname="Beneficiaries" style=" width: 90%; margin: 5px 0; padding: 8px; border: 1px solid #ccc; border-radius: 4px;"><br>
+
+                <label for="Category">Category</label>
+                <select id="Category" name="Category" required>
+                    <option value="Select an option" data-dbname="SelectAnOption">Select an option</option>
+                    <option value="Consultant" data-dbname="Consultant">Consultant</option>
+                    <option value="Employee" data-dbname="Employee">Employee</option>
+                    <option value="Internship" data-dbname="Internship">Internship</option>
+                    <option value="New-Volunteer" data-dbname="NewVolunteer">New-Volunteer</option>
+                    <option value="Ex-Volunteer" data-dbname="ExVolunteer">Ex-Volunteer</option>
+
+                </select><br>
+
+                <label for="Duration">Duration</label>
+                <input type="number" id="Duration" name="Duration" data-dbname="Duration" style="width: 90%;margin: 6px 0;padding: 9px;border: 1px solid #ccc;border-radius: 4px;"><br>
+
+
+                <label for="Status">Status</label>
+                <select id="Status" name="Status" required>
+                    <option value="Select an option" data-dbname="SelectAnOption">Select an option</option>
+                    <option value="Start" data-dbname="Start">Start</option>
+                    <option value="On-Going" data-dbname="OnGoing">On-Going</option>
+                    <option value="On-Hold" data-dbname="OnHold">On-Hold</option>
+                    <option value="Completed" data-dbname="Completed">Completed</option>
+                    <option value="Orientation" data-dbname="Orientation">Orientation</option>
+                    <option value="Travel" data-dbname="Travel">Travel</option>
+
+                </select><br>
+
+                <label for="Comment">Comment</label>
+                <div class="comment-box">
+                    <textarea id="Comment" name="Comment" data-dbname="Comment" placeholder="Write your comment here"></textarea>
+                </div><br>
+
+                <button onclick="validateAndSave()" id="btnSave">Save</button>
+                <br>
+                <button onclick="validateAndSave(true)" id="btnSaveDuplicate">Save and Duplicate</button>
+                <br>
+                <br>
+                <button onclick="hidePopup()" id="btnSaveDuplicate">Close</button>
+                <br>
+            </form>
         </div>
     </div>
 </div>

@@ -3,7 +3,8 @@
 {% load lower_filter %}
 
 {% block css %}
-<script>document.addEventListener('DOMContentLoaded', function () {
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
         // Your existing JavaScript goes here
         document.querySelector(".filter-icon").addEventListener("click", function () {
             var dropdown = document.querySelector(".dropdowns"); // Updated class name here
@@ -82,7 +83,8 @@
     function updateTable(data) {
         // You'll need to implement this based on how you want to display the data
         // Typically, you'll clear the existing rows and add new rows based on the data returned from your server
-    }</script>
+    }
+</script>
 
 
 
@@ -420,7 +422,8 @@
 
 <button id="but" onclick="openCreatePage()">Create</button>
 
-<form method="post" action="{% url 'save_create' %}" id="createSessionForm">
+<form method="post" action="{% url 'save_session' %}">
+
     {% csrf_token %}
 
     <div class="table">
@@ -478,10 +481,12 @@
         </table>
     </div>
 
-    <script>function openCreatePage() {
+    <script>
+        function openCreatePage() {
             var url = "{% url 'createpage' %}"; // Use the Django URL template tag
             window.open(url, 'Create Page', 'height=600,width=800');
-        }</script>
+        }
+    </script>
     <!-- Add Modal -->
     <!-- Popup box -->
     <div id="popup" class="popup">
