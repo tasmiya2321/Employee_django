@@ -54,8 +54,8 @@
     <Content Include="Emp_app\static\eyes close.jpg" />
     <Content Include="Emp_app\static\eyes open.webp" />
     <Content Include="Emp_app\static\menuicon.jpg" />
+    <Content Include="Emp_app\templates\change_password.html" />
     <Content Include="Emp_app\templates\Emp_app\base.html" />
-    <Content Include="Emp_app\templates\Emp_app\change_password.html" />
     <Content Include="Emp_app\templates\Emp_app\createpage.html" />
     <Content Include="Emp_app\templates\Emp_app\email.html" />
     <Content Include="Emp_app\templates\Emp_app\employee.html" />

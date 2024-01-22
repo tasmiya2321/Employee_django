@@ -1,5 +1,3 @@
-
-
 {% extends "Emp_app/base.html" %}
 {% block css %}
 
@@ -40,7 +38,7 @@
                 }
             }
         });
-    
+
         function handleStatusChange() {
             var status = document.getElementById("status").value;
             var dateOfResigningField = document.getElementById("dateOfResigning").parentNode.parentNode;
@@ -75,29 +73,10 @@
 
     function validateDates() {
         debugger;
-
-        if (document.getElementById('dateofJoining').disabled === false) {
-            if (!isPastDate('dateofJoining')) {
-                alert('Date of Joining cannot be a future date or the same as the current date.');
-                return false;
-            }
-        }
-        if (document.getElementById('dateOfResigning').disabled === false) {
-            if (!isPastDate('dateOfResigning')) {
-                alert('Date of Resigning cannot be a future date or the same as the current date.');
-                return false;
-            }
-        }
-        if (document.getElementById('dateOfBirth').disabled === false) {
-            if (!isAtLeast18YearsOld('dateOfBirth')) {
-                alert('Date of Birth should be at least 18 years before and cannot be the current date or a future date.');
-                return false;
-            }
-        }
-
         if (!toggleEditUpdate()) {
             return false;
         }
+
         return true;
     }
 
@@ -122,6 +101,66 @@
             updateButton.disabled = true;
         }
     }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const dateOfBirthInput = document.getElementById('dateOfBirth');
+
+       
+        const maxDate = new Date();
+        maxDate.setFullYear(maxDate.getFullYear() - 18);
+
+      
+        const maxDateFormatted = maxDate.toISOString().split('T')[0];
+        dateOfBirthInput.setAttribute('max', maxDateFormatted);
+
+      
+        dateOfBirthInput.addEventListener('input', function () {
+            const selectedDate = new Date(dateOfBirthInput.value);
+
+            if (selectedDate > maxDate) {
+                alert('You must be at least 18 years old. Please select a valid date.');
+                dateOfBirthInput.value = ''; 
+            }
+        });
+    });
+
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const dateOfJoiningInput = document.getElementById('dateofJoining');
+
+       
+        const today = new Date().toISOString().split('T')[0];
+        dateOfJoiningInput.setAttribute('max', today);
+
+    
+        dateOfJoiningInput.addEventListener('input', function () {
+            const selectedDate = dateOfJoiningInput.value;
+
+            if (selectedDate > today) {
+                alert('Please select a date on or before today for Date of Joining.');
+                dateOfJoiningInput.value = today; 
+            }
+        });
+    });
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const dateOfResigningInput = document.getElementById('dateOfResigning');
+
+        
+        const today = new Date().toISOString().split('T')[0];
+        dateOfResigningInput.setAttribute('max', today);
+
+       
+        dateOfResigningInput.addEventListener('input', function () {
+            const selectedDate = dateOfResigningInput.value;
+
+            if (selectedDate > today) {
+                alert('Please select a date on or before today.');
+                dateOfResigningInput.value = today;
+            }
+        });
+    });
+
 
 </script>
 
@@ -323,7 +362,7 @@
             <!-- Full Name -->
             <tr>
                 <td><label for="fullname">Full Name *</label></td>
-                <td><input type="text" name="fullname" id="fullname" data-dbname="fullname" required disabled ></td>
+                <td><input type="text" name="fullname" id="fullname" data-dbname="fullname" required disabled></td>
             </tr>
             <!-- Address -->
             <tr>
@@ -374,7 +413,7 @@
             <!-- Employee ID -->
             <tr>
                 <td><label for="employeeId">Employee ID *</label></td>
-                <td><input type="text" id="employeeId" name="employeeId" data-dbname="emp_id" required disabled></td>
+                <td><input type="text" id="employeeId" name="employeeId" data-dbname="emp_id" required readonly></td>
             </tr>
 
 
