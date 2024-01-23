@@ -38,20 +38,21 @@
                 }
             }
         });
-
-        function handleStatusChange() {
-            var status = document.getElementById("status").value;
-            var dateOfResigningField = document.getElementById("dateOfResigning").parentNode.parentNode;
-
-            if (status === "2") {
-                dateOfResigningField.style.display = "";
-            } else {
-                dateOfResigningField.style.display = "none";
-            }
-        }
-        handleStatusChange();
-        document.getElementById("status").addEventListener("change", handleStatusChange);
     });
+
+    function handleStatusChange() {
+        var status = document.getElementById("status").value;
+        var dateOfResigningField = document.getElementById("dateOfResigning").parentNode.parentNode;
+
+        if (status === "2") {
+            dateOfResigningField.style.display = "";
+        } else {
+            dateOfResigningField.style.display = "none";
+        }
+    }
+    handleStatusChange();
+    document.getElementById("status").addEventListener("change", handleStatusChange);
+
 
     function isPastDate(id) {
         var today = new Date();
