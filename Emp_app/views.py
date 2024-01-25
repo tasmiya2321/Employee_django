@@ -1,3 +1,4 @@
+from ast import Module
 from distutils.sysconfig import project_base
 from django.views.decorators.csrf import csrf_exempt
 from django.forms.models import model_to_dict
@@ -28,7 +29,8 @@ def home(request):
 
     return render(request, "Emp_app/home.html", {'programs': programs})
 
-
+def admin_module(request):
+     return render(request, "Emp_app/admin_module.html")
 
 def forgetpassword(request):
      return render(request, "Emp_app/forgetpassword.html")
