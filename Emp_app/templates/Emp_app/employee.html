@@ -134,11 +134,6 @@
 </script>
 
 <style>
-    body {
-        font-family: helvetica;
-        padding: 20px;
-        background-color: #f4f4f4;
-    }
 
     .employee-details-title {
         text-align: center;
@@ -449,6 +444,14 @@
                     </select>
                 </td>
             </tr>
+            
+                <!--{% if user.is_staff %}-->
+                    <!-- Admin-specific field -->
+                    <!--<tr>
+                        <td><label for="adminField">Admin Field *</label></td>
+                        <td><input type="text" name="adminField" id="adminField" data-dbname="admin_field" required disabled></td>
+                    </tr>
+                {% endif %}-->
         </table>
 
         <br><hr><br>

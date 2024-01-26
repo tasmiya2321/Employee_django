@@ -40,9 +40,9 @@
         }
 
         .logo {
-            width:185px;
+            width: 185px;
             height: auto;
-            margin-top: -25px;
+            margin-top: -50px;
             position: absolute;
             left: 10%;
             transform: translateX(-50%);
@@ -261,7 +261,10 @@
         <img src="/static/cf_logo.png" alt="CF Logo" class="logo">
 
         <div class="dropdow">
-            <span id="Role" class="id-symbol" onclick="toggleDropdown()">{{ user.get_username }} &#9660; <i class="fa-solid fa-circle-user fa-2xl" style="color: #5c626a;"></i></span>
+            <span id="Role" class="id-symbol" onclick="toggleDropdown()">
+                {{ user.get_username }} {% if user.is_staff %}(Admin) {% endif %}&#9660;
+                <i class="fa-solid fa-circle-user fa-2xl" style="color: #5c626a;"></i>
+            </span>
             <div class="dropdown-content" id="dropdownContent">
                 <a href="{% url 'employee' %}">Profile</a>
                 <a href="{% url 'change_password' %}">Change password</a>
@@ -269,6 +272,7 @@
             </div>
         </div>
 
+      
         {% block header %}
 
         {% endblock %}

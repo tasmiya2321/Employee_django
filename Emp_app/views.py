@@ -17,6 +17,7 @@ from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy
 from django.contrib.auth.views import PasswordResetView
 from django.contrib.messages.views import SuccessMessageMixin
+from django.contrib.auth import authenticate, login
 from django.db.models import Q
 
 
@@ -99,6 +100,10 @@ def saveemployee(request):
             emp_details.ifsc = request.POST.get('ifscCode') 
             emp_details.branch = request.POST.get('branchName') 
             emp_details.account_type = request.POST.get('accountType') 
+            
+            if 'adminField' in request.POST:
+                emp_details.admin_field = request.POST.get('adminField')
+
 
             # Save the changes to the database
             emp_details.save()
@@ -150,6 +155,32 @@ def userlogin(request):
         
          return render(request, 'login.html') 
      
+     
+
+def userlogin(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+
+        user = authenticate(request, username=username, password=password)
+
+        if user is not None:
+            login(request, user)
+
+            if user.is_staff:
+                return redirect('admin_module')  # Redirect to the admin module for admin users
+            else:
+                return redirect('home')  # Redirect to the home page for regular users
+
+        else:
+            # Authentication failed, handle the error or display a message
+            return render(request, 'registration/login.html', {'error_message': 'Incorrect username and/or password.'})
+
+    else:
+        # Handle GET requests, if needed
+        return render(request, 'registration/login.html')
+
+
 # @login_required    
 def change_password(request):
     if request.method == 'POST':

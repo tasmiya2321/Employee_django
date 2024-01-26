@@ -17,10 +17,7 @@
 </script>
 
 <style>
-    body {
-        font-family: Arial, Helvetica, sans-serif;
-        padding-top: 70px; /* Adjust this value based on the header's height */
-    }
+
 
     .container {
         width: 70%;
@@ -33,8 +30,7 @@
         font-size: 25px;
         color: orange;
         text-align: center;
-        padding: 10px;
-        top: 18%;
+        margin-top: -15%;
         margin-left: 50%;
         transform: translateX(-50%);
     }
@@ -68,7 +64,7 @@
         display: flex;
         justify-content: space-between;
         align-items: flex-start;
-        background-color: #f3f3f3;
+        background-color: white;
         border-radius: 5px;
         padding: 8px 20px;
         margin-bottom: 25px;
@@ -100,40 +96,49 @@
         font-size: 10px;
         color: orange;
         margin-left: 90%;
-        margin-bottom: -8%;
+        background-color: white;
         border: 1px solid #ccc;
-        border-radius: 45%;
+        border-radius: 40px;
+        padding: 4px;
+        margin-top: -31%;
     }
 
     .plusIcon {
-        margin-left: 15%;
+        margin-left: 10%;
         font-size: 30px;
-        margin-top: -42px;
+        margin-top: -30px;
     }
 
     .ad {
         margin-left: 40%;
+        margin-top: 5px;
     }
 </style>
 
-{% end block %}
+{% endblock %}
+
+
+
+{% block header %}
+
+<div class="fixed-header">
+    <h1 style=" margin-top: -25px; ">Employee details</h1>
+</div>
+
+
+{% endblock %}
 
 {% block content %}
-
+{% if user.is_staff %}
 <div class="container">
-    <div class="add">
-        <div class="add_box">
-            <h1 class="ad">Add</h1>
-            <div onclick="togglePasswordVisibility()" class="plusIcon">+</div>
 
-        </div>
-    </div>
+    <h1 class="main-header">All Employees</h1><br /><br />
 
-    <h1 class="main-header">All Employees</h1>
     <div class="employee-header">
         <div class="name">Name</div>
         <div class="role">Role</div>
-    </div>
+    </div><br />
+
     <div class="employee">
         <div class="name">Jimmy Cherian</div>
         <div class="role_name" style="right: 49%;">Founder</div>
@@ -166,4 +171,15 @@
 </div>
 
 
-{% end block %}
+<div class="add" style=" margin-right: 18%; margin-top: -31%; position:relative">
+    <div class="add_box">
+        <h1 class="ad">Add</h1>
+        <div onclick="togglePasswordVisibility()" class="plusIcon">+</div>
+
+    </div>
+</div>
+{% else %}
+<p>You don't have permission to view this page.</p>
+{% endif %}
+
+{% endblock %}
