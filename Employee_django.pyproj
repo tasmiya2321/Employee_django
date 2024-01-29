@@ -54,6 +54,7 @@
     <Content Include="Emp_app\static\eyes close.jpg" />
     <Content Include="Emp_app\static\eyes open.webp" />
     <Content Include="Emp_app\static\menuicon.jpg" />
+    <Content Include="Emp_app\templates\change_password.html" />
     <Content Include="Emp_app\templates\Emp_app\base.html" />
     <Content Include="Emp_app\templates\Emp_app\change_password.html" />
     <Content Include="Emp_app\templates\Emp_app\createpage.html" />
@@ -115,8 +116,8 @@
   <ItemGroup>
     <Interpreter Include="ems\">
       <Id>ems</Id>
-      <Version>3.11</Version>
-      <Description>ems (Python 3.11 (64-bit))</Description>
+      <Version>3.9</Version>
+      <Description>ems (Python 3.9 (64-bit))</Description>
       <InterpreterPath>Scripts\python.exe</InterpreterPath>
       <WindowsInterpreterPath>Scripts\pythonw.exe</WindowsInterpreterPath>
       <PathEnvironmentVariable>PYTHONPATH</PathEnvironmentVariable>
