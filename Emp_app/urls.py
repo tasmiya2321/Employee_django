@@ -1,4 +1,3 @@
-
 from os import name
 from django.contrib import admin
 from django.urls import path
@@ -8,6 +7,9 @@ from django.urls import reverse_lazy
 from django.contrib.auth.views import PasswordResetView
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.views import LoginView
+from .views import admin_module
+
+
 # class ResetPasswordView(SuccessMessageMixin, PasswordResetView):
 #     template_name = 'users/password_reset.html'
 #     email_template_name = 'users/password_reset_email.html'
@@ -21,7 +23,7 @@ from django.contrib.auth.views import LoginView
 
 
 urlpatterns = [
-    path('', LoginView.as_view(template_name='Registration/login.html'), name='login'),
+    path('', LoginView.as_view(template_name='registration/login.html'), name='login'),
     path("home/", views.home, name="home"),
     path("employee/", views.employee, name="employee"),
     path("saveemployee/", views.saveemployee, name="saveemployee"),
@@ -29,6 +31,7 @@ urlpatterns = [
     path('reset_password/', views.reset_password, name='reset_password'),
     path('home/', views.home, name='home'),
     path('admin/', admin.site.urls),
+    path('admin_module/', admin_module, name='admin_module'),
     path("accounts/", include("django.contrib.auth.urls")),
     path('change_password/', views.change_password, name='change_password'),
     path('Session_main/', views.Session_main, name='Session_main'),
@@ -41,4 +44,3 @@ urlpatterns = [
 # if settings.DEBUG:
 #     from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 #     urlpatterns += staticfiles_urlpatterns()
-

@@ -1,0 +1,185 @@
+{% extends "Emp_app/base.html" %}
+{% block css %}
+
+<script>
+    function togglePasswordVisibility() {
+        var passwordInput = document.getElementById('id_password');
+        var eyeIcon = document.getElementById('eyeIcon');
+
+        if (passwordInput.type === "password") {
+            passwordInput.type = "text";
+            eyeIcon.innerHTML = '🙈'; // HTML entity for eye open
+        } else {
+            passwordInput.type = "password";
+            eyeIcon.innerHTML = '👁️'; // HTML entity for eye closed
+        }
+    }
+</script>
+
+<style>
+
+
+    .container {
+        width: 70%;
+        margin: auto;
+        margin-top: 10%;
+        margin-left: 15%;
+    }
+
+    .main-header {
+        font-size: 25px;
+        color: orange;
+        text-align: center;
+        margin-top: -15%;
+        margin-left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .employee-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 20px;
+    }
+
+    .employee-list {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .employee-header .name {
+        font-weight: bold;
+        margin-left: 4px;
+        font-size: 20px;
+    }
+
+    .employee-header .role {
+        font-weight: bold;
+        font-size: 20px;
+        margin-right: 50%;
+    }
+
+    .employee {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        background-color: white;
+        border-radius: 5px;
+        padding: 8px 20px;
+        margin-bottom: 25px;
+        flex-direction: row;
+    }
+
+    .role_name {
+        position: absolute;
+        right: 48%;
+    }
+
+    .fst_eyeIcon {
+        margin-right: -40%;
+    }
+
+    .fst_pencilIcon {
+        margin-left: -20%;
+        position: static;
+    }
+
+    .icon-container {
+        right: 5%;
+        position: absolute;
+        display: flex;
+        align-items: center;
+    }
+
+    .add_box {
+        font-size: 10px;
+        color: orange;
+        margin-left: 90%;
+        background-color: white;
+        border: 1px solid #ccc;
+        border-radius: 40px;
+        padding: 4px;
+        margin-top: -31%;
+    }
+
+    .plusIcon {
+        margin-left: 10%;
+        font-size: 30px;
+        margin-top: -30px;
+    }
+
+    .ad {
+        margin-left: 40%;
+        margin-top: 5px;
+    }
+</style>
+
+{% endblock %}
+
+
+
+{% block header %}
+
+<div class="fixed-header">
+    <h1 style=" margin-top: -25px; ">Employee details</h1>
+</div>
+
+
+{% endblock %}
+
+{% block content %}
+{% if user.is_staff %}
+<div class="container">
+
+    <h1 class="main-header">All Employees</h1><br /><br />
+
+    <div class="employee-header">
+        <div class="name">Name</div>
+        <div class="role">Role</div>
+    </div><br />
+
+    <div class="employee">
+        <div class="name">Jimmy Cherian</div>
+        <div class="role_name" style="right: 49%;">Founder</div>
+        <div onclick="togglePasswordVisibility()" class="fst_eyeIcon">👁️</div>
+        <div onclick="toggleEditMode()" class="fst_pencilIcon">✏️</div>
+    </div>
+
+    <div class="employee">
+        <div class="name">Smita</div>
+        <div class="role_name">Employee</div>
+        <div onclick="togglePasswordVisibility()" class="fst_eyeIcon" style="margin-right: -48%;">👁️</div>
+        <div onclick="toggleEditMode()" class="fst_pencilIcon">✏️</div>
+
+    </div>
+    <div class="employee">
+        <div class="name">Preethi</div>
+        <div class="role_name">Employee</div>
+        <div onclick="togglePasswordVisibility()" class="fst_eyeIcon" style="margin-right: -47%;">👁️</div>
+        <div onclick="toggleEditMode()" class="fst_pencilIcon">✏️</div>
+
+    </div>
+    <div class="employee">
+        <div class="name">Geetha Suresh</div>
+        <div class="role_name">Employee</div>
+        <div onclick="togglePasswordVisibility()" class="fst_eyeIcon">👁️</div>
+        <div onclick="toggleEditMode()" class="fst_pencilIcon">✏️</div>
+
+    </div>
+
+</div>
+
+
+<div class="add" style=" margin-right: 18%; margin-top: -31%; position:relative">
+    <div class="add_box">
+        <h1 class="ad">Add</h1>
+        <div onclick="togglePasswordVisibility()" class="plusIcon">+</div>
+
+    </div>
+</div>
+{% else %}
+<p>You don't have permission to view this page.</p>
+{% endif %}
+
+{% endblock %}

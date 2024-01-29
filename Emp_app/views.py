@@ -1,3 +1,4 @@
+from ast import Module
 from distutils.sysconfig import project_base
 from django.views.decorators.csrf import csrf_exempt
 from django.forms.models import model_to_dict
@@ -11,24 +12,14 @@ import json
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
 from django.shortcuts import render, redirect
-
-
+from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy
 from django.contrib.auth.views import PasswordResetView
 from django.contrib.messages.views import SuccessMessageMixin
+from django.contrib.auth import authenticate, login
 from django.db.models import Q
 
-# class ResetPasswordView(SuccessMessageMixin, PasswordResetView):
-#     template_name = 'Emp_app/reset_password.html'
-#     email_template_name = 'Emp_app/email.html'
-#     subject_template_name ='Emp_app/subject_email'
-#     success_message = "We've emailed you instructions for setting your password, " \
-#                       "if an account exists with the email you entered. You should receive them shortly." \
-#                       " If you don't receive an email, " \
-#                       "please make sure you've entered the address you registered with, and check your spam folder."
-#     success_url = reverse_lazy('index')
-    
 
 @login_required
 def home(request):
@@ -39,7 +30,8 @@ def home(request):
 
     return render(request, "Emp_app/home.html", {'programs': programs})
 
-
+def admin_module(request):
+     return render(request, "Emp_app/admin_module.html")
 
 def forgetpassword(request):
      return render(request, "Emp_app/forgetpassword.html")
@@ -51,20 +43,27 @@ def index(request):
 
 
 
-
 @login_required
 def employee(request):
     if request.method == 'GET':
         return render(request, "Emp_app/employee.html")
     else:
-        var = request.POST.get("data")
-        var = var[:-1]
-        var = var.strip()
+        # var = request.POST.get("data")
+        # var = var[:-1]
+        # var = var.strip()
 
-        variable_column = 'fullname'
-        search_type = 'iexact'
-        strfilter = variable_column + '__' + search_type
-        emp_details = EmpDetails.objects.filter(**{strfilter: var})
+        # variable_column = 'username'
+        # search_type = 'iexact'
+        # strfilter = variable_column + '__' + search_type
+        # emp_details = EmpDetails.objects.filter(**{strfilter: var})
+
+        emp_id = request.POST.get("data","")
+        emp_id = emp_id[:-1]
+        emp_id = emp_id.strip()
+    
+        strfilter = 'username__username__iexact' 
+        emp_details = EmpDetails.objects.filter(**{strfilter: emp_id})
+
 
         my_dict = {}
 
@@ -73,43 +72,50 @@ def employee(request):
 
         return JsonResponse({"info": json.dumps(my_dict)})
 
-   
 @login_required
 def saveemployee(request):
-    try:
-        Value = request.POST.get('fullname')
-        emp_details = EmpDetails.objects.get(fullname=Value)
-        emp_details.address = request.POST.get('address')
-        emp_details.dob = request.POST.get('dob')
-        emp_details.phone_number = request.POST.get('phonenumber') 
-        emp_details.email_id = request.POST.get('emailId') 
-        emp_details.gender = request.POST.get('gender')
-        emp_details.employeeId = request.POST.get('employeeId') 
-        emp_details.centre = request.POST.get('centre')
-        emp_details.designation = request.POST.get('designation')
-        emp_details.date_of_joining = request.POST.get('dateofJoining')  
-        emp_details.education_qualification = request.POST.get('educationQualification') 
-        emp_details.status = request.POST.get('status')
-        emp_details.date_of_resigning = request.POST.get('dateofResigning')
-        emp_details.resource_type = request.POST.get('resourceType') 
-        emp_details.bank_name = request.POST.get('bankName') 
-        emp_details.name_as_per_bank = request.POST.get('nameAsPerBank')  
-        emp_details.account_number = request.POST.get('accountNumber')  
-        emp_details.ifsc = request.POST.get('ifscCode') 
-        emp_details.branch = request.POST.get('branchName') 
-        emp_details.account_type = request.POST.get('accountType') 
+     if request.method == 'POST':
+        emp_id = request.POST.get('employeeId')
+        try:
+            emp_details = EmpDetails.objects.get(emp_id=emp_id)
 
-        # Save the changes to the database
-        emp_details.save()
-        messages.success(request, 'Employee details updated successfully!')
 
-    except EmpDetails.DoesNotExist:
-        messages.error(request, 'Employee not found.')
-    except Exception as e:
-        messages.error(request, 'Failed to update employee details: {}'.format(e))
+            emp_details.fullname = request.POST.get('fullname')
+            emp_details.address = request.POST.get('address')
+            emp_details.dob = request.POST.get('dob')
+            emp_details.phone_number = request.POST.get('phonenumber') 
+            emp_details.email_id = request.POST.get('emailId') 
+            emp_details.gender = request.POST.get('gender')
+            emp_details.employeeId = request.POST.get('employeeId') 
+            emp_details.centre = request.POST.get('centre')
+            emp_details.designation = request.POST.get('designation')
+            emp_details.date_of_joining = request.POST.get('dateofJoining')  
+            emp_details.education_qualification = request.POST.get('educationQualification') 
+            emp_details.status = request.POST.get('status')
+            emp_details.date_of_resigning = request.POST.get('dateofResigning')
+            emp_details.resource_type = request.POST.get('resourceType') 
+            emp_details.bank_name = request.POST.get('bankName') 
+            emp_details.name_as_per_bank = request.POST.get('nameAsPerBank')  
+            emp_details.account_number = request.POST.get('accountNumber')  
+            emp_details.ifsc = request.POST.get('ifscCode') 
+            emp_details.branch = request.POST.get('branchName') 
+            emp_details.account_type = request.POST.get('accountType') 
+            
+            if 'adminField' in request.POST:
+                emp_details.admin_field = request.POST.get('adminField')
 
-    return render(request, "Emp_app/employee.html")
 
+            # Save the changes to the database
+            emp_details.save()
+            messages.success(request, 'Employee details updated successfully!')
+            return HttpResponseRedirect('/employee/')
+
+        except EmpDetails.DoesNotExist:
+                messages.error(request, 'Employee not found.')
+        except Exception as e:
+                messages.error(request, 'Failed to update employee details: {}'.format(e))
+     else:
+        return render(request, "Emp_app/employee.html")
 
 
 def login(request):
@@ -149,6 +155,32 @@ def userlogin(request):
         
          return render(request, 'login.html') 
      
+     
+
+def userlogin(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+
+        user = authenticate(request, username=username, password=password)
+
+        if user is not None:
+            login(request, user)
+
+            if user.is_staff:
+                return redirect('admin_module')  # Redirect to the admin module for admin users
+            else:
+                return redirect('home')  # Redirect to the home page for regular users
+
+        else:
+            # Authentication failed, handle the error or display a message
+            return render(request, 'registration/login.html', {'error_message': 'Incorrect username and/or password.'})
+
+    else:
+        # Handle GET requests, if needed
+        return render(request, 'registration/login.html')
+
+
 # @login_required    
 def change_password(request):
     if request.method == 'POST':
@@ -248,4 +280,4 @@ def save_session(request):
     except Exception as e:
        
         print(e)
-        return redirect('createpage')  
+        return redirect('createpage')

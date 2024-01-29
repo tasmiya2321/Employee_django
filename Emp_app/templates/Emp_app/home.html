@@ -47,15 +47,15 @@
     }
 
     .table-container {
-        width: 60%; /* Adjust the width of the table container */
-        overflow-x: auto; /* Horizontal scrollbar */
+        width: 100%; /* Adjust the width of the table container */
+        overflow-x: auto;  /* Horizontal scrollbar */
         margin-left: auto; /* Centering the table container */
         margin-right: auto;
     }
 
     table {
-        width: 100%; /* Full width inside the container */
-        /* ...other styles... */
+        width: 100%;
+        margin-top: 10%;
     }
 
     th, td {
@@ -117,22 +117,18 @@
 </div>
 
 <div class="table-container">
-    <!-- Wrap your table with this new container -->
-    <table style="margin-top:15%">
+    <table >
         <tr bgcolor="orange">
-
             <th>Date</th>
             <th>Program</th>
             <th>Project</th>
             <th>Activity</th>
             <th>Center Type</th>
             <th>Beneficiaries</th>
-
-
         </tr>
         {% for program in programs %}
         <tr bgcolor="white">
-            <td>{{ program.date }}</td>
+            <td style="white-space: nowrap;">{{ program.date }}</td>
             <td>{{ program.pgm_id|program_to_string }}</td>
             <td>{{ program.xref.project_name }}</td>
             <td>{{ program.activity }}</td>
