@@ -1,19 +1,24 @@
+from distutils.sysconfig import project_base
 from django.views.decorators.csrf import csrf_exempt
 from django.forms.models import model_to_dict
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
 from django.contrib.auth import authenticate, login
-from .models import Program 
+from .models import Program ,Xref
 from .models import EmpDetails 
 from django.contrib import messages
 import json
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
 from django.shortcuts import render, redirect
+
+
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy
 from django.contrib.auth.views import PasswordResetView
 from django.contrib.messages.views import SuccessMessageMixin
+from django.db.models import Q
+
 # class ResetPasswordView(SuccessMessageMixin, PasswordResetView):
 #     template_name = 'Emp_app/reset_password.html'
 #     email_template_name = 'Emp_app/email.html'
@@ -166,6 +171,8 @@ def login_base(request):
 
 def CreatePage(request):
      return render(request, "Emp_app/createpage.html")
+
+
     
 
     
@@ -209,3 +216,36 @@ def Session_main(request):
         from_date = datetime.strptime(from_date_str, '%Y-%m-%d').date() if from_date_str else None
         to_date = datetime.strptime(to_date_str, '%Y-%m-%d').date() if to_date_str else None
         return render(request, 'Emp_app/Session_main.html', context)
+
+
+
+def save_session(request):
+    try:
+       
+        new_session = Program()
+
+        # Assign form values to the Session object
+        new_session.date = request.POST.get('date')
+        new_session.resource_name = request.POST.get('ResourceName')
+        new_session.program = request.POST.get('Program')
+        new_session.project = request.POST.get('Project')
+        new_session.center_type = request.POST.get('CentreType')
+        new_session.activity = request.POST.get('Activity')
+        new_session.session_number = request.POST.get('Sessionnumber')
+        new_session.trainer_type = request.POST.get('Trainer_Type')
+        new_session.duration = request.POST.get('Duration')
+        new_session.status = request.POST.get('Status')
+        new_session.beneficiaries = request.POST.get('Beneficiaries')
+        new_session.category = request.POST.get('Category')
+        new_session.comment = request.POST.get('Action')
+
+       
+        new_session.save()
+
+       
+        return redirect('Session_main')  
+
+    except Exception as e:
+       
+        print(e)
+        return redirect('createpage')  
