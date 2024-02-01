@@ -19,6 +19,8 @@ from django.contrib.auth.views import PasswordResetView
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth import authenticate, login
 from django.db.models import Q
+import datetime
+
 
 
 @login_required
@@ -251,33 +253,106 @@ def Session_main(request):
 
 
 
+# def save_session(request):
+#     try:
+       
+#         new_session = Program()
+
+#         # Assign form values to the Session object
+#         new_session.date = request.POST.get('date')
+#         new_session.resource_name = request.POST.get('ResourceName')
+#         new_session.program = request.POST.get('Program')
+#         new_session.project = request.POST.get('Project')
+#         new_session.center_type = request.POST.get('CentreType')
+#         new_session.activity = request.POST.get('Activity')
+#         new_session.session_number = request.POST.get('Sessionnumber')
+#         new_session.trainer_type = request.POST.get('Trainer_Type')
+#         new_session.duration = request.POST.get('Duration')
+#         new_session.status = request.POST.get('Status')
+#         new_session.beneficiaries = request.POST.get('Beneficiaries')
+#         new_session.category = request.POST.get('Category')
+#         new_session.comment = request.POST.get('Action')
+
+       
+#         new_session.save()
+
+       
+#         return redirect('Session_main')  
+
+#     except Exception as e:
+       
+#         print(e)
+#         return redirect('createpage')
+
+
+
+
+
+    
+
+
+
+
+
+
+
+
 def save_session(request):
-    try:
-       
-        new_session = Program()
-
-        # Assign form values to the Session object
-        new_session.date = request.POST.get('date')
-        new_session.resource_name = request.POST.get('ResourceName')
-        new_session.program = request.POST.get('Program')
-        new_session.project = request.POST.get('Project')
-        new_session.center_type = request.POST.get('CentreType')
-        new_session.activity = request.POST.get('Activity')
-        new_session.session_number = request.POST.get('Sessionnumber')
-        new_session.trainer_type = request.POST.get('Trainer_Type')
-        new_session.duration = request.POST.get('Duration')
-        new_session.status = request.POST.get('Status')
-        new_session.beneficiaries = request.POST.get('Beneficiaries')
-        new_session.category = request.POST.get('Category')
-        new_session.comment = request.POST.get('Action')
-
-       
-        new_session.save()
+    if request.method == "POST":
+        
+        employee_name = request.POST.get("username")
+        resource_type = request.POST.get("resourceType")
+        date = request.POST.get("date") 
+        program_name = request.POST.get("Program")
+        project_name = request.POST.get("Project")
+        activity = request.POST.get("Activity")
+        center_type = request.POST.get("CentreType")
+        session_number = request.POST.get("Sessionnumber")
+        trainer_type = request.POST.get("Trainer_Type")
+        duration = request.POST.get("Duration")
+        status = request.POST.get("Status")
+        beneficiaries = request.POST.get("Beneficiaries")
+        category = request.POST.get("Category")
+        comment = request.POST.get("Comment")
+        sponsor = request.POST.get("Sponsor")
 
        
-        return redirect('Session_main')  
+        new_emp_details = EmpDetails(fullname=employee_name, resource_type=resource_type)
+        new_emp_details.save()
 
-    except Exception as e:
+        # Create Xref instance
+        new_xref = Xref(
+            date=date, 
+            program_name=program_name, 
+            project_name=project_name
+        )
+        new_xref.save()
+
        
-        print(e)
-        return redirect('createpage')
+        new_program = Program(
+            emp=new_emp_details,
+            xref=new_xref, 
+            date=date,  
+            activity=activity,
+            center_type=center_type,
+            trainer_type=trainer_type,
+            sponsor=sponsor,
+            beneficiaries=beneficiaries,
+            category=category,
+            duration=duration,
+            status=status,
+            comments=comment,
+        )
+        new_program.save()
+
+        messages.success(request, "Session saved successfully.")
+        return redirect('Session_main') 
+    return render(request, "Emp_app/createpage.html") 
+
+
+
+
+
+
+
+
