@@ -262,7 +262,7 @@
 
         <div class="dropdow">
             <span id="Role" class="id-symbol" onclick="toggleDropdown()">
-                {{ user.get_username }} {% if user.is_staff %}(Admin) {% endif %}&#9660;
+                {{ user.get_username }} {% if user.is_staff %} {% endif %}&#9660;
                 <i class="fa-solid fa-circle-user fa-2xl" style="color: #5c626a;"></i>
             </span>
             <div class="dropdown-content" id="dropdownContent">
@@ -283,11 +283,13 @@
         <aside class="sidebar" id="sidebar">
             <nav class="navbar">
                 <ul style="display: flex; flex-direction: column;">
-                    <li style="flex: 1;"><a href="{% url 'home' %}" style="margin-left: 10px;"><i class="fas fa-home" style="color: #FCB040; margin-left: -20px; }"></i>Home</a></li>
-                    <li style="flex: 1;"><a href="{% url 'Session_main' %}"><i class="fas fa-business-time" style="color: #FCB040; margin-left: 8px;"></i>Session</a></li>
-                    <li style="flex: 1;"><a href="{% url 'employee' %}"><i class="fas fa-chart-bar" style="color: #FCB040; margin-left: 20px;"></i>Employee</a></li>
-                    <li style="flex: 1;"><a href="{% url 'admin_module' %}"><i class="fas fa-chart-bar" style="color: #FCB040; margin-left: 20px;"></i>Admin Module</a></li>
+                    <li style="flex: 1;"><a href="{% url 'home' %}" style="margin-left: 10px;"><i class="fas fa-home" style=" font-weight: 900; color: #FCB040; margin-left: -20px; }"></i>Home</a></li>
+                    <li style="flex: 1;"><a href="{% url 'Session_main' %}"><i class="fas fa-business-time"  style=" font-weight:900; color: #FCB040; margin-left: 8px;"></i>Session</a></li>
+                    <li style="flex: 1;"><a href="{% url 'employee' %}"><i class="fas fa-chart-bar" style=" font-weight: 900; color: #FCB040; margin-left: 20px;"></i>Employee</a></li>
 
+                    {% if user.is_authenticated and user.is_staff %}
+                    <li style="flex: 1;"><a href="{% url 'admin_module' %}"><i class="fa-solid fa-person" style="font-size: 25px; font-weight: 900; color: #FCB040; margin-left: 55px; "></i>Admin Module</a></li>
+                    {% endif %}
                 </ul>
             </nav>
         </aside>
@@ -314,6 +316,7 @@
         <a href="{% url 'Session_main' %}">Session</a> |
         <a href="{% url 'employee' %}">Employee</a>
     </footer>
+
 
 
     <script>

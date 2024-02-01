@@ -2,22 +2,13 @@
 {% block css %}
 
 <script>
-    function togglePasswordVisibility() {
-        var passwordInput = document.getElementById('id_password');
-        var eyeIcon = document.getElementById('eyeIcon');
-
-        if (passwordInput.type === "password") {
-            passwordInput.type = "text";
-            eyeIcon.innerHTML = '🙈'; // HTML entity for eye open
-        } else {
-            passwordInput.type = "password";
-            eyeIcon.innerHTML = '👁️'; // HTML entity for eye closed
-        }
+    function navigateToEmployeePage() {
+        window.location.href = "{% url 'employee' %}";
     }
+
 </script>
 
 <style>
-
 
     .container {
         width: 70%;
@@ -71,18 +62,14 @@
         flex-direction: row;
     }
 
-    .role_name {
-        position: absolute;
-        right: 48%;
-    }
 
     .fst_eyeIcon {
-        margin-right: -40%;
-    }
-
-    .fst_pencilIcon {
         margin-left: -20%;
         position: static;
+        cursor: default;
+    }
+    .fst_eyeIcon:hover {
+            cursor: pointer;
     }
 
     .icon-container {
@@ -141,33 +128,33 @@
 
     <div class="employee">
         <div class="name">Jimmy Cherian</div>
-        <div class="role_name" style="right: 49%;">Founder</div>
-        <div onclick="togglePasswordVisibility()" class="fst_eyeIcon">👁️</div>
-        <div onclick="toggleEditMode()" class="fst_pencilIcon">✏️</div>
+        <div class="role_name" style="margin-right: 34%;">Founder</div>
+        <div onclick="navigateToEmployeePage()"class="fst_eyeIcon">👁️</div>
+    </div>
+
+    <div class="employee">
+        <div class="name">Preethi</div>
+        <div class="role_name" style="margin-right: 26%;">Employee</div>
+        <div onclick="navigateToEmployeePage()" class="fst_eyeIcon">👁️</div>
     </div>
 
     <div class="employee">
         <div class="name">Smita</div>
-        <div class="role_name">Employee</div>
-        <div onclick="togglePasswordVisibility()" class="fst_eyeIcon" style="margin-right: -48%;">👁️</div>
-        <div onclick="toggleEditMode()" class="fst_pencilIcon">✏️</div>
-
+        <div class="role_name" style="margin-right: 25%;">Employee</div>
+        <div onclick="navigateToEmployeePage()" class="fst_eyeIcon">👁️</div>
     </div>
+
     <div class="employee">
-        <div class="name">Preethi</div>
-        <div class="role_name">Employee</div>
-        <div onclick="togglePasswordVisibility()" class="fst_eyeIcon" style="margin-right: -47%;">👁️</div>
-        <div onclick="toggleEditMode()" class="fst_pencilIcon">✏️</div>
-
+        <div class="name">Sonia</div>
+        <div class="role_name" style="margin-right: 25%;">Employee</div>
+        <div onclick="navigateToEmployeePage()" class="fst_eyeIcon">👁️</div>
     </div>
+
     <div class="employee">
-        <div class="name">Geetha Suresh</div>
-        <div class="role_name">Employee</div>
-        <div onclick="togglePasswordVisibility()" class="fst_eyeIcon">👁️</div>
-        <div onclick="toggleEditMode()" class="fst_pencilIcon">✏️</div>
-
+        <div class="name">Sujeeth</div>
+        <div class="role_name" style="margin-right: 26%;">Employee</div>
+        <div onclick="navigateToEmployeePage()" class="fst_eyeIcon">👁️</div>
     </div>
-
 </div>
 
 
@@ -183,3 +170,4 @@
 {% endif %}
 
 {% endblock %}
+

@@ -6,13 +6,6 @@
         var Role = document.getElementById("Role").innerText;
         document.getElementsByTagName('form')[0].onsubmit = validateDates;
         /*  alert(Role)*/
-
-        disableFutureDates();
-
-        $('input[type="date"]').on('change', function () {
-            disableFutureDates();
-        });
-
         debugger;
         $.ajax({
             type: "POST",
@@ -45,33 +38,65 @@
                 }
             }
         });
+
+        function handleStatusChange() {
+            var status = document.getElementById("status").value;
+            var dateOfResigningField = document.getElementById("dateOfResigning").parentNode.parentNode;
+
+            if (status === "2") {
+                dateOfResigningField.style.display = "";
+            } else {
+                dateOfResigningField.style.display = "none";
+            }
+        }
+        handleStatusChange();
+        document.getElementById("status").addEventListener("change", handleStatusChange);
     });
 
-    function handleStatusChange() {
-        var status = document.getElementById("status").value;
-        var dateOfResigningField = document.getElementById("dateOfResigning").parentNode.parentNode;
-
-        if (status === "2") {
-            // If Resigned is selected, enable the dateOfResigning field
-            dateOfResigningField.style.display = "";
-            document.getElementById("dateOfResigning").disabled = false;
-        } else {
-            // If Active is selected, disable and hide the dateOfResigning field
-            dateOfResigningField.style.display = "none";
-            document.getElementById("dateOfResigning").disabled = true;
-        }
+    function isPastDate(id) {
+        var today = new Date();
+        var inputDate = new Date(document.getElementById(id).value);
+        return inputDate < today;
     }
 
-    // Call the function on page load
-    handleStatusChange();
+    function isAtLeast18YearsOld(id) {
+        var today = new Date();
+        var birthDate = new Date(document.getElementById(id).value);
+        var age = today.getFullYear() - birthDate.getFullYear();
+        var m = today.getMonth() - birthDate.getMonth();
 
-    // Add event listener to status dropdown for dynamically updating the dateOfResigning field
-    document.getElementById("status").addEventListener("change", handleStatusChange);
-
-
+        if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+            age--;
+        }
+        return age >= 18;
+    }
 
     function validateDates() {
         debugger;
+
+        let errorMessages = [];
+
+        if (document.getElementById('dateofJoining').disabled === false) {
+            if (!isPastDate('dateofJoining')) {
+                errorMessages.push('Error: Date of Joining cannot be a future date or the same as the current date.');
+            }
+        }
+        if (document.getElementById('dateOfResigning').disabled === false) {
+            if (!isPastDate('dateOfResigning')) {
+                errorMessages.push('Error: Date of Resigning cannot be a future date or the same as the current date.');
+            }
+        }
+        if (document.getElementById('dateOfBirth').disabled === false) {
+            if (!isAtLeast18YearsOld('dateOfBirth')) {
+                errorMessages.push('Error: Date of Birth should be at least 18 years before and cannot be the current date or a future date.');
+            }
+        }
+
+        if (errorMessages.length > 0) {
+            alert(errorMessages.join('\n'));
+            return false;
+        }
+
         if (!toggleEditUpdate()) {
             return false;
         }
@@ -85,55 +110,30 @@
     }
     function toggleEdit() {
         const updateButton = document.getElementById("updateButton");
-        const statusSelect = document.getElementById("status");
-        const dateOfResigningField = document.getElementById("dateOfResigning").parentNode.parentNode;
+
+        var formFields = document.querySelectorAll("input[type=text], input[type=date], input[type=number], input[type=email], input[type=radio], select, textarea");
 
         if (updateButton.disabled === true) {
-            // If the form is in edit mode
-            const formFields = document.querySelectorAll("input[type=text], input[type=date], input[type=number], input[type=email], input[type=radio], select, textarea");
-
             formFields.forEach(field => {
                 field.disabled = false;
             });
-
-            // Check if the status is "Active," and if so, hide the Date of Resigning field
-            if (statusSelect.value === "1") {
-                dateOfResigningField.style.display = "none";
-            }
-
             updateButton.disabled = false;
         } else {
-            // If the form is in view mode
-            const formFields = document.querySelectorAll("input[type=text], input[type=date], input[type=number], input[type=email], input[type=radio], select, textarea");
-
             formFields.forEach(field => {
                 field.disabled = true;
             });
-
             updateButton.disabled = true;
         }
     }
 
-    function disableFutureDates() {
-        var currentDate = new Date().toISOString().split('T')[0]; 
-
-        document.getElementById('dateofJoining').setAttribute('max', currentDate);
-        document.getElementById('dateOfResigning').setAttribute('max', currentDate);
-
-
-        // Calculate the maximum date for date of birth (18 years less than the current date)
-        var maxDateOfBirth = new Date();
-        maxDateOfBirth.setFullYear(maxDateOfBirth.getFullYear() - 18);
-        var maxDateOfBirthFormatted = maxDateOfBirth.toISOString().split('T')[0];
-
-        // Set the max attribute of date of birth input field
-        document.getElementById('dateOfBirth').setAttribute('max', maxDateOfBirthFormatted);
-    }
-
-
 </script>
 
 <style>
+    body {
+        font-family: helvetica;
+        padding: 20px;
+        background-color: #f4f4f4;
+    }
 
     .employee-details-title {
         text-align: center;
@@ -381,6 +381,7 @@
             </tr>
 
 
+
             <!-- Centre -->
             <tr>
                 <td><label for="centre">Centre *</label></td>
@@ -396,6 +397,7 @@
                     </select>
                 </td>
             </tr>
+
 
             <!-- Designation -->
             <tr>
@@ -427,6 +429,7 @@
                 </td>
             </tr>
 
+            <!-- Date of Resigning -->
             <tr>
                 <td><label for="dateOfResigning">Date of Resigning *</label></td>
                 <td><input type="date" name="dateofResigning" id="dateOfResigning" data-dbname="date_of_resigning" placeholder="dd-mm-YYYY" required disabled></td>
@@ -444,14 +447,6 @@
                     </select>
                 </td>
             </tr>
-            
-                <!--{% if user.is_staff %}-->
-                    <!-- Admin-specific field -->
-                    <!--<tr>
-                        <td><label for="adminField">Admin Field *</label></td>
-                        <td><input type="text" name="adminField" id="adminField" data-dbname="admin_field" required disabled></td>
-                    </tr>
-                {% endif %}-->
         </table>
 
         <br><hr><br>
