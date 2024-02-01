@@ -79,10 +79,25 @@
         return cookieValue;
     }
 
-    // Function to update the table with the filtered data
     function updateTable(data) {
-        // You'll need to implement this based on how you want to display the data
-        // Typically, you'll clear the existing rows and add new rows based on the data returned from your server
+    }     
+
+
+    function searchPrograms() {
+        var input, filter, select, options, option, i;
+        input = document.getElementById("program-search");
+        filter = input.value.toUpperCase();
+        select = document.getElementById("program-select");
+        options = select.getElementsByTagName("option");
+
+        for (i = 0; i < options.length; i++) {
+            option = options[i];
+            if (option.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                option.style.display = "";
+            } else {
+                option.style.display = "none";
+            }
+        }
     }
 </script>
 
@@ -427,9 +442,6 @@
     {% csrf_token %}
 
     <div class="table">
-
-
-
 
         <table id="sessionsTable">
             <tr bgcolor="orange">

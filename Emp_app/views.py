@@ -48,15 +48,6 @@ def employee(request):
     if request.method == 'GET':
         return render(request, "Emp_app/employee.html")
     else:
-        # var = request.POST.get("data")
-        # var = var[:-1]
-        # var = var.strip()
-
-        # variable_column = 'username'
-        # search_type = 'iexact'
-        # strfilter = variable_column + '__' + search_type
-        # emp_details = EmpDetails.objects.filter(**{strfilter: var})
-
         emp_id = request.POST.get("data","")
         emp_id = emp_id[:-1]
         emp_id = emp_id.strip()
@@ -79,7 +70,6 @@ def saveemployee(request):
         try:
             emp_details = EmpDetails.objects.get(emp_id=emp_id)
 
-
             emp_details.fullname = request.POST.get('fullname')
             emp_details.address = request.POST.get('address')
             emp_details.dob = request.POST.get('dob')
@@ -100,9 +90,6 @@ def saveemployee(request):
             emp_details.ifsc = request.POST.get('ifscCode') 
             emp_details.branch = request.POST.get('branchName') 
             emp_details.account_type = request.POST.get('accountType') 
-            
-            if 'adminField' in request.POST:
-                emp_details.admin_field = request.POST.get('adminField')
 
 
             # Save the changes to the database
@@ -116,45 +103,6 @@ def saveemployee(request):
                 messages.error(request, 'Failed to update employee details: {}'.format(e))
      else:
         return render(request, "Emp_app/employee.html")
-
-
-def login(request):
-     return render(request, "Registration/login.html")
-
-def reset_password(request):
-     return render(request, "Emp_app/reset_password.html")
-
-def email(request):
-     return render(request, "Emp_app/email.html")
-
-
-def subject_email(request):
-     return render(request, "Emp_app/subject_email.txt")
-
-
-
-
-
-def userlogin(request):
-
-      if request.method == 'POST':
-       
-        username = request.POST['username']
-        password = request.POST['password']
-       
-        user = authenticate(username=username, password=password)
-        if user is not None:
-            
-            login(request, user)
-            
-            return render(request, 'index.html')
-        else:
-           
-            return render(request, 'login.html', {'error_message': 'Incorrect username and / or password.'})
-      else:
-        
-         return render(request, 'login.html') 
-     
      
 
 def userlogin(request):
@@ -180,6 +128,19 @@ def userlogin(request):
         # Handle GET requests, if needed
         return render(request, 'registration/login.html')
 
+    
+def login(request):
+     return render(request, "Registration/login.html")
+
+def reset_password(request):
+     return render(request, "Emp_app/reset_password.html")
+
+def email(request):
+     return render(request, "Emp_app/email.html")
+
+
+def subject_email(request):
+     return render(request, "Emp_app/subject_email.txt")
 
 # @login_required    
 def change_password(request):
