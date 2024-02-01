@@ -77,7 +77,7 @@ def saveemployee(request):
             emp_details.email_id = request.POST.get('emailId') 
             emp_details.gender = request.POST.get('gender')
             emp_details.employeeId = request.POST.get('employeeId') 
-            emp_details.centre = request.POST.get('centre')
+            emp_details.center = request.POST.get('center')
             emp_details.designation = request.POST.get('designation')
             emp_details.date_of_joining = request.POST.get('dateofJoining')  
             emp_details.education_qualification = request.POST.get('educationQualification') 
