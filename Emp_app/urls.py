@@ -9,6 +9,19 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.views import LoginView
 from .views import admin_module
 
+
+# class ResetPasswordView(SuccessMessageMixin, PasswordResetView):
+#     template_name = 'users/password_reset.html'
+#     email_template_name = 'users/password_reset_email.html'
+# class ResetPasswordView(SuccessMessageMixin, PasswordResetView):
+#     template_name = 'users/password_reset.html'
+#     email_template_name = 'users/password_reset_email.html'
+
+# class ResetPasswordView(SuccessMessageMixin, PasswordResetView):
+#     template_name = 'users/password_reset.html'
+#     email_template_name = 'users/password_reset_email.html'
+
+
 urlpatterns = [
     path('', LoginView.as_view(template_name='registration/login.html'), name='login'),
     path("home/", views.home, name="home"),
@@ -23,8 +36,10 @@ urlpatterns = [
     path('change_password/', views.change_password, name='change_password'),
     path('Session_main/', views.Session_main, name='Session_main'),
     path('createpage/', views.CreatePage, name='createpage'),
-    path('save-session/', views.save_session, name='save_session')
- 
+    path('save_session/', views.save_session, name='save_session')
+  
+    
+   
 ]
 # if settings.DEBUG:
 #     from django.contrib.staticfiles.urls import staticfiles_urlpatterns

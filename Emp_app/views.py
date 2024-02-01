@@ -21,6 +21,8 @@ from django.contrib.auth import authenticate, login
 from django.db.models import Q
 import datetime
 
+
+
 @login_required
 def home(request):
     programs = Program.objects.exclude(date__isnull=True).order_by('pgm_id')[:10]
@@ -48,6 +50,15 @@ def employee(request):
     if request.method == 'GET':
         return render(request, "Emp_app/employee.html")
     else:
+        # var = request.POST.get("data")
+        # var = var[:-1]
+        # var = var.strip()
+
+        # variable_column = 'username'
+        # search_type = 'iexact'
+        # strfilter = variable_column + '__' + search_type
+        # emp_details = EmpDetails.objects.filter(**{strfilter: var})
+
         emp_id = request.POST.get("data","")
         emp_id = emp_id[:-1]
         emp_id = emp_id.strip()
@@ -70,6 +81,7 @@ def saveemployee(request):
         try:
             emp_details = EmpDetails.objects.get(emp_id=emp_id)
 
+
             emp_details.fullname = request.POST.get('fullname')
             emp_details.address = request.POST.get('address')
             emp_details.dob = request.POST.get('dob')
@@ -77,7 +89,7 @@ def saveemployee(request):
             emp_details.email_id = request.POST.get('emailId') 
             emp_details.gender = request.POST.get('gender')
             emp_details.employeeId = request.POST.get('employeeId') 
-            emp_details.center = request.POST.get('center')
+            emp_details.centre = request.POST.get('centre')
             emp_details.designation = request.POST.get('designation')
             emp_details.date_of_joining = request.POST.get('dateofJoining')  
             emp_details.education_qualification = request.POST.get('educationQualification') 
@@ -90,6 +102,9 @@ def saveemployee(request):
             emp_details.ifsc = request.POST.get('ifscCode') 
             emp_details.branch = request.POST.get('branchName') 
             emp_details.account_type = request.POST.get('accountType') 
+            
+            if 'adminField' in request.POST:
+                emp_details.admin_field = request.POST.get('adminField')
 
 
             # Save the changes to the database
@@ -103,6 +118,45 @@ def saveemployee(request):
                 messages.error(request, 'Failed to update employee details: {}'.format(e))
      else:
         return render(request, "Emp_app/employee.html")
+
+
+def login(request):
+     return render(request, "Registration/login.html")
+
+def reset_password(request):
+     return render(request, "Emp_app/reset_password.html")
+
+def email(request):
+     return render(request, "Emp_app/email.html")
+
+
+def subject_email(request):
+     return render(request, "Emp_app/subject_email.txt")
+
+
+
+
+
+def userlogin(request):
+
+      if request.method == 'POST':
+       
+        username = request.POST['username']
+        password = request.POST['password']
+       
+        user = authenticate(username=username, password=password)
+        if user is not None:
+            
+            login(request, user)
+            
+            return render(request, 'index.html')
+        else:
+           
+            return render(request, 'login.html', {'error_message': 'Incorrect username and / or password.'})
+      else:
+        
+         return render(request, 'login.html') 
+     
      
 
 def userlogin(request):
@@ -128,19 +182,6 @@ def userlogin(request):
         # Handle GET requests, if needed
         return render(request, 'registration/login.html')
 
-    
-def login(request):
-     return render(request, "Registration/login.html")
-
-def reset_password(request):
-     return render(request, "Emp_app/reset_password.html")
-
-def email(request):
-     return render(request, "Emp_app/email.html")
-
-
-def subject_email(request):
-     return render(request, "Emp_app/subject_email.txt")
 
 # @login_required    
 def change_password(request):
@@ -212,33 +253,106 @@ def Session_main(request):
 
 
 
+# def save_session(request):
+#     try:
+       
+#         new_session = Program()
+
+#         # Assign form values to the Session object
+#         new_session.date = request.POST.get('date')
+#         new_session.resource_name = request.POST.get('ResourceName')
+#         new_session.program = request.POST.get('Program')
+#         new_session.project = request.POST.get('Project')
+#         new_session.center_type = request.POST.get('CentreType')
+#         new_session.activity = request.POST.get('Activity')
+#         new_session.session_number = request.POST.get('Sessionnumber')
+#         new_session.trainer_type = request.POST.get('Trainer_Type')
+#         new_session.duration = request.POST.get('Duration')
+#         new_session.status = request.POST.get('Status')
+#         new_session.beneficiaries = request.POST.get('Beneficiaries')
+#         new_session.category = request.POST.get('Category')
+#         new_session.comment = request.POST.get('Action')
+
+       
+#         new_session.save()
+
+       
+#         return redirect('Session_main')  
+
+#     except Exception as e:
+       
+#         print(e)
+#         return redirect('createpage')
+
+
+
+
+
+    
+
+
+
+
+
+
+
+
 def save_session(request):
-    try:
-       
-        new_session = Program()
-
-        # Assign form values to the Session object
-        new_session.date = request.POST.get('date')
-        new_session.resource_name = request.POST.get('ResourceName')
-        new_session.program = request.POST.get('Program')
-        new_session.project = request.POST.get('Project')
-        new_session.center_type = request.POST.get('CentreType')
-        new_session.activity = request.POST.get('Activity')
-        new_session.session_number = request.POST.get('Sessionnumber')
-        new_session.trainer_type = request.POST.get('Trainer_Type')
-        new_session.duration = request.POST.get('Duration')
-        new_session.status = request.POST.get('Status')
-        new_session.beneficiaries = request.POST.get('Beneficiaries')
-        new_session.category = request.POST.get('Category')
-        new_session.comment = request.POST.get('Action')
-
-       
-        new_session.save()
+    if request.method == "POST":
+        
+        employee_name = request.POST.get("username")
+        resource_type = request.POST.get("resourceType")
+        date = request.POST.get("date") 
+        program_name = request.POST.get("Program")
+        project_name = request.POST.get("Project")
+        activity = request.POST.get("Activity")
+        center_type = request.POST.get("CentreType")
+        session_number = request.POST.get("Sessionnumber")
+        trainer_type = request.POST.get("Trainer_Type")
+        duration = request.POST.get("Duration")
+        status = request.POST.get("Status")
+        beneficiaries = request.POST.get("Beneficiaries")
+        category = request.POST.get("Category")
+        comment = request.POST.get("Comment")
+        sponsor = request.POST.get("Sponsor")
 
        
-        return redirect('Session_main')  
+        new_emp_details = EmpDetails(fullname=employee_name, resource_type=resource_type)
+        new_emp_details.save()
 
-    except Exception as e:
+        # Create Xref instance
+        new_xref = Xref(
+            date=date, 
+            program_name=program_name, 
+            project_name=project_name
+        )
+        new_xref.save()
+
        
-        print(e)
-        return redirect('createpage')
+        new_program = Program(
+            emp=new_emp_details,
+            xref=new_xref, 
+            date=date,  
+            activity=activity,
+            center_type=center_type,
+            trainer_type=trainer_type,
+            sponsor=sponsor,
+            beneficiaries=beneficiaries,
+            category=category,
+            duration=duration,
+            status=status,
+            comments=comment,
+        )
+        new_program.save()
+
+        messages.success(request, "Session saved successfully.")
+        return redirect('Session_main') 
+    return render(request, "Emp_app/createpage.html") 
+
+
+
+
+
+
+
+
