@@ -1,5 +1,6 @@
 from ast import Module
 from distutils.sysconfig import project_base
+from django.core import paginator
 from django.views.decorators.csrf import csrf_exempt
 from django.forms.models import model_to_dict
 from django.http import HttpResponse, JsonResponse
@@ -20,6 +21,7 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth import authenticate, login
 from django.db.models import Q
 import datetime
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
 
@@ -211,7 +213,8 @@ def CreatePage(request):
 
     
 def Session_main(request):
-    programs = Program.objects.all()  # Fetch all program records from the database
+    programs = Program.objects.all()  # Fetch all program records from the 
+    
     project_names = Xref.objects.values('project_name').distinct()
     program_names = Xref.objects.values("program_name").distinct()
     centers = Program.objects.values('center_type').distinct()  # Adjusted to 'center_type'
@@ -249,6 +252,26 @@ def Session_main(request):
         to_date_str = request.GET.get('to_date')
         from_date = datetime.strptime(from_date_str, '%Y-%m-%d').date() if from_date_str else None
         to_date = datetime.strptime(to_date_str, '%Y-%m-%d').date() if to_date_str else None
+        
+        paginator = Paginator(programs, 10)  # Show 10 programs per page
+        page_number = request.GET.get('page')
+        try:
+            programs_page = paginator.page(page_number)
+        except PageNotAnInteger:
+            programs_page = paginator.page(1)
+        except EmptyPage:
+            programs_page = paginator.page(paginator.num_pages)
+
+        context = {
+            'programs': programs_page,  # Updated for pagination
+            'program_names': program_names,
+            'project_names': project_names,
+            'centers': centers,
+            'trainers': trainers,
+            'total_count': paginator.count  # Total count of records
+        }
+        
+
         return render(request, 'Emp_app/Session_main.html', context)
 
 
