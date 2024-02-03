@@ -148,8 +148,8 @@
     }
 
     h1 {
-        text-align: center;
-        margin-top: 10px;
+        margin-left: 28%;
+        margin-top: -7%;
     }
 
     .container {
@@ -160,6 +160,8 @@
         gap: 10px;
         padding: 20px;
         position: relative;
+        margin-right: 30%;
+        margin-top: 4%;
     }
 
     .search-box input, .search-box button, .dropdown select, .dropdown input[type="date"] {
@@ -197,21 +199,33 @@
         }
     }
 
-    table {
+    /*table {
         width: 100%;
         border-collapse: collapse;
-        margin-top: 60px; /* Adjust the margin to prevent content overlap */
-        margin-bottom: 20px;
+        margin-top: 60px;*/ /* Adjust the margin to prevent content overlap */
+        /*margin-bottom: 20px;
     }
 
     th, td {
         border: 1px solid #ddd;
         padding: 7px;
         text-align: center;
+    }*/
+
+    #sessionsTable {
+        display: block;
+        overflow: auto;
+        max-height: 530px;
+        width: 120%;
+        margin-top:50px;
     }
 
-
-
+    .table th, .table td {
+        white-space: nowrap;
+        border: 1px solid #ddd;
+        padding: 7px;
+        text-align: center;
+    }
 
     #bts {
         margin-left: 65%;
@@ -230,10 +244,6 @@
     .form-column {
         width: 48%; /* Adjust the width as needed */
     }
-
-
-
-
 
 
 
@@ -473,9 +483,9 @@
 
     {% csrf_token %}
 
-    <div class="table">
+    <div id="scrollable-table" style="margin-right:50%;">
 
-        <table id="sessionsTable">
+        <table id="sessionsTable" class="table" style=" margin-left: 13%;">
             <tr bgcolor="orange">
 
                 <th>Date</th>
@@ -517,10 +527,6 @@
 
             </tr>
             {% endfor %}
-
-
-
-
 
         </table>
 

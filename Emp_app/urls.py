@@ -10,16 +10,6 @@ from django.contrib.auth.views import LoginView
 from .views import admin_module
 
 
-# class ResetPasswordView(SuccessMessageMixin, PasswordResetView):
-#     template_name = 'users/password_reset.html'
-#     email_template_name = 'users/password_reset_email.html'
-# class ResetPasswordView(SuccessMessageMixin, PasswordResetView):
-#     template_name = 'users/password_reset.html'
-#     email_template_name = 'users/password_reset_email.html'
-
-# class ResetPasswordView(SuccessMessageMixin, PasswordResetView):
-#     template_name = 'users/password_reset.html'
-#     email_template_name = 'users/password_reset_email.html'
 
 
 urlpatterns = [

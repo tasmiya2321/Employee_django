@@ -22,7 +22,6 @@ from django.db.models import Q
 import datetime
 
 
-
 @login_required
 def home(request):
     programs = Program.objects.exclude(date__isnull=True).order_by('pgm_id')[:10]
@@ -38,41 +37,27 @@ def admin_module(request):
 def forgetpassword(request):
      return render(request, "Emp_app/forgetpassword.html")
 
-
-    
 def index(request):
     return render(request, "Emp_app/index.html")
-
-
 
 @login_required
 def employee(request):
     if request.method == 'GET':
         return render(request, "Emp_app/employee.html")
     else:
-        # var = request.POST.get("data")
-        # var = var[:-1]
-        # var = var.strip()
-
-        # variable_column = 'username'
-        # search_type = 'iexact'
-        # strfilter = variable_column + '__' + search_type
-        # emp_details = EmpDetails.objects.filter(**{strfilter: var})
-
         emp_id = request.POST.get("data","")
         emp_id = emp_id[:-1]
         emp_id = emp_id.strip()
     
         strfilter = 'username__username__iexact' 
         emp_details = EmpDetails.objects.filter(**{strfilter: emp_id})
-
-
+        
         my_dict = {}
-
+        
         if emp_details.exists():
             my_dict = model_to_dict(emp_details.first(), fields=['fullname', 'emp_id', 'address', 'dob', 'phone_number', 'email_id', 'gender', 'center', 'designation', 'date_of_joining', 'education_qualification', 'status', 'resource_type', 'date_of_resigning', 'bank_name', 'name_as_per_bank', 'account_number', 'ifsc', 'branch', 'account_type'])
-
         return JsonResponse({"info": json.dumps(my_dict)})
+
 
 @login_required
 def saveemployee(request):
@@ -89,7 +74,7 @@ def saveemployee(request):
             emp_details.email_id = request.POST.get('emailId') 
             emp_details.gender = request.POST.get('gender')
             emp_details.employeeId = request.POST.get('employeeId') 
-            emp_details.centre = request.POST.get('centre')
+            emp_details.center = request.POST.get('center')
             emp_details.designation = request.POST.get('designation')
             emp_details.date_of_joining = request.POST.get('dateofJoining')  
             emp_details.education_qualification = request.POST.get('educationQualification') 
@@ -133,30 +118,6 @@ def email(request):
 def subject_email(request):
      return render(request, "Emp_app/subject_email.txt")
 
-
-
-
-
-def userlogin(request):
-
-      if request.method == 'POST':
-       
-        username = request.POST['username']
-        password = request.POST['password']
-       
-        user = authenticate(username=username, password=password)
-        if user is not None:
-            
-            login(request, user)
-            
-            return render(request, 'index.html')
-        else:
-           
-            return render(request, 'login.html', {'error_message': 'Incorrect username and / or password.'})
-      else:
-        
-         return render(request, 'login.html') 
-     
      
 
 def userlogin(request):
@@ -205,9 +166,6 @@ def login_base(request):
 
 def CreatePage(request):
      return render(request, "Emp_app/createpage.html")
-
-
-    
 
     
 def Session_main(request):
