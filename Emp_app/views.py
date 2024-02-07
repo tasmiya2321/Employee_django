@@ -22,6 +22,8 @@ from django.contrib.auth import authenticate, login
 from django.db.models import Q
 import datetime
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.shortcuts import render, get_object_or_404
+
 
 
 @login_required
@@ -33,77 +35,77 @@ def home(request):
 
     return render(request, "Emp_app/home.html", {'programs': programs})
 
-def admin_module(request):
-     return render(request, "Emp_app/admin_module.html")
-
 def forgetpassword(request):
      return render(request, "Emp_app/forgetpassword.html")
 
 def index(request):
     return render(request, "Emp_app/index.html")
 
+
 @login_required
-def employee(request):
-    if request.method == 'GET':
-        return render(request, "Emp_app/employee.html")
+def admin_module(request):
+    employees = EmpDetails.objects.all()
+    return render(request, "Emp_app/admin_module.html", {'employees': employees})
+
+@login_required
+def employee(request, emp_id):
+   
+    emp_details = get_object_or_404(EmpDetails, emp_id__iexact=emp_id)
+
+    if request.user.is_staff:
+        return render(request, 'Emp_app/employee.html', {'employee': emp_details})
     else:
-        emp_id = request.POST.get("data","")
-        emp_id = emp_id[:-1]
-        emp_id = emp_id.strip()
-    
-        strfilter = 'username__username__iexact' 
-        emp_details = EmpDetails.objects.filter(**{strfilter: emp_id})
-        
-        my_dict = {}
-        
-        if emp_details.exists():
-            my_dict = model_to_dict(emp_details.first(), fields=['fullname', 'emp_id', 'address', 'dob', 'phone_number', 'email_id', 'gender', 'center', 'designation', 'date_of_joining', 'education_qualification', 'status', 'resource_type', 'date_of_resigning', 'bank_name', 'name_as_per_bank', 'account_number', 'ifsc', 'branch', 'account_type'])
-        return JsonResponse({"info": json.dumps(my_dict)})
-
-
+        fields = [
+            'fullname', 'emp_id', 'address', 'dob', 'phone_number', 'email_id', 'gender', 
+            'center', 'designation', 'date_of_joining', 'education_qualification', 
+            'status', 'resource_type', 'date_of_resigning', 'bank_name', 'name_as_per_bank', 
+            'account_number', 'ifsc', 'branch', 'account_type'
+        ]
+        emp_dict = model_to_dict(emp_details, fields=fields)
+        return JsonResponse({"info": emp_dict})
+  
 @login_required
 def saveemployee(request):
-     if request.method == 'POST':
+    if request.method == 'POST':
         emp_id = request.POST.get('employeeId')
+
         try:
             emp_details = EmpDetails.objects.get(emp_id=emp_id)
-
 
             emp_details.fullname = request.POST.get('fullname')
             emp_details.address = request.POST.get('address')
             emp_details.dob = request.POST.get('dob')
-            emp_details.phone_number = request.POST.get('phonenumber') 
-            emp_details.email_id = request.POST.get('emailId') 
+            emp_details.phone_number = request.POST.get('phonenumber')
+            emp_details.email_id = request.POST.get('emailId')
             emp_details.gender = request.POST.get('gender')
-            emp_details.employeeId = request.POST.get('employeeId') 
             emp_details.center = request.POST.get('center')
             emp_details.designation = request.POST.get('designation')
-            emp_details.date_of_joining = request.POST.get('dateofJoining')  
-            emp_details.education_qualification = request.POST.get('educationQualification') 
+            emp_details.date_of_joining = request.POST.get('dateofJoining')
+            emp_details.education_qualification = request.POST.get('educationQualification')
             emp_details.status = request.POST.get('status')
             emp_details.date_of_resigning = request.POST.get('dateofResigning')
-            emp_details.resource_type = request.POST.get('resourceType') 
-            emp_details.bank_name = request.POST.get('bankName') 
-            emp_details.name_as_per_bank = request.POST.get('nameAsPerBank')  
-            emp_details.account_number = request.POST.get('accountNumber')  
-            emp_details.ifsc = request.POST.get('ifscCode') 
-            emp_details.branch = request.POST.get('branchName') 
-            emp_details.account_type = request.POST.get('accountType') 
+            emp_details.resource_type = request.POST.get('resourceType')
+            emp_details.bank_name = request.POST.get('bankName')
+            emp_details.name_as_per_bank = request.POST.get('nameAsPerBank')
+            emp_details.account_number = request.POST.get('accountNumber')
+            emp_details.ifsc = request.POST.get('ifscCode')
+            emp_details.branch = request.POST.get('branchName')
+            emp_details.account_type = request.POST.get('accountType')
             
-            if 'adminField' in request.POST:
-                emp_details.admin_field = request.POST.get('adminField')
 
-
-            # Save the changes to the database
             emp_details.save()
-            messages.success(request, 'Employee details updated successfully!')
-            return HttpResponseRedirect('/employee/')
 
+            messages.success(request, 'Employee details updated successfully!')
+           
+            return redirect('employee', emp_id=emp_id)  
         except EmpDetails.DoesNotExist:
-                messages.error(request, 'Employee not found.')
+            messages.error(request, 'Employee not found.')
+            return redirect('employee') 
         except Exception as e:
-                messages.error(request, 'Failed to update employee details: {}'.format(e))
-     else:
+            messages.error(request, f'Failed to update employee details: {e}')
+            return redirect('employee', emp_id=emp_id) 
+    else:
+        
         return render(request, "Emp_app/employee.html")
 
 
@@ -133,16 +135,14 @@ def userlogin(request):
             login(request, user)
 
             if user.is_staff:
-                return redirect('admin_module')  # Redirect to the admin module for admin users
+                return redirect('admin_module') 
             else:
-                return redirect('home')  # Redirect to the home page for regular users
+                return redirect('home')  
 
         else:
-            # Authentication failed, handle the error or display a message
             return render(request, 'registration/login.html', {'error_message': 'Incorrect username and/or password.'})
 
     else:
-        # Handle GET requests, if needed
         return render(request, 'registration/login.html')
 
 
@@ -171,23 +171,21 @@ def CreatePage(request):
 
     
 def Session_main(request):
-    programs = Program.objects.all()  # Fetch all program records from the 
+    programs = Program.objects.all()  
     
     project_names = Xref.objects.values('project_name').distinct()
     program_names = Xref.objects.values("program_name").distinct()
-    centers = Program.objects.values('center_type').distinct()  # Adjusted to 'center_type'
+    centers = Program.objects.values('center_type').distinct() 
     trainers = Program.objects.values('trainer_type').distinct()
     context = {'programs': programs, 'program_names':program_names,'project_names': project_names,'centers': centers,
         'trainers': trainers}
     if request.method == 'POST':
-        # Get the filter values from the request
         data = json.loads(request.body)
         program_filter = data.get('program')
         project_filter = data.get('project')
         center_filter = data.get('center')
         trainer_filter = data.get('trainer')
         
-        # Filter your programs based on the provided values
         programs = Program.objects.all()
         if program_filter:
             programs = programs.filter(pgm_id__program_name=program_filter)
@@ -198,20 +196,17 @@ def Session_main(request):
         if trainer_filter:
             programs = programs.filter(trainer_type=trainer_filter)
 
-        # Serialize your programs data into a format that can be sent as JSON
-        programs_data = list(programs.values())  # Adjust as needed to serialize your data
+        programs_data = list(programs.values())  
 
-        return JsonResponse({'programs': programs_data})  # Send the filtered data back to the front end
-
+        return JsonResponse({'programs': programs_data})  
     else:
-         # Your existing code for handling GET requests
         
         from_date_str = request.GET.get('from_date')
         to_date_str = request.GET.get('to_date')
         from_date = datetime.strptime(from_date_str, '%Y-%m-%d').date() if from_date_str else None
         to_date = datetime.strptime(to_date_str, '%Y-%m-%d').date() if to_date_str else None
         
-        paginator = Paginator(programs, 10)  # Show 10 programs per page
+        paginator = Paginator(programs, 10)
         page_number = request.GET.get('page')
         try:
             programs_page = paginator.page(page_number)
@@ -221,12 +216,12 @@ def Session_main(request):
             programs_page = paginator.page(paginator.num_pages)
 
         context = {
-            'programs': programs_page,  # Updated for pagination
+            'programs': programs_page, 
             'program_names': program_names,
             'project_names': project_names,
             'centers': centers,
             'trainers': trainers,
-            'total_count': paginator.count  # Total count of records
+            'total_count': paginator.count  
         }
         
 

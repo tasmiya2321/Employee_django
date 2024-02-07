@@ -1,12 +1,42 @@
 {% extends "Emp_app/base.html" %}
 {% block css %}
 
+
 <script>
-    function navigateToEmployeePage() {
-        window.location.href = "{% url 'employee' %}";
+    $(document).ready(function () {
+        var urlParams = new URLSearchParams(window.location.search);
+        var emp_id = urlParams.get('emp_id');
+        if (emp_id) {
+            fetchEmployeeDetails(emp_id);
+        }
+    });
+    function fetchEmployeeDetails(employeeId) {
+        $.ajax({
+            type: "GET",  
+            url: `/employee/${employeeId}/`,  
+            headers: { 'X-CSRFToken': $("input[name='csrfmiddlewaretoken']").val() },
+            success: function (result) {
+                if (result.info) {
+                    console.log(result.info); 
+                }
+            },
+            error: function (xhr, status, error) {
+                console.error(error);
+            }
+        });
     }
 
+
+        function navigateToEmployeePage(emp_id) {
+          
+            var url = "/employee/" + emp_id + "/";
+            window.location.href = url;
+    
+        }
+    
 </script>
+
+
 
 <style>
 
@@ -68,9 +98,10 @@
         position: static;
         cursor: default;
     }
-    .fst_eyeIcon:hover {
+
+        .fst_eyeIcon:hover {
             cursor: pointer;
-    }
+        }
 
     .icon-container {
         right: 5%;
@@ -117,7 +148,12 @@
 
 {% block content %}
 {% if user.is_staff %}
+
+
 <div class="container">
+    {% csrf_token %}
+
+    <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
 
     <h1 class="main-header">All Employees</h1><br /><br />
 
@@ -126,35 +162,13 @@
         <div class="role">Role</div>
     </div><br />
 
+    {% for employee in employees %}
     <div class="employee">
-        <div class="name">Jimmy Cherian</div>
-        <div class="role_name" style="margin-right: 34%;">Founder</div>
-        <div onclick="navigateToEmployeePage()"class="fst_eyeIcon">👁️</div>
+        <div class="name">{{ employee.fullname }}</div>
+        <div class="role_name" style="margin-right: 34%;">{{ employee.designation }}</div>
+        <div onclick="navigateToEmployeePage('{{employee.emp_id}}')" class="fst_eyeIcon" data-emp-id="{{ employee.emp_id }}">👁️</div>
     </div>
-
-    <div class="employee">
-        <div class="name">Preethi</div>
-        <div class="role_name" style="margin-right: 26%;">Employee</div>
-        <div onclick="navigateToEmployeePage()" class="fst_eyeIcon">👁️</div>
-    </div>
-
-    <div class="employee">
-        <div class="name">Smita</div>
-        <div class="role_name" style="margin-right: 25%;">Employee</div>
-        <div onclick="navigateToEmployeePage()" class="fst_eyeIcon">👁️</div>
-    </div>
-
-    <div class="employee">
-        <div class="name">Sonia</div>
-        <div class="role_name" style="margin-right: 25%;">Employee</div>
-        <div onclick="navigateToEmployeePage()" class="fst_eyeIcon">👁️</div>
-    </div>
-
-    <div class="employee">
-        <div class="name">Sujeeth</div>
-        <div class="role_name" style="margin-right: 26%;">Employee</div>
-        <div onclick="navigateToEmployeePage()" class="fst_eyeIcon">👁️</div>
-    </div>
+    {% endfor %}
 </div>
 
 
