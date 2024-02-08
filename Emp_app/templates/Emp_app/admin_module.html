@@ -3,32 +3,7 @@
 
 
 <script>
-    $(document).ready(function () {
-        var urlParams = new URLSearchParams(window.location.search);
-        var emp_id = urlParams.get('emp_id');
-        if (emp_id) {
-            fetchEmployeeDetails(emp_id);
-        }
-    });
-    function fetchEmployeeDetails(employeeId) {
-        $.ajax({
-            type: "GET",  
-            url: `/employee/${employeeId}/`,  
-            headers: { 'X-CSRFToken': $("input[name='csrfmiddlewaretoken']").val() },
-            success: function (result) {
-                if (result.info) {
-                    console.log(result.info); 
-                }
-            },
-            error: function (xhr, status, error) {
-                console.error(error);
-            }
-        });
-    }
-
-
         function navigateToEmployeePage(emp_id) {
-          
             var url = "/employee/" + emp_id + "/";
             window.location.href = url;
     
@@ -84,12 +59,28 @@
     .employee {
         display: flex;
         justify-content: space-between;
-        align-items: flex-start;
+        align-items: center;
         background-color: white;
         border-radius: 5px;
         padding: 8px 20px;
         margin-bottom: 25px;
-        flex-direction: row;
+    }
+
+    .name, .role_name {
+        flex: 1;
+        margin: 0 10px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .icon-container {
+        flex-shrink: 0; 
+    }
+
+   
+    .role_name {
+        text-align: left;
     }
 
 
@@ -103,13 +94,6 @@
             cursor: pointer;
         }
 
-    .icon-container {
-        right: 5%;
-        position: absolute;
-        display: flex;
-        align-items: center;
-    }
-
     .add_box {
         font-size: 10px;
         color: orange;
@@ -117,8 +101,8 @@
         background-color: white;
         border: 1px solid #ccc;
         border-radius: 40px;
-        padding: 4px;
-        margin-top: -31%;
+        margin-top: -75%;
+        position: relative;
     }
 
     .plusIcon {
@@ -176,7 +160,6 @@
     <div class="add_box">
         <h1 class="ad">Add</h1>
         <div class="plusIcon">+</div>
-
     </div>
 </div>
 {% else %}

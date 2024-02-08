@@ -48,22 +48,17 @@ def admin_module(request):
     return render(request, "Emp_app/admin_module.html", {'employees': employees})
 
 @login_required
-def employee(request, emp_id):
-   
-    emp_details = get_object_or_404(EmpDetails, emp_id__iexact=emp_id)
-
+def employee(request, emp_id=None):
     if request.user.is_staff:
-        return render(request, 'Emp_app/employee.html', {'employee': emp_details})
+        if not emp_id:
+            return redirect('employee')  
+        emp_details = get_object_or_404(EmpDetails, emp_id__iexact=emp_id)
     else:
-        fields = [
-            'fullname', 'emp_id', 'address', 'dob', 'phone_number', 'email_id', 'gender', 
-            'center', 'designation', 'date_of_joining', 'education_qualification', 
-            'status', 'resource_type', 'date_of_resigning', 'bank_name', 'name_as_per_bank', 
-            'account_number', 'ifsc', 'branch', 'account_type'
-        ]
-        emp_dict = model_to_dict(emp_details, fields=fields)
-        return JsonResponse({"info": emp_dict})
+        emp_details = get_object_or_404(EmpDetails, username=request.user.username)
+    
+    return render(request, 'Emp_app/employee.html', {'employee': emp_details})
   
+
 @login_required
 def saveemployee(request):
     if request.method == 'POST':
@@ -169,24 +164,23 @@ def login_base(request):
 def CreatePage(request):
      return render(request, "Emp_app/createpage.html")
 
-    
 def Session_main(request):
-    programs = Program.objects.all()  
+    # Start with all programs, ordered by 'date' in descending order
+    programs = Program.objects.all().order_by('-date')  # Adjust the query here
     
+    resources=EmpDetails.objects.values('resource_type').distinct()
     project_names = Xref.objects.values('project_name').distinct()
     program_names = Xref.objects.values("program_name").distinct()
-    centers = Program.objects.values('center_type').distinct() 
+    centers = Program.objects.values('center_type').distinct()
     trainers = Program.objects.values('trainer_type').distinct()
-    context = {'programs': programs, 'program_names':program_names,'project_names': project_names,'centers': centers,
-        'trainers': trainers}
+
     if request.method == 'POST':
         data = json.loads(request.body)
         program_filter = data.get('program')
         project_filter = data.get('project')
         center_filter = data.get('center')
         trainer_filter = data.get('trainer')
-        
-        programs = Program.objects.all()
+
         if program_filter:
             programs = programs.filter(pgm_id__program_name=program_filter)
         if project_filter:
@@ -196,17 +190,20 @@ def Session_main(request):
         if trainer_filter:
             programs = programs.filter(trainer_type=trainer_filter)
 
-        programs_data = list(programs.values())  
+        # Ensure the filtered queryset is also ordered
+        programs = programs.order_by('-date')
 
-        return JsonResponse({'programs': programs_data})  
+        programs_data = list(programs.values())
+        return JsonResponse({'programs': programs_data})
     else:
-        
         from_date_str = request.GET.get('from_date')
         to_date_str = request.GET.get('to_date')
-        from_date = datetime.strptime(from_date_str, '%Y-%m-%d').date() if from_date_str else None
-        to_date = datetime.strptime(to_date_str, '%Y-%m-%d').date() if to_date_str else None
-        
-        paginator = Paginator(programs, 10)
+        if from_date_str and to_date_str:
+            from_date = datetime.strptime(from_date_str, '%Y-%m-%d').date()
+            to_date = datetime.strptime(to_date_str, '%Y-%m-%d').date()
+            programs = programs.filter(date__range=(from_date, to_date))
+
+        paginator = Paginator(programs, 10)  # Apply pagination to the ordered queryset
         page_number = request.GET.get('page')
         try:
             programs_page = paginator.page(page_number)
@@ -216,14 +213,14 @@ def Session_main(request):
             programs_page = paginator.page(paginator.num_pages)
 
         context = {
-            'programs': programs_page, 
+            'resources':resources,
+            'programs': programs_page,
             'program_names': program_names,
             'project_names': project_names,
             'centers': centers,
             'trainers': trainers,
-            'total_count': paginator.count  
+            'total_count': paginator.count
         }
-        
 
         return render(request, 'Emp_app/Session_main.html', context)
 

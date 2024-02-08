@@ -79,6 +79,7 @@
   <ItemGroup>
     <Compile Include="Employee_Management\settings.py" />
     <Compile Include="Employee_Management\urls.py" />
+    <Compile Include="Emp_app\templatetags\custom_filters.py" />
     <Compile Include="models.py" />
     <Compile Include="templates\registration\wsgi.py" />
     <Compile Include="Employee_Management\__init__.py" />
@@ -109,6 +110,7 @@
     <Folder Include="Emp_app\static\" />
     <Folder Include="Emp_app\templates\" />
     <Folder Include="Emp_app\templates\Emp_app" />
+    <Folder Include="Emp_app\templatetags\__pycache__\" />
     <Folder Include="templates\" />
     <Folder Include="templates\registration\" />
     <Folder Include="venv\" />

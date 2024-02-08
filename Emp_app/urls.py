@@ -16,7 +16,7 @@ urlpatterns = [
     path('', LoginView.as_view(template_name='registration/login.html'), name='login'),
     path("home/", views.home, name="home"),
     path('employee/', views.employee, name='employee'),
-    path('employee/<int:emp_id>/', views.employee, name='employee'),
+    path('employee/<str:emp_id>/', views.employee, name='employee'),
     path("saveemployee/", views.saveemployee, name="saveemployee"),
     path('forgetpassword/', views.forgetpassword, name='forget_password'),
     path('reset_password/', views.reset_password, name='reset_password'),
