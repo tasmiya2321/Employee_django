@@ -1,12 +1,17 @@
 {% extends "Emp_app/base.html" %}
 {% block css %}
 
-<script>
-    function navigateToEmployeePage() {
-        window.location.href = "{% url 'employee' %}";
-    }
 
+<script>
+        function navigateToEmployeePage(emp_id) {
+            var url = "/employee/" + emp_id + "/";
+            window.location.href = url;
+    
+        }
+    
 </script>
+
+
 
 <style>
 
@@ -54,12 +59,28 @@
     .employee {
         display: flex;
         justify-content: space-between;
-        align-items: flex-start;
+        align-items: center;
         background-color: white;
         border-radius: 5px;
         padding: 8px 20px;
         margin-bottom: 25px;
-        flex-direction: row;
+    }
+
+    .name, .role_name {
+        flex: 1;
+        margin: 0 10px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .icon-container {
+        flex-shrink: 0; 
+    }
+
+   
+    .role_name {
+        text-align: left;
     }
 
 
@@ -68,16 +89,10 @@
         position: static;
         cursor: default;
     }
-    .fst_eyeIcon:hover {
-            cursor: pointer;
-    }
 
-    .icon-container {
-        right: 5%;
-        position: absolute;
-        display: flex;
-        align-items: center;
-    }
+        .fst_eyeIcon:hover {
+            cursor: pointer;
+        }
 
     .add_box {
         font-size: 10px;
@@ -86,8 +101,8 @@
         background-color: white;
         border: 1px solid #ccc;
         border-radius: 40px;
-        padding: 4px;
-        margin-top: -31%;
+        margin-top: -75%;
+        position: relative;
     }
 
     .plusIcon {
@@ -117,7 +132,12 @@
 
 {% block content %}
 {% if user.is_staff %}
+
+
 <div class="container">
+    {% csrf_token %}
+
+    <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
 
     <h1 class="main-header">All Employees</h1><br /><br />
 
@@ -126,43 +146,20 @@
         <div class="role">Role</div>
     </div><br />
 
+    {% for employee in employees %}
     <div class="employee">
-        <div class="name">Jimmy Cherian</div>
-        <div class="role_name" style="margin-right: 34%;">Founder</div>
-        <div onclick="navigateToEmployeePage()"class="fst_eyeIcon">👁️</div>
+        <div class="name">{{ employee.fullname }}</div>
+        <div class="role_name" style="margin-right: 34%;">{{ employee.designation }}</div>
+        <div onclick="navigateToEmployeePage('{{employee.emp_id}}')" class="fst_eyeIcon" data-emp-id="{{ employee.emp_id }}">👁️</div>
     </div>
-
-    <div class="employee">
-        <div class="name">Preethi</div>
-        <div class="role_name" style="margin-right: 26%;">Employee</div>
-        <div onclick="navigateToEmployeePage()" class="fst_eyeIcon">👁️</div>
-    </div>
-
-    <div class="employee">
-        <div class="name">Smita</div>
-        <div class="role_name" style="margin-right: 25%;">Employee</div>
-        <div onclick="navigateToEmployeePage()" class="fst_eyeIcon">👁️</div>
-    </div>
-
-    <div class="employee">
-        <div class="name">Sonia</div>
-        <div class="role_name" style="margin-right: 25%;">Employee</div>
-        <div onclick="navigateToEmployeePage()" class="fst_eyeIcon">👁️</div>
-    </div>
-
-    <div class="employee">
-        <div class="name">Sujeeth</div>
-        <div class="role_name" style="margin-right: 26%;">Employee</div>
-        <div onclick="navigateToEmployeePage()" class="fst_eyeIcon">👁️</div>
-    </div>
+    {% endfor %}
 </div>
 
 
 <div class="add" style=" margin-right: 18%; margin-top: -31%; position:relative">
     <div class="add_box">
         <h1 class="ad">Add</h1>
-        <div onclick="togglePasswordVisibility()" class="plusIcon">+</div>
-
+        <div class="plusIcon">+</div>
     </div>
 </div>
 {% else %}

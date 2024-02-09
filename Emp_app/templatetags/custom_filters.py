@@ -23,9 +23,3 @@ def resourcetype_to_string(value):
     
     # Return the string representation if found, else "Unknown"
     return mapping.get(value_int, "Unknown")
-
-
-
-
-
-
