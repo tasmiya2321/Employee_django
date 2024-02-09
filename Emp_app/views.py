@@ -280,7 +280,7 @@ def save_session(request):
         project_name = request.POST.get("Project")
         activity = request.POST.get("Activity")
         center_type = request.POST.get("CentreType")
-        session_number = request.POST.get("Sessionnumber")
+        session_number = request.POST.get("Session_number")
         trainer_type = request.POST.get("Trainer_Type")
         duration = request.POST.get("Duration")
         status = request.POST.get("Status")
