@@ -28,7 +28,7 @@
         document.getElementById('date').value = cells[0].textContent; 
         document.getElementById('Program').value = cells[3].textContent;
         document.getElementById('Project').value = cells[4].textContent; 
-        document.getElementById('Centre_Type').value = cells[6].textContent; 
+        document.getElementById('centre').value = cells[6].textContent; 
         document.getElementById('Activity').value = cells[5].textContent; 
         document.getElementById('Session_number').value = cells[7].textContent; 
         document.getElementById('Trainer_Type').value = cells[9].textContent;
@@ -41,11 +41,11 @@
 
         var resourceTypeText = cells[2].textContent; 
         var programText = cells[3].textContent; 
-        var centreTypeText = cells[4].textContent; 
+        var centreText = cells[4].textContent; 
 
         document.getElementById('resourceType').value = getResourceTypeValue(resourceTypeText);
         document.getElementById('Program').value = getProgramValue(programText);
-        document.getElementById('Centre_Type').value = getCentreTypeValue(centreTypeText);
+        document.getElementById('centre').value = getCentreValue(centreText);
 
         alert(cells[6].textContent)
 
@@ -139,7 +139,7 @@
     }
 
 
-    function getCentreTypeValue(text) {
+    function getCentreValue(text) {
         // Mapping of text to option value for centre type dropdown
         // Example:
         if (text === 'DJ Halli 1') {
@@ -575,7 +575,7 @@
         <select id="center-select">
             <option value="">Select an Center</option>
             {% for center in centers %}
-            <option value="{{ center.center_type }}">{{ center.center_type|centertype_to_string }}</option>
+            <option value="{{ center.center }}">{{ center.center|centertype_to_string }}</option>
             {% endfor %}
         </select>
 
@@ -631,7 +631,7 @@
                 <td>{{program.xref.program_name|program_to_string}}</td>
                 <td>{{program.xref.project_name}}</td>
                 <td>{{program.activity }}</td>
-                <td>{{program.center_type|centertype_to_string}}</td>
+                <td>{{program.center|centertype_to_string}}</td>
                 <td>{{program.session_number}}</td>
                 <td>{{program.sponsor}}</td>
                 <td>{{program.trainer_type}}</td>
@@ -729,20 +729,19 @@
                 <input type="text" id="Activity" name="Activity"><br>
 
                 <label for="CentreType">Centre Type</label>
-                <select id="Centre_Type" name="Centre_Type" required>
-                    <option value="Select an option">Select an option</option>
-                    <option value="1" data-dbname="DJ Halli 1">DJ Halli 1</option>
-                    <option value="2" data-dbname="DJ Halli 2">DJ Halli 2</option>
-                    <option value="3" data-dbname="Bagalur">Bagalur</option>
-                    <option value="4" data-dbname="Mylanahalli">Mylanahalli</option>
-                    <option value="5" data-dbname="Kannur">Kannur</option>
-                    <option value="6" data-dbname="Koramangala">Koramangala</option>
-
+                <select id="centre" name="center" data-dbname="center" required>
+                    <option value="">Select an option</option>
+                    <option value="1">DJ Halli1</option>
+                    <option value="2">DJ Halli2</option>
+                    <option value="3">Bagalur</option>
+                    <option value="4">Mylanahalli</option>
+                    <option value="5">Kannur</option>
+                    <option value="6">Koramangala</option>
                 </select>
                 <br>
 
-                <label for="Session_number">Session Number</label>
-                <input type="text" id="Session_number" name="Session_number"><br>
+                <label for="Sessionnumber">Session Number</label>
+                <input type="text" id="Sessionnumber" name="Sessionnumber"><br>
 
                 <label for="Sponsor">Sponsor</label>
                 <select id="Sponsor" name="Sponsor" required>

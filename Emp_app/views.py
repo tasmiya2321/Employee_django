@@ -171,7 +171,7 @@ def Session_main(request):
     resources=EmpDetails.objects.values('resource_type').distinct()
     project_names = Xref.objects.values('project_name').distinct()
     program_names = Xref.objects.values("program_name").distinct()
-    centers = Program.objects.values('center_type').distinct()
+    centers = Program.objects.values('center').distinct()
     trainers = Program.objects.values('trainer_type').distinct()
 
     if request.method == 'POST':
@@ -186,7 +186,7 @@ def Session_main(request):
         if project_filter:
             programs = programs.filter(xref__project_name=project_filter)
         if center_filter:
-            programs = programs.filter(center_type=center_filter)
+            programs = programs.filter(center=center_filter)
         if trainer_filter:
             programs = programs.filter(trainer_type=trainer_filter)
 
@@ -224,52 +224,6 @@ def Session_main(request):
 
         return render(request, 'Emp_app/Session_main.html', context)
 
-
-
-# def save_session(request):
-#     try:
-       
-#         new_session = Program()
-
-#         # Assign form values to the Session object
-#         new_session.date = request.POST.get('date')
-#         new_session.resource_name = request.POST.get('ResourceName')
-#         new_session.program = request.POST.get('Program')
-#         new_session.project = request.POST.get('Project')
-#         new_session.center_type = request.POST.get('CentreType')
-#         new_session.activity = request.POST.get('Activity')
-#         new_session.session_number = request.POST.get('Sessionnumber')
-#         new_session.trainer_type = request.POST.get('Trainer_Type')
-#         new_session.duration = request.POST.get('Duration')
-#         new_session.status = request.POST.get('Status')
-#         new_session.beneficiaries = request.POST.get('Beneficiaries')
-#         new_session.category = request.POST.get('Category')
-#         new_session.comment = request.POST.get('Action')
-
-       
-#         new_session.save()
-
-       
-#         return redirect('Session_main')  
-
-#     except Exception as e:
-       
-#         print(e)
-#         return redirect('createpage')
-
-
-
-
-
-    
-
-
-
-
-
-
-
-
 def save_session(request):
     if request.method == "POST":
         
@@ -279,8 +233,8 @@ def save_session(request):
         program_name = request.POST.get("Program")
         project_name = request.POST.get("Project")
         activity = request.POST.get("Activity")
-        center_type = request.POST.get("CentreType")
-        session_number = request.POST.get("Session_number")
+        center = request.POST.get("center")
+        session_number = request.POST.get("Sessionnumber")
         trainer_type = request.POST.get("Trainer_Type")
         duration = request.POST.get("Duration")
         status = request.POST.get("Status")
@@ -307,7 +261,7 @@ def save_session(request):
             xref=new_xref, 
             date=date,  
             activity=activity,
-            center_type=center_type,
+            center=center,
             trainer_type=trainer_type,
             sponsor=sponsor,
             beneficiaries=beneficiaries,
