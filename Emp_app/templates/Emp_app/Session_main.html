@@ -24,13 +24,13 @@
         document.getElementById('popup').style.display = 'flex';
         var row = event.target.closest('tr'); 
         var cells = row.querySelectorAll('td'); 
-        document.getElementById('Employeename').value = cells[1].textContent; 
+        document.getElementById('emp_id').value = cells[1].textContent; 
         document.getElementById('date').value = cells[0].textContent; 
         document.getElementById('Program').value = cells[3].textContent;
         document.getElementById('Project').value = cells[4].textContent; 
-        document.getElementById('centre').value = cells[6].textContent; 
+        document.getElementById('Center_Type').value = cells[6].textContent; 
         document.getElementById('Activity').value = cells[5].textContent; 
-        document.getElementById('Session_number').value = cells[7].textContent; 
+        document.getElementById('session_number').value = cells[7].textContent; 
         document.getElementById('Trainer_Type').value = cells[9].textContent;
         document.getElementById('Duration').value = cells[12].textContent; 
         document.getElementById('Status').value = cells[13].textContent; 
@@ -41,13 +41,13 @@
 
         var resourceTypeText = cells[2].textContent; 
         var programText = cells[3].textContent; 
-        var centreText = cells[4].textContent; 
+        var centreTypeText = cells[6].textContent; 
 
         document.getElementById('resourceType').value = getResourceTypeValue(resourceTypeText);
         document.getElementById('Program').value = getProgramValue(programText);
-        document.getElementById('centre').value = getCentreValue(centreText);
+        document.getElementById('Center_Type').value = getCentreTypeValue(centreTypeText);
 
-        alert(cells[6].textContent)
+       
 
         toggleEdit();
     }
@@ -139,12 +139,14 @@
     }
 
 
-    function getCentreValue(text) {
+
+
+    function getCentreTypeValue(text) {
         // Mapping of text to option value for centre type dropdown
         // Example:
-        if (text === 'DJ Halli 1') {
+        if (text === 'DJ_halli 1') {
             return '1';
-        } else if (text === 'DJ Halli 2') {
+        } else if (text === 'DJ_halli 2') {
             return '2';
         } else if (text === 'Bagalur') {
             return '3';
@@ -152,9 +154,7 @@
             return '4';
         } else if (text === 'Kannur') {
             return '5';
-        } else if (text === 'Koramangala') {
-            return '6';
-        }
+        } e
         // Add more mappings as needed
     } 
 
@@ -195,33 +195,7 @@
             });
     }
 
-    function toggleEdit() {
-        const updateButton = document.getElementById("updateButton");
-        const statusSelect = document.getElementById("status");
-        const dateOfResigningField = document.getElementById("dateOfResigning").parentNode.parentNode;
 
-        if (updateButton.disabled === true) {
-            const formFields = document.querySelectorAll("input[type=text], input[type=date], input[type=number], input[type=email], input[type=radio], select, textarea");
-
-            formFields.forEach(field => {
-                field.disabled = false;
-            });
-
-            if (statusSelect.value === "1") {
-                dateOfResigningField.style.display = "none";
-            }
-
-            updateButton.disabled = false;
-        } else {
-            const formFields = document.querySelectorAll("input[type=text], input[type=date], input[type=number], input[type=email], input[type=radio], select, textarea");
-
-            formFields.forEach(field => {
-                field.disabled = true;
-            });
-
-            updateButton.disabled = true;
-        }
-    }
 
 
     function getCookie(name) {
@@ -575,7 +549,7 @@
         <select id="center-select">
             <option value="">Select an Center</option>
             {% for center in centers %}
-            <option value="{{ center.center }}">{{ center.center}}</option>
+            <option value="{{ center.center_type }}">{{ center.center_type|centertype_to_string }}</option>
             {% endfor %}
         </select>
 
@@ -602,12 +576,12 @@
             <tr bgcolor="orange">
 
                 <th>Date</th>
-                <th>Employee Name</th>
+                <th>Emp_id</th>
                 <th>Resource Name</th>
                 <th>Program</th>
                 <th>Project</th>
                 <th>Activity</th>
-                <th>Center</th>
+                <th>Center_Type</th>
                 <th>Session_Number</th>
                 <th>Sponsor</th>
                 <th>Trainer_Type</th>
@@ -625,13 +599,13 @@
 
             {% for program in programs %}
             <tr bgcolor="white">
-                <td>{{program.date }}</td>
-                <td>{{program.emp.fullname}}</td>
+                <td>{{program.date}}</td>
+                <td>{{program.emp.emp_id}}</td>
                 <td>{{program.emp.resource_type|resourcetype_to_string}}</td>
                 <td>{{program.xref.program_name|program_to_string}}</td>
                 <td>{{program.xref.project_name}}</td>
                 <td>{{program.activity }}</td>
-                <td>{{program.Center}}</td>
+                <td>{{program.center_type|centertype_to_string}}</td>
                 <td>{{program.session_number}}</td>
                 <td>{{program.sponsor}}</td>
                 <td>{{program.trainer_type}}</td>
@@ -667,8 +641,8 @@
             <div class="scroll-container">
 
                 <h2>Details</h2>
-                <label for="Employee_name">Employee Name</label>
-                <input type="text" id="Employeename" name="username" data-dbname="username"><br>
+                <label for="Emp_id">Emp_id</label>
+                <input type="text" id="emp_id" name="emp_id" data-dbname="emp_id"><br>
 
                 <label for="date">Date</label>
                 <input type="date" id="date" name="date"><br>
@@ -728,20 +702,19 @@
                 <label for="Activity">Activity</label>
                 <input type="text" id="Activity" name="Activity"><br>
 
-                <label for="CentreType">Centre</label>
-                <select id="centre" name="  " data-dbname="center" required>
-                    <option value="">Select an option</option>
-                    <option value="1">DJ Halli1</option>
-                    <option value="2">DJ Halli2</option>
-                    <option value="3">Bagalur</option>
-                    <option value="4">Mylanahalli</option>
-                    <option value="5">Kannur</option>
-                    <option value="6">Koramangala</option>
+                <label for="Center_Type">Center_Type</label>
+                <select id="Center_Type" name="Center_Type" required>
+                    <option value="Select an option">Select an option</option>
+                    <option value="1" data-dbname="DJ_halli 1">DJ_halli 1</option>
+                    <option value="2" data-dbname="DJ_halli 2">DJ_halli 2</option>
+                    <option value="3" data-dbname="Bagalur">Bagalur</option>
+                    <option value="4" data-dbname="Mylanahalli">Mylanahalli</option>
+                    <option value="5" data-dbname="Kannur">Kannur</option>
                 </select>
                 <br>
 
-                <label for="Sessionnumber">Session Number</label>
-                <input type="text" id="Sessionnumber" name="Sessionnumber"><br>
+                <label for="Session_number">Session Number</label>
+                <input type="text" id="session_number" name="Session_number"><br>
 
                 <label for="Sponsor">Sponsor</label>
                 <select id="Sponsor" name="Sponsor" required>
