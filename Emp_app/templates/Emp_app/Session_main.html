@@ -8,7 +8,7 @@
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         document.querySelector(".filter-icon").addEventListener("click", function () {
-            var dropdown = document.querySelector(".dropdowns"); 
+            var dropdown = document.querySelector(".dropdowns");
             dropdown.style.display = dropdown.style.display === "none" ? "flex" : "none";
         });
 
@@ -20,41 +20,42 @@
         });
     });
 
-    function showpopup() {
+    function showpopup(event) {
         document.getElementById('popup').style.display = 'flex';
-        var row = event.target.closest('tr'); 
-        var cells = row.querySelectorAll('td'); 
-        document.getElementById('emp_id').value = cells[1].textContent; 
-        document.getElementById('date').value = cells[0].textContent; 
+        var row = event.target.closest('tr');
+        var cells = row.querySelectorAll('td');
+        document.getElementById('emp_id').value = cells[1].textContent;
+        document.getElementById('date').value = cells[0].textContent;
+        document.getElementById('resourceType').value = cells[2].textContent;
         document.getElementById('Program').value = cells[3].textContent;
-        document.getElementById('Project').value = cells[4].textContent; 
-        document.getElementById('Center_Type').value = cells[6].textContent; 
-        document.getElementById('Activity').value = cells[5].textContent; 
-        document.getElementById('session_number').value = cells[7].textContent; 
+        document.getElementById('Project').value = cells[4].textContent;
+        document.getElementById('Center_Type').value = cells[6].textContent;
+        document.getElementById('Activity').value = cells[5].textContent;
+        document.getElementById('session_number').value = cells[7].textContent;
         document.getElementById('Trainer_Type').value = cells[9].textContent;
-        document.getElementById('Duration').value = cells[12].textContent; 
-        document.getElementById('Status').value = cells[13].textContent; 
-        document.getElementById('Beneficiaries').value = cells[10].textContent; 
-        document.getElementById('Category').value = cells[11].textContent; 
-        document.getElementById('Sponsor').value = cells[8].textContent; 
+        document.getElementById('Duration').value = cells[12].textContent;
+        document.getElementById('Status').value = cells[13].textContent;
+        document.getElementById('Beneficiaries').value = cells[10].textContent;
+        document.getElementById('Category').value = cells[11].textContent;
+        document.getElementById('Sponsor').value = cells[8].textContent;
         document.getElementById('Comment').value = cells[14].textContent;
 
-        var resourceTypeText = cells[2].textContent; 
-        var programText = cells[3].textContent; 
-        var centreTypeText = cells[6].textContent; 
+        var resourceTypeText = cells[2].textContent;
+        var programText = cells[3].textContent;
+        var centreTypeText = cells[6].textContent;
 
         document.getElementById('resourceType').value = getResourceTypeValue(resourceTypeText);
         document.getElementById('Program').value = getProgramValue(programText);
         document.getElementById('Center_Type').value = getCentreTypeValue(centreTypeText);
 
-       
+
 
         toggleEdit();
     }
 
-   
+
     function getResourceTypeValue(text) {
-        
+
         if (text === 'Employee') {
             return '1';
         } else if (text === 'Part-time') {
@@ -62,7 +63,7 @@
         } else if (text === 'Consultant') {
             return '3';
         }
-       
+
     }
 
     function getProgramValue(text) {
@@ -134,7 +135,7 @@
             case 'WSD':
                 return '33';
             default:
-                return ''; 
+                return '';
         }
     }
 
@@ -154,9 +155,10 @@
             return '4';
         } else if (text === 'Kannur') {
             return '5';
-        } e
+        }
+        return '';
         // Add more mappings as needed
-    } 
+    }
 
 
     function hidePopup() {
@@ -176,11 +178,11 @@
         var selectedCenter = document.getElementById('center-select').value;
         var selectedTrainer = document.getElementById('trainer-select').value;
 
-        fetch('/filter_sessions/', { 
+        fetch('/filter_sessions/', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'X-CSRFToken': getCookie('csrftoken') 
+                'X-CSRFToken': getCookie('csrftoken')
             },
             body: JSON.stringify({
                 program: selectedProgram,
@@ -325,7 +327,7 @@
     }
 
     .form-column {
-        width: 48%; 
+        width: 48%;
     }
 
 
@@ -345,7 +347,7 @@
         left: 0;
         width: 100%;
         height: 100%;
-        background-color: rgba(0, 0, 0, 0.5); 
+        background-color: rgba(0, 0, 0, 0.5);
         justify-content: center;
         align-items: center;
     }
@@ -366,7 +368,7 @@
     }
 
         .scroll-container label {
-            display: block; 
+            display: block;
             margin: 10px 0 5px;
             font-weight: bold;
         }
@@ -374,21 +376,21 @@
         .scroll-container input[type="text"],
         .scroll-container input[type="date"],
         .scroll-container select {
-            width: 90%; 
-            margin: 5px 0; 
+            width: 90%;
+            margin: 5px 0;
             padding: 8px;
             border: 1px solid #ccc;
-            border-radius: 4px; 
+            border-radius: 4px;
         }
 
         .scroll-container.comment-box {
             width: 90%;
-            margin: 10px 0; 
+            margin: 10px 0;
             padding: 8px;
         }
 
             .scroll-container.comment-box textarea {
-                width: 100%; 
+                width: 100%;
                 height: 100px;
                 border: 1px solid #ccc;
                 border-radius: 4px;
@@ -398,27 +400,27 @@
         .scroll-container#btnSave {
             width: auto;
             background-color: orange;
-            color: white; 
+            color: white;
             padding: 10px 20px;
             border: none;
             border-radius: 5px;
             margin-right: 10px;
-            cursor: pointer; 
+            cursor: pointer;
             box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2);
-            font-weight: bold; 
-            transition: background-color 0.3s ease; 
-            display: block; 
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+            display: block;
         }
 
         .scroll-container#btnSaveDuplicate {
-            width: auto; 
+            width: auto;
             background-color: orange;
-            color: white; 
-            padding: 10px 20px; 
-            border: none; 
-            border-radius: 5px; 
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
             margin-right: 10px;
-            cursor: pointer; 
+            cursor: pointer;
             box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2);
             font-weight: bold;
             transition: background-color 0.3s ease;
@@ -426,21 +428,21 @@
         }
 
         .scroll-container.button-container button {
-            background-color: orange; 
-            color: white; 
+            background-color: orange;
+            color: white;
             padding: 10px 20px;
-            border: none; 
+            border: none;
             border-radius: 5px;
-            margin-right: 10px; 
-            cursor: pointer; 
-            box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2); 
-            font-weight: bold; 
+            margin-right: 10px;
+            cursor: pointer;
+            box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2);
+            font-weight: bold;
             transition: background-color 0.3s ease;
         }
 
     @media (max-width: 768px) {
         .blank-box {
-            width: 80%; 
+            width: 80%;
         }
 
         .scroll-container input[type="text"],
@@ -452,29 +454,29 @@
     }
 
     .date-input {
-        display: none; 
+        display: none;
         padding: 10px;
         border: 1px solid #ccc;
         border-radius: 5px;
         margin: 5px;
     }
 
-        .date-input::-webkit-input-placeholder { 
+        .date-input::-webkit-input-placeholder {
             color: #888;
             font-style: italic;
         }
 
-        .date-input::-moz-placeholder { 
+        .date-input::-moz-placeholder {
             color: #888;
             font-style: italic;
         }
 
-        .date-input:-ms-input-placeholder { 
+        .date-input:-ms-input-placeholder {
             color: #888;
             font-style: italic;
         }
 
-        .date-input:-moz-placeholder { 
+        .date-input:-moz-placeholder {
             color: #888;
             font-style: italic;
         }
@@ -619,7 +621,7 @@
 
 
                 <td class="tdtd">
-                    <button class="add-row-button" onclick="showpopup()"> <i class="fa-solid fa-eye" style="color: #ff7b00;"></i> </button>
+                    <button class="add-row-button" type="button" onclick="showpopup(event)"> <i class="fa-solid fa-eye" style="color: #ff7b00;"></i> </button>
                 </td>
 
 
@@ -631,7 +633,7 @@
 
     <script>
         function openCreatePage() {
-            var url = "{% url 'createpage' %}"; 
+            var url = "{% url 'createpage' %}";
             window.open(url, 'Create Page', 'height=600,width=800');
         }
     </script>
@@ -641,18 +643,18 @@
             <div class="scroll-container">
 
                 <h2>Details</h2>
-                <label for="Emp_id">Emp_id</label>
+                <label for="emp_id">Emp_id</label>
                 <input type="text" id="emp_id" name="emp_id" data-dbname="emp_id"><br>
 
                 <label for="date">Date</label>
                 <input type="date" id="date" name="date"><br>
 
-                <label for="ResourceName">resource_type</label>
-                <select id="resourceType" name="resourceType" data-dbname="resource_type" required disabled>
+                <label for="resourceType">resource_type</label>
+                <select id="resourceType" name="resourceType" data-dbname="resource_type" required>
                     <option value="">Select an option</option>
-                    <option value="1">Employee</option>
-                    <option value="2">Part-time</option>
-                    <option value="3">Consultant</option>
+                    <option value="1" data-dbname="Employee">Employee</option>
+                    <option value="2" data-dbname="Part-time">Part-time</option>
+                    <option value="3" data-dbname="Consultant">Consultant</option>
                 </select>
 
                 <label for="Program">Program</label>
@@ -713,8 +715,8 @@
                 </select>
                 <br>
 
-                <label for="Session_number">Session Number</label>
-                <input type="text" id="session_number" name="Session_number"><br>
+                <label for="session_number">Session Number</label>
+                <input type="text" id="session_number" name="session_number"><br>
 
                 <label for="Sponsor">Sponsor</label>
                 <select id="Sponsor" name="Sponsor" required>

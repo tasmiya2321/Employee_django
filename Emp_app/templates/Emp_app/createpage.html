@@ -130,6 +130,7 @@
         color: #000; /* Changed color to black for better visibility */
         padding: 10px;
     }
+
     resource_type
 
     .table-container {
@@ -337,13 +338,13 @@
             <form method="post" action="{% url 'save_session' %}" id="createSessionForm">
 
                 {% csrf_token %}
-                <label for="Emp_id">Emp_id</label>
+                <label for="emp_id">Emp_id</label>
                 <input type="text" id="emp_id" name="emp_id" data-dbname="emp_id"><br>
 
                 <label for="date">Date</label>
                 <input type="date" id="date" name="date"><br>
 
-                <label for="ResourceName">resource_type</label>
+                <label for="resourceType">resource_type</label>
                 <select id="resourceType" name="resourceType" data-dbname="resource_type" required disabled>
                     <option value="">Select an option</option>
                     <option value="1">Employee</option>
@@ -409,8 +410,8 @@
                 </select>
                 <br>
 
-                <label for="Session_number">Session Number</label>
-                <input type="text" id="session_number" name="Session_number"><br>
+                <label for="session_number">Session Number</label>
+                <input type="text" id="session_number" name="session_number"><br>
 
                 <label for="Sponsor">Sponsor</label>
                 <select id="Sponsor" name="Sponsor" required>
