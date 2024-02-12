@@ -17,7 +17,7 @@ class EmpDetails(models.Model):
     phone_number = models.IntegerField(db_column='Phone_Number', blank=True, null=True)  # Field name made lowercase.
     email_id = models.CharField(max_length=255,db_column='Email_Id', blank=True, null=True)  # Field name made lowercase.
     gender = models.CharField(max_length=255,db_column='Gender', blank=True, null=True)  # Field name made lowercase.
-    center = models.IntegerField(db_column='Center', blank=True, null=True)  # Field name made lowercase.
+    center = models.CharField(max_length=100,db_column='Center', blank=True, null=True)  # Field name made lowercase.
     designation = models.CharField(max_length=255,db_column='Designation', blank=True, null=True)  # Field name made lowercase.
     date_of_joining = models.CharField(max_length=255,db_column='Date_of_Joining', blank=True, null=True)  # Field name made lowercase.
     education_qualification = models.CharField(max_length=255,db_column='Education_Qualification', blank=True, null=True)  # Field name made lowercase.
@@ -42,7 +42,7 @@ class Program(models.Model):
     xref = models.ForeignKey('Xref', models.DO_NOTHING, db_column='XREF_ID')  # Field name made lowercase.
     date = models.CharField(max_length=255,db_column='Date', blank=True, null=True)  # Field name made lowercase.
     activity = models.TextField(db_column='Activity', blank=True, null=True)  # Field name made lowercase.
-    center_type = models.IntegerField(db_column='Center_Type', blank=True, null=True)  # Field name made lowercase.
+    center = models.ForeignKey(EmpDetails, models.DO_NOTHING, db_column='Center', blank=True, null=True, related_name='program_center')
     trainer_type = models.IntegerField(db_column='Trainer_Type', blank=True, null=True)  # Field name made lowercase.
     sponsor = models.IntegerField(db_column='Sponsor', blank=True, null=True)  # Field name made lowercase.
     beneficiaries = models.IntegerField(db_column='Beneficiaries', blank=True, null=True)  # Field name made lowercase.

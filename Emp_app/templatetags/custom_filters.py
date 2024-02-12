@@ -25,14 +25,14 @@ def resourcetype_to_string(value):
     return mapping.get(value_int, "Unknown")
 
 
-@register.filter(name='centertype_to_string')
-def centertype_to_string(value):
-    centertype_names = {
-        1: "DJ_halli 1",
-        2: "DJ_halli 2",
-        3: "Bagalur",
-        4: "Mylanahalli",
-        5: "Kannur",
-        6: "Koramangala"
-    }
-    return centertype_names.get(value, f"{value}")
+# @register.filter(name='centertype_to_string')
+# def centertype_to_string(value):
+#     centertype_names = {
+#         1: "DJ_halli 1",
+#         2: "DJ_halli 2",
+#         3: "Bagalur",
+#         4: "Mylanahalli",
+#         5: "Kannur",
+#         6: "Koramangala"
+#     }
+#     return centertype_names.get(value, f"{value}")

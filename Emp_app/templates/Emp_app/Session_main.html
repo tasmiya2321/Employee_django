@@ -575,7 +575,7 @@
         <select id="center-select">
             <option value="">Select an Center</option>
             {% for center in centers %}
-            <option value="{{ center.center }}">{{ center.center|centertype_to_string }}</option>
+            <option value="{{ center.center }}">{{ center.center}}</option>
             {% endfor %}
         </select>
 
@@ -607,7 +607,7 @@
                 <th>Program</th>
                 <th>Project</th>
                 <th>Activity</th>
-                <th>Center_Type</th>
+                <th>Center</th>
                 <th>Session_Number</th>
                 <th>Sponsor</th>
                 <th>Trainer_Type</th>
@@ -631,7 +631,7 @@
                 <td>{{program.xref.program_name|program_to_string}}</td>
                 <td>{{program.xref.project_name}}</td>
                 <td>{{program.activity }}</td>
-                <td>{{program.center|centertype_to_string}}</td>
+                <td>{{program.Center}}</td>
                 <td>{{program.session_number}}</td>
                 <td>{{program.sponsor}}</td>
                 <td>{{program.trainer_type}}</td>
@@ -728,8 +728,8 @@
                 <label for="Activity">Activity</label>
                 <input type="text" id="Activity" name="Activity"><br>
 
-                <label for="CentreType">Centre Type</label>
-                <select id="centre" name="center" data-dbname="center" required>
+                <label for="CentreType">Centre</label>
+                <select id="centre" name="  " data-dbname="center" required>
                     <option value="">Select an option</option>
                     <option value="1">DJ Halli1</option>
                     <option value="2">DJ Halli2</option>

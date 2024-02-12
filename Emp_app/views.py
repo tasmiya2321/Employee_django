@@ -244,7 +244,7 @@ def save_session(request):
         sponsor = request.POST.get("Sponsor")
 
        
-        new_emp_details = EmpDetails(fullname=employee_name, resource_type=resource_type)
+        new_emp_details = EmpDetails(name=employee_name, resource_type=resource_type)
         new_emp_details.save()
 
         # Create Xref instance
@@ -261,7 +261,7 @@ def save_session(request):
             xref=new_xref, 
             date=date,  
             activity=activity,
-            center=center,
+            center=new_emp_details,
             trainer_type=trainer_type,
             sponsor=sponsor,
             beneficiaries=beneficiaries,
