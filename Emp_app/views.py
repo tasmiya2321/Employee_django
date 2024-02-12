@@ -20,7 +20,7 @@ from django.contrib.auth.views import PasswordResetView
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth import authenticate, login
 from django.db.models import Q
-import datetime
+from datetime import datetime
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render, get_object_or_404
 
@@ -273,13 +273,13 @@ def Session_main(request):
 def save_session(request):
     if request.method == "POST":
         
-        employee_name = request.POST.get("username")
+        employee_id = request.POST.get("emp_id")
         resource_type = request.POST.get("resourceType")
         date = request.POST.get("date") 
         program_name = request.POST.get("Program")
         project_name = request.POST.get("Project")
         activity = request.POST.get("Activity")
-        center_type = request.POST.get("CentreType")
+        center_type = request.POST.get("Center_Type")
         session_number = request.POST.get("Session_number")
         trainer_type = request.POST.get("Trainer_Type")
         duration = request.POST.get("Duration")
@@ -290,7 +290,7 @@ def save_session(request):
         sponsor = request.POST.get("Sponsor")
 
        
-        new_emp_details = EmpDetails(fullname=employee_name, resource_type=resource_type)
+        new_emp_details = EmpDetails(emp_id=employee_id, resource_type=resource_type)
         new_emp_details.save()
 
         # Create Xref instance
