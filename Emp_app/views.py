@@ -164,9 +164,12 @@ def login_base(request):
 def CreatePage(request):
      return render(request, "Emp_app/createpage.html")
 
+@login_required
 def Session_main(request):
+    
+    employee_id = request.user.id
     # Start with all programs, ordered by 'date' in descending order
-    programs = Program.objects.all().order_by('-date')  # Adjust the query here
+    programs = Program.objects.filter(emp__emp_id=employee_id).order_by('-date')  # Adjust the query here
     
     resources=EmpDetails.objects.values('resource_type').distinct()
     project_names = Xref.objects.values('project_name').distinct()
@@ -226,47 +229,6 @@ def Session_main(request):
 
 
 
-# def save_session(request):
-#     try:
-       
-#         new_session = Program()
-
-#         # Assign form values to the Session object
-#         new_session.date = request.POST.get('date')
-#         new_session.resource_name = request.POST.get('ResourceName')
-#         new_session.program = request.POST.get('Program')
-#         new_session.project = request.POST.get('Project')
-#         new_session.center_type = request.POST.get('CentreType')
-#         new_session.activity = request.POST.get('Activity')
-#         new_session.session_number = request.POST.get('Sessionnumber')
-#         new_session.trainer_type = request.POST.get('Trainer_Type')
-#         new_session.duration = request.POST.get('Duration')
-#         new_session.status = request.POST.get('Status')
-#         new_session.beneficiaries = request.POST.get('Beneficiaries')
-#         new_session.category = request.POST.get('Category')
-#         new_session.comment = request.POST.get('Action')
-
-       
-#         new_session.save()
-
-       
-#         return redirect('Session_main')  
-
-#     except Exception as e:
-       
-#         print(e)
-#         return redirect('createpage')
-
-
-
-
-
-    
-
-
-
-
-
 
 
 
@@ -308,6 +270,7 @@ def save_session(request):
             date=date,  
             activity=activity,
             center_type=center_type,
+            session_number=session_number,
             trainer_type=trainer_type,
             sponsor=sponsor,
             beneficiaries=beneficiaries,
