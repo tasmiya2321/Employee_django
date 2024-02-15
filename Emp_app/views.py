@@ -20,7 +20,7 @@ from django.contrib.auth.views import PasswordResetView
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth import authenticate, login
 from django.db.models import Q
-from datetime import datetime
+import datetime
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render, get_object_or_404
 
@@ -225,62 +225,17 @@ def Session_main(request):
         return render(request, 'Emp_app/Session_main.html', context)
 
 
-
-# def save_session(request):
-#     try:
-       
-#         new_session = Program()
-
-#         # Assign form values to the Session object
-#         new_session.date = request.POST.get('date')
-#         new_session.resource_name = request.POST.get('ResourceName')
-#         new_session.program = request.POST.get('Program')
-#         new_session.project = request.POST.get('Project')
-#         new_session.center_type = request.POST.get('CentreType')
-#         new_session.activity = request.POST.get('Activity')
-#         new_session.session_number = request.POST.get('Sessionnumber')
-#         new_session.trainer_type = request.POST.get('Trainer_Type')
-#         new_session.duration = request.POST.get('Duration')
-#         new_session.status = request.POST.get('Status')
-#         new_session.beneficiaries = request.POST.get('Beneficiaries')
-#         new_session.category = request.POST.get('Category')
-#         new_session.comment = request.POST.get('Action')
-
-       
-#         new_session.save()
-
-       
-#         return redirect('Session_main')  
-
-#     except Exception as e:
-       
-#         print(e)
-#         return redirect('createpage')
-
-
-
-
-
-    
-
-
-
-
-
-
-
-
 def save_session(request):
     if request.method == "POST":
         
-        employee_id = request.POST.get("emp_id")
+        employee_name = request.POST.get("username")
         resource_type = request.POST.get("resourceType")
         date = request.POST.get("date") 
         program_name = request.POST.get("Program")
         project_name = request.POST.get("Project")
         activity = request.POST.get("Activity")
-        center_type = request.POST.get("Center_Type")
-        session_number = request.POST.get("Session_number")
+        center_type = request.POST.get("CentreType")
+        session_number = request.POST.get("Sessionnumber")
         trainer_type = request.POST.get("Trainer_Type")
         duration = request.POST.get("Duration")
         status = request.POST.get("Status")
@@ -290,7 +245,7 @@ def save_session(request):
         sponsor = request.POST.get("Sponsor")
 
        
-        new_emp_details = EmpDetails(emp_id=employee_id, resource_type=resource_type)
+        new_emp_details = EmpDetails(fullname=employee_name, resource_type=resource_type)
         new_emp_details.save()
 
         # Create Xref instance
