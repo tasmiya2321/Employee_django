@@ -40,7 +40,7 @@
             case 0: // For date
                 return document.getElementById("date").value;
             case 1: // Resource Name
-                return document.getElementById("ResourceName").value;
+                return document.getElementById("fullname").value;
             case 2: // Program
                 return document.getElementById("Program").value;
             case 3: // For Employee ID
@@ -308,18 +308,21 @@
     <table id="sessionTable" bgcolor="">
         <tr bgcolor="orange">
             <th>Date</th>
-            <th>resource_type</th>
+            <th>fullname</th>
             <th>Program</th>
             <th>Project</th>
-            <th>Center Type</th>
             <th>Activity</th>
+            <th>Center_Type</th>
             <th>Session_Number</th>
+            <th>Sponsor</th>
             <th>Trainer_Type</th>
-            <th>Hours</th>
-            <th>Status</th>
             <th>beneficiaries</th>
             <th>Category</th>
-            <th>Actions</th>
+            <th>Duration</th>
+            <th>Status</th>
+            <th>Comments</th>
+            <th>Action</th>
+
         </tr>
 
 
@@ -337,19 +340,22 @@
             <form method="post" action="{% url 'save_session' %}" id="createSessionForm">
 
                 {% csrf_token %}
-                <label for="Emp_id">Emp_id</label>
-                <input type="text" id="emp_id" name="emp_id" data-dbname="emp_id"><br>
+                <label id="fullname">fullname</label>
+                <select id="fullname" name="fullname" required>
+                    <option value="Select an option" data-dbname="SelectAnOption">Select an option</option>
+                    <option value="1">Preethi</option>
+                    <option value="2">Sonia</option>
+                    <option value="3">Jimmy Cherian</option>
+                    <option value="4">Smitha</option>
+                    <option value="5">Sujeeth</option>
+                </select>
+
+                <br>
 
                 <label for="date">Date</label>
                 <input type="date" id="date" name="date"><br>
 
-                <label for="ResourceName">resource_type</label>
-                <select id="resourceType" name="resourceType" data-dbname="resource_type" required disabled>
-                    <option value="">Select an option</option>
-                    <option value="1">Employee</option>
-                    <option value="2">Part-time</option>
-                    <option value="3">Consultant</option>
-                </select>
+
 
                 <label for="Program">Program</label>
                 <select id="Program" name="Program" required>
@@ -465,9 +471,9 @@
                 </select>
                 <br>
 
-                <label for="Comment">Comment</label>
+                <label for="CommeCommentsnt">Comments</label>
                 <div class="comment-box">
-                    <textarea id="Comment" name="comment" placeholder="Write our comment here"></textarea>
+                    <textarea id="Comments" name="Comments" placeholder="Write our comment here"></textarea>
                 </div>
                 <br>
 
@@ -544,7 +550,7 @@
             case 0: // For date
                 return document.getElementById("date").value;
             case 1: // Resource Name
-                return document.getElementById("ResourceName").value;
+                return document.getElementById("fullname").value;
             case 2: // Program
                 return document.getElementById("Program").value;
             case 3: // For Employee ID

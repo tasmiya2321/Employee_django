@@ -24,33 +24,34 @@
         document.getElementById('popup').style.display = 'flex';
         var row = event.target.closest('tr'); 
         var cells = row.querySelectorAll('td'); 
-        document.getElementById('emp_id').value = cells[1].textContent; 
+        document.getElementById('fullname').value = cells[1].textContent; 
         document.getElementById('date').value = cells[0].textContent; 
-        document.getElementById('Program').value = cells[3].textContent;
-        document.getElementById('Project').value = cells[4].textContent; 
-        document.getElementById('Center_Type').value = cells[6].textContent; 
-        document.getElementById('Activity').value = cells[5].textContent; 
-        document.getElementById('session_number').value = cells[7].textContent; 
-        document.getElementById('Trainer_Type').value = cells[9].textContent;
-        document.getElementById('Duration').value = cells[12].textContent; 
-        document.getElementById('Status').value = cells[13].textContent; 
-        document.getElementById('Beneficiaries').value = cells[10].textContent; 
-        document.getElementById('Category').value = cells[11].textContent; 
-        document.getElementById('Sponsor').value = cells[8].textContent; 
-        document.getElementById('Comment').value = cells[14].textContent;
+        document.getElementById('Program').value = cells[2].textContent;
+        document.getElementById('Project').value = cells[3].textContent; 
+        document.getElementById('Center_Type').value = cells[5].textContent; 
+        document.getElementById('Activity').value = cells[4].textContent; 
+        document.getElementById('session_number').value = cells[6].textContent; 
+        document.getElementById('Trainer_Type').value = cells[8].textContent;
+        document.getElementById('Duration').value = cells[11].textContent; 
+        document.getElementById('Status').value = cells[12].textContent; 
+        document.getElementById('Beneficiaries').value = cells[9].textContent; 
+        document.getElementById('Category').value = cells[10].textContent; 
+        document.getElementById('Sponsor').value = cells[7].textContent; 
+        document.getElementById('Comments').value = cells[13].textContent;
 
-        var resourceTypeText = cells[2].textContent; 
-        var programText = cells[3].textContent; 
-        var centreTypeText = cells[6].textContent; 
+   
+        var programText = cells[2].textContent; 
+        var centreTypeText = cells[5].textContent; 
 
-        document.getElementById('resourceType').value = getResourceTypeValue(resourceTypeText);
+       
         document.getElementById('Program').value = getProgramValue(programText);
         document.getElementById('Center_Type').value = getCentreTypeValue(centreTypeText);
 
        
-
+        
         toggleEdit();
     }
+
 
    
     function getResourceTypeValue(text) {
@@ -154,7 +155,7 @@
             return '4';
         } else if (text === 'Kannur') {
             return '5';
-        } e
+        } 
         // Add more mappings as needed
     } 
 
@@ -171,6 +172,7 @@
 
 
     function applyFilters() {
+
         var selectedProgram = document.getElementById('program-select').value;
         var selectedProject = document.getElementById('project-select').value;
         var selectedCenter = document.getElementById('center-select').value;
@@ -244,8 +246,8 @@
     }
 
     h1 {
-        margin-left: 18%;
-        margin-top: -5%;
+        margin-left: 38%;
+        margin-top: -8%;
     }
 
     .container {
@@ -256,23 +258,77 @@
         gap: 10px;
         padding: 20px;
         position: relative;
-        margin-right: 55%;
+        margin-right: 5%;
         margin-top: 4%;
+        margin-left:-10px;
     }
 
-    .search-box input, .search-box button, .dropdown select, .dropdown input[type="date"] {
-        padding: 10px;
+    .search-box {
+        display: flex;
+        align-items: center;
+        width:45%;
+        margin-right: -15%;
+    }
+
+    .search-box input {
+            width: 100%;
+            max-width: 300px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-right: 5px; /* Add margin to create space between input and icons */
+     }
+
+    .search-box button
+         {
+            background-color: #d7ca94;
+            cursor: pointer;
+            font-size: medium;
+            height: 30px;
+    }
+
+    .filter-icon {
+        margin: 5px;
+        margin-left:-20px;
+        cursor: pointer;
+        font-size: x-large;
+    }
+
+    .dropdowns {
+        display: none;
+        flex-wrap: wrap;
+        gap: 5px;
+        align-items: center;
+        margin-top: 10%;
+        position: absolute;
+        justify-content: center;
+    }
+
+    @media (max-width: 768px) {
+        .container {
+            flex-direction: column;
+        }
+
+        .search-box input {
+            margin: 0 auto;
+        }
+    }
+
+    /*.search-box input {
+        width: 150%;
+        padding: 10px 40px 10px 10px;
         border: 1px solid #ccc;
         border-radius: 5px;
-        margin: 5px;
-    }
+    }*/
 
     .search-box button, .dropdown button {
         background-color: #d7ca94;
         cursor: pointer;
+        
+
     }
 
-    .filter-icon {
+    /*.filter-icon {
         font-size: 23px;
         cursor: pointer;
         margin: 5px;
@@ -286,6 +342,7 @@
         align-items: center;
         margin-top: 10%;
         position: absolute;
+        justify-content:center;
     }
 
 
@@ -294,22 +351,41 @@
             flex-direction: column;
         }
     }
+*/
 
-
-    #sessionsTable {
+/*    #sessionsTable {
         display: block;
         overflow: auto;
         max-height: 530px;
-        width: 45%;
+        width: 90%;
         margin-top: 50px;
+    }*/
+
+    .table {
+        margin: 20px;
+        display: block;
+        overflow: auto;
+        max-height: 530px;
+        width: 90%;
+        margin-top: 50px;
+        width: 80%; /* Adjust the width as needed */
+        margin: 0 auto;
+        margin-top:60px;
     }
 
-    .table th, .table td {
-        white-space: nowrap;
-        border: 1px solid #ddd;
-        padding: 7px;
-        text-align: center;
+    table {
+        border-collapse: collapse;
+        width: 100%;
     }
+
+    th, td {
+        padding: 8px;
+        text-align: center;
+        border: 1px solid black;
+    }
+
+
+
 
     #bts {
         margin-left: 65%;
@@ -330,13 +406,13 @@
 
 
 
-    .tdtd {
+/*    .tdtd {
         display: flex;
         align-items: center;
         justify-content: center;
         justify-content: space-evenly;
         cursor: pointer;
-    }
+    }*/
 
     .popup {
         display: none;
@@ -437,11 +513,11 @@
             font-weight: bold; 
             transition: background-color 0.3s ease;
         }
-
-    @media (max-width: 768px) {
+/*
+    @media (max-width: 708px) {
         .blank-box {
             width: 80%; 
-        }
+        }*/
 
         .scroll-container input[type="text"],
         .scroll-container input[type="date"],
@@ -449,22 +525,28 @@
         .scroll-container.comment-box {
             width: 100%;
         }
+
+    #date-icon{
+        cursor:pointer;
+        font-size:large;
+        margin-bottom:2px;
     }
 
+
     .date-input {
-        display: none; 
+        display: none;
         padding: 10px;
         border: 1px solid #ccc;
         border-radius: 5px;
         margin: 5px;
     }
 
-        .date-input::-webkit-input-placeholder { 
+   .date-input::-webkit-input-placeholder { 
             color: #888;
             font-style: italic;
-        }
+    }
 
-        .date-input::-moz-placeholder { 
+   .date-input::-moz-placeholder { 
             color: #888;
             font-style: italic;
         }
@@ -487,9 +569,10 @@
     }
 
     #but {
-        margin-left: 40%;
-        width: 5%;
+        margin-left: 70%;
+        width: 8%;
         background: orange;
+        padding:5px;
     }
 
     #btnSave, #btnSaveDuplicate {
@@ -507,26 +590,27 @@
 
 <div class="container">
     <div class="search-box">
-        <input type="text" name="q" placeholder="Search (Program, Activity)" required>
+        <input type="text" name="q" placeholder="j(Program, Activity)" required>
         <button type="submit" class="search-btn"><i class="fas fa-search"></i></button>
     </div>
 
     <i class="fas fa-filter filter-icon"></i>
     <div id="date-icon" style="cursor:pointer;">
         📅
-    </div>
+    </div><br />
 
     <input type="date" id="from-date" class="date-input" placeholder="From Date" style="display:none;">
     <input type="date" id="to-date" class="date-input" placeholder="To Date" style="display:none;">
 
     <div class="dropdowns">
 
-        <select id="resource-select">
-            <option value="">Select an Center</option>
-            {% for resource in resources %}
-            <option value="{{ resource.resource_type }}">{{resource.resource_type|resourcetype_to_string}}}</option>
+        <select id="fullname-select">
+            <option value="">Select a fullname</option>
+            {% for fullname in fullname %}
+            <option value="{{ fullname.fullname }}">{{ fullname.fullname|fullname_to_string }}</option>
             {% endfor %}
         </select>
+
 
         <select id="program-select">
             <option>Select an Program</option>
@@ -570,222 +654,228 @@
 
     {% csrf_token %}
 
-    <div id="scrollable-table">
+       <div class="table-container">
 
-        <table id="sessionsTable" class="table">
-            <tr bgcolor="orange">
+            <div id="scrollable-table">
 
-                <th>Date</th>
-                <th>Emp_id</th>
-                <th>Resource Name</th>
-                <th>Program</th>
-                <th>Project</th>
-                <th>Activity</th>
-                <th>Center_Type</th>
-                <th>Session_Number</th>
-                <th>Sponsor</th>
-                <th>Trainer_Type</th>
-                <th>beneficiaries</th>
-                <th>Category</th>
-                <th>Duration</th>
-                <th>Status</th>
-                <th>Comments</th>
-                <th>Action</th>
+                <table id="sessionsTable" class="table">
+                    <tr bgcolor="orange">
 
-
-
-
-            </tr>
-
-            {% for program in programs %}
-            <tr bgcolor="white">
-                <td>{{program.date}}</td>
-                <td>{{program.emp.emp_id}}</td>
-                <td>{{program.emp.resource_type|resourcetype_to_string}}</td>
-                <td>{{program.xref.program_name|program_to_string}}</td>
-                <td>{{program.xref.project_name}}</td>
-                <td>{{program.activity }}</td>
-                <td>{{program.center_type|centertype_to_string}}</td>
-                <td>{{program.session_number}}</td>
-                <td>{{program.sponsor}}</td>
-                <td>{{program.trainer_type}}</td>
-                <td>{{program.beneficiaries }}</td>
-                <td>{{program.category }}</td>
-                <td>{{program.duration}}</td>
-                <td>{{program.status}}</td>
-                <td>{{program.comments }}</td>
+                        <th>Date</th>
+                        <th>fullname</th>
+                        <th>Program</th>
+                        <th>Project</th>
+                        <th>Activity</th>
+                        <th>Center_Type</th>
+                        <th>Session_Number</th>
+                        <th>Sponsor</th>
+                        <th>Trainer_Type</th>
+                        <th>beneficiaries</th>
+                        <th>Category</th>
+                        <th>Duration</th>
+                        <th>Status</th>
+                        <th>Comments</th>
+                        <th>Action</th>
 
 
 
 
-                <td class="tdtd">
-                    <button class="add-row-button" onclick="showpopup()"> <i class="fa-solid fa-eye" style="color: #ff7b00;"></i> </button>
-                </td>
+                    </tr>
+
+                    {% for program in programs %}
+                    <tr bgcolor="white">
+                        <td>{{program.date}}</td>
+                        <td>{{program.emp.fullname|fullname_to_string}}</td>
+                        <td>{{program.xref.program_name|program_to_string}}</td>
+                        <td>{{program.xref.project_name}}</td>
+                        <td>{{program.activity }}</td>
+                        <td>{{program.center_type|centertype_to_string}}</td>
+                        <td>{{program.session_number}}</td>
+                        <td>{{program.sponsor}}</td>
+                        <td>{{program.trainer_type}}</td>
+                        <td>{{program.beneficiaries }}</td>
+                        <td>{{program.category }}</td>
+                        <td>{{program.duration}}</td>
+                        <td>{{program.status}}</td>
+                        <td>{{program.comments }}</td>
 
 
-            </tr>
-            {% endfor %}
-
-        </table>
-    </div>
-
-    <script>
-        function openCreatePage() {
-            var url = "{% url 'createpage' %}"; 
-            window.open(url, 'Create Page', 'height=600,width=800');
-        }
-    </script>
-
-    <div id="popup" class="popup">
-        <div class="blank-box">
-            <div class="scroll-container">
-
-                <h2>Details</h2>
-                <label for="Emp_id">Emp_id</label>
-                <input type="text" id="emp_id" name="emp_id" data-dbname="emp_id"><br>
-
-                <label for="date">Date</label>
-                <input type="date" id="date" name="date"><br>
-
-                <label for="ResourceName">resource_type</label>
-                <select id="resourceType" name="resourceType" data-dbname="resource_type" required disabled>
-                    <option value="">Select an option</option>
-                    <option value="1">Employee</option>
-                    <option value="2">Part-time</option>
-                    <option value="3">Consultant</option>
-                </select>
-
-                <label for="Program">Program</label>
-                <select id="Program" name="Program" required>
-                    <option value="Select an option" data-dbname="SelectAnOption">Select an option</option>
-                    <option value="1" data-dbname="BridgeCourse">Bridge Course</option>
-                    <option value="2" data-dbname="Academics">Academics</option>
-                    <option value="3" data-dbname="AfterSchoolProgram">After School Program</option>
-                    <option value="4" data-dbname="AwarenessSessions">Awareness Sessions</option>
-                    <option value="5" data-dbname="Camps">Camps(Summer/Winter)</option>
-                    <option value="6" data-dbname="CareerGuidance">Career Guidance</option>
-                    <option value="7" data-dbname="ComputerCoachingAdvanced">Computer Coaching-Advanced</option>
-                    <option value="8" data-dbname="ComputerCoachingBasicsWithTyping">Computer Coaching-Basics with Typing</option>
-                    <option value="9" data-dbname="ComputerCoachingBasicsWithoutTyping">Computer Coaching-Basics without Typing</option>
-                    <option value="10" data-dbname="ComputerCoachingTyping">Computer Coaching-Typing</option>
-                    <option value="11" data-dbname="Counselling">Counselling</option>
-                    <option value="12" data-dbname="E2E">E2E(Education to Employability)</option>
-                    <option value="13" data-dbname="EmotionalManagement">Emotional Management</option>
-                    <option value="14" data-dbname="ExamReadiness">Exam Readiness</option>
-                    <option value="15" data-dbname="GenderSensitivity">Gender Sensitivity</option>
-                    <option value="16" data-dbname="Internship">Internship</option>
-                    <option value="17" data-dbname="IntegratedProgram">Integrated Program</option>
-                    <option value="18" data-dbname="Kannada">Kannada</option>
-                    <option value="19" data-dbname="LifeSkills">Life Skills</option>
-                    <option value="20" data-dbname="OfficeAssistant">Office Assistant</option>
-                    <option value="21" data-dbname="ParentalGuidance">Parental Guidance</option>
-                    <option value="22" data-dbname="PersonalityDevelopment">Personality Development</option>
-                    <option value="23" data-dbname="SoftSkills">Soft Skills</option>
-                    <option value="24" data-dbname="SoftwareDevelopment">Software Development</option>
-                    <option value="25" data-dbname="SpokenEnglish">Spoken English</option>
-                    <option value="26" data-dbname="Tailoring">Tailoring</option>
-                    <option value="27" data-dbname="TailoringTasselTyping">Tailoring-Tassel Typing</option>
-                    <option value="28" data-dbname="Tally">Tally</option>
-                    <option value="29" data-dbname="TeacherDevelopment">Teacher Development</option>
-                    <option value="30" data-dbname="TTT">TTT</option>
-                    <option value="31" data-dbname="Wellbeing">Wellbeing</option>
-                    <option value="32" data-dbname="WomenDevelopment">Women Development</option>
-                    <option value="33" data-dbname="WSD">WSD</option>
-
-                </select>
-                <br>
 
 
-                <label for="Project">Project</label>
-                <input type="text" id="Project" name="Project"><br>
-
-                <label for="Activity">Activity</label>
-                <input type="text" id="Activity" name="Activity"><br>
-
-                <label for="Center_Type">Center_Type</label>
-                <select id="Center_Type" name="Center_Type" required>
-                    <option value="Select an option">Select an option</option>
-                    <option value="1" data-dbname="DJ_halli 1">DJ_halli 1</option>
-                    <option value="2" data-dbname="DJ_halli 2">DJ_halli 2</option>
-                    <option value="3" data-dbname="Bagalur">Bagalur</option>
-                    <option value="4" data-dbname="Mylanahalli">Mylanahalli</option>
-                    <option value="5" data-dbname="Kannur">Kannur</option>
-                </select>
-                <br>
-
-                <label for="Session_number">Session Number</label>
-                <input type="text" id="session_number" name="Session_number"><br>
-
-                <label for="Sponsor">Sponsor</label>
-                <select id="Sponsor" name="Sponsor" required>
-                    <option value="">Select an option</option>
-                    <option value="1" data-dbname="Vajra">Vajra</option>
-                    <option value="2" data-dbname="Bridge">Bridge</option>
-                    <option value="3" data-dbname="TasteMaster">Taste Master</option>
-                    <option value="4" data-dbname="LICT">LICT</option>
-                    <option value="5" data-dbname="Others">Others</option>
-
-                </select>
-                <br>
-
-                <label for="Trainer_Type">Trainer Type</label>
-                <select id="Trainer_Type" name="Trainer_Type" required>
-                    <option value="">Select an option</option>
-                    <option value="1" data-dbname="Lead">Lead</option>
-                    <option value="2" data-dbname="Co-Facilator">Co-Facilator</option>
-                    <option value="3" data-dbname="Volunteer">Volunteer</option>
-                </select>
-                <br>
-
-                <label for="Beneficiaries">Beneficiaries</label>
-                <input type="number" id="Beneficiaries" name="Beneficiaries" data-dbname="Beneficiaries" style="width: 90%; margin: 5px 0; padding: 8px; border: 1px solid #ccc; border-radius: 4px;" min="0">
-                <br>
-
-                <label for="Category">Category</label>
-                <select id="Category" name="Category" required>
-                    <option value="Select an option" data-dbname="SelectAnOption">Select an option</option>
-                    <option value="1" data-dbname="Consultant">Consultant</option>
-                    <option value="2" data-dbname="Employee">Employee</option>
-                    <option value="3" data-dbname="Internship">Internship</option>
-                    <option value="4" data-dbname="NewVolunteer">New-Volunteer</option>
-                    <option value="5" data-dbname="ExVolunteer">Ex-Volunteer</option>
-                </select>
+                        <td class="tdtd">
+                            <button type="button" class="add-row-button" onclick="showpopup()"> <i class="fa-solid fa-eye" style="color: #ff7b00;"></i> </button>
+                        </td>
 
 
-                <label for="Duration">Duration</label>
-                <input type="number" id="Duration" name="Duration" data-dbname="Duration" style="width: 90%;margin: 6px 0;padding: 9px;border: 1px solid #ccc;border-radius: 4px;" min="0">
-                <br>
+                    </tr>
+                    {% endfor %}
 
-                <label for="Status">Status</label>
-                <select id="Status" name="Status" required>
-                    <option value="Select an option" data-dbname="SelectAnOption">Select an option</option>
-                    <option value="1" data-dbname="Start">Start</option>
-                    <option value="2" data-dbname="OnGoing">On-Going</option>
-                    <option value="3" data-dbname="OnHold">On-Hold</option>
-                    <option value="4" data-dbname="Completed">Completed</option>
-                    <option value="5" data-dbname="Orientation">Orientation</option>
-                    <option value="6" data-dbname="Travel">Travel</option>
+                </table>
+            </div>
+      </div>
 
-                </select>
-                <br>
+        <script>
+            function openCreatePage() {
+                var url = "{% url 'createpage' %}";
+                window.open(url, 'Create Page', 'height=600,width=800');
+            }
+        </script>
 
-                <label for="Comment">Comment</label>
-                <div class="comment-box">
-                    <textarea id="Comment" name="comment" placeholder="Write our comment here"></textarea>
+        <div id="popup" class="popup">
+            <div class="blank-box">
+                <div class="scroll-container">
+
+                    <h2>Details</h2>
+
+                    <label id="fullname">fullname</label>
+                    <select id="fullname" name="fullname" required  {{ employee.fullname }}>
+                        <option value="Select an option">Select an option</option>
+                        <option value="1">Preethi</option>
+                        <option value="2">Sonia</option>
+                        <option value="3">Jimmy Cherian</option>
+                        <option value="4">Smitha</option>
+                        <option value="5">Sujeeth</option>
+                    </select>
+                   
+
+                    <br>
+
+                    <label for="date">Date</label>
+                    <input type="date" id="date" name="date"><br>
+
+
+
+                    <label for="Program">Program</label>
+                    <select id="Program" name="Program" required>
+                        <option value="Select an option" data-dbname="SelectAnOption">Select an option</option>
+                        <option value="1" data-dbname="BridgeCourse">Bridge Course</option>
+                        <option value="2" data-dbname="Academics">Academics</option>
+                        <option value="3" data-dbname="After School Program">After School Program</option>
+                        <option value="4" data-dbname="AwarenessSessions">Awareness Sessions</option>
+                        <option value="5" data-dbname="Camps">Camps(Summer/Winter)</option>
+                        <option value="6" data-dbname="CareerGuidance">Career Guidance</option>
+                        <option value="7" data-dbname="ComputerCoachingAdvanced">Computer Coaching-Advanced</option>
+                        <option value="8" data-dbname="ComputerCoachingBasicsWithTyping">Computer Coaching-Basics with Typing</option>
+                        <option value="9" data-dbname="ComputerCoachingBasicsWithoutTyping">Computer Coaching-Basics without Typing</option>
+                        <option value="10" data-dbname="ComputerCoachingTyping">Computer Coaching-Typing</option>
+                        <option value="11" data-dbname="Counselling">Counselling</option>
+                        <option value="12" data-dbname="E2E">E2E(Education to Employability)</option>
+                        <option value="13" data-dbname="EmotionalManagement">Emotional Management</option>
+                        <option value="14" data-dbname="ExamReadiness">Exam Readiness</option>
+                        <option value="15" data-dbname="GenderSensitivity">Gender Sensitivity</option>
+                        <option value="16" data-dbname="Internship">Internship</option>
+                        <option value="17" data-dbname="IntegratedProgram">Integrated Program</option>
+                        <option value="18" data-dbname="Kannada">Kannada</option>
+                        <option value="19" data-dbname="LifeSkills">Life Skills</option>
+                        <option value="20" data-dbname="OfficeAssistant">Office Assistant</option>
+                        <option value="21" data-dbname="ParentalGuidance">Parental Guidance</option>
+                        <option value="22" data-dbname="PersonalityDevelopment">Personality Development</option>
+                        <option value="23" data-dbname="SoftSkills">Soft Skills</option>
+                        <option value="24" data-dbname="SoftwareDevelopment">Software Development</option>
+                        <option value="25" data-dbname="SpokenEnglish">Spoken English</option>
+                        <option value="26" data-dbname="Tailoring">Tailoring</option>
+                        <option value="27" data-dbname="TailoringTasselTyping">Tailoring-Tassel Typing</option>
+                        <option value="28" data-dbname="Tally">Tally</option>
+                        <option value="29" data-dbname="TeacherDevelopment">Teacher Development</option>
+                        <option value="30" data-dbname="TTT">TTT</option>
+                        <option value="31" data-dbname="Wellbeing">Wellbeing</option>
+                        <option value="32" data-dbname="WomenDevelopment">Women Development</option>
+                        <option value="33" data-dbname="WSD">WSD</option>
+
+                    </select>
+                    <br>
+
+
+                    <label for="Project">Project</label>
+                    <input type="text" id="Project" name="Project"><br>
+
+                    <label for="Activity">Activity</label>
+                    <input type="text" id="Activity" name="Activity"><br>
+
+                    <label for="Center_Type">Center_Type</label>
+                    <select id="Center_Type" name="Center_Type" required>
+                        <option value="Select an option">Select an option</option>
+                        <option value="1" data-dbname="DJ_halli 1">DJ_halli 1</option>
+                        <option value="2" data-dbname="DJ_halli 2">DJ_halli 2</option>
+                        <option value="3" data-dbname="Bagalur">Bagalur</option>
+                        <option value="4" data-dbname="Mylanahalli">Mylanahalli</option>
+                        <option value="5" data-dbname="Kannur">Kannur</option>
+                    </select>
+                    <br>
+
+                    <label for="session_number">Session Number</label>
+                    <input type="text" id="session_number" name="Session_number"><br>
+
+                    <label for="Sponsor">Sponsor</label>
+                    <select id="Sponsor" name="Sponsor" required>
+                        <option value="">Select an option</option>
+                        <option value="1" data-dbname="Vajra">Vajra</option>
+                        <option value="2" data-dbname="Bridge">Bridge</option>
+                        <option value="3" data-dbname="TasteMaster">Taste Master</option>
+                        <option value="4" data-dbname="LICT">LICT</option>
+                        <option value="5" data-dbname="Others">Others</option>
+
+                    </select>
+                    <br>
+
+                    <label for="Trainer_Type">Trainer Type</label>
+                    <select id="Trainer_Type" name="Trainer_Type" required>
+                        <option value="">Select an option</option>
+                        <option value="1" data-dbname="Lead">Lead</option>
+                        <option value="2" data-dbname="Co-Facilator">Co-Facilator</option>
+                        <option value="3" data-dbname="Volunteer">Volunteer</option>
+                    </select>
+                    <br>
+
+                    <label for="Beneficiaries">Beneficiaries</label>
+                    <input type="number" id="Beneficiaries" name="Beneficiaries" data-dbname="Beneficiaries" style="width: 90%; margin: 5px 0; padding: 8px; border: 1px solid #ccc; border-radius: 4px;" min="0">
+                    <br>
+
+                    <label for="Category">Category</label>
+                    <select id="Category" name="Category" required>
+                        <option value="Select an option" data-dbname="SelectAnOption">Select an option</option>
+                        <option value="1" data-dbname="Consultant">Consultant</option>
+                        <option value="2" data-dbname="Employee">Employee</option>
+                        <option value="3" data-dbname="Internship">Internship</option>
+                        <option value="4" data-dbname="NewVolunteer">New-Volunteer</option>
+                        <option value="5" data-dbname="ExVolunteer">Ex-Volunteer</option>
+                    </select>
+
+
+                    <label for="Duration">Duration</label>
+                    <input type="number" id="Duration" name="Duration" data-dbname="Duration" style="width: 90%;margin: 6px 0;padding: 9px;border: 1px solid #ccc;border-radius: 4px;" min="0">
+                    <br>
+
+                    <label for="Status">Status</label>
+                    <select id="Status" name="Status" required>
+                        <option value="Select an option" data-dbname="SelectAnOption">Select an option</option>
+                        <option value="1" data-dbname="Start">Start</option>
+                        <option value="2" data-dbname="OnGoing">On-Going</option>
+                        <option value="3" data-dbname="OnHold">On-Hold</option>
+                        <option value="4" data-dbname="Completed">Completed</option>
+                        <option value="5" data-dbname="Orientation">Orientation</option>
+                        <option value="6" data-dbname="Travel">Travel</option>
+
+                    </select>
+                    <br>
+
+                    <label for="Comments">Comments</label>
+                    <div class="comment-box">
+                        <textarea id="Comments" name="Comments" placeholder="Write our comment here"></textarea>
+                    </div>
+
+                    <button id="editButton" type="button" onclick="toggleEdit()">Edit</button>
+                    <br>
+
+                    <button id="updateButton" type="submit" disabled>Update</button>
+                    <br>
+
+                    <br>
+                    <button type="button" onclick="hidePopup()" id="btnSaveDuplicate">Close</button>
+                    <br>
                 </div>
-
-                <button id="editButton" type="button" onclick="toggleEdit()">Edit</button>
-                <br>
-
-                <button id="updateButton" type="submit" disabled>Update</button>
-                <br>
-
-                <br>
-                <button onclick="hidePopup()" id="btnSaveDuplicate">Close</button>
-                <br>
             </div>
         </div>
-    </div>
 
 </form>
 
