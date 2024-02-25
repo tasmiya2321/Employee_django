@@ -42,7 +42,8 @@ class Program(models.Model):
     xref = models.ForeignKey('Xref', models.DO_NOTHING, db_column='XREF_ID')  # Field name made lowercase.
     date = models.CharField(max_length=255,db_column='Date', blank=True, null=True)  # Field name made lowercase.
     activity = models.TextField(db_column='Activity', blank=True, null=True)  # Field name made lowercase.
-    center = models.ForeignKey(EmpDetails, models.DO_NOTHING, db_column='Center', blank=True, null=True, related_name='program_center')
+    center_type = models.IntegerField(db_column='Center_type', blank=True, null=True) 
+    session_number = models.IntegerField(db_column='Session_number', blank=True, null=True)  # Field name made lowercase.
     trainer_type = models.IntegerField(db_column='Trainer_Type', blank=True, null=True)  # Field name made lowercase.
     sponsor = models.IntegerField(db_column='Sponsor', blank=True, null=True)  # Field name made lowercase.
     beneficiaries = models.IntegerField(db_column='Beneficiaries', blank=True, null=True)  # Field name made lowercase.

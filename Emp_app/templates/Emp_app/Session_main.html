@@ -19,12 +19,13 @@
             toDate.style.display = toDate.style.display === "none" ? "block" : "none";
         });
     });
-
+    
     function showpopup() {
+        debugger
         document.getElementById('popup').style.display = 'flex';
         var row = event.target.closest('tr'); 
         var cells = row.querySelectorAll('td'); 
-        document.getElementById('fullname').value = cells[1].textContent; 
+        document.getElementById('ddlfullname').value = cells[1].textContent; 
         document.getElementById('date').value = cells[0].textContent; 
         document.getElementById('Program').value = cells[2].textContent;
         document.getElementById('Project').value = cells[3].textContent; 
@@ -47,9 +48,6 @@
         document.getElementById('Program').value = getProgramValue(programText);
         document.getElementById('Center_Type').value = getCentreTypeValue(centreTypeText);
 
-       
-        
-        toggleEdit();
     }
 
 
@@ -215,8 +213,9 @@
         return cookieValue;
     }
 
-    function updateTable(data) {
-    }
+
+
+    
 
 
     function searchPrograms() {
@@ -650,7 +649,7 @@
 
 <button id="but" onclick="openCreatePage()">Create</button>
 
-<form method="post" action="{% url 'save_session' %}">
+<form method="post" action="{% url 'save_session' %}" >
 
     {% csrf_token %}
 
@@ -728,10 +727,10 @@
                     <h2>Details</h2>
 
                     <label id="fullname">fullname</label>
-                    <select id="fullname" name="fullname" required  {{ employee.fullname }}>
+                    <select id="ddlfullname" name="fullname" required>
                         <option value="Select an option">Select an option</option>
                         <option value="1">Preethi</option>
-                        <option value="2">Sonia</option>
+                        <option value="Sonia">Sonia</option>
                         <option value="3">Jimmy Cherian</option>
                         <option value="4">Smitha</option>
                         <option value="5">Sujeeth</option>
@@ -863,11 +862,9 @@
                     <div class="comment-box">
                         <textarea id="Comments" name="Comments" placeholder="Write our comment here"></textarea>
                     </div>
-
-                    <button id="editButton" type="button" onclick="toggleEdit()">Edit</button>
                     <br>
 
-                    <button id="updateButton" type="submit" disabled>Update</button>
+                    <button id="updateButton" type="submit">Update</button>
                     <br>
 
                     <br>

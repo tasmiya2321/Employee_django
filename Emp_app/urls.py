@@ -27,7 +27,8 @@ urlpatterns = [
     path('change_password/', views.change_password, name='change_password'),
     path('Session_main/', views.Session_main, name='Session_main'),
     path('createpage/', views.CreatePage, name='createpage'),
-    path('save_session/', views.save_session, name='save_session')
+    path('save_session/', views.save_session, name='save_session'),
+   
   
     
    

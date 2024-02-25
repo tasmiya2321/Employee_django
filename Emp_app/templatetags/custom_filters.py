@@ -2,13 +2,15 @@ from django import template
 
 register = template.Library()
 
-@register.filter(name='resourcetype_to_string')
-def resourcetype_to_string(value):
+@register.filter(name='fullname_to_string')
+def fullname_to_string(value):
     # Define your mapping
     mapping = {
-        1: "Employee",
-        2: "Part-time",
-        3: "Consultant",
+        1: "Preethi",
+        2: "Sonia",
+        3: "Jimmy Cherian",
+        4: "Smitha",
+        5: "Sujeeth",
     }
     # Check if value is None and handle it
     if value is None:
@@ -23,7 +25,8 @@ def resourcetype_to_string(value):
     
     # Return the string representation if found, else "Unknown"
     return mapping.get(value_int, "Unknown")
-<<<<<<< HEAD
+
+
 
 
 # @register.filter(name='centertype_to_string')
@@ -37,5 +40,4 @@ def resourcetype_to_string(value):
 #         6: "Koramangala"
 #     }
 #     return centertype_names.get(value, f"{value}")
-=======
->>>>>>> 08eb5310de2dad96b7db5cdc144ee8c6f8e9337e
+

@@ -1,5 +1,5 @@
 from ast import Module
-from distutils.sysconfig import project_base
+from django.shortcuts import get_object_or_404
 from django.core import paginator
 from django.views.decorators.csrf import csrf_exempt
 from django.forms.models import model_to_dict
@@ -7,7 +7,7 @@ from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
 from django.contrib.auth import authenticate, login
 from .models import Program ,Xref
-from .models import EmpDetails 
+from .models import EmpDetails, AuthUser
 from django.contrib import messages
 import json
 from django.contrib.auth.forms import PasswordChangeForm
@@ -23,6 +23,7 @@ from django.db.models import Q
 from datetime import datetime
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render, get_object_or_404
+from django.contrib.auth.models import User 
 
 
 
@@ -168,14 +169,15 @@ def Session_main(request):
     # Start with all programs, ordered by 'date' in descending order
     programs = Program.objects.all().order_by('-date')  # Adjust the query here
     
-    resources=EmpDetails.objects.values('resource_type').distinct()
+    fullname=EmpDetails.objects.values('fullname').distinct()
     project_names = Xref.objects.values('project_name').distinct()
-    program_names = Xref.objects.values("program_name").distinct()
+    program_names = Xref.objects.values('program_name').distinct()
     centers = Program.objects.values('center_type').distinct()
     trainers = Program.objects.values('trainer_type').distinct()
 
     if request.method == 'POST':
         data = json.loads(request.body)
+
         program_filter = data.get('program')
         project_filter = data.get('project')
         center_filter = data.get('center')
@@ -213,7 +215,7 @@ def Session_main(request):
             programs_page = paginator.page(paginator.num_pages)
 
         context = {
-            'resources':resources,
+            'fullname':fullname,
             'programs': programs_page,
             'program_names': program_names,
             'project_names': project_names,
@@ -272,9 +274,21 @@ def Session_main(request):
 
 def save_session(request):
     if request.method == "POST":
+
+    
+        user = request.user
+
+
+        # Check if the user is authenticated
+        if not user.is_authenticated:
+            # Handle the case where the user is not authenticated
+            messages.error(request, "You need to log in to save a session.")
+            return redirect('login')  
+        print("Form submitted successfully")
+
         
-        employee_id = request.POST.get("emp_id")
-        resource_type = request.POST.get("resourceType")
+        program_id = request.POST.get("pgm_id")
+        fullname = request.POST.get("fullname")
         date = request.POST.get("date") 
         program_name = request.POST.get("Program")
         project_name = request.POST.get("Project")
@@ -286,11 +300,11 @@ def save_session(request):
         status = request.POST.get("Status")
         beneficiaries = request.POST.get("Beneficiaries")
         category = request.POST.get("Category")
-        comment = request.POST.get("Comment")
+        comments = request.POST.get("Comments")
         sponsor = request.POST.get("Sponsor")
 
-       
-        new_emp_details = EmpDetails(emp_id=employee_id, resource_type=resource_type)
+        auth_user_instance = AuthUser.objects.get(username=user.username)
+        new_emp_details = EmpDetails(username=auth_user_instance.username,  fullname=fullname)
         new_emp_details.save()
 
         # Create Xref instance
@@ -303,26 +317,33 @@ def save_session(request):
 
        
         new_program = Program(
+            pgm_id=program_id,
             emp=new_emp_details,
             xref=new_xref, 
             date=date,  
             activity=activity,
             center_type=center_type,
+            session_number=session_number,
             trainer_type=trainer_type,
             sponsor=sponsor,
             beneficiaries=beneficiaries,
             category=category,
             duration=duration,
             status=status,
-            comments=comment,
+            comments=comments
         )
         new_program.save()
 
+        
+
         messages.success(request, "Session saved successfully.")
-        return redirect('Session_main') 
-    return render(request, "Emp_app/createpage.html") 
+        # return redirect('Session_main') 
+    return render(request, "Emp_app/createpage.html")
 
 
+ 
+  
+ 
 
 
 
