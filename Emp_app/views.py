@@ -31,6 +31,7 @@ from django.contrib.auth.models import User
 def home(request):
     programs = Program.objects.exclude(date__isnull=True).order_by('pgm_id')[:10]
 
+
     for program in programs:
         print(program.date)
 
@@ -165,9 +166,12 @@ def login_base(request):
 def CreatePage(request):
      return render(request, "Emp_app/createpage.html")
 
+@login_required
 def Session_main(request):
+    
+    employee_id = request.user.id
     # Start with all programs, ordered by 'date' in descending order
-    programs = Program.objects.all().order_by('-date')  # Adjust the query here
+    programs = Program.objects.filter(emp__emp_id=employee_id).order_by('-date')  # Adjust the query here
     
     fullname=EmpDetails.objects.values('fullname').distinct()
     project_names = Xref.objects.values('project_name').distinct()
@@ -228,48 +232,74 @@ def Session_main(request):
 
 
 
+
+
+
 # def save_session(request):
-#     try:
+#     if request.method == "POST":
+        
+#        if request.method == "POST":
+#         # Retrieve the authenticated user
+#         user = request.user
+
+#         # Check if the user is authenticated
+#         if not user.is_authenticated:
+#             # Handle the case where the user is not authenticated
+#             messages.error(request, "You need to log in to save a session.")
+#         return redirect('login')  
+        
+#         employee_id = request.POST.get("emp_id")
+#         resource_type = request.POST.get("resourceType")
+#         date = request.POST.get("date") 
+#         program_name = request.POST.get("Program")
+#         project_name = request.POST.get("Project")
+#         activity = request.POST.get("Activity")
+#         center_type = request.POST.get("Center_Type")
+#         session_number = request.POST.get("Session_number")
+#         trainer_type = request.POST.get("Trainer_Type")
+#         duration = request.POST.get("Duration")
+#         status = request.POST.get("Status")
+#         beneficiaries = request.POST.get("Beneficiaries")
+#         category = request.POST.get("Category")
+#         comment = request.POST.get("Comment")
+#         sponsor = request.POST.get("Sponsor")
+
        
-#         new_session = Program()
+#         new_emp_details = EmpDetails.objects.create(username=user.username, emp_id=employee_id, resource_type=resource_type)
+        
+#         new_xref = Xref.objects.create(date=date, program_name=program_name, project_name=project_name)
 
-#         # Assign form values to the Session object
-#         new_session.date = request.POST.get('date')
-#         new_session.resource_name = request.POST.get('ResourceName')
-#         new_session.program = request.POST.get('Program')
-#         new_session.project = request.POST.get('Project')
-#         new_session.center_type = request.POST.get('CentreType')
-#         new_session.activity = request.POST.get('Activity')
-#         new_session.session_number = request.POST.get('Sessionnumber')
-#         new_session.trainer_type = request.POST.get('Trainer_Type')
-#         new_session.duration = request.POST.get('Duration')
-#         new_session.status = request.POST.get('Status')
-#         new_session.beneficiaries = request.POST.get('Beneficiaries')
-#         new_session.category = request.POST.get('Category')
-#         new_session.comment = request.POST.get('Action')
+#         new_emp_details.save()
+
+#         # Create Xref instance
+#         # new_xref = Xref(
+#         #     date=date, 
+#         #     program_name=program_name, 
+#         #     project_name=project_name
+#         # )
+#         # new_xref.save()
 
        
-#         new_session.save()
+#         new_program = Program.objects.create(
+#             emp=new_emp_details,
+#             xref=new_xref, 
+#             date=date,  
+#             activity=activity,
+#             center_type=center_type,
+#             session_number=session_number,
+#             trainer_type=trainer_type,
+#             sponsor=sponsor, 
+#             beneficiaries=beneficiaries,
+#             category=category,
+#             duration=duration,
+#             status=status,
+#             comments=comment,
+#         )
+#         new_program.save()
 
-       
-#         return redirect('Session_main')  
-
-#     except Exception as e:
-       
-#         print(e)
-#         return redirect('createpage')
-
-
-
-
-
-    
-
-
-
-
-
-
+#         messages.success(request, "Session saved successfully.")
+#         return redirect('Session_main') 
+#     return render(request, "Emp_app/createpage.html")
 
 
 def save_session(request):
@@ -325,7 +355,7 @@ def save_session(request):
             center_type=center_type,
             session_number=session_number,
             trainer_type=trainer_type,
-            sponsor=sponsor,
+            sponsor=sponsor, 
             beneficiaries=beneficiaries,
             category=category,
             duration=duration,

@@ -29,6 +29,7 @@ def fullname_to_string(value):
 
 
 
+
 # @register.filter(name='centertype_to_string')
 # def centertype_to_string(value):
 #     centertype_names = {

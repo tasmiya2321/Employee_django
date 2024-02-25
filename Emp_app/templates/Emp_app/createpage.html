@@ -130,6 +130,7 @@
         color: #000; /* Changed color to black for better visibility */
         padding: 10px;
     }
+
     resource_type
 
     .table-container {
@@ -352,6 +353,7 @@
 
                 <br>
 
+
                 <label for="date">Date</label>
                 <input type="date" id="date" name="date"><br>
 
@@ -416,7 +418,7 @@
                 <br>
 
                 <label for="Session_number">Session Number</label>
-                <input type="text" id="session_number" name="Session_number"><br>
+                <input type="text" id="Session_number" name="Session_number"><br>
 
                 <label for="Sponsor">Sponsor</label>
                 <select id="Sponsor" name="Sponsor" required>
@@ -511,7 +513,7 @@
         // Create an object to hold the data
         var formData = {
             date: document.getElementById("date").value,
-            ResourceName: document.getElementById("ResourceName").value,
+            ResourceName: document.getElementById("resourceType").value,
             Program: document.getElementById("Program").value,
             Project: document.getElementById("Project").value,
             Activity: document.getElementById("Activity").value,
@@ -521,8 +523,8 @@
             Duration: document.getElementById("Duration").value,
             Status: document.getElementById("Status").value,
             Comment: document.getElementById("Comment").value,
-            Sessionnumber: document.getElementById("Sessionnumber").value,
-            CentreType: document.getElementById("CentreType").value
+            Sessionnumber: document.getElementById("Session_number").value,
+            CentreType: document.getElementById("Center_Type").value
         };
 
         // Send an AJAX request to the server
@@ -571,9 +573,9 @@
             case 12: // Resource Name
                 return document.getElementById("Comment").value;
             case 6: //Sessionnumber
-                return document.getElementById("Sessionnumber").value;
+                return document.getElementById("Session_number").value;
             case 5: //CenterType
-                return document.getElementById("CentreType").value;
+                return document.getElementById("Center_Type").value;
 
             default:
                 return ""; // Default value for unmatched cases
