@@ -1,3 +1,6 @@
+createpage
+
+
 {% extends "Emp_app/base2_no_footer.html" %}
 
 {% block css %}
@@ -342,17 +345,17 @@
 
                 {% csrf_token %}
                 <label id="fullname">fullname</label>
-                <select id="fullname" name="fullname" required>
-                    <option value="Select an option" data-dbname="SelectAnOption">Select an option</option>
-                    <option value="1">Preethi</option>
+                <select id="ddlfullname" name="fullname" required>
+
+                    <option value="Select an option">Select an option</option>
+                    <option value="Preethi">Preethi</option>
                     <option value="Sonia">Sonia</option>
-                    <option value="3">Jimmy Cherian</option>
-                    <option value="4">Smitha</option>
-                    <option value="5">Sujeeth</option>
+                    <option value="Jimmy Cherian">Jimmy Cherian</option>
+                    <option value="Smitha">Smitha</option>
+                    <option value="Sujeeth">Sujeeth</option>
                 </select>
 
                 <br>
-
 
                 <label for="date">Date</label>
                 <input type="date" id="date" name="date"><br>
@@ -418,7 +421,7 @@
                 <br>
 
                 <label for="Session_number">Session Number</label>
-                <input type="text" id="Session_number" name="Session_number"><br>
+                <input type="text" id="session_number" name="Session_number"><br>
 
                 <label for="Sponsor">Sponsor</label>
                 <select id="Sponsor" name="Sponsor" required>
@@ -480,8 +483,11 @@
                 <br>
 
                 <button onclick="validateAndSave()" id="btnSave" {'save_session'}>Save</button>
-                <br>
                 <input type="hidden" id="idhidden" value="-1">
+
+                <br>
+
+
                 <button onclick="validateAndSave(true)" id="btnSaveDuplicate">Save and Duplicate</button>
                 <br>
                 <br>
@@ -513,7 +519,7 @@
         // Create an object to hold the data
         var formData = {
             date: document.getElementById("date").value,
-            ResourceName: document.getElementById("resourceType").value,
+            ResourceName: document.getElementById("ResourceName").value,
             Program: document.getElementById("Program").value,
             Project: document.getElementById("Project").value,
             Activity: document.getElementById("Activity").value,
@@ -523,8 +529,8 @@
             Duration: document.getElementById("Duration").value,
             Status: document.getElementById("Status").value,
             Comment: document.getElementById("Comment").value,
-            Sessionnumber: document.getElementById("Session_number").value,
-            CentreType: document.getElementById("Center_Type").value
+            Sessionnumber: document.getElementById("Sessionnumber").value,
+            CentreType: document.getElementById("CentreType").value
         };
 
         // Send an AJAX request to the server
@@ -573,9 +579,9 @@
             case 12: // Resource Name
                 return document.getElementById("Comment").value;
             case 6: //Sessionnumber
-                return document.getElementById("Session_number").value;
+                return document.getElementById("Sessionnumber").value;
             case 5: //CenterType
-                return document.getElementById("Center_Type").value;
+                return document.getElementById("CentreType").value;
 
             default:
                 return ""; // Default value for unmatched cases
@@ -585,3 +591,4 @@
 
 
 {% endblock %}
+
