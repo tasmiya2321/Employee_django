@@ -317,7 +317,7 @@ def save_session(request):
         print("Form submitted successfully")
 
         
-        program_id = request.POST.get("pgm_id")
+        employee_id = request.POST.get("emp_id")
         fullname = request.POST.get("fullname")
         date = request.POST.get("date") 
         program_name = request.POST.get("Program")
@@ -334,7 +334,7 @@ def save_session(request):
         sponsor = request.POST.get("Sponsor")
 
         auth_user_instance = AuthUser.objects.get(username=user.username)
-        new_emp_details = EmpDetails(username=auth_user_instance.username,  fullname=fullname)
+        new_emp_details = EmpDetails(username=auth_user_instance, emp_id=employee_id, fullname=fullname)
         new_emp_details.save()
 
         # Create Xref instance
@@ -347,7 +347,6 @@ def save_session(request):
 
        
         new_program = Program(
-            pgm_id=program_id,
             emp=new_emp_details,
             xref=new_xref, 
             date=date,  
@@ -355,7 +354,7 @@ def save_session(request):
             center_type=center_type,
             session_number=session_number,
             trainer_type=trainer_type,
-            sponsor=sponsor, 
+            sponsor=sponsor,
             beneficiaries=beneficiaries,
             category=category,
             duration=duration,
@@ -367,9 +366,8 @@ def save_session(request):
         
 
         messages.success(request, "Session saved successfully.")
-        # return redirect('Session_main') 
+        return redirect('Session_main') 
     return render(request, "Emp_app/createpage.html")
-
 
  
   
