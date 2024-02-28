@@ -1,4 +1,5 @@
 from ast import Module
+from queue import Full
 from django.shortcuts import get_object_or_404
 from django.core import paginator
 from django.views.decorators.csrf import csrf_exempt
@@ -169,11 +170,13 @@ def CreatePage(request):
 @login_required
 def Session_main(request):
     
-    employee_id = request.user.id
-    # Start with all programs, ordered by 'date' in descending order
-    programs = Program.objects.filter(emp__emp_id=employee_id).order_by('-date')  # Adjust the query here
+    user = request.user
+    emp_id = get_object_or_404(EmpDetails, username=user.username)
     
-    fullname=EmpDetails.objects.values('fullname').distinct()
+    # Start with all programs, ordered by 'date' in descending order
+    programs = Program.objects.filter(emp=emp_id).order_by('-date')  # Adjust the query here
+    
+    fullname = EmpDetails.fullname
     project_names = Xref.objects.values('project_name').distinct()
     program_names = Xref.objects.values('program_name').distinct()
     centers = Program.objects.values('center_type').distinct()
@@ -209,8 +212,14 @@ def Session_main(request):
             to_date = datetime.strptime(to_date_str, '%Y-%m-%d').date()
             programs = programs.filter(date__range=(from_date, to_date))
 
+        page_number = request.GET.get('page', 1)  # Set default page number to 1 if not provided
+        try:
+            page_number = int(page_number)
+        except ValueError:
+            page_number = 1  # Set default page number to 1 if conversion to int fails
+
         paginator = Paginator(programs, 10)  # Apply pagination to the ordered queryset
-        page_number = request.GET.get('page')
+
         try:
             programs_page = paginator.page(page_number)
         except PageNotAnInteger:
@@ -219,7 +228,7 @@ def Session_main(request):
             programs_page = paginator.page(paginator.num_pages)
 
         context = {
-            'fullname':fullname,
+            'fullname': fullname,
             'programs': programs_page,
             'program_names': program_names,
             'project_names': project_names,
@@ -303,6 +312,7 @@ def Session_main(request):
 
 
 def save_session(request):
+
     if request.method == "POST":
 
     
@@ -317,7 +327,7 @@ def save_session(request):
         print("Form submitted successfully")
 
         
-        employee_id = request.POST.get("emp_id")
+        
         fullname = request.POST.get("fullname")
         date = request.POST.get("date") 
         program_name = request.POST.get("Program")
@@ -334,8 +344,10 @@ def save_session(request):
         sponsor = request.POST.get("Sponsor")
 
         auth_user_instance = AuthUser.objects.get(username=user.username)
-        new_emp_details = EmpDetails(username=auth_user_instance, emp_id=employee_id, fullname=fullname)
-        new_emp_details.save()
+        new_emp_details = EmpDetails.objects.get(username=auth_user_instance,
+            defaults={'fullname': fullname}
+        )
+       # new_emp_details.save()
 
         # Create Xref instance
         new_xref = Xref(
@@ -369,8 +381,11 @@ def save_session(request):
         return redirect('Session_main') 
     return render(request, "Emp_app/createpage.html")
 
+
+
+
+
  
-  
  
 
 
@@ -378,3 +393,11 @@ def save_session(request):
 
 
 
+
+
+
+
+
+
+
+      
