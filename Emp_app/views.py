@@ -250,14 +250,6 @@ def Session_main(request):
         return render(request, 'Emp_app/Session_main.html', context)
 
 
-
-
-
-
-
-
-
-
 def save_session(request):
 
     if request.method == "POST":
