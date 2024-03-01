@@ -168,18 +168,25 @@ def CreatePage(request):
      return render(request, "Emp_app/createpage.html")
 
 @login_required
-yyyyyyyyyyyyyyyyyyyyyyy  def Session_main(request):
-    
+def Session_main(request):
     user = request.user
-    emp_id = get_object_or_404(EmpDetails, emp_id=request.user.emp_id)
 
+    # Check if the user is authenticated
+    if not user.is_authenticated:
+        # Handle the case where the user is not authenticated
+        messages.error(request, "You need to log in to view sessions.")
+        return redirect('login')
 
+    # Retrieve emp_id based on the authenticated user
+    auth_user_instance = AuthUser.objects.get(username=user.username)
+    emp_details = EmpDetails.objects.get(username=auth_user_instance)
+    emp_id = emp_details.emp_id
 
-    
     # Start with all programs, ordered by 'date' in descending order
     programs = Program.objects.filter(emp=emp_id).order_by('-date')  # Adjust the query here
-    
+
     fullname = EmpDetails.objects.values('fullname').distinct()
+
     project_names = Xref.objects.values('project_name').distinct()
     program_names = Xref.objects.values('program_name').distinct()
     centers = Program.objects.values('center_type').distinct()
@@ -241,6 +248,7 @@ yyyyyyyyyyyyyyyyyyyyyyy  def Session_main(request):
         }
 
         return render(request, 'Emp_app/Session_main.html', context)
+
 
 
 
