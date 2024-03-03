@@ -35,6 +35,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
+<<<<<<< HEAD
 # on Windows, a path can contain colons and backslashes and has to be converted:
 if [ "${OSTYPE:-}" = "cygwin" ] || [ "${OSTYPE:-}" = "msys" ] ; then
     # transform D:\path\to\venv to /d/path/to/venv on MSYS
@@ -44,6 +45,10 @@ else
     # use the path as-is
     export VIRTUAL_ENV="C:\Users\shoai\Source\Repos\tasmiya2321\Employee_django\ems"
 fi
+=======
+VIRTUAL_ENV="C:\Users\hp\Source\Repos\tasmiya2321\Employee_django1\ems"
+export VIRTUAL_ENV
+>>>>>>> d853757f5ec32c1e581025a3cbc4c867bab56c04
 
 _OLD_VIRTUAL_PATH="$PATH"
 PATH="$VIRTUAL_ENV/Scripts:$PATH"

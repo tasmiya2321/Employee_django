@@ -19,39 +19,39 @@
             toDate.style.display = toDate.style.display === "none" ? "block" : "none";
         });
     });
-    
+
     function showpopup() {
         debugger
         document.getElementById('popup').style.display = 'flex';
-        var row = event.target.closest('tr'); 
-        var cells = row.querySelectorAll('td'); 
-        document.getElementById('ddlfullname').value = cells[1].textContent; 
-        document.getElementById('date').value = cells[0].textContent; 
+        var row = event.target.closest('tr');
+        var cells = row.querySelectorAll('td');
+        document.getElementById('ddlfullname').value = cells[1].textContent;
+        document.getElementById('date').value = cells[0].textContent;
         document.getElementById('Program').value = cells[2].textContent;
-        document.getElementById('Project').value = cells[3].textContent; 
-        document.getElementById('Center_Type').value = cells[5].textContent; 
-        document.getElementById('Activity').value = cells[4].textContent; 
-        document.getElementById('session_number').value = cells[6].textContent; 
+        document.getElementById('Project').value = cells[3].textContent;
+        document.getElementById('Center_Type').value = cells[5].textContent;
+        document.getElementById('Activity').value = cells[4].textContent;
+        document.getElementById('session_number').value = cells[6].textContent;
         document.getElementById('Trainer_Type').value = cells[8].textContent;
-        document.getElementById('Duration').value = cells[11].textContent; 
-        document.getElementById('Status').value = cells[12].textContent; 
-        document.getElementById('Beneficiaries').value = cells[9].textContent; 
-        document.getElementById('Category').value = cells[10].textContent; 
-        document.getElementById('Sponsor').value = cells[7].textContent; 
+        document.getElementById('Duration').value = cells[11].textContent;
+        document.getElementById('Status').value = cells[12].textContent;
+        document.getElementById('Beneficiaries').value = cells[9].textContent;
+        document.getElementById('Category').value = cells[10].textContent;
+        document.getElementById('Sponsor').value = cells[7].textContent;
         document.getElementById('Comments').value = cells[13].textContent;
 
-   
-        var programText = cells[2].textContent; 
-        var centreTypeText = cells[5].textContent; 
 
-       
+        var programText = cells[2].textContent;
+        var centreTypeText = cells[5].textContent;
+
+
         document.getElementById('Program').value = getProgramValue(programText);
         document.getElementById('Center_Type').value = getCentreTypeValue(centreTypeText);
 
     }
 
 
-   
+
     function getResourceTypeValue(text) {
 
         if (text === 'Employee') {
@@ -153,7 +153,7 @@
             return '4';
         } else if (text === 'Kannur') {
             return '5';
-        } 
+        }
         // Add more mappings as needed
     }
 
@@ -215,7 +215,7 @@
 
 
 
-    
+
 
 
     function searchPrograms() {
@@ -237,347 +237,344 @@
 </script>
 
 <style>
-    body {
-        margin: 0;
-        padding: 0;
-        font-family: Arial, sans-serif;
-        background-color: #f4f4f4;
-    }
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+        }
 
-    h1 {
-        margin-left: 38%;
-        margin-top: -8%;
-    }
+        h1 {
+            margin-left: 38%;
+            margin-top: -8%;
+        }
 
-    .container {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        align-items: center;
-        gap: 10px;
-        padding: 20px;
-        position: relative;
-        margin-right: 5%;
-        margin-top: 4%;
-        margin-left:-10px;
-    }
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            padding: 20px;
+            position: relative;
+            margin-right: 5%;
+            margin-top: 4%;
+            margin-left: -10px;
+        }
 
-    .search-box {
-        display: flex;
-        align-items: center;
-        width:45%;
-        margin-right: -15%;
-    }
+        .search-box {
+            display: flex;
+            align-items: center;
+            width: 45%;
+            margin-right: -15%;
+        }
 
-    .search-box input {
-            width: 100%;
-            max-width: 300px;
-            padding: 10px;
+            .search-box input {
+                width: 100%;
+                max-width: 300px;
+                padding: 10px;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+                margin-right: 5px; /* Add margin to create space between input and icons */
+            }
+
+            .search-box button {
+                background-color: #d7ca94;
+                cursor: pointer;
+                font-size: medium;
+                height: 30px;
+            }
+
+        .filter-icon {
+            margin: 5px;
+            margin-left: -20px;
+            cursor: pointer;
+            font-size: x-large;
+        }
+
+        .dropdowns {
+            display: none;
+            flex-wrap: wrap;
+            gap: 5px;
+            align-items: center;
+            margin-top: 10%;
+            position: absolute;
+            justify-content: center;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+
+            .search-box input {
+                margin: 0 auto;
+            }
+        }
+
+        /*.search-box input {
+            width: 150%;
+            padding: 10px 40px 10px 10px;
             border: 1px solid #ccc;
             border-radius: 5px;
-            margin-right: 5px; /* Add margin to create space between input and icons */
-     }
+        }*/
 
-    .search-box button
-         {
+        .search-box button, .dropdown button {
             background-color: #d7ca94;
             cursor: pointer;
-            font-size: medium;
-            height: 30px;
-    }
-
-    .filter-icon {
-        margin: 5px;
-        margin-left:-20px;
-        cursor: pointer;
-        font-size: x-large;
-    }
-
-    .dropdowns {
-        display: none;
-        flex-wrap: wrap;
-        gap: 5px;
-        align-items: center;
-        margin-top: 10%;
-        position: absolute;
-        justify-content: center;
-    }
-
-    @media (max-width: 768px) {
-        .container {
-            flex-direction: column;
         }
 
-        .search-box input {
-            margin: 0 auto;
+        /*.filter-icon {
+            font-size: 23px;
+            cursor: pointer;
+            margin: 5px;
         }
-    }
-
-    /*.search-box input {
-        width: 150%;
-        padding: 10px 40px 10px 10px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-    }*/
-
-    .search-box button, .dropdown button {
-        background-color: #d7ca94;
-        cursor: pointer;
-        
-
-    }
-
-    /*.filter-icon {
-        font-size: 23px;
-        cursor: pointer;
-        margin: 5px;
-    }
 
 
-    .dropdowns {
-        display: none;
-        flex-wrap: wrap;
-        gap: 5px;
-        align-items: center;
-        margin-top: 10%;
-        position: absolute;
-        justify-content:center;
-    }
-
-
-    @media (max-width: 768px) {
-        .container {
-            flex-direction: column;
+        .dropdowns {
+            display: none;
+            flex-wrap: wrap;
+            gap: 5px;
+            align-items: center;
+            margin-top: 10%;
+            position: absolute;
+            justify-content:center;
         }
-    }
-*/
-
-/*    #sessionsTable {
-        display: block;
-        overflow: auto;
-        max-height: 530px;
-        width: 90%;
-        margin-top: 50px;
-    }*/
-
-    .table {
-        margin: 20px;
-        display: block;
-        overflow: auto;
-        max-height: 530px;
-        width: 90%;
-        margin-top: 50px;
-        width: 80%; /* Adjust the width as needed */
-        margin: 0 auto;
-        margin-top:60px;
-    }
-
-    table {
-        border-collapse: collapse;
-        width: 100%;
-    }
-
-    th, td {
-        padding: 8px;
-        text-align: center;
-        border: 1px solid black;
-    }
 
 
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+        }
+    */
 
-
-    #bts {
-        margin-left: 65%;
-        background-color: orange;
-        width: 100px;
-        height: 15%;
-    }
-
-
-    .form-columns {
-        display: flex;
-        justify-content: space-between;
-    }
-
-    .form-column {
-        width: 48%;
-    }
-
-
-
-/*    .tdtd {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        justify-content: space-evenly;
-        cursor: pointer;
-    }*/
-
-    .popup {
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.5);
-        justify-content: center;
-        align-items: center;
-    }
-
-    .blank-box {
-        width: 60%;
-        max-width: 600px;
-        background-color: white;
-        border: 1px solid #ccc;
-        margin: 10px auto;
-        padding: 20px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-    }
-
-    .scroll-container {
-        overflow: auto;
-        max-height: 500px;
-    }
-
-        .scroll-container label {
+        /*    #sessionsTable {
             display: block;
-            margin: 10px 0 5px;
-            font-weight: bold;
+            overflow: auto;
+            max-height: 530px;
+            width: 90%;
+            margin-top: 50px;
+        }*/
+
+        .table {
+            margin: 20px;
+            display: block;
+            overflow: auto;
+            max-height: 530px;
+            width: 90%;
+            margin-top: 50px;
+            width: 80%; /* Adjust the width as needed */
+            margin: 0 auto;
+            margin-top: 60px;
         }
 
-        .scroll-container input[type="text"],
-        .scroll-container input[type="date"],
-        .scroll-container select {
-            width: 90%;
-            margin: 5px 0;
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
             padding: 8px;
+            text-align: center;
+            border: 1px solid black;
+        }
+
+
+
+
+        #bts {
+            margin-left: 65%;
+            background-color: orange;
+            width: 100px;
+            height: 15%;
+        }
+
+
+        .form-columns {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .form-column {
+            width: 48%;
+        }
+
+
+
+        /*    .tdtd {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            justify-content: space-evenly;
+            cursor: pointer;
+        }*/
+
+        .popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .blank-box {
+            width: 60%;
+            max-width: 600px;
+            background-color: white;
             border: 1px solid #ccc;
-            border-radius: 4px;
+            margin: 10px auto;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
         }
 
-        .scroll-container.comment-box {
-            width: 90%;
-            margin: 10px 0;
-            padding: 8px;
+        .scroll-container {
+            overflow: auto;
+            max-height: 500px;
         }
 
-            .scroll-container.comment-box textarea {
-                width: 100%;
-                height: 100px;
+            .scroll-container label {
+                display: block;
+                margin: 10px 0 5px;
+                font-weight: bold;
+            }
+
+            .scroll-container input[type="text"],
+            .scroll-container input[type="date"],
+            .scroll-container select {
+                width: 90%;
+                margin: 5px 0;
+                padding: 8px;
                 border: 1px solid #ccc;
                 border-radius: 4px;
             }
 
+            .scroll-container.comment-box {
+                width: 90%;
+                margin: 10px 0;
+                padding: 8px;
+            }
 
-        .scroll-container#btnSave {
-            width: auto;
-            background-color: orange;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            margin-right: 10px;
+                .scroll-container.comment-box textarea {
+                    width: 100%;
+                    height: 100px;
+                    border: 1px solid #ccc;
+                    border-radius: 4px;
+                }
+
+
+            .scroll-container#btnSave {
+                width: auto;
+                background-color: orange;
+                color: white;
+                padding: 10px 20px;
+                border: none;
+                border-radius: 5px;
+                margin-right: 10px;
+                cursor: pointer;
+                box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2);
+                font-weight: bold;
+                transition: background-color 0.3s ease;
+                display: block;
+            }
+
+            .scroll-container#btnSaveDuplicate {
+                width: auto;
+                background-color: orange;
+                color: white;
+                padding: 10px 20px;
+                border: none;
+                border-radius: 5px;
+                margin-right: 10px;
+                cursor: pointer;
+                box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2);
+                font-weight: bold;
+                transition: background-color 0.3s ease;
+                display: block;
+            }
+
+            .scroll-container.button-container button {
+                background-color: orange;
+                color: white;
+                padding: 10px 20px;
+                border: none;
+                border-radius: 5px;
+                margin-right: 10px;
+                cursor: pointer;
+                box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2);
+                font-weight: bold;
+                transition: background-color 0.3s ease;
+            }
+            /*
+        @media (max-width: 708px) {
+            .blank-box {
+                width: 80%;
+            }*/
+
+            .scroll-container input[type="text"],
+            .scroll-container input[type="date"],
+            .scroll-container select,
+            .scroll-container.comment-box {
+                width: 100%;
+            }
+
+        #date-icon {
             cursor: pointer;
-            box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2);
-            font-weight: bold;
-            transition: background-color 0.3s ease;
-            display: block;
+            font-size: large;
+            margin-bottom: 2px;
         }
 
-        .scroll-container#btnSaveDuplicate {
-            width: auto;
-            background-color: orange;
-            color: white;
-            padding: 10px 20px;
-            border: none;
+
+        .date-input {
+            display: none;
+            padding: 10px;
+            border: 1px solid #ccc;
             border-radius: 5px;
-            margin-right: 10px;
-            cursor: pointer;
-            box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2);
-            font-weight: bold;
-            transition: background-color 0.3s ease;
-            display: block;
+            margin: 5px;
         }
 
-        .scroll-container.button-container button {
-            background-color: orange;
-            color: white;
-            padding: 10px 20px;
-            border: none;
+            .date-input::-webkit-input-placeholder {
+                color: #888;
+                font-style: italic;
+            }
+
+            .date-input::-moz-placeholder {
+                color: #888;
+                font-style: italic;
+            }
+
+            .date-input:-ms-input-placeholder {
+                color: #888;
+                font-style: italic;
+            }
+
+            .date-input:-moz-placeholder {
+                color: #888;
+                font-style: italic;
+            }
+
+        #program-select, #project-select, #center-select, #trainer-select {
+            padding: 10px;
+            border: 1px solid #ccc;
             border-radius: 5px;
-            margin-right: 10px;
-            cursor: pointer;
-            box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2);
-            font-weight: bold;
-            transition: background-color 0.3s ease;
-        }
-/*
-    @media (max-width: 708px) {
-        .blank-box {
-            width: 80%; 
-        }*/
-
-        .scroll-container input[type="text"],
-        .scroll-container input[type="date"],
-        .scroll-container select,
-        .scroll-container.comment-box {
-            width: 100%;
+            margin: 5px;
         }
 
-    #date-icon{
-        cursor:pointer;
-        font-size:large;
-        margin-bottom:2px;
-    }
-
-
-    .date-input {
-        display: none;
-        padding: 10px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        margin: 5px;
-    }
-
-   .date-input::-webkit-input-placeholder { 
-            color: #888;
-            font-style: italic;
-    }
-
-   .date-input::-moz-placeholder { 
-            color: #888;
-            font-style: italic;
+        #but {
+            margin-left: 70%;
+            width: 8%;
+            background: orange;
+            padding: 5px;
         }
 
-        .date-input:-ms-input-placeholder {
-            color: #888;
-            font-style: italic;
+        #btnSave, #btnSaveDuplicate {
+            background: orange;
+            width: 11%;
         }
-
-        .date-input:-moz-placeholder {
-            color: #888;
-            font-style: italic;
-        }
-
-    #program-select, #project-select, #center-select, #trainer-select {
-        padding: 10px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        margin: 5px;
-    }
-
-    #but {
-        margin-left: 70%;
-        width: 8%;
-        background: orange;
-        padding:5px;
-    }
-
-    #btnSave, #btnSaveDuplicate {
-        background: orange;
-        width: 11%;
-    }
 </style>
 
 {% endblock %}
@@ -649,230 +646,231 @@
 
 <button id="but" onclick="openCreatePage()">Create</button>
 
-<form method="post" action="{% url 'save_session' %}" >
+<form method="post" action="{% url 'save_session' %}">
 
     {% csrf_token %}
 
-       <div class="table-container">
+    <div class="table-container">
 
-            <div id="scrollable-table">
+        <div id="scrollable-table">
 
-                <table id="sessionsTable" class="table">
-                    <tr bgcolor="orange">
+            <table id="sessionsTable" class="table">
+                <tr bgcolor="orange">
 
-                        <th>Date</th>
-                        <th>fullname</th>
-                        <th>Program</th>
-                        <th>Project</th>
-                        <th>Activity</th>
-                        <th>Center_Type</th>
-                        <th>Session_Number</th>
-                        <th>Sponsor</th>
-                        <th>Trainer_Type</th>
-                        <th>beneficiaries</th>
-                        <th>Category</th>
-                        <th>Duration</th>
-                        <th>Status</th>
-                        <th>Comments</th>
-                        <th>Action</th>
+                    <th>Date</th>
+                    <th>Full name</th>
 
-
-
-
-                    </tr>
-
-                    {% for program in programs %}
-                    <tr bgcolor="white">
-                        <td>{{program.date}}</td>
-                        <td>{{program.emp.fullname|fullname_to_string}}</td>
-                        <td>{{program.xref.program_name|program_to_string}}</td>
-                        <td>{{program.xref.project_name}}</td>
-                        <td>{{program.activity }}</td>
-                        <td>{{program.center_type|centertype_to_string}}</td>
-                        <td>{{program.session_number}}</td>
-                        <td>{{program.sponsor}}</td>
-                        <td>{{program.trainer_type}}</td>
-                        <td>{{program.beneficiaries }}</td>
-                        <td>{{program.category }}</td>
-                        <td>{{program.duration}}</td>
-                        <td>{{program.status}}</td>
-                        <td>{{program.comments }}</td>
+                    <th>Program</th>
+                    <th>Project</th>
+                    <th>Activity</th>
+                    <th>Center_Type</th>
+                    <th>Session_Number</th>
+                    <th>Sponsor</th>
+                    <th>Trainer_Type</th>
+                    <th>beneficiaries</th>
+                    <th>Category</th>
+                    <th>Duration</th>
+                    <th>Status</th>
+                    <th>Comments</th>
+                    <th>Action</th>
 
 
 
 
-                        <td class="tdtd">
-                            <button type="button" class="add-row-button" onclick="showpopup()"> <i class="fa-solid fa-eye" style="color: #ff7b00;"></i> </button>
-                        </td>
+                </tr>
 
-
-                    </tr>
-                    {% endfor %}
-
-                </table>
-            </div>
-      </div>
-
-        <script>
-            function openCreatePage() {
-                var url = "{% url 'createpage' %}";
-                window.open(url, 'Create Page', 'height=600,width=800');
-            }
-        </script>
-
-        <div id="popup" class="popup">
-            <div class="blank-box">
-                <div class="scroll-container">
-
-                    <h2>Details</h2>
-
-                    <label id="fullname">fullname</label>
-                    <select id="ddlfullname" name="fullname" required>
-                        <option value="Select an option">Select an option</option>
-                        <option value="1">Preethi</option>
-                        <option value="Sonia">Sonia</option>
-                        <option value="3">Jimmy Cherian</option>
-                        <option value="4">Smitha</option>
-                        <option value="5">Sujeeth</option>
-                    </select>
-                   
-
-                    <br>
-
-                    <label for="date">Date</label>
-                    <input type="date" id="date" name="date"><br>
+                {% for program in programs %}
+                <tr bgcolor="white">
+                    <td>{{program.date}}</td>
+                    <td>{{program.emp.fullname|fullname_to_string}}</td>
+                    <td>{{program.xref.program_name|program_to_string}}</td>
+                    <td>{{program.xref.project_name}}</td>
+                    <td>{{program.activity }}</td>
+                    <td>{{program.center_type|centertype_to_string}}</td>
+                    <td>{{program.session_number}}</td>
+                    <td>{{program.sponsor}}</td>
+                    <td>{{program.trainer_type}}</td>
+                    <td>{{program.beneficiaries }}</td>
+                    <td>{{program.category }}</td>
+                    <td>{{program.duration}}</td>
+                    <td>{{program.status}}</td>
+                    <td>{{program.comments }}</td>
 
 
 
-                    <label for="Program">Program</label>
-                    <select id="Program" name="Program" required>
-                        <option value="Select an option" data-dbname="SelectAnOption">Select an option</option>
-                        <option value="1" data-dbname="BridgeCourse">Bridge Course</option>
-                        <option value="2" data-dbname="Academics">Academics</option>
-                        <option value="3" data-dbname="After School Program">After School Program</option>
-                        <option value="4" data-dbname="AwarenessSessions">Awareness Sessions</option>
-                        <option value="5" data-dbname="Camps">Camps(Summer/Winter)</option>
-                        <option value="6" data-dbname="CareerGuidance">Career Guidance</option>
-                        <option value="7" data-dbname="ComputerCoachingAdvanced">Computer Coaching-Advanced</option>
-                        <option value="8" data-dbname="ComputerCoachingBasicsWithTyping">Computer Coaching-Basics with Typing</option>
-                        <option value="9" data-dbname="ComputerCoachingBasicsWithoutTyping">Computer Coaching-Basics without Typing</option>
-                        <option value="10" data-dbname="ComputerCoachingTyping">Computer Coaching-Typing</option>
-                        <option value="11" data-dbname="Counselling">Counselling</option>
-                        <option value="12" data-dbname="E2E">E2E(Education to Employability)</option>
-                        <option value="13" data-dbname="EmotionalManagement">Emotional Management</option>
-                        <option value="14" data-dbname="ExamReadiness">Exam Readiness</option>
-                        <option value="15" data-dbname="GenderSensitivity">Gender Sensitivity</option>
-                        <option value="16" data-dbname="Internship">Internship</option>
-                        <option value="17" data-dbname="IntegratedProgram">Integrated Program</option>
-                        <option value="18" data-dbname="Kannada">Kannada</option>
-                        <option value="19" data-dbname="LifeSkills">Life Skills</option>
-                        <option value="20" data-dbname="OfficeAssistant">Office Assistant</option>
-                        <option value="21" data-dbname="ParentalGuidance">Parental Guidance</option>
-                        <option value="22" data-dbname="PersonalityDevelopment">Personality Development</option>
-                        <option value="23" data-dbname="SoftSkills">Soft Skills</option>
-                        <option value="24" data-dbname="SoftwareDevelopment">Software Development</option>
-                        <option value="25" data-dbname="SpokenEnglish">Spoken English</option>
-                        <option value="26" data-dbname="Tailoring">Tailoring</option>
-                        <option value="27" data-dbname="TailoringTasselTyping">Tailoring-Tassel Typing</option>
-                        <option value="28" data-dbname="Tally">Tally</option>
-                        <option value="29" data-dbname="TeacherDevelopment">Teacher Development</option>
-                        <option value="30" data-dbname="TTT">TTT</option>
-                        <option value="31" data-dbname="Wellbeing">Wellbeing</option>
-                        <option value="32" data-dbname="WomenDevelopment">Women Development</option>
-                        <option value="33" data-dbname="WSD">WSD</option>
 
-                    </select>
-                    <br>
+                    <td class="tdtd">
+                        <button type="button" class="add-row-button" onclick="showpopup()"> <i class="fa-solid fa-eye" style="color: #ff7b00;"></i> </button>
+                    </td>
 
 
-                    <label for="Project">Project</label>
-                    <input type="text" id="Project" name="Project"><br>
+                </tr>
+                {% endfor %}
 
-                    <label for="Activity">Activity</label>
-                    <input type="text" id="Activity" name="Activity"><br>
+            </table>
+        </div>
+    </div>
 
-                    <label for="Center_Type">Center_Type</label>
-                    <select id="Center_Type" name="Center_Type" required>
-                        <option value="Select an option">Select an option</option>
-                        <option value="1" data-dbname="DJ_halli 1">DJ_halli 1</option>
-                        <option value="2" data-dbname="DJ_halli 2">DJ_halli 2</option>
-                        <option value="3" data-dbname="Bagalur">Bagalur</option>
-                        <option value="4" data-dbname="Mylanahalli">Mylanahalli</option>
-                        <option value="5" data-dbname="Kannur">Kannur</option>
-                    </select>
-                    <br>
+    <script>
+        function openCreatePage() {
+            var url = "{% url 'createpage' %}";
+            window.open(url, 'Create Page', 'height=600,width=800');
+        }
+    </script>
 
-                    <label for="session_number">Session Number</label>
-                    <input type="text" id="session_number" name="Session_number"><br>
+    <div id="popup" class="popup">
+        <div class="blank-box">
+            <div class="scroll-container">
 
-                    <label for="Sponsor">Sponsor</label>
-                    <select id="Sponsor" name="Sponsor" required>
-                        <option value="">Select an option</option>
-                        <option value="1" data-dbname="Vajra">Vajra</option>
-                        <option value="2" data-dbname="Bridge">Bridge</option>
-                        <option value="3" data-dbname="TasteMaster">Taste Master</option>
-                        <option value="4" data-dbname="LICT">LICT</option>
-                        <option value="5" data-dbname="Others">Others</option>
+                <h2>Details</h2>
 
-                    </select>
-                    <br>
-
-                    <label for="Trainer_Type">Trainer Type</label>
-                    <select id="Trainer_Type" name="Trainer_Type" required>
-                        <option value="">Select an option</option>
-                        <option value="1" data-dbname="Lead">Lead</option>
-                        <option value="2" data-dbname="Co-Facilator">Co-Facilator</option>
-                        <option value="3" data-dbname="Volunteer">Volunteer</option>
-                    </select>
-                    <br>
-
-                    <label for="Beneficiaries">Beneficiaries</label>
-                    <input type="number" id="Beneficiaries" name="Beneficiaries" data-dbname="Beneficiaries" style="width: 90%; margin: 5px 0; padding: 8px; border: 1px solid #ccc; border-radius: 4px;" min="0">
-                    <br>
-
-                    <label for="Category">Category</label>
-                    <select id="Category" name="Category" required>
-                        <option value="Select an option" data-dbname="SelectAnOption">Select an option</option>
-                        <option value="1" data-dbname="Consultant">Consultant</option>
-                        <option value="2" data-dbname="Employee">Employee</option>
-                        <option value="3" data-dbname="Internship">Internship</option>
-                        <option value="4" data-dbname="NewVolunteer">New-Volunteer</option>
-                        <option value="5" data-dbname="ExVolunteer">Ex-Volunteer</option>
-                    </select>
+                <label id="fullname">full Name</label>
+                <select id="ddlfullname" name="fullname" required>
+                    <option value="Select an option">Select an option</option>
+                    <option value="Preethi">Preethi</option>
+                    <option value="Sonia">Sonia</option>
+                    <option value="Jimmy Cherian">Jimmy Cherian</option>
+                    <option value="Smitha">Smitha</option>
+                    <option value="Sujeeth">Sujeeth</option>
+                </select>
 
 
-                    <label for="Duration">Duration</label>
-                    <input type="number" id="Duration" name="Duration" data-dbname="Duration" style="width: 90%;margin: 6px 0;padding: 9px;border: 1px solid #ccc;border-radius: 4px;" min="0">
-                    <br>
+                <br>
 
-                    <label for="Status">Status</label>
-                    <select id="Status" name="Status" required>
-                        <option value="Select an option" data-dbname="SelectAnOption">Select an option</option>
-                        <option value="1" data-dbname="Start">Start</option>
-                        <option value="2" data-dbname="OnGoing">On-Going</option>
-                        <option value="3" data-dbname="OnHold">On-Hold</option>
-                        <option value="4" data-dbname="Completed">Completed</option>
-                        <option value="5" data-dbname="Orientation">Orientation</option>
-                        <option value="6" data-dbname="Travel">Travel</option>
+                <label for="date">Date</label>
+                <input type="date" id="date" name="date"><br>
 
-                    </select>
-                    <br>
 
-                    <label for="Comments">Comments</label>
-                    <div class="comment-box">
-                        <textarea id="Comments" name="Comments" placeholder="Write our comment here"></textarea>
-                    </div>
-                    <br>
 
-                    <button id="updateButton" type="submit">Update</button>
-                    <br>
+                <label for="Program">Program</label>
+                <select id="Program" name="Program" required>
+                    <option value="Select an option" data-dbname="SelectAnOption">Select an option</option>
+                    <option value="1" data-dbname="BridgeCourse">Bridge Course</option>
+                    <option value="2" data-dbname="Academics">Academics</option>
+                    <option value="3" data-dbname="After School Program">After School Program</option>
+                    <option value="4" data-dbname="AwarenessSessions">Awareness Sessions</option>
+                    <option value="5" data-dbname="Camps">Camps(Summer/Winter)</option>
+                    <option value="6" data-dbname="CareerGuidance">Career Guidance</option>
+                    <option value="7" data-dbname="ComputerCoachingAdvanced">Computer Coaching-Advanced</option>
+                    <option value="8" data-dbname="ComputerCoachingBasicsWithTyping">Computer Coaching-Basics with Typing</option>
+                    <option value="9" data-dbname="ComputerCoachingBasicsWithoutTyping">Computer Coaching-Basics without Typing</option>
+                    <option value="10" data-dbname="ComputerCoachingTyping">Computer Coaching-Typing</option>
+                    <option value="11" data-dbname="Counselling">Counselling</option>
+                    <option value="12" data-dbname="E2E">E2E(Education to Employability)</option>
+                    <option value="13" data-dbname="EmotionalManagement">Emotional Management</option>
+                    <option value="14" data-dbname="ExamReadiness">Exam Readiness</option>
+                    <option value="15" data-dbname="GenderSensitivity">Gender Sensitivity</option>
+                    <option value="16" data-dbname="Internship">Internship</option>
+                    <option value="17" data-dbname="IntegratedProgram">Integrated Program</option>
+                    <option value="18" data-dbname="Kannada">Kannada</option>
+                    <option value="19" data-dbname="LifeSkills">Life Skills</option>
+                    <option value="20" data-dbname="OfficeAssistant">Office Assistant</option>
+                    <option value="21" data-dbname="ParentalGuidance">Parental Guidance</option>
+                    <option value="22" data-dbname="PersonalityDevelopment">Personality Development</option>
+                    <option value="23" data-dbname="SoftSkills">Soft Skills</option>
+                    <option value="24" data-dbname="SoftwareDevelopment">Software Development</option>
+                    <option value="25" data-dbname="SpokenEnglish">Spoken English</option>
+                    <option value="26" data-dbname="Tailoring">Tailoring</option>
+                    <option value="27" data-dbname="TailoringTasselTyping">Tailoring-Tassel Typing</option>
+                    <option value="28" data-dbname="Tally">Tally</option>
+                    <option value="29" data-dbname="TeacherDevelopment">Teacher Development</option>
+                    <option value="30" data-dbname="TTT">TTT</option>
+                    <option value="31" data-dbname="Wellbeing">Wellbeing</option>
+                    <option value="32" data-dbname="WomenDevelopment">Women Development</option>
+                    <option value="33" data-dbname="WSD">WSD</option>
 
-                    <br>
-                    <button type="button" onclick="hidePopup()" id="btnSaveDuplicate">Close</button>
-                    <br>
+                </select>
+                <br>
+
+
+                <label for="Project">Project</label>
+                <input type="text" id="Project" name="Project"><br>
+
+                <label for="Activity">Activity</label>
+                <input type="text" id="Activity" name="Activity"><br>
+
+                <label for="Center_Type">Center_Type</label>
+                <select id="Center_Type" name="Center_Type" required>
+                    <option value="Select an option">Select an option</option>
+                    <option value="1" data-dbname="DJ_halli 1">DJ_halli 1</option>
+                    <option value="2" data-dbname="DJ_halli 2">DJ_halli 2</option>
+                    <option value="3" data-dbname="Bagalur">Bagalur</option>
+                    <option value="4" data-dbname="Mylanahalli">Mylanahalli</option>
+                    <option value="5" data-dbname="Kannur">Kannur</option>
+                </select>
+                <br>
+
+                <label for="session_number">Session Number</label>
+                <input type="text" id="session_number" name="Session_number"><br>
+
+                <label for="Sponsor">Sponsor</label>
+                <select id="Sponsor" name="Sponsor" required>
+                    <option value="">Select an option</option>
+                    <option value="1" data-dbname="Vajra">Vajra</option>
+                    <option value="2" data-dbname="Bridge">Bridge</option>
+                    <option value="3" data-dbname="TasteMaster">Taste Master</option>
+                    <option value="4" data-dbname="LICT">LICT</option>
+                    <option value="5" data-dbname="Others">Others</option>
+
+                </select>
+                <br>
+
+                <label for="Trainer_Type">Trainer Type</label>
+                <select id="Trainer_Type" name="Trainer_Type" required>
+                    <option value="">Select an option</option>
+                    <option value="1" data-dbname="Lead">Lead</option>
+                    <option value="2" data-dbname="Co-Facilator">Co-Facilator</option>
+                    <option value="3" data-dbname="Volunteer">Volunteer</option>
+                </select>
+                <br>
+
+                <label for="Beneficiaries">Beneficiaries</label>
+                <input type="number" id="Beneficiaries" name="Beneficiaries" data-dbname="Beneficiaries" style="width: 90%; margin: 5px 0; padding: 8px; border: 1px solid #ccc; border-radius: 4px;" min="0">
+                <br>
+
+                <label for="Category">Category</label>
+                <select id="Category" name="Category" required>
+                    <option value="Select an option" data-dbname="SelectAnOption">Select an option</option>
+                    <option value="1" data-dbname="Consultant">Consultant</option>
+                    <option value="2" data-dbname="Employee">Employee</option>
+                    <option value="3" data-dbname="Internship">Internship</option>
+                    <option value="4" data-dbname="NewVolunteer">New-Volunteer</option>
+                    <option value="5" data-dbname="ExVolunteer">Ex-Volunteer</option>
+                </select>
+
+
+                <label for="Duration">Duration</label>
+                <input type="number" id="Duration" name="Duration" data-dbname="Duration" style="width: 90%;margin: 6px 0;padding: 9px;border: 1px solid #ccc;border-radius: 4px;" min="0">
+                <br>
+
+                <label for="Status">Status</label>
+                <select id="Status" name="Status" required>
+                    <option value="Select an option" data-dbname="SelectAnOption">Select an option</option>
+                    <option value="1" data-dbname="Start">Start</option>
+                    <option value="2" data-dbname="OnGoing">On-Going</option>
+                    <option value="3" data-dbname="OnHold">On-Hold</option>
+                    <option value="4" data-dbname="Completed">Completed</option>
+                    <option value="5" data-dbname="Orientation">Orientation</option>
+                    <option value="6" data-dbname="Travel">Travel</option>
+               
+                </select>
+                <br>
+
+                <label for="Comments">Comments</label>
+                <div class="comment-box">
+                    <textarea id="Comments" name="Comments" placeholder="Write our comment here"></textarea>
                 </div>
+                <br>
+
+                <button id="updateButton" type="submit">Update</button>
+                <br>
+
+                <br>
+                <button type="button" onclick="hidePopup()" id="btnSaveDuplicate">Close</button>
+                <br>
             </div>
         </div>
+    </div>
 
 </form>
 
