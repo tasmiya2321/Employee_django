@@ -358,13 +358,10 @@
         }*/
 
         .table {
-            margin: 20px;
             display: block;
             overflow: auto;
             max-height: 530px;
-            width: 90%;
-            margin-top: 50px;
-            width: 80%; /* Adjust the width as needed */
+            width: 70%; 
             margin: 0 auto;
             margin-top: 60px;
         }
@@ -374,13 +371,17 @@
             width: 100%;
         }
 
-        th, td {
+       td {
             padding: 8px;
             text-align: center;
             border: 1px solid black;
         }
 
-
+       th{
+           padding:8px;
+           text-align:center;
+           border:1px solid black;
+       }
 
 
         #bts {
@@ -510,7 +511,7 @@
                 transition: background-color 0.3s ease;
             }
             /*
-        @media (max-width: 708px) {
+              @media (max-width: 708px) {
             .blank-box {
                 width: 80%;
             }*/
@@ -585,63 +586,12 @@
 <h1>Session Details</h1>
 
 <div class="container">
-    <div class="search-box">
-        <input type="text" name="q" placeholder="j(Program, Activity)" required>
-        <button type="submit" class="search-btn"><i class="fas fa-search"></i></button>
-    </div>
+    <form method="GET" action="{% url 'search_input' %}">
+        <input type="text" name="search" placeholder="(Date, Fullname, Activity)" required autocomplete="off">
+        <button type="submit">Search</button>
+    </form>
 
-    <i class="fas fa-filter filter-icon"></i>
-    <div id="date-icon" style="cursor:pointer;">
-        📅
-    </div><br />
-
-    <input type="date" id="from-date" class="date-input" placeholder="From Date" style="display:none;">
-    <input type="date" id="to-date" class="date-input" placeholder="To Date" style="display:none;">
-
-    <div class="dropdowns">
-
-        <select id="fullname-select">
-            <option value="">Select a fullname</option>
-            {% for fullname in fullname %}
-            <option value="{{ fullname.fullname }}">{{ fullname.fullname|fullname_to_string }}</option>
-            {% endfor %}
-        </select>
-
-
-        <select id="program-select">
-            <option>Select an Program</option>
-            {% for program in program_names %}
-
-            <option value="{{ program.program_name }}">{{ program.program_name|program_to_string }}</option>
-            {% endfor %}
-        </select>
-
-        <select id="project-select">
-            <option>Select Project</option>
-            {% for project in project_names %}
-            <option value="{{ project.project_name }}">{{ project.project_name }}</option>
-            {% endfor %}
-        </select>
-
-
-
-
-        <select id="center-select">
-            <option value="">Select an Center</option>
-            {% for center in centers %}
-            <option value="{{ center.center_type }}">{{ center.center_type|centertype_to_string }}</option>
-            {% endfor %}
-        </select>
-
-        <select id="trainer-select">
-            <option value="">Select an Trainer</option>
-            {% for trainer in trainers %}
-            <option value="{{ trainer.trainer_type }}">{{ trainer.trainer_type|TrainerType_to_string }}</option>  <!-- Adjusted to 'trainer_type' -->
-            {% endfor %}
-        </select>
-
-        <button type="button" onclick="applyFilters()" style="background:orange;">Filter</button>
-    </div>
+ 
 </div>
 
 <button id="but" onclick="openCreatePage()">Create</button>
@@ -657,26 +607,143 @@
             <table id="sessionsTable" class="table">
                 <tr bgcolor="orange">
 
-                    <th>Date</th>
-                    <th>Full name</th>
+                    <th>
+                        Date
+                        <input type="date" id="date" name="date"  style=" width: 17px; margin-left:60px">
+                    </th>
+                    <th>
+                        Full name
+                        <select id="ddlfullname" name="fullname" style=" width: 20px;" required>
+                            <option value="Select an option">Select an option</option>
+                            <option value="Preethi">Preethi</option>
+                            <option value="Sonia">Sonia</option>
+                            <option value="Jimmy Cherian">Jimmy Cherian</option>
+                            <option value="Smitha">Smitha</option>
+                            <option value="Sujeeth">Sujeeth</option>
+                        </select>
+                    </th>
+                    <th>
+                        Program
+                        <select id="Program" name="Program" style=" width: 20px;" required>
+                            <option value="Select an option" data-dbname="SelectAnOption">Select an option</option>
+                            <option value="1" data-dbname="BridgeCourse">Bridge Course</option>
+                            <option value="2" data-dbname="Academics">Academics</option>
+                            <option value="3" data-dbname="After School Program">After School Program</option>
+                            <option value="4" data-dbname="AwarenessSessions">Awareness Sessions</option>
+                            <option value="5" data-dbname="Camps">Camps(Summer/Winter)</option>
+                            <option value="6" data-dbname="CareerGuidance">Career Guidance</option>
+                            <option value="7" data-dbname="ComputerCoachingAdvanced">Computer Coaching-Advanced</option>
+                            <option value="8" data-dbname="ComputerCoachingBasicsWithTyping">Computer Coaching-Basics with Typing</option>
+                            <option value="9" data-dbname="ComputerCoachingBasicsWithoutTyping">Computer Coaching-Basics without Typing</option>
+                            <option value="10" data-dbname="ComputerCoachingTyping">Computer Coaching-Typing</option>
+                            <option value="11" data-dbname="Counselling">Counselling</option>
+                            <option value="12" data-dbname="E2E">E2E(Education to Employability)</option>
+                            <option value="13" data-dbname="EmotionalManagement">Emotional Management</option>
+                            <option value="14" data-dbname="ExamReadiness">Exam Readiness</option>
+                            <option value="15" data-dbname="GenderSensitivity">Gender Sensitivity</option>
+                            <option value="16" data-dbname="Internship">Internship</option>
+                            <option value="17" data-dbname="IntegratedProgram">Integrated Program</option>
+                            <option value="18" data-dbname="Kannada">Kannada</option>
+                            <option value="19" data-dbname="LifeSkills">Life Skills</option>
+                            <option value="20" data-dbname="OfficeAssistant">Office Assistant</option>
+                            <option value="21" data-dbname="ParentalGuidance">Parental Guidance</option>
+                            <option value="22" data-dbname="PersonalityDevelopment">Personality Development</option>
+                            <option value="23" data-dbname="SoftSkills">Soft Skills</option>
+                            <option value="24" data-dbname="SoftwareDevelopment">Software Development</option>
+                            <option value="25" data-dbname="SpokenEnglish">Spoken English</option>
+                            <option value="26" data-dbname="Tailoring">Tailoring</option>
+                            <option value="27" data-dbname="TailoringTasselTyping">Tailoring-Tassel Typing</option>
+                            <option value="28" data-dbname="Tally">Tally</option>
+                            <option value="29" data-dbname="TeacherDevelopment">Teacher Development</option>
+                            <option value="30" data-dbname="TTT">TTT</option>
+                            <option value="31" data-dbname="Wellbeing">Wellbeing</option>
+                            <option value="32" data-dbname="WomenDevelopment">Women Development</option>
+                            <option value="33" data-dbname="WSD">WSD</option>
 
-                    <th>Program</th>
-                    <th>Project</th>
-                    <th>Activity</th>
-                    <th>Center_Type</th>
-                    <th>Session_Number</th>
-                    <th>Sponsor</th>
-                    <th>Trainer_Type</th>
-                    <th>beneficiaries</th>
-                    <th>Category</th>
-                    <th>Duration</th>
-                    <th>Status</th>
+                        </select>
+                    </th>
+
+                    <th>
+                        Project
+                        <input type="text" id="Project" name="Project" style=" width: 50px;">
+
+                    </th>
+                    <th>
+                        Activity
+                        <input type="text" id="Activity" name="Activity" style=" width: 50px;">
+
+                    </th>
+                    <th>
+                        Center_Type
+                        <select id="Center_Type" name="Center_Type" style=" width: 20px;" required>
+                            <option value="Select an option">Select an option</option>
+                            <option value="1" data-dbname="DJ_halli 1">DJ_halli 1</option>
+                            <option value="2" data-dbname="DJ_halli 2">DJ_halli 2</option>
+                            <option value="3" data-dbname="Bagalur">Bagalur</option>
+                            <option value="4" data-dbname="Mylanahalli">Mylanahalli</option>
+                            <option value="5" data-dbname="Kannur">Kannur</option>
+                        </select>
+                    </th>
+                    <th>
+                        Session_Number
+                        <input type="number" id="session_number" name="Session_number" style=" width: 50px;">
+
+                    </th>
+                    <th>
+                        Sponsor
+                        <select id="Sponsor" name="Sponsor" style=" width: 20px;" required>
+                            <option value="">Select an option</option>
+                            <option value="1" data-dbname="Vajra">Vajra</option>
+                            <option value="2" data-dbname="Bridge">Bridge</option>
+                            <option value="3" data-dbname="TasteMaster">Taste Master</option>
+                            <option value="4" data-dbname="LICT">LICT</option>
+                            <option value="5" data-dbname="Others">Others</option>
+                        </select>
+                    </th>
+                    <th>
+                        Trainer_Type
+                        <select id="Trainer_Type" name="Trainer_Type" style=" width: 20px;" required>
+                            <option value="">Select an option</option>
+                            <option value="1" data-dbname="Lead">Lead</option>
+                            <option value="2" data-dbname="Co-Facilator">Co-Facilator</option>
+                            <option value="3" data-dbname="Volunteer">Volunteer</option>
+                        </select>
+                    </th>
+                    <th>
+                        Beneficiaries
+                        <input type="number" id="Beneficiaries" name="Beneficiaries" data-dbname="Beneficiaries" style="width:50px;">
+                    </th>
+                    <th>
+                        Category
+                        <select id="Category" name="Category" style=" width: 20px;" required>
+                            <option value="Select an option" data-dbname="SelectAnOption">Select an option</option>
+                            <option value="1" data-dbname="Consultant">Consultant</option>
+                            <option value="2" data-dbname="Employee">Employee</option>
+                            <option value="3" data-dbname="Internship">Internship</option>
+                            <option value="4" data-dbname="NewVolunteer">New-Volunteer</option>
+                            <option value="5" data-dbname="ExVolunteer">Ex-Volunteer</option>
+                        </select>
+
+                    </th>
+                    <th>
+                        Duration
+                        <input type="number" id="Duration" name="Duration" data-dbname="Duration" style="width:50px;">
+
+                    </th>
+                    <th>
+                        Status
+                        <select id="Status" name="Status" style=" width: 20px;" required>
+                            <option value="Select an option" data-dbname="SelectAnOption">Select an option</option>
+                            <option value="1" data-dbname="Start">Start</option>
+                            <option value="2" data-dbname="OnGoing">On-Going</option>
+                            <option value="3" data-dbname="OnHold">On-Hold</option>
+                            <option value="4" data-dbname="Completed">Completed</option>
+                            <option value="5" data-dbname="Orientation">Orientation</option>
+                            <option value="6" data-dbname="Travel">Travel</option>
+                        </select>
+                    </th>
                     <th>Comments</th>
                     <th>Action</th>
-
-
-
-
                 </tr>
 
                 {% for program in programs %}
@@ -695,10 +762,6 @@
                     <td>{{program.duration}}</td>
                     <td>{{program.status}}</td>
                     <td>{{program.comments }}</td>
-
-
-
-
                     <td class="tdtd">
                         <button type="button" class="add-row-button" onclick="showpopup()"> <i class="fa-solid fa-eye" style="color: #ff7b00;"></i> </button>
                     </td>
@@ -852,7 +915,6 @@
                     <option value="4" data-dbname="Completed">Completed</option>
                     <option value="5" data-dbname="Orientation">Orientation</option>
                     <option value="6" data-dbname="Travel">Travel</option>
-               
                 </select>
                 <br>
 

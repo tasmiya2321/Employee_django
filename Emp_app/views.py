@@ -38,6 +38,8 @@ def home(request):
 
     return render(request, "Emp_app/home.html", {'programs': programs})
 
+
+
 def forgetpassword(request):
      return render(request, "Emp_app/forgetpassword.html")
 
@@ -319,14 +321,23 @@ def save_session(request):
     return render(request, "Emp_app/createpage.html")
 
 
+def search_input(request):
+    search_query = request.GET.get('search', '')
+    if search_query:
+        programs = Program.objects.filter(
+            Q(emp__fullname__icontains=search_query) |
+            Q(xref__program_name__icontains=search_query) |
+            Q(xref__project_name__icontains=search_query)|
+            Q(activity__icontains=search_query) |
+            Q(center_type__icontains=search_query)
+        )
+    else:
+        programs = Program.objects.all()
 
-
+    return render(request, 'Emp_app/Session_main.html', {'programs': programs})
 
  
  
-
-
-
 
 
 
