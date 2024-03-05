@@ -4,7 +4,6 @@ register = template.Library()
 
 @register.filter(name='fullname_to_string')
 def fullname_to_string(value):
-    # Define your mapping
     mapping = {
         1: "Preethi",
         2: "Sonia",
@@ -12,18 +11,14 @@ def fullname_to_string(value):
         4: "Smitha",
         5: "Sujeeth",
     }
-    # Check if value is None and handle it
     if value is None:
-        return "Not specified"  # Or whatever default value you deem appropriate
+        return "Not specified"
 
-    # Convert value to int if it's not already, to ensure the lookup works
     try:
         value_int = int(value)
     except (ValueError, TypeError):
-        # If conversion fails, return the value as is or some default string
-        return "Invalid"  # Or return "Unknown" or any placeholder here
+        return "Invalid" 
     
-    # Return the string representation if found, else "Unknown"
     return mapping.get(value_int, "Unknown")
 
 @register.filter(name='sponsor_to_string')

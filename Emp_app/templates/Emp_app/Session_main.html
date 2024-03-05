@@ -748,7 +748,7 @@
                 {% for program in programs %}
                 <tr bgcolor="white">
                     <td>{{program.date}}</td>
-                    <td>{{program.emp.fullname|fullname_to_string}}</td>
+                    <td>{{program.emp.fullname}}</td>
                     <td>{{program.xref.program_name|program_to_string}}</td>
                     <td>{{program.xref.project_name}}</td>
                     <td>{{program.activity }}</td>
