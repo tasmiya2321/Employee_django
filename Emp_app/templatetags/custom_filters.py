@@ -26,8 +26,40 @@ def fullname_to_string(value):
     # Return the string representation if found, else "Unknown"
     return mapping.get(value_int, "Unknown")
 
+@register.filter(name='sponsor_to_string')
+def sponsor_to_string(value):
+    mapping = {
+        1: "Vajra",
+        2: "Bridge",
+        3: "Taste Master",
+        4: "LICT",
+        5: "Others",
+    }
+    return mapping.get(value, "Unknown")
 
 
+@register.filter(name='category_to_string')
+def category_to_string(value):
+    mapping = {
+        1: "Consultant",
+        2: "Employee",
+        3: "Internship",
+        4: "NewVolunteer",
+        5: "ExVolunteer",
+    }
+    return mapping.get(value, "Unknown")
+
+@register.filter(name='status_to_string')
+def status_to_string(value):
+    mapping = {
+        1: "Start",
+        2: "OnGoing",
+        3: "OnHold",
+        4: "Completed",
+        5: "Orientation",
+        6: "Travel",
+    }
+    return mapping.get(value, "Unknown")
 
 
 # @register.filter(name='centertype_to_string')

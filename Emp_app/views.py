@@ -193,6 +193,11 @@ def Session_main(request):
     program_names = Xref.objects.values('program_name').distinct()
     centers = Program.objects.values('center_type').distinct()
     trainers = Program.objects.values('trainer_type').distinct()
+    Sponsors = Program.objects.values('sponsor').distinct()
+    Categories =  Program.objects.values('category').distinct()
+    Statues =  Program.objects.values('status').distinct()
+
+
 
     if request.method == 'POST':
         data = json.loads(request.body)
@@ -201,6 +206,11 @@ def Session_main(request):
         project_filter = data.get('project')
         center_filter = data.get('center')
         trainer_filter = data.get('trainer')
+        sponsor_filter = data.get('sponsor')
+        category_filter = data.get('category')
+        status_filter = data.get('status')
+        
+        
 
         if program_filter:
             programs = programs.filter(pgm_id__program_name=program_filter)
@@ -208,8 +218,12 @@ def Session_main(request):
             programs = programs.filter(xref__project_name=project_filter)
         if center_filter:
             programs = programs.filter(center_type=center_filter)
-        if trainer_filter:
-            programs = programs.filter(trainer_type=trainer_filter)
+        if sponsor_filter:
+            programs = programs.filter(sponsor=sponsor_filter)
+        if category_filter:
+            programs = programs.filter(category=category_filter) 
+        if status_filter:
+            programs = programs.filter(status=status_filter)
 
         # Ensure the filtered queryset is also ordered
         programs = programs.order_by('-date')
@@ -231,7 +245,7 @@ def Session_main(request):
             page_number = 1  # Set default page number to 1 if conversion to int fails
 
         paginator = Paginator(programs, 10)  # Apply pagination to the ordered queryset
-
+         
         try:
             programs_page = paginator.page(page_number)
         except PageNotAnInteger:
@@ -246,6 +260,9 @@ def Session_main(request):
             'project_names': project_names,
             'centers': centers,
             'trainers': trainers,
+            'Sponsors': Sponsors,
+            'Categories':Categories,
+            'Statues':Statues,
             'total_count': paginator.count
         }
 
@@ -335,6 +352,7 @@ def search_input(request):
         programs = Program.objects.all()
 
     return render(request, 'Emp_app/Session_main.html', {'programs': programs})
+
 
  
  
