@@ -175,6 +175,9 @@
         var selectedProject = document.getElementById('project-select').value;
         var selectedCenter = document.getElementById('center-select').value;
         var selectedTrainer = document.getElementById('trainer-select').value;
+        var selectedSponsor = document.getElementById('Sponsor').value;
+        var selectedCategory = document.getElementById('Category').value;
+        var selectedStatus = document.getElementById('Status').value;
 
         fetch('/filter_sessions/', {
             method: 'POST',
@@ -693,11 +696,9 @@
                         Sponsor
                         <select id="Sponsor" name="Sponsor" style=" width: 20px;" required>
                             <option value="">Select an option</option>
-                            <option value="1" data-dbname="Vajra">Vajra</option>
-                            <option value="2" data-dbname="Bridge">Bridge</option>
-                            <option value="3" data-dbname="TasteMaster">Taste Master</option>
-                            <option value="4" data-dbname="LICT">LICT</option>
-                            <option value="5" data-dbname="Others">Others</option>
+                            {% for Sponsor in Sponsors %}
+                            <option value="{{ Sponsor.sponsor }}">{{ Sponsor.sponsor|sponsor_to_string }}</option>
+                            {% endfor %}
                         </select>
                     </th>
                     <th>
@@ -716,12 +717,13 @@
                     <th>
                         Category
                         <select id="Category" name="Category" style=" width: 20px;" required>
-                            <option value="Select an option" data-dbname="SelectAnOption">Select an option</option>
-                            <option value="1" data-dbname="Consultant">Consultant</option>
-                            <option value="2" data-dbname="Employee">Employee</option>
-                            <option value="3" data-dbname="Internship">Internship</option>
-                            <option value="4" data-dbname="NewVolunteer">New-Volunteer</option>
-                            <option value="5" data-dbname="ExVolunteer">Ex-Volunteer</option>
+                            <option value="">Select an option</option>
+                            {% for category in Categories %}
+                            <option value="{{ category.category }}">{{ category.category|category_to_string }}</option>
+
+
+
+                            {% endfor %}
                         </select>
 
                     </th>
@@ -733,13 +735,10 @@
                     <th>
                         Status
                         <select id="Status" name="Status" style=" width: 20px;" required>
-                            <option value="Select an option" data-dbname="SelectAnOption">Select an option</option>
-                            <option value="1" data-dbname="Start">Start</option>
-                            <option value="2" data-dbname="OnGoing">On-Going</option>
-                            <option value="3" data-dbname="OnHold">On-Hold</option>
-                            <option value="4" data-dbname="Completed">Completed</option>
-                            <option value="5" data-dbname="Orientation">Orientation</option>
-                            <option value="6" data-dbname="Travel">Travel</option>
+                            <option value="">Select an option</option>
+                            {% for status in Statues %}
+                            <option value="{{ status.status }}">{{  status.status|status_to_string }}</option>
+                            {% endfor %}
                         </select>
                     </th>
                     <th>Comments</th>
@@ -755,12 +754,12 @@
                     <td>{{program.activity }}</td>
                     <td>{{program.center_type|centertype_to_string}}</td>
                     <td>{{program.session_number}}</td>
-                    <td>{{program.sponsor}}</td>
-                    <td>{{program.trainer_type}}</td>
+                    <td>{{program.sponsor|sponsor_to_string}}</td>
+                    <td>{{program.trainer_type|TrainerType_to_string}}</td>
                     <td>{{program.beneficiaries }}</td>
-                    <td>{{program.category }}</td>
+                    <td>{{program.category|category_to_string }}</td>
                     <td>{{program.duration}}</td>
-                    <td>{{program.status}}</td>
+                    <td>{{program.status|status_to_string }}</td>
                     <td>{{program.comments }}</td>
                     <td class="tdtd">
                         <button type="button" class="add-row-button" onclick="showpopup()"> <i class="fa-solid fa-eye" style="color: #ff7b00;"></i> </button>
