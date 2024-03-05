@@ -9,6 +9,8 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.views import LoginView
 from .views import admin_module
 from .views import employee 
+from .views import search_input
+
 
 
 
@@ -28,10 +30,7 @@ urlpatterns = [
     path('Session_main/', views.Session_main, name='Session_main'),
     path('createpage/', views.CreatePage, name='createpage'),
     path('save_session/', views.save_session, name='save_session'),
-   
-  
-    
-   
+    path('search_input/', views.search_input, name='search_input'),
 ]
 # if settings.DEBUG:
 #     from django.contrib.staticfiles.urls import staticfiles_urlpatterns
