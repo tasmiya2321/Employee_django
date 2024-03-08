@@ -180,9 +180,16 @@ def Session_main(request):
         return redirect('login')
 
     # Retrieve emp_id based on the authenticated user
-    auth_user_instance = AuthUser.objects.get(username=user.username)
-    emp_details = EmpDetails.objects.get(username=auth_user_instance)
-    emp_id = emp_details.emp_id
+    try:
+        auth_user_instance = AuthUser.objects.get(username=user.username)
+        emp_details = EmpDetails.objects.get(username=auth_user_instance)
+        emp_id = emp_details.emp_id
+    except EmpDetails.DoesNotExist:
+        # Handle the case where EmpDetails is not found for the given username
+        # You can log the error, return an error response, or take appropriate action
+        messages.error(request, "EmpDetails not found for the given username.")
+        return redirect('login')  # or return an appropriate response
+
 
     # Start with all programs, ordered by 'date' in descending order
     programs = Program.objects.filter(emp=emp_id).order_by('-date')  # Adjust the query here
@@ -301,8 +308,10 @@ def save_session(request):
         comments = request.POST.get("Comments")
         sponsor = request.POST.get("Sponsor")
 
-        auth_user_instance = AuthUser.objects.get(username=user.username)
-        new_emp_details = EmpDetails.objects.get(username=auth_user_instance)
+        # auth_user_instance = AuthUser.objects.get(username=user.username)
+        # new_emp_details = EmpDetails.objects.get(username=auth_user_instance)
+        emp_details = get_object_or_404(EmpDetails, fullname=fullname)
+
         #new_emp_details.save()
 
         # Create Xref instance
@@ -315,7 +324,7 @@ def save_session(request):
 
        
         new_program = Program(
-            emp=new_emp_details,
+            emp=emp_details,
             xref=new_xref, 
             date=date,  
             activity=activity,
