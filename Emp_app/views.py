@@ -28,6 +28,8 @@ from django.contrib.auth.models import User
 
 
 
+
+
 @login_required
 def home(request):
     programs = Program.objects.exclude(date__isnull=True).order_by('pgm_id')[:10]
@@ -361,6 +363,29 @@ def search_input(request):
         programs = Program.objects.all()
 
     return render(request, 'Emp_app/Session_main.html', {'programs': programs})
+
+
+def filter_activities(request):
+    if request.method == 'GET':
+        filter_date = request.GET.get('filterdate')
+        if filter_date:
+            queryset = queryset.filter(date=filter_date)
+
+        filter_fullname = request.GET.get('filterfullname')
+        if filter_fullname and filter_fullname != "Select an option":
+            queryset = queryset.filter(full_name=filter_fullname)
+
+        filter_program = request.GET.get('filterProgram')
+        if filter_program and filter_program != "Select an option":
+            queryset = queryset.filter(program__dbname=filter_program)
+
+        filter_project = request.GET.get('filterProject')
+        if filter_project:
+            queryset = queryset.filter(project__icontains=filter_project)
+            
+      
+        return render(request, 'Emp_app/Session_main.html')
+
 
 
  

@@ -240,94 +240,94 @@
 </script>
 
 <style>
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+    }
+
+    h1 {
+        margin-left: 20%;
+        margin-top: -5%;
+    }
+
+    .container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        padding: 20px;
+        position: relative;
+        margin-right: 5%;
+        margin-top: 4%;
+        margin-left: -10px;
+    }
+
+    .search-box {
+        display: flex;
+        align-items: center;
+        width: 45%;
+        margin-right: -15%;
+    }
+
+        .search-box input {
+            width: 100%;
+            max-width: 300px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-right: 5px; /* Add margin to create space between input and icons */
         }
 
-        h1 {
-            margin-left: 38%;
-            margin-top: -8%;
-        }
-
-        .container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            align-items: center;
-            gap: 10px;
-            padding: 20px;
-            position: relative;
-            margin-right: 5%;
-            margin-top: 4%;
-            margin-left: -10px;
-        }
-
-        .search-box {
-            display: flex;
-            align-items: center;
-            width: 45%;
-            margin-right: -15%;
-        }
-
-            .search-box input {
-                width: 100%;
-                max-width: 300px;
-                padding: 10px;
-                border: 1px solid #ccc;
-                border-radius: 5px;
-                margin-right: 5px; /* Add margin to create space between input and icons */
-            }
-
-            .search-box button {
-                background-color: #d7ca94;
-                cursor: pointer;
-                font-size: medium;
-                height: 30px;
-            }
-
-        .filter-icon {
-            margin: 5px;
-            margin-left: -20px;
+        .search-box button {
+            background-color: #d7ca94;
             cursor: pointer;
-            font-size: x-large;
+            font-size: medium;
+            height: 30px;
         }
 
-        .dropdowns {
-            display: none;
-            flex-wrap: wrap;
-            gap: 5px;
-            align-items: center;
-            margin-top: 10%;
-            position: absolute;
-            justify-content: center;
+    .filter-icon {
+        margin: 5px;
+        margin-left: -20px;
+        cursor: pointer;
+        font-size: x-large;
+    }
+
+    .dropdowns {
+        display: none;
+        flex-wrap: wrap;
+        gap: 5px;
+        align-items: center;
+        margin-top: 10%;
+        position: absolute;
+        justify-content: center;
+    }
+
+    @media (max-width: 768px) {
+        .container {
+            flex-direction: column;
         }
 
-        @media (max-width: 768px) {
-            .container {
-                flex-direction: column;
-            }
-
-            .search-box input {
-                margin: 0 auto;
-            }
+        .search-box input {
+            margin: 0 auto;
         }
+    }
 
-        /*.search-box input {
+    /*.search-box input {
             width: 150%;
             padding: 10px 40px 10px 10px;
             border: 1px solid #ccc;
             border-radius: 5px;
         }*/
 
-        .search-box button, .dropdown button {
-            background-color: #d7ca94;
-            cursor: pointer;
-        }
+    .search-box button, .dropdown button {
+        background-color: #d7ca94;
+        cursor: pointer;
+    }
 
-        /*.filter-icon {
+    /*.filter-icon {
             font-size: 23px;
             cursor: pointer;
             margin: 5px;
@@ -352,7 +352,7 @@
         }
     */
 
-        /*    #sessionsTable {
+    /*    #sessionsTable {
             display: block;
             overflow: auto;
             max-height: 530px;
@@ -360,53 +360,52 @@
             margin-top: 50px;
         }*/
 
-        .table {
-            display: block;
-            overflow: auto;
-            max-height: 530px;
-            width: 70%; 
-            margin: 0 auto;
-            margin-top: 60px;
-        }
-
-        table {
-            border-collapse: collapse;
-            width: 100%;
-        }
-
-       td {
-            padding: 8px;
-            text-align: center;
-            border: 1px solid black;
-        }
-
-       th{
-           padding:8px;
-           text-align:center;
-           border:1px solid black;
-       }
+    .table {
+        display: block;
+        overflow: auto;
+        width: 45%;
+        margin-top: 60px;
+        margin-left: 4%;
+    }
 
 
-        #bts {
-            margin-left: 65%;
-            background-color: orange;
-            width: 100px;
-            height: 15%;
-        }
+    table {
+        border-collapse: collapse;
+    }
+
+    td {
+        padding: 8px;
+        text-align: center;
+        border: 1px solid black;
+    }
+
+    th {
+        padding: 10px;
+        text-align: center;
+        border: 1px solid black;
+    }
 
 
-        .form-columns {
-            display: flex;
-            justify-content: space-between;
-        }
-
-        .form-column {
-            width: 48%;
-        }
+    #bts {
+        margin-left: 65%;
+        background-color: orange;
+        width: 100px;
+        height: 15%;
+    }
 
 
+    .form-columns {
+        display: flex;
+        justify-content: space-between;
+    }
 
-        /*    .tdtd {
+    .form-column {
+        width: 48%;
+    }
+
+
+
+    /*    .tdtd {
             display: flex;
             align-items: center;
             justify-content: center;
@@ -414,171 +413,177 @@
             cursor: pointer;
         }*/
 
-        .popup {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            justify-content: center;
-            align-items: center;
+    .popup {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        justify-content: center;
+        align-items: center;
+    }
+
+    .blank-box {
+        width: 60%;
+        max-width: 600px;
+        background-color: white;
+        border: 1px solid #ccc;
+        margin: 10px auto;
+        padding: 20px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .scroll-container {
+        overflow: auto;
+        max-height: 500px;
+    }
+
+        .scroll-container label {
+            display: block;
+            margin: 10px 0 5px;
+            font-weight: bold;
         }
 
-        .blank-box {
-            width: 60%;
-            max-width: 600px;
-            background-color: white;
+        .scroll-container input[type="text"],
+        .scroll-container input[type="date"],
+        .scroll-container select {
+            width: 90%;
+            margin: 5px 0;
+            padding: 8px;
             border: 1px solid #ccc;
-            margin: 10px auto;
-            padding: 20px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            border-radius: 4px;
         }
 
-        .scroll-container {
-            overflow: auto;
-            max-height: 500px;
+        .scroll-container.comment-box {
+            width: 90%;
+            margin: 10px 0;
+            padding: 8px;
         }
 
-            .scroll-container label {
-                display: block;
-                margin: 10px 0 5px;
-                font-weight: bold;
-            }
-
-            .scroll-container input[type="text"],
-            .scroll-container input[type="date"],
-            .scroll-container select {
-                width: 90%;
-                margin: 5px 0;
-                padding: 8px;
+            .scroll-container.comment-box textarea {
+                width: 100%;
+                height: 100px;
                 border: 1px solid #ccc;
                 border-radius: 4px;
             }
 
-            .scroll-container.comment-box {
-                width: 90%;
-                margin: 10px 0;
-                padding: 8px;
-            }
 
-                .scroll-container.comment-box textarea {
-                    width: 100%;
-                    height: 100px;
-                    border: 1px solid #ccc;
-                    border-radius: 4px;
-                }
+        .scroll-container#btnSave {
+            width: auto;
+            background-color: orange;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            margin-right: 10px;
+            cursor: pointer;
+            box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2);
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+            display: block;
+        }
 
+        .scroll-container#btnSaveDuplicate {
+            width: auto;
+            background-color: orange;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            margin-right: 10px;
+            cursor: pointer;
+            box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2);
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+            display: block;
+        }
 
-            .scroll-container#btnSave {
-                width: auto;
-                background-color: orange;
-                color: white;
-                padding: 10px 20px;
-                border: none;
-                border-radius: 5px;
-                margin-right: 10px;
-                cursor: pointer;
-                box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2);
-                font-weight: bold;
-                transition: background-color 0.3s ease;
-                display: block;
-            }
-
-            .scroll-container#btnSaveDuplicate {
-                width: auto;
-                background-color: orange;
-                color: white;
-                padding: 10px 20px;
-                border: none;
-                border-radius: 5px;
-                margin-right: 10px;
-                cursor: pointer;
-                box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2);
-                font-weight: bold;
-                transition: background-color 0.3s ease;
-                display: block;
-            }
-
-            .scroll-container.button-container button {
-                background-color: orange;
-                color: white;
-                padding: 10px 20px;
-                border: none;
-                border-radius: 5px;
-                margin-right: 10px;
-                cursor: pointer;
-                box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2);
-                font-weight: bold;
-                transition: background-color 0.3s ease;
-            }
-            /*
+        .scroll-container.button-container button {
+            background-color: orange;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            margin-right: 10px;
+            cursor: pointer;
+            box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2);
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+        /*
               @media (max-width: 708px) {
             .blank-box {
                 width: 80%;
             }*/
 
-            .scroll-container input[type="text"],
-            .scroll-container input[type="date"],
-            .scroll-container select,
-            .scroll-container.comment-box {
-                width: 100%;
-            }
-
-        #date-icon {
-            cursor: pointer;
-            font-size: large;
-            margin-bottom: 2px;
+        .scroll-container input[type="text"],
+        .scroll-container input[type="date"],
+        .scroll-container select,
+        .scroll-container.comment-box {
+            width: 100%;
         }
 
+    #date-icon {
+        cursor: pointer;
+        font-size: large;
+        margin-bottom: 2px;
+    }
 
-        .date-input {
-            display: none;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            margin: 5px;
+
+    .date-input {
+        display: none;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        margin: 5px;
+    }
+
+        .date-input::-webkit-input-placeholder {
+            color: #888;
+            font-style: italic;
         }
 
-            .date-input::-webkit-input-placeholder {
-                color: #888;
-                font-style: italic;
-            }
-
-            .date-input::-moz-placeholder {
-                color: #888;
-                font-style: italic;
-            }
-
-            .date-input:-ms-input-placeholder {
-                color: #888;
-                font-style: italic;
-            }
-
-            .date-input:-moz-placeholder {
-                color: #888;
-                font-style: italic;
-            }
-
-        #program-select, #project-select, #center-select, #trainer-select {
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            margin: 5px;
+        .date-input::-moz-placeholder {
+            color: #888;
+            font-style: italic;
         }
 
-        #but {
-            margin-left: 70%;
-            width: 8%;
-            background: orange;
-            padding: 5px;
+        .date-input:-ms-input-placeholder {
+            color: #888;
+            font-style: italic;
         }
 
-        #btnSave, #btnSaveDuplicate {
-            background: orange;
-            width: 11%;
+        .date-input:-moz-placeholder {
+            color: #888;
+            font-style: italic;
         }
+
+    #program-select, #project-select, #center-select, #trainer-select {
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        margin: 5px;
+    }
+
+    #but {
+        margin-left: 2%;
+        width: 5%;
+        background: orange;
+        padding: 5px;
+    }
+
+    #filter {
+        margin-left: 4%;
+        width: 5%;
+        background: orange;
+        padding: 5px;
+    }
+    #btnSave, #btnSaveDuplicate {
+        background: orange;
+        width: 11%;
+    }
 </style>
 
 {% endblock %}
@@ -590,12 +595,11 @@
 
 <div class="container">
     <form method="GET" action="{% url 'search_input' %}">
-        <input type="text" name="search" placeholder="(Date, Fullname, Activity)" required autocomplete="off">
+        <input type="text" name="search" placeholder="(Date, Fullname, Activity)" required autocomplete="off" style=" margin-left: -240%; margin-top: -15%;">
         <button type="submit">Search</button>
     </form>
-
- 
 </div>
+<button id="filter">Filter</button>
 
 <button id="but" onclick="openCreatePage()">Create</button>
 
@@ -612,11 +616,11 @@
 
                     <th>
                         Date
-                        <input type="date" id="date" name="date"  style=" width: 17px; margin-left:60px">
+                        <input type="date" id="filterdate" name="filterdate" style="width: auto;">
                     </th>
                     <th>
-                        Full name
-                        <select id="ddlfullname" name="fullname" style=" width: 20px;" required>
+                        Full Name
+                        <select id="filterddlfullname" name="filterfullname" style=" width: auto;" required>
                             <option value="Select an option">Select an option</option>
                             <option value="Preethi">Preethi</option>
                             <option value="Sonia">Sonia</option>
@@ -627,7 +631,7 @@
                     </th>
                     <th>
                         Program
-                        <select id="Program" name="Program" style=" width: 20px;" required>
+                        <select id="filterProgram" name="filterProgram" style=" width: auto;" required>
                             <option value="Select an option" data-dbname="SelectAnOption">Select an option</option>
                             <option value="1" data-dbname="BridgeCourse">Bridge Course</option>
                             <option value="2" data-dbname="Academics">Academics</option>
@@ -668,17 +672,17 @@
 
                     <th>
                         Project
-                        <input type="text" id="Project" name="Project" style=" width: 50px;">
+                        <input type="text" id="filterProject" name="filterProject" style=" width: auto;">
 
                     </th>
                     <th>
                         Activity
-                        <input type="text" id="Activity" name="Activity" style=" width: 50px;">
+                        <input type="text" id="filterActivity" name="filterActivity" style=" width: auto;">
 
                     </th>
                     <th>
-                        Center_Type
-                        <select id="Center_Type" name="Center_Type" style=" width: 20px;" required>
+                        CenterType
+                        <select id="filterCenter_Type" name="filterCenter_Type" style=" width: auto;" required>
                             <option value="Select an option">Select an option</option>
                             <option value="1" data-dbname="DJ_halli 1">DJ_halli 1</option>
                             <option value="2" data-dbname="DJ_halli 2">DJ_halli 2</option>
@@ -688,13 +692,13 @@
                         </select>
                     </th>
                     <th>
-                        Session_Number
-                        <input type="number" id="session_number" name="Session_number" style=" width: 50px;">
+                        Session Number
+                        <input type="number" id="filtersession_number" name="filterSession_number" style=" width: auto;">
 
                     </th>
                     <th>
                         Sponsor
-                        <select id="Sponsor" name="Sponsor" style=" width: 20px;" required>
+                        <select id="filterSponsor" name="filterSponsor" style=" width: auto;" required>
                             <option value="">Select an option</option>
                             {% for Sponsor in Sponsors %}
                             <option value="{{ Sponsor.sponsor }}">{{ Sponsor.sponsor|sponsor_to_string }}</option>
@@ -702,8 +706,8 @@
                         </select>
                     </th>
                     <th>
-                        Trainer_Type
-                        <select id="Trainer_Type" name="Trainer_Type" style=" width: 20px;" required>
+                        TrainerType
+                        <select id="filterTrainer_Type" name="filterTrainer_Type" style=" width: auto;" required>
                             <option value="">Select an option</option>
                             <option value="1" data-dbname="Lead">Lead</option>
                             <option value="2" data-dbname="Co-Facilator">Co-Facilator</option>
@@ -712,36 +716,36 @@
                     </th>
                     <th>
                         Beneficiaries
-                        <input type="number" id="Beneficiaries" name="Beneficiaries" data-dbname="Beneficiaries" style="width:50px;">
+                        <input type="number" id="filterBeneficiaries" name="filterBeneficiaries" data-dbname="Beneficiaries" style="width:auto;">
                     </th>
                     <th>
                         Category
-                        <select id="Category" name="Category" style=" width: 20px;" required>
+                        <select id="filterCategory" name="filterCategory" style=" width: auto;" required>
                             <option value="">Select an option</option>
                             {% for category in Categories %}
                             <option value="{{ category.category }}">{{ category.category|category_to_string }}</option>
-
-
-
                             {% endfor %}
                         </select>
 
                     </th>
                     <th>
                         Duration
-                        <input type="number" id="Duration" name="Duration" data-dbname="Duration" style="width:50px;">
+                        <input type="number" id="filterDuration" name="filterDuration" data-dbname="Duration" style="width:auto;">
 
                     </th>
                     <th>
                         Status
-                        <select id="Status" name="Status" style=" width: 20px;" required>
+                        <select id="filterStatus" name="filterStatus" style=" width: auto;" required>
                             <option value="">Select an option</option>
                             {% for status in Statues %}
                             <option value="{{ status.status }}">{{  status.status|status_to_string }}</option>
                             {% endfor %}
                         </select>
                     </th>
-                    <th>Comments</th>
+                    <th>
+                        Comments
+                        <input type="text" id="filtercomment" name="filtercomment" style="width: auto;">
+                    </th>
                     <th>Action</th>
                 </tr>
 
