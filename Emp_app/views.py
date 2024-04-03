@@ -349,46 +349,77 @@ def save_session(request):
     return render(request, "Emp_app/createpage.html")
 
 
-def search_input(request):
-    search_query = request.GET.get('search', '')
-    if search_query:
-        programs = Program.objects.filter(
-            Q(emp__fullname__icontains=search_query) |
-            Q(xref__program_name__icontains=search_query) |
-            Q(xref__project_name__icontains=search_query)|
-            Q(activity__icontains=search_query) |
-            Q(center_type__icontains=search_query)
-        )
-    else:
-        programs = Program.objects.all()
-
-    return render(request, 'Emp_app/Session_main.html', {'programs': programs})
-
-
-def filter_activities(request):
-    if request.method == 'GET':
-        filter_date = request.GET.get('filterdate')
-        if filter_date:
-            queryset = queryset.filter(date=filter_date)
-
-        filter_fullname = request.GET.get('filterfullname')
-        if filter_fullname and filter_fullname != "Select an option":
-            queryset = queryset.filter(full_name=filter_fullname)
-
-        filter_program = request.GET.get('filterProgram')
-        if filter_program and filter_program != "Select an option":
-            queryset = queryset.filter(program__dbname=filter_program)
-
-        filter_project = request.GET.get('filterProject')
-        if filter_project:
-            queryset = queryset.filter(project__icontains=filter_project)
-            
-      
-        return render(request, 'Emp_app/Session_main.html')
+def filter_programs(request):
+    filter_date = request.GET.get('filterdate')
+    filter_fullname = request.GET.get('filterfullname')
+    filter_Program = request.GET.get('filterProgram')
+    filter_project = request.GET.get('filterProject')
+    filter_activity = request.GET.get('filterActivity')
+    filter_center_type = request.GET.get('filterCenter_Type')
+    filter_session_number = request.GET.get('filterSession_number')
+    filter_sponsor = request.GET.get('filterSponsor')
+    filter_trainer_type = request.GET.get('filterTrainer_Type')
+    filter_beneficiaries = request.GET.get('filterBeneficiaries')
+    filter_category = request.GET.get('filterCategory')
+    filter_status = request.GET.get('filterStatus')
 
 
+    queryset = Program.objects.all()
 
- 
+    if filter_date:
+        date_obj = datetime.strptime(filter_date, '%Y-%m-%d').date()
+        queryset = queryset.filter(date=date_obj)
+
+    if filter_fullname and filter_fullname != "Select an option":
+        queryset = queryset.filter(emp__fullname=filter_fullname)
+
+    if filter_Program and filter_Program != "Select an option":
+        queryset = queryset.filter(xref__program_name=filter_Program)
+        
+    if filter_project:
+        queryset = queryset.filter(xref__project_name__icontains=filter_project)
+
+    if filter_activity:
+        queryset = queryset.filter(activity__icontains=filter_activity)
+
+    if filter_center_type and filter_center_type != "Select an option":
+        queryset = queryset.filter(center_type=filter_center_type)
+
+    if filter_session_number:
+        queryset = queryset.filter(session_number=filter_session_number)
+
+    if filter_sponsor and filter_sponsor != "Select an option":
+        queryset = queryset.filter(sponsor=filter_sponsor)
+
+    if filter_trainer_type and filter_trainer_type != "Select an option":
+        queryset = queryset.filter(trainer_type=filter_trainer_type)
+
+    if filter_beneficiaries:
+        queryset = queryset.filter(beneficiaries=filter_beneficiaries)
+
+    if filter_category and filter_category != "Select an option":
+        queryset = queryset.filter(category=filter_category)
+        
+    if filter_category and filter_category != "Select an option":
+        queryset = queryset.filter(category=filter_category)
+
+    context = {
+        'programs': queryset,
+        'selected_date': filter_date,
+        'selected_fullname': filter_fullname,
+        'selected_program': filter_Program,
+        'selected_project': filter_project,
+        'selected_activity': filter_activity,
+        'selected_center_type': filter_center_type,
+        'selected_session_number': filter_session_number,
+        'selected_sponsor': filter_sponsor,
+        'selected_trainer_type': filter_trainer_type,
+        'selected_beneficiaries': filter_beneficiaries,
+        'selected_category': filter_category,
+        'selected_status': filter_status,
+    }
+
+    return render(request, 'Emp_app/Session_main.html', context)
  
 
 

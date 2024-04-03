@@ -6,19 +6,6 @@
 
 {% block css %}
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        document.querySelector(".filter-icon").addEventListener("click", function () {
-            var dropdown = document.querySelector(".dropdowns");
-            dropdown.style.display = dropdown.style.display === "none" ? "flex" : "none";
-        });
-
-        document.getElementById("date-icon").addEventListener("click", function () {
-            var fromDate = document.getElementById("from-date");
-            var toDate = document.getElementById("to-date");
-            fromDate.style.display = fromDate.style.display === "none" ? "block" : "none";
-            toDate.style.display = toDate.style.display === "none" ? "block" : "none";
-        });
-    });
 
     function showpopup() {
         debugger
@@ -43,14 +30,21 @@
 
         var programText = cells[2].textContent;
         var centreTypeText = cells[5].textContent;
+        var sponserText = cells[7].textContent;
+        var trainerTypeText = cells[8].textContent;
+        var categoryText = cells[10].textContent;
+        var statusText = cells[12].textContent;
+
 
 
         document.getElementById('Program').value = getProgramValue(programText);
         document.getElementById('Center_Type').value = getCentreTypeValue(centreTypeText);
+        document.getElementById('Sponsor').value = getSponsorValue(sponserText);
+        document.getElementById('Trainer_Type').value = getSponsorValue(trainerTypeText);
+        document.getElementById('Category').value = getCategoryValue(categoryText.textContent);
+        document.getElementById('Status').value = getStatusValue(statusText.textContent);
 
     }
-
-
 
     function getResourceTypeValue(text) {
 
@@ -62,6 +56,36 @@
             return '3';
         }
 
+    }
+    function getCategoryValue(text) {
+
+        if (text === 'Consultant') {
+            return '1';
+        } else if (text === 'Employee') {
+            return '2';
+        } else if (text === 'Internship') {
+            return '3';
+        } else if (text === 'NewVolunteer') {
+            return '4';
+        } else if (text === 'ExVolunteer') {
+            return '5';
+        }      
+    }
+    function getStatusValue(text) {
+
+        if (text === 'Start') {
+            return '1';
+        } else if (text === 'OnGoing') {
+            return '2';
+        } else if (text === 'OnHold') {
+            return '3';
+        } else if (text === 'Completed') {
+            return '4';
+        } else if (text === 'Orientation') {
+            return '5';
+        } else if (text === 'Travel') {
+            return '6';
+        }
     }
 
     function getProgramValue(text) {
@@ -136,13 +160,7 @@
                 return '';
         }
     }
-
-
-
-
     function getCentreTypeValue(text) {
-        // Mapping of text to option value for centre type dropdown
-        // Example:
         if (text === 'DJ_halli 1') {
             return '1';
         } else if (text === 'DJ_halli 2') {
@@ -154,9 +172,33 @@
         } else if (text === 'Kannur') {
             return '5';
         }
-        // Add more mappings as needed
     }
 
+    function getSponsorValue(text) {
+        if (text === 'Vajra'){
+            return '1';
+        } else if (text === 'Bridge') {
+            return '2';
+        } else if (text === 'TasteMaster') {
+            return '3';
+        } else if (text === 'LICT') {
+            return '4';
+        } else if (text === 'Others') {
+            return '5';
+        }
+    }
+
+    function getTrainerTypeValue(text) {
+        if (text === 'Lead') {
+            return '1';
+        } else if (text === 'Co-Facilator') {
+            return '2';
+        } else if (text === 'TasteMaster') {
+            return '3';
+        } else if (text === 'Volunteer') {
+            return '4';
+        }
+    }
 
     function hidePopup() {
         document.getElementById('popup').style.display = 'none';
@@ -215,13 +257,7 @@
         }
         return cookieValue;
     }
-
-
-
-
-
-
-    function searchPrograms() {
+      function searchPrograms() {
         var input, filter, select, options, option, i;
         input = document.getElementById("program-search");
         filter = input.value.toUpperCase();
@@ -568,18 +604,15 @@
     }
 
     #but {
-        margin-left: 2%;
+        margin-left: 44%;
         width: 5%;
         background: orange;
         padding: 5px;
+        margin-top: 7pc;
     }
 
-    #filter {
-        margin-left: 4%;
-        width: 5%;
-        background: orange;
-        padding: 5px;
-    }
+
+
     #btnSave, #btnSaveDuplicate {
         background: orange;
         width: 11%;
@@ -593,34 +626,35 @@
 
 <h1>Session Details</h1>
 
-<div class="container">
-    <form method="GET" action="{% url 'search_input' %}">
-        <input type="text" name="search" placeholder="(Date, Fullname, Activity)" required autocomplete="off" style=" margin-left: -240%; margin-top: -15%;">
-        <button type="submit">Search</button>
-    </form>
-</div>
-<button id="filter">Filter</button>
-
+<!-- Create Button -->
 <button id="but" onclick="openCreatePage()">Create</button>
 
-<form method="post" action="{% url 'save_session' %}">
+{% csrf_token %}
 
-    {% csrf_token %}
+<!-- Filter Form -->
+<form method="GET" action="{% url 'filter_programs' %}">
+   <input type="submit" value="Filter" style=" background: orange; padding: 5px; margin-left: 4%; padding-right: 50px; padding-left: 50px;">
 
     <div class="table-container">
-
         <div id="scrollable-table">
-
             <table id="sessionsTable" class="table">
                 <tr bgcolor="orange">
 
                     <th>
-                        Date
-                        <input type="date" id="filterdate" name="filterdate" style="width: auto;">
+                        <span>Date</span>
+                        <div>
+                            <label for="from-filterdate">From:</label>
+                            <input type="date" id="from-filterdate" name="from-filterdate" placeholder="From Date" style="width: 110px;">
+                        </div>
+                        <div>
+                            <label for="to-filterdate">To:</label>
+                            <input type="date" id="to-filterdate" name="to-filterdate" placeholder="To Date" style="width: 110px;">
+                        </div>
                     </th>
+
                     <th>
                         Full Name
-                        <select id="filterddlfullname" name="filterfullname" style=" width: auto;" required>
+                        <select id="filterddlfullname" name="filterfullname" style=" width: auto;">
                             <option value="Select an option">Select an option</option>
                             <option value="Preethi">Preethi</option>
                             <option value="Sonia">Sonia</option>
@@ -631,7 +665,7 @@
                     </th>
                     <th>
                         Program
-                        <select id="filterProgram" name="filterProgram" style=" width: auto;" required>
+                        <select id="filterProgram" name="filterProgram" style="width: auto;">
                             <option value="Select an option" data-dbname="SelectAnOption">Select an option</option>
                             <option value="1" data-dbname="BridgeCourse">Bridge Course</option>
                             <option value="2" data-dbname="Academics">Academics</option>
@@ -682,7 +716,7 @@
                     </th>
                     <th>
                         CenterType
-                        <select id="filterCenter_Type" name="filterCenter_Type" style=" width: auto;" required>
+                        <select id="filterCenter_Type" name="filterCenter_Type" style=" width: auto;">
                             <option value="Select an option">Select an option</option>
                             <option value="1" data-dbname="DJ_halli 1">DJ_halli 1</option>
                             <option value="2" data-dbname="DJ_halli 2">DJ_halli 2</option>
@@ -698,16 +732,18 @@
                     </th>
                     <th>
                         Sponsor
-                        <select id="filterSponsor" name="filterSponsor" style=" width: auto;" required>
+                        <select id="filterSponsor" name="filterSponsor" style=" width: auto;">
                             <option value="">Select an option</option>
-                            {% for Sponsor in Sponsors %}
-                            <option value="{{ Sponsor.sponsor }}">{{ Sponsor.sponsor|sponsor_to_string }}</option>
-                            {% endfor %}
+                            <option value="1" data-dbname="Vajra">Vajra</option>
+                            <option value="2" data-dbname="Bridge">Bridge</option>
+                            <option value="3" data-dbname="TasteMaster">Taste Master</option>
+                            <option value="4" data-dbname="LICT">LICT</option>
+                            <option value="5" data-dbname="Others">Others</option>
                         </select>
                     </th>
                     <th>
                         TrainerType
-                        <select id="filterTrainer_Type" name="filterTrainer_Type" style=" width: auto;" required>
+                        <select id="filterTrainer_Type" name="filterTrainer_Type" style=" width: auto;">
                             <option value="">Select an option</option>
                             <option value="1" data-dbname="Lead">Lead</option>
                             <option value="2" data-dbname="Co-Facilator">Co-Facilator</option>
@@ -720,11 +756,13 @@
                     </th>
                     <th>
                         Category
-                        <select id="filterCategory" name="filterCategory" style=" width: auto;" required>
+                        <select id="filterCategory" name="filterCategory" style=" width: auto;">
                             <option value="">Select an option</option>
-                            {% for category in Categories %}
-                            <option value="{{ category.category }}">{{ category.category|category_to_string }}</option>
-                            {% endfor %}
+                            <option value="1" data-dbname="Consultant">Consultant</option>
+                            <option value="2" data-dbname="Employee">Employee</option>
+                            <option value="3" data-dbname="Internship">Internship</option>
+                            <option value="4" data-dbname="NewVolunteer">New-Volunteer</option>
+                            <option value="5" data-dbname="ExVolunteer">Ex-Volunteer</option>
                         </select>
 
                     </th>
@@ -735,11 +773,14 @@
                     </th>
                     <th>
                         Status
-                        <select id="filterStatus" name="filterStatus" style=" width: auto;" required>
+                        <select id="filterStatus" name="filterStatus" style=" width: auto;">
                             <option value="">Select an option</option>
-                            {% for status in Statues %}
-                            <option value="{{ status.status }}">{{  status.status|status_to_string }}</option>
-                            {% endfor %}
+                            <option value="1" data-dbname="Start">Start</option>
+                            <option value="2" data-dbname="OnGoing">On-Going</option>
+                            <option value="3" data-dbname="OnHold">On-Hold</option>
+                            <option value="4" data-dbname="Completed">Completed</option>
+                            <option value="5" data-dbname="Orientation">Orientation</option>
+                            <option value="6" data-dbname="Travel">Travel</option>
                         </select>
                     </th>
                     <th>
@@ -748,6 +789,7 @@
                     </th>
                     <th>Action</th>
                 </tr>
+
 
                 {% for program in programs %}
                 <tr bgcolor="white">
@@ -768,21 +810,22 @@
                     <td class="tdtd">
                         <button type="button" class="add-row-button" onclick="showpopup()"> <i class="fa-solid fa-eye" style="color: #ff7b00;"></i> </button>
                     </td>
-
-
                 </tr>
                 {% endfor %}
 
             </table>
+
+
         </div>
     </div>
-
-    <script>
-        function openCreatePage() {
-            var url = "{% url 'createpage' %}";
-            window.open(url, 'Create Page', 'height=600,width=800');
-        }
-    </script>
+</form>
+<script>
+    function openCreatePage() {
+        var url = "{% url 'createpage' %}";
+        window.open(url, 'Create Page', 'height=600,width=800');
+    }
+</script>
+<form method="GET" action="{% url 'save_session' %}">
 
     <div id="popup" class="popup">
         <div class="blank-box">
@@ -936,23 +979,22 @@
             </div>
         </div>
     </div>
-
 </form>
 
-<p>Total number of records: {{ total_count }}</p>
+    <p>Total number of records: {{ total_count }}</p>
 
-<div class="pagination">
-    {% if programs.has_previous %}
-    <a href="?page=1">&laquo; 1</a>
-    <a href="?page={{ programs.previous_page_number }}">2</a>
-    {% endif %}
+    <div class="pagination">
+        {% if programs.has_previous %}
+        <a href="?page=1">&laquo; 1</a>
+        <a href="?page={{ programs.previous_page_number }}">2</a>
+        {% endif %}
 
-    <span class="current-page">Page {{ programs.number }} of {{ programs.paginator.num_pages }}</span>
+        <span class="current-page">Page {{ programs.number }} of {{ programs.paginator.num_pages }}</span>
 
-    {% if programs.has_next %}
-    <a href="?page={{ programs.next_page_number }}">3</a>
-    <a href="?page={{ programs.paginator.num_pages }}">4 &raquo;</a>
-    {% endif %}
-</div>
+        {% if programs.has_next %}
+        <a href="?page={{ programs.next_page_number }}">3</a>
+        <a href="?page={{ programs.paginator.num_pages }}">4 &raquo;</a>
+        {% endif %}
+    </div>
 
     {% endblock %}
