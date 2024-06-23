@@ -462,7 +462,7 @@
             <!-- Account Number -->
             <tr>
                 <td><label for="accountNumber">Account Number *</label></td>
-                <td><input type="text" name="accountNumber" id="accountNumber" data-dbname="account_number" required disabled value="{{employee.account_number}}"></td>
+                <td><input type="text" name="accountNumber" id="accountNumber" data-dbname="account_number" required disabled value="{{employee.account_number}}" oninput="this.value = this.value.replace(/[^0-9]/g, '');"></td>
             </tr>
 
             <!-- IFSC Code -->

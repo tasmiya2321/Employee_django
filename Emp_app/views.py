@@ -27,9 +27,6 @@ from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.models import User 
 
 
-
-
-
 @login_required
 def home(request):
     programs = Program.objects.exclude(date__isnull=True).order_by('pgm_id')[:10]
@@ -39,8 +36,6 @@ def home(request):
         print(program.date)
 
     return render(request, "Emp_app/home.html", {'programs': programs})
-
-
 
 def forgetpassword(request):
      return render(request, "Emp_app/forgetpassword.html")
@@ -57,14 +52,15 @@ def admin_module(request):
 @login_required
 def employee(request, emp_id=None):
     if request.user.is_staff:
-        if not emp_id:
-            return redirect('employee')  
-        emp_details = get_object_or_404(EmpDetails, emp_id__iexact=emp_id)
+        if emp_id:
+            emp_details = get_object_or_404(EmpDetails, emp_id__iexact=emp_id)
+        else:
+            emp_details = get_object_or_404(EmpDetails, username=request.user.username)
     else:
         emp_details = get_object_or_404(EmpDetails, username=request.user.username)
-    
     return render(request, 'Emp_app/employee.html', {'employee': emp_details})
   
+
 
 @login_required
 def saveemployee(request):
@@ -421,12 +417,6 @@ def filter_programs(request):
 
     return render(request, 'Emp_app/Session_main.html', context)
  
-
-
-
-
-
-
 
 
 

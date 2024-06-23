@@ -11,8 +11,7 @@
     <OutputPath>.</OutputPath>
     <ProjectTypeGuids>{5F0BE9CA-D677-4A4D-8806-6076C0FAAD37};{349c5851-65df-11da-9384-00065b846f21};{888888a0-9f3d-457c-b088-3a5042f75d52}</ProjectTypeGuids>
     <LaunchProvider>Django launcher</LaunchProvider>
-    <InterpreterId>
-    </InterpreterId>
+    <InterpreterId>MSBuild|env1|$(MSBuildProjectFullPath)</InterpreterId>
     <WebBrowserUrl>http://localhost</WebBrowserUrl>
     <DjangoSettingsModule>Employee_Management.settings</DjangoSettingsModule>
     <TestFramework>unittest</TestFramework>
@@ -116,6 +115,17 @@
     <Folder Include="templates\registration\" />
     <Folder Include="venv\" />
     <Folder Include="venv\Scripts\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Interpreter Include="env1\">
+      <Id>env1</Id>
+      <Version>3.9</Version>
+      <Description>env1 (Python 3.9 (64-bit))</Description>
+      <InterpreterPath>Scripts\python.exe</InterpreterPath>
+      <WindowsInterpreterPath>Scripts\pythonw.exe</WindowsInterpreterPath>
+      <PathEnvironmentVariable>PYTHONPATH</PathEnvironmentVariable>
+      <Architecture>X64</Architecture>
+    </Interpreter>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.Django.targets" />
   <ProjectExtensions>

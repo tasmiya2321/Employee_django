@@ -138,8 +138,6 @@ EMAIL_USE_SSL = False
 DEFAULT_FROM_EMAIL='hariraj2292003@gmail.com'
 
 
-
-
 # Use BigAutoField as the default ID field for models
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
